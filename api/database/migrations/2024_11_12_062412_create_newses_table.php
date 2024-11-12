@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('newses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('city_id')->constrained()->cascadeOnUpdate();
+            $table->string('title', 125);
+            $table->text('content');
+            $table->date('create_date');
+            $table->date('update_date');
             $table->timestamps();
         });
     }

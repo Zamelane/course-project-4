@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('reactions', function (Blueprint $table) {
             $table->id();
+            $table->char('emoji');
+            $table->string('description');
             $table->timestamps();
         });
     }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('news_comments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('news_id')->constrained()->cascadeOnUpdate();
+            $table->text('content');
+            $table->date('create_date');
+            $table->date('update_date');
             $table->timestamps();
         });
     }

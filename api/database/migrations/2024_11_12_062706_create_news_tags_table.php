@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('news_tags', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('news_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('tag_id')->constrained()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
