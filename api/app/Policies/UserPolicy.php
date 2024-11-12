@@ -6,7 +6,7 @@ use App\Models\User;
 
 class UserPolicy
 {
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return $user->isAdministrator();
     }

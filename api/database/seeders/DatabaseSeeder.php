@@ -19,5 +19,11 @@ class DatabaseSeeder extends Seeder
             'login' => 'test',
             'password' => 'test',
         ]);
+
+        User::factory()->create([
+            'login' => 'admin',
+            'password' => 'admin',
+            'role' => 'admin'
+        ]);
     }
 }

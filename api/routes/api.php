@@ -1,17 +1,18 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 
 Route
 ::controller(AuthController::class)
-->group(function (Route $auth) {
-    $auth->post('login', 'login');
-    $auth->post('register', 'register');
-    $auth->prefix('logout')
-    ->group(function ($logout) {
-        $logout->get('', 'logout');
-        $logout->get('all', 'logoutAll');
+->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::prefix('logout')
+    ->group(function () {
+        Route::get('', 'logout');
+        Route::get('all', 'logoutAll');
     });
 });
 
@@ -19,7 +20,8 @@ Route
 Route
 ::controller(UserController::class)
 ->prefix('users')
-->group(function($users) {
-    $users->post('create', 'create')
-        ->can('create', 'user');
+->middleware('auth:sanctum')
+->group(function() {
+    Route::post('', 'create')
+        ->can('create', User::class);
 });
