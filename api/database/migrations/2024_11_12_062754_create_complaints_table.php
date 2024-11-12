@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->foreignId('reason_id')->constrained()->cascadeOnUpdate();
-            $table->foreignId('author_user_id')->constrained('user')->cascadeOnUpdate();
+            $table->foreignId('author_user_id')->constrained('users')->cascadeOnUpdate();
             $table->foreignId('comment_id')->constrained()->cascadeOnUpdate();
             $table->string('description')->nullable();
             $table->date('create_date');

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('newses', function (Blueprint $table) {
+        Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->foreignId('city_id')->constrained()->cascadeOnUpdate();
             $table->string('title', 125);
