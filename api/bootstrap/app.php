@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->shouldRenderJsonWhen(
-            fn(Request $request) => $request->is('api/*') // <-- Если надо всё в json
+            fn(Request $request) => $request->is('api/*') && !config('app.debug') // <-- Если надо всё в json
         );
         /*->render(function (AccessDeniedHttpException $e) {
             return response()->json([
