@@ -3,6 +3,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TagController;
+use App\Http\Middleware\CustomChecker;
 
 Route
 ::controller(AuthController::class)
@@ -20,7 +22,7 @@ Route
 Route
 ::controller(UserController::class)
 ->prefix('users')
-->middleware('auth:sanctum')
+->middleware(CustomChecker::class)
 ->group(function() {
     // Создание пользователя
     Route::post('', 'create')->can('create', User::class);
@@ -31,3 +33,8 @@ Route
         Route::delete('', 'delete')->can('delete', 'user');
     });
 });
+
+Route
+::controller(TagController::class)
+->prefix('tags');
+

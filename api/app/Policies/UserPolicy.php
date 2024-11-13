@@ -2,14 +2,13 @@
 
 namespace App\Policies;
 
-use App\Exceptions\ApiException;
 use App\Models\User;
 
 class UserPolicy
 {
-    public function show(User $user, User $showedUser): bool
+    public function show(?User $user, User $showedUser): bool
     {
-        return $user->isAdministrator() || !$showedUser->isAdministrator();
+        return $user?->isAdministrator() || !$showedUser->isAdministrator();
     }
 
     public function update(User $user, User $updatedUser): bool

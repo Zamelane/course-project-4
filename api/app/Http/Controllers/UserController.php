@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index(Request $request, User $user)
     {
-        $collection = $request->user()->isAdministrator()
+        $collection = $request->user()?->isAdministrator()
             ? FullUserResource::make($user)
             : MinUserResource::make($user);
         return response()->json($collection);
