@@ -22,10 +22,12 @@ Route
 ->prefix('users')
 ->middleware('auth:sanctum')
 ->group(function() {
-    Route::get('{showedUser}', 'index')
-        ->can('show', 'showedUser');
-    Route::post('', 'create')
-        ->can('create', User::class);
-    Route::delete('{user}', 'delete')
-        ->can('delete', 'user');
+    // Создание пользователя
+    Route::post('', 'create')->can('create', User::class);
+    // Работа с конкретным пользователем
+    Route::group(['prefix' => '{user}'], function () {
+        Route::get   ('', 'index' )->can('show'  , 'user');
+        Route::put   ('', 'update')->can('update', 'user');
+        Route::delete('', 'delete')->can('delete', 'user');
+    });
 });
