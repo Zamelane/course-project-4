@@ -22,8 +22,8 @@ Route
 ->prefix('users')
 ->middleware('auth:sanctum')
 ->group(function() {
-    Route::get('{user_id}', 'index')
-        ->can('show', 'user_id');
+    Route::get('{showedUser}', 'index')
+        ->can('show', 'showedUser');
     Route::post('', 'create')
         ->can('create', User::class);
     Route::delete('{user}', 'delete')

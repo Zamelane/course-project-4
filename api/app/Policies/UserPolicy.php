@@ -7,11 +7,9 @@ use App\Models\User;
 
 class UserPolicy
 {
-    public function show(User $user): bool
+    public function show(User $user, User $showedUser): bool
     {
-        dd($user);
-        throw new ApiException('fsdf', 400);
-        return true;
+        return $user->isAdministrator() || !$showedUser->isAdministrator();
     }
 
     public function create(User $user): bool
