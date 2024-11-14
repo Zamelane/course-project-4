@@ -23,7 +23,6 @@ class User extends Authenticatable
 
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     protected function casts(): array
@@ -33,7 +32,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function isAdministrator()
+    public function isAdministrator(): bool
     {
         return $this->role == 'admin';
     }

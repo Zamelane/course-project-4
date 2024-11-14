@@ -21,7 +21,6 @@ return new class extends Migration
             $table->date('birthDay');
             $table->string('email')->unique();
             $table->enum('role', ['reader', 'reporter', 'admin'])->default('reader');
-            $table->rememberToken();
             $table->timestamps();
         });
 
