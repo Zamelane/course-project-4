@@ -2,15 +2,26 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
+use App\Models\Comment;
+use App\Models\News;
+use App\Models\Reaction;
+use App\Models\Reason;
+use App\Models\Tag;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
+    private $cities;
+    private $tags;
+    private $reasons;
+    private $reactions;
+    private $users;
+
     public function run(): void
     {
         // User::factory(10)->create();
@@ -20,10 +31,40 @@ class DatabaseSeeder extends Seeder
             'password' => 'test',
         ]);
 
+        $reader = User::factory()->create([
+            'login' => 'reader',
+            'password' => 'reader',
+            'role' => 'reporter'
+        ]);
+
         User::factory()->create([
             'login' => 'admin',
             'password' => 'admin',
             'role' => 'admin'
+        ]);
+
+        $this->users = User::factory()->createMany(10);
+
+        $this->cities = City::factory()->createMany(10);
+        $this->tags = Tag::factory()->createMany(10);
+        $this->reasons = Reason::factory()->createMany(10);
+        $this->reactions = Reaction::factory()->createMany(10);
+
+        for($i = 0; $i < 10; $i++)
+            $this->make_news($reader);
+    }
+
+    private function make_news(User $reader)
+    {
+        $news = News::factory()->create([
+            'title' => 'Заголовок важной новости',
+            'content' => 'Это какая-то очень важная новость',
+            'city_id' => $this->cities->random()->id,
+            'user_id' => $reader->id
+        ]);
+
+        $comments = Comment::factory(10)->create([
+            'news_id' => $news->id
         ]);
     }
 }

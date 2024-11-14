@@ -47,7 +47,10 @@ class User extends Authenticatable
 
     public function history_views(int $count = 20, int $offset = 0): Collection
     {
-        return $this->hasManyThrough(News::class, 'history_views')
-            ->where('user_id', '=', $this->id)->offset($offset)->limit($count)->get();
+        return News::whereHas('reactions', function ($query) {
+            $query->where('user_id', '=', $this->id)->get();
+        });
+//        return $this->hasManyThrough(News::class, 'history_views')
+//            ->where('user_id', '=', $this->id)->offset($offset)->limit($count)->get();
     }
 }
