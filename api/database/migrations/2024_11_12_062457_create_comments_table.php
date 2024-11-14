@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('news_id')->constrained()->cascadeOnUpdate();
             $table->text('content');
             $table->date('create_date');
-            $table->date('update_date');
+            $table->date('update_date')->nullable();
             $table->timestamps();
         });
     }

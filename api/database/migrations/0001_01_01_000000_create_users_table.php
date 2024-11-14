@@ -14,13 +14,14 @@ return new class extends Migration
         // TODO: Добавить роль и аву (см. модели)
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('image_id')->nullable()->constrained()->cascadeOnUpdate();
             $table->string('firstName');
             $table->string('lastName');
             $table->string('login')->unique();
             $table->string('password');
             $table->date('birthDay');
             $table->string('email')->unique();
-            $table->rememberToken();
+            $table->enum('role', ['reader', 'reporter', 'admin'])->default('reader');
             $table->timestamps();
         });
 
