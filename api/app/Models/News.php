@@ -3,18 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class News extends Authenticatable
+class News extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
         'title',
+        'user_id',
         'city_id',
         'content',
         'create_date',
@@ -28,9 +30,9 @@ class News extends Authenticatable
         return $this->belongsTo(City::class);
     }
 
-    public function images(): HasManyThrough
+    public function images()
     {
-        return $this->hasManyThrough(Image::class, 'news_images');
+        return $this->belongsToMany(Image::class, NewsImage::class);
     }
 
     public function user_reaction(User $user): Reaction | null
@@ -39,8 +41,18 @@ class News extends Authenticatable
             ->where('user_id', '=', $user->id)->first();
     }
 
-    public function tags(): HasManyThrough
+    public function author()
     {
-        return $this->hasManyThrough(Tag::class, 'news_tags');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, NewsTag::class);
+    }
+
+    public function reactions()
+    {
+        return $this->belongsToMany(Reaction::class, UserReaction::class);
     }
 }

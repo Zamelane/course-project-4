@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('news_images', function (Blueprint $table) {
             $table->foreignId('image_id')->constrained()->cascadeOnUpdate();
-            $table->foreignId('news_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('news_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

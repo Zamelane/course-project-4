@@ -32,8 +32,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $reader = User::factory()->create([
-            'login' => 'reader',
-            'password' => 'reader',
+            'login' => 'reporter',
+            'password' => 'reporter',
             'role' => 'reporter'
         ]);
 
