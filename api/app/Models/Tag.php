@@ -16,5 +16,8 @@ class Tag extends Authenticatable
         'description'
     ];
 
-    protected $hidden = [];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 }
