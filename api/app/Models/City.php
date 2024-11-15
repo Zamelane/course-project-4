@@ -15,5 +15,8 @@ class City extends Authenticatable
         'name'
     ];
 
-    protected $hidden = [];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 }

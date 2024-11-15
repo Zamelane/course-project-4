@@ -1,9 +1,13 @@
 <?php
+
+use App\Models\City;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\CityController;
+use App\Models\Tag;
 use App\Http\Middleware\CustomChecker;
 
 Route
@@ -36,5 +40,27 @@ Route
 
 Route
 ::controller(TagController::class)
-->prefix('tags');
+->prefix('tags')
+->middleware(CustomChecker::class)
+->group(function () {
+    Route::get('', 'index')->can('showAll', Tag::class);
+    Route::post('', 'create')->can('create', Tag::class);
+    Route::group(['prefix' => '{tag}'], function () {
+        Route::get('', 'show')->can('show', 'tag');
+        Route::delete('', 'delete')->can('delete', 'tag');
+    });
+});
 
+Route
+::controller(CityController::class)
+->prefix('cities')
+->middleware(CustomChecker::class)
+->group(function () {
+    Route::get('', 'index')->can('showAll', City::class);
+    Route::post('', 'create')->can('create', City::class);
+    Route::group(['prefix' => '{city}'], function () {
+        Route::get('', 'show')->can('show', 'city');
+        Route::delete('', 'delete')->can('delete', 'city');
+        Route::put('', 'update')->can('update', 'city');
+    });
+});
