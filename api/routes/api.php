@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ReactionController;
 use App\Models\City;
+use App\Models\News;
 use App\Models\Reaction;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -78,5 +80,19 @@ Route
         Route::get('', 'show')->can('show', 'reaction');
         Route::delete('', 'delete')->can('delete', 'reaction');
         Route::put('', 'update')->can('update', 'reaction');
+    });
+});
+
+Route
+::controller(NewsController::class)
+->prefix('news')
+->middleware(CustomChecker::class)
+->group(function () {
+    Route::get('', 'index')->can('showAll', News::class);
+    Route::post('', 'create')->can('create', News::class);
+    Route::group(['prefix' => '{news}'], function () {
+        Route::get('', 'show')->can('show', 'news');
+        Route::delete('', 'delete')->can('delete', 'news');
+        Route::put('', 'update')->can('update', 'news');
     });
 });
