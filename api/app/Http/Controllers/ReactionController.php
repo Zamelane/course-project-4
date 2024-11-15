@@ -14,7 +14,7 @@ class ReactionController extends Controller
         return response()->json(Reaction::all());
     }
 
-    public function view(?Reaction $reaction): JsonResponse
+    public function show(?Reaction $reaction): JsonResponse
     {
         return response()->json($reaction);
     }
