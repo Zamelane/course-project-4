@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ReactionController;
 use App\Models\City;
+use App\Models\Reaction;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\AuthController;
@@ -62,5 +64,19 @@ Route
         Route::get('', 'show')->can('show', 'city');
         Route::delete('', 'delete')->can('delete', 'city');
         Route::put('', 'update')->can('update', 'city');
+    });
+});
+
+Route
+::controller(ReactionController::class)
+->prefix('reactions')
+->middleware(CustomChecker::class)
+->group(function () {
+    Route::get('', 'index')->can('showAll', Reaction::class);
+    Route::post('', 'create')->can('create', Reaction::class);
+    Route::group(['prefix' => '{reaction}'], function () {
+        Route::get('', 'show')->can('show', 'reaction');
+        Route::delete('', 'delete')->can('delete', 'reaction');
+        Route::put('', 'update')->can('update', 'reaction');
     });
 });
