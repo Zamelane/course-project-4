@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -30,7 +32,7 @@ class News extends Model
         return $this->belongsTo(City::class);
     }
 
-    public function images()
+    public function images(): BelongsToMany
     {
         return $this->belongsToMany(Image::class, NewsImage::class);
     }
@@ -41,22 +43,22 @@ class News extends Model
             ->where('user_id', '=', $user->id)->first();
     }
 
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function tags()
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, NewsTag::class);
     }
 
-    public function reactions()
+    public function reactions(): BelongsToMany
     {
         return $this->belongsToMany(Reaction::class, UserReaction::class);
     }
 
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }

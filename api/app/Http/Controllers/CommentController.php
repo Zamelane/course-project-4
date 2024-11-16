@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Comment\CommentResource;
 use App\Models\News;
-use Illuminate\Support\Collection;
 
 class CommentController extends Controller
 {
