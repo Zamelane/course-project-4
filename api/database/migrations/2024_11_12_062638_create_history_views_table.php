@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('history_views', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('news_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->primary(['user_id', 'news_id']);
             $table->timestamps();
         });
     }

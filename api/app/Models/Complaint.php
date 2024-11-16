@@ -17,8 +17,9 @@ class Complaint extends Authenticatable
         'author_user_id',
         'comment_id',
         'description',
-        'create_date',
-        'status'
+        'status',
+        'created_at',
+        'updated_at'
     ];
 
     protected $hidden = [];

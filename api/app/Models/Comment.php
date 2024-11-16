@@ -16,8 +16,8 @@ class Comment extends Authenticatable
         'user_id',
         'news_id',
         'content',
-        'create_date',
-        'update_date'
+        'created_at',
+        'updated_at'
     ];
 
     protected $hidden = [];

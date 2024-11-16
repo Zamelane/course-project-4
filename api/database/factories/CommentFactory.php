@@ -20,7 +20,7 @@ class CommentFactory extends Factory
         return [
             'user_id' => User::where('role', '=', 'reader')->get()->random()->id,
             'content' => fake()->text(100),
-            'create_date' => $this->faker->dateTimeBetween('-1 years', 'now')
+            'created_at' => $this->faker->dateTimeBetween('-1 years', 'now')
         ];
     }
 }

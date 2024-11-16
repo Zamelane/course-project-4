@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('city_id')->nullable()->constrained()->cascadeOnUpdate();
-            $table->foreignId('user_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('city_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->string('title', 125);
             $table->text('content');
             $table->date('create_date');
