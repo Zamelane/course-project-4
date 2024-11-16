@@ -22,9 +22,10 @@ Route
     Route::post('login', 'login');
     Route::post('register', 'register');
     Route::prefix('logout')
+    ->middleware(CustomChecker::class)
     ->group(function () {
-        Route::get('', 'logout');
-        Route::get('all', 'logoutAll');
+        Route::get('', 'logout')->can('logout', User::class);
+        Route::get('all', 'logoutAll')->can('logout', User::class);
     });
 });
 

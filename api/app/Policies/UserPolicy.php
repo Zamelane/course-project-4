@@ -25,4 +25,9 @@ class UserPolicy
     {
         return $user->isAdministrator();
     }
+
+    public function logout(?User $user)
+    {
+        return $user !== null;
+    }
 }
