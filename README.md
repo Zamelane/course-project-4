@@ -29,18 +29,29 @@ php artisan migrate --seed
 ```
 После можно перезапускать OSPanel для видимости нового домена.
 
+Не забудьте отредактировать `.env`, а именно указать
+подключение к базе данных (предварительно создав базу данных с кодировкой `utf8mb4_general_ci`.
+
 Для доступа к веб-сайту просто через домен в корне проекта необходимо создать файл с названием `.htaccess` и заполнить следующим содержимым:
 ```apacheconf
 RewriteEngine on
 RewriteRule (.*)? /public/$1
 ```
-Не забудьте отредактировать `.env`.
 
 ### 2 вариант - локальная установка
 
 Для локальной установки можете следовать [инструкциям](./docs/documenting_steps/installation.md).
 
-Затем выберите ...
+Затем выберите папку, где будет располагаться репозиторий и откройте его, а затем выполните команды:
+```bat
+git clone https://git.zmln.ru/zamelane/course-project-4
+cd course-project-4/api
+composer update & composer i
+copy .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+```
+Для запуска сервера, можете использовать `php artisan serve`.
 ## Обновление
 
 ```bat
