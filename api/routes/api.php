@@ -5,6 +5,7 @@ use App\Http\Controllers\ReactionController;
 use App\Models\City;
 use App\Models\News;
 use App\Models\Reaction;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\AuthController;
@@ -99,14 +100,13 @@ Route
 });
 
 Route
-::controller(CommentController::class)
-->prefix('news')
+::prefix('news')
 ->middleware(CustomChecker::class)
 ->group(function () {
-    Route::group(['prefix' => '{news}/comments'], function () {
-        Route::get('', 'index')->can('showAll', 'news');
-        Route::post('', 'create')->can('create', 'news');
-        Route::put('', 'update')->can('update', 'news');
-        Route::delete('', 'delete')->can('delete', 'news');
+    Route::group(['prefix' => '{news}/comments', 'controller' => CommentController::class], function () {
+        Route::get('', 'index')->can('showAll', Comment::class);
+        Route::post('', 'create')->can('create', Comment::class);
+        Route::put('{comment}', 'update')->can('update', 'comment');
+        Route::delete('{comment}', 'delete')->can('delete', 'comment');
     });
 });

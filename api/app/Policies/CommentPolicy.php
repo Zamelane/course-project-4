@@ -7,7 +7,7 @@ use App\Models\User;
 
 class CommentPolicy
 {
-    public function viewAll(?User $user): bool
+    public function showAll(?User $user): bool
     {
         return true;
     }
@@ -24,6 +24,6 @@ class CommentPolicy
 
     public function delete(?User $user, Comment $comment): bool
     {
-        return $user?->id === $comment->user_id;
+        return $user?->isAdministrator() || $user?->id === $comment->user_id;
     }
 }
