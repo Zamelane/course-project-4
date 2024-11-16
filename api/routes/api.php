@@ -11,6 +11,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CommentController;
 use App\Models\Tag;
 use App\Http\Middleware\CustomChecker;
 
@@ -94,5 +95,18 @@ Route
         Route::get('', 'show')->can('show', 'news');
         Route::delete('', 'delete')->can('delete', 'news');
         Route::put('', 'update')->can('update', 'news');
+    });
+});
+
+Route
+::controller(CommentController::class)
+->prefix('news')
+->middleware(CustomChecker::class)
+->group(function () {
+    Route::group(['prefix' => '{news}/comments'], function () {
+        Route::get('', 'index')->can('showAll', 'news');
+        Route::post('', 'create')->can('create', 'news');
+        Route::put('', 'update')->can('update', 'news');
+        Route::delete('', 'delete')->can('delete', 'news');
     });
 });

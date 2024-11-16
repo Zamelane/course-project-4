@@ -55,4 +55,9 @@ class News extends Model
     {
         return $this->belongsToMany(Reaction::class, UserReaction::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
