@@ -25,12 +25,11 @@ trait PolicyMapRegister
      */
     protected function regModels(string|array $models): void
     {
-        if (is_array($models))
-            foreach ($models as $model)
-                $this->authorizeResource($model, lcfirst($model));
-        else
-            $this->authorizeResource($models, lcfirst($models));
+        $models = is_array($models) ? $models : [$models];
+        foreach ($models as $model)
+            $this->authorizeResource($model, lcfirst($model));
     }
+
     /**
      * Сопоставление методов политики с методами запросов
      * @return array
