@@ -1,20 +1,26 @@
 <?php
 
-use App\Http\Controllers\NewsController;
-use App\Http\Controllers\ReactionController;
+use App\Http\Controllers\Routes\AuthController;
+use App\Http\Controllers\Routes\BanController;
+use App\Http\Controllers\Routes\CityController;
+use App\Http\Controllers\Routes\CommentController;
+use App\Http\Controllers\Routes\ComplaintController;
+use App\Http\Controllers\Routes\ImageController;
+use App\Http\Controllers\Routes\NewsController;
+use App\Http\Controllers\Routes\ReactionController;
+use App\Http\Controllers\Routes\TagController;
+use App\Http\Controllers\Routes\UserController;
+use App\Http\Middleware\CustomChecker;
+use App\Models\Ban;
 use App\Models\City;
+use App\Models\Comment;
+use App\Models\Complaint;
+use App\Models\Image;
 use App\Models\News;
 use App\Models\Reaction;
-use App\Models\Comment;
-use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\TagController;
-use App\Http\Controllers\CityController;
-use App\Http\Controllers\CommentController;
 use App\Models\Tag;
-use App\Http\Middleware\CustomChecker;
+use App\Models\User;
+use Illuminate\Support\Facades\Route;
 
 Route
 ::controller(AuthController::class)
@@ -33,7 +39,6 @@ Route
 Route
 ::controller(UserController::class)
 ->prefix('users')
-->middleware(CustomChecker::class)
 ->group(function() {
     // Создание пользователя
     Route::post('', 'create')->can('create', User::class);
@@ -48,10 +53,9 @@ Route
 Route
 ::controller(TagController::class)
 ->prefix('tags')
-->middleware(CustomChecker::class)
 ->group(function () {
-    Route::get('', 'index')->can('showAll', Tag::class);
-    Route::post('', 'create')->can('create', Tag::class);
+    Route::get('', 'index');
+    Route::post('', 'create');
     Route::group(['prefix' => '{tag}'], function () {
         Route::get('', 'show')->can('show', 'tag');
         Route::delete('', 'delete')->can('delete', 'tag');
@@ -61,7 +65,6 @@ Route
 Route
 ::controller(CityController::class)
 ->prefix('cities')
-->middleware(CustomChecker::class)
 ->group(function () {
     Route::get('', 'index')->can('showAll', City::class);
     Route::post('', 'create')->can('create', City::class);
@@ -75,7 +78,6 @@ Route
 Route
 ::controller(ReactionController::class)
 ->prefix('reactions')
-->middleware(CustomChecker::class)
 ->group(function () {
     Route::get('', 'index')->can('showAll', Reaction::class);
     Route::post('', 'create')->can('create', Reaction::class);
@@ -89,7 +91,6 @@ Route
 Route
 ::controller(NewsController::class)
 ->prefix('news')
-->middleware(CustomChecker::class)
 ->group(function () {
     Route::get('', 'index')->can('showAll', News::class);
     Route::post('', 'create')->can('create', News::class);
@@ -102,7 +103,6 @@ Route
 
 Route
 ::prefix('news')
-->middleware(CustomChecker::class)
 ->group(function () {
     Route::group(['prefix' => '{news}/comments', 'controller' => CommentController::class], function () {
         Route::get('', 'index')->can('showAll', Comment::class);
@@ -110,4 +110,37 @@ Route
         Route::put('{comment}', 'update')->can('update', 'comment');
         Route::delete('{comment}', 'delete')->can('delete', 'comment');
     });
+});
+
+Route
+::prefix('news')
+->controller(ComplaintController::class)
+->group(function () {
+    Route::group(['prefix' => '{news}/comments/{comment}/complaints'], function () {
+        Route::get('', 'index')->can('showAll', Complaint::class);
+        Route::post('', 'create')->can('create', Complaint::class);
+        Route::put('', 'updateStatus')->can('updateStatus', Complaint::class);
+        Route::get('{complaint}', 'show')->can('show', 'complaint');
+    });
+});
+
+Route
+::prefix('users/{user}/bans')
+->controller(BanController::class)
+->group(function () {
+    Route::get('', 'index')->can('showAll', Ban::class);
+    Route::post('', 'create')->can('create', Ban::class);
+    Route::group(['prefix' => '{ban}'], function () {
+        Route::get('', 'show')->can('show', 'ban');
+        Route::put('', 'update')->can('update', 'ban');
+        Route::delete('', 'delete')->can('delete', 'ban');
+    });
+});
+
+Route
+::prefix('news/{news}/images')
+->controller(ImageController::class)
+->group(function () {
+    Route::get('', 'showAll')->can('showAll', Image::class);
+    Route::get('{image}', 'show')->can('show', 'image');
 });

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Routes;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\FullUserResource;
 use App\Http\Resources\User\MinUserResource;

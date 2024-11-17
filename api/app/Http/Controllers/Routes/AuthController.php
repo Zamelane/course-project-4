@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Routes;
 
 use App\Exceptions\ApiException;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserRegistrationRequest;
 use App\Models\User;
 use Illuminate\Http\Request;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Routes;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\City\CityRequest;
 use App\Models\City;
 use Illuminate\Http\JsonResponse;

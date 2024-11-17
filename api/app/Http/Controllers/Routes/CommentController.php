@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Routes;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Comment\CommentCreateRequest;
 use App\Http\Resources\Comment\CommentResource;
 use App\Models\Comment;

@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Routes;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\News\NewsCreateRequest;
 use App\Http\Requests\News\NewsUpdateRequest;
 use App\Http\Resources\News\NewsFullResource;
 use App\Http\Resources\News\NewsMinResource;
 use App\Models\News;
 use App\Models\NewsTag;
-use App\Models\User;
-use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Routes;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Reaction\ReactionCreateRequest;
 use App\Http\Requests\Reaction\ReactionUpdateRequest;
 use App\Models\Reaction;

@@ -1,13 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Routes;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Tag\TagCreateRequest;
 use App\Models\Tag;
+use App\Models\User;
+use App\Http\Controllers\Utils\MethodPolicyType;
 use Illuminate\Http\JsonResponse;
 
 class TagController extends Controller
 {
+    public function __construct()
+    {
+        $this->regModels(Tag::class);
+        $this->regAbility('index', MethodPolicyType::Without)
+             ->regAbility('create');
+    }
     public function index(): JsonResponse
     {
         return response()->json(Tag::all());
