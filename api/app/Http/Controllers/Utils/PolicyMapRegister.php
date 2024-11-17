@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers\Utils;
 
-use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Http\Controllers\Utils\MethodPolicyType;
-use phpDocumentor\Reflection\Types\ClassString;
 
 trait PolicyMapRegister
 {
     use AuthorizesRequests;
+    protected string|array|null $modelsToReg = null;
     protected array $abilityMap = [
-        'show' => 'view',
-        'create' => 'create',
-        'store' => 'create',
-        'edit' => 'update',
-        'update' => 'update',
-        'destroy' => 'delete',
+        'index'     => 'viewAll',
+        'store'     => 'create',
+        'show'      => 'view',
+        'update'    => 'update',
+        'destroy'   => 'delete'
     ];
-    protected array $methodsWithoutModels = ['index', 'create', 'store'];
+    protected array $methodsWithoutModels = ['index', 'store'];
     //protected bool $isDefaultPolicyMap = true;
 
+    /**
+     * Указывает модели, политики которых будут использоваться для проверки прав
+     * @param string|array $models
+     * @return void
+     */
     protected function regModels(string|array $models): void
     {
         if (is_array($models))
@@ -29,18 +31,32 @@ trait PolicyMapRegister
         else
             $this->authorizeResource($models, lcfirst($models));
     }
-    // Сопоставление методов политики с методами запросов
+    /**
+     * Сопоставление методов политики с методами запросов
+     * @return array
+     */
     protected function resourceAbilityMap(): array
     {
         return $this->abilityMap;
     }
 
-    // Перечисление методов запросов, не принимающих модели
+    /**
+     * Перечисление методов запросов, не принимающих модели
+     * @return array
+     */
     protected function resourceMethodsWithoutModels(): array
     {
         return $this->methodsWithoutModels;
     }
 
+    /**
+     * Регистрирует способность или ассоциацию метода
+     * контроллера с именованием метода проверки прав в политике
+     * @param string $methodName
+     * @param string|MethodPolicyType|null $param1
+     * @param string|MethodPolicyType|null $param2
+     * @return $this
+     */
     protected function regAbility(
         string $methodName,
         string|MethodPolicyType|null $param1 = null,
@@ -68,5 +84,14 @@ trait PolicyMapRegister
             $this->methodsWithoutModels[] = $methodName;
 
         return $this;
+    }
+
+    /**
+     * Связывает контроллер с политикой указанной модели, если она была задана
+     */
+    public function __construct()
+    {
+        if ($this->modelsToReg !== null)
+            $this->regModels($this->modelsToReg);
     }
 }

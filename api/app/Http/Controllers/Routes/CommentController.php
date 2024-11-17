@@ -11,13 +11,14 @@ use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
+    protected string|array|null $modelsToReg = Comment::class;
     public function index(News $news): JsonResponse
     {
         $paginateResponse = $news->comments()->simplePaginate();
         return response()->json(CommentResource::collection($paginateResponse));
     }
 
-    public function create(CommentCreateRequest $request, News $news): JsonResponse
+    public function store(CommentCreateRequest $request, News $news): JsonResponse
     {
         $comment = Comment::create([
             ...$request->validated(),
@@ -36,7 +37,7 @@ class CommentController extends Controller
         ]);
     }
 
-    public function delete(News $news, Comment $comment): JsonResponse
+    public function destroy(News $news, Comment $comment): JsonResponse
     {
         $comment->delete();
         return response()->json(null, 204);

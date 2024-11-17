@@ -6,7 +6,7 @@ use App\Models\User;
 
 class UserPolicy
 {
-    public function show(?User $user, User $showedUser): bool
+    public function view(?User $user, User $showedUser): bool
     {
         return $user?->isAdministrator() || !$showedUser->isAdministrator();
     }

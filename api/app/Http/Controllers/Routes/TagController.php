@@ -5,24 +5,17 @@ namespace App\Http\Controllers\Routes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tag\TagCreateRequest;
 use App\Models\Tag;
-use App\Models\User;
-use App\Http\Controllers\Utils\MethodPolicyType;
 use Illuminate\Http\JsonResponse;
 
 class TagController extends Controller
 {
-    public function __construct()
-    {
-        $this->regModels(Tag::class);
-        $this->regAbility('index', MethodPolicyType::Without)
-             ->regAbility('create');
-    }
+    protected string|array|null $modelsToReg = Tag::class;
     public function index(): JsonResponse
     {
         return response()->json(Tag::all());
     }
 
-    public function create(TagCreateRequest $request): JsonResponse
+    public function store(TagCreateRequest $request): JsonResponse
     {
         $tag = Tag::create($request->validated());
         return response()->json([
@@ -36,7 +29,7 @@ class TagController extends Controller
         return response()->json($tag);
     }
 
-    public function delete(Tag $tag): JsonResponse
+    public function destroy(Tag $tag): JsonResponse
     {
         $tag->delete();
         return response()->json(null, 204);

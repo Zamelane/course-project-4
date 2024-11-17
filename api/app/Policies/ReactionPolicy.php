@@ -7,12 +7,12 @@ use App\Models\User;
 
 class ReactionPolicy
 {
-    public function showAll(?User $user): bool
+    public function viewAll(?User $user): bool
     {
         return true;
     }
 
-    public function show(?User $user, Reaction $reaction): bool
+    public function view(?User $user, Reaction $reaction): bool
     {
         return true;
     }

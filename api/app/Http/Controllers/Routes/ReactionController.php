@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 
 class ReactionController extends Controller
 {
+    protected string|array|null $modelsToReg = Reaction::class;
     public function index(): JsonResponse
     {
         return response()->json(Reaction::all());
@@ -20,7 +21,7 @@ class ReactionController extends Controller
         return response()->json($reaction);
     }
 
-    public function create(ReactionCreateRequest $request): JsonResponse
+    public function store(ReactionCreateRequest $request): JsonResponse
     {
         $reaction = Reaction::create($request->validated());
         return response()->json([
@@ -38,7 +39,7 @@ class ReactionController extends Controller
         ]);
     }
 
-    public function delete(Reaction $reaction): JsonResponse
+    public function destroy(Reaction $reaction): JsonResponse
     {
         $reaction->delete();
         return response()->json(null, 204);

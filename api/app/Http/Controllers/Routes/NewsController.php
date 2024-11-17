@@ -12,6 +12,7 @@ use App\Models\NewsTag;
 
 class NewsController extends Controller
 {
+    protected string|array|null $modelsToReg = News::class;
     public function index()
     {
         // TODO: отображать всего количество страниц
@@ -23,7 +24,7 @@ class NewsController extends Controller
         return response()->json(NewsFullResource::make($news));
     }
 
-    public function create(NewsCreateRequest $request)
+    public function store(NewsCreateRequest $request)
     {
         $news = News::create([
             ...$request->validated(),
@@ -69,7 +70,7 @@ class NewsController extends Controller
         ]);
     }
 
-    public function delete(News $news)
+    public function destroy(News $news)
     {
         $news->delete();
         return response()->json(null, 204);

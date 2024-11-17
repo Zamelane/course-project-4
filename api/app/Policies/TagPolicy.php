@@ -8,12 +8,12 @@ use Illuminate\Auth\Access\Response;
 
 class TagPolicy
 {
-    public function showAll(?User $user): bool
+    public function viewAll(?User $user): bool
     {
         return true;
     }
 
-    public function show(?User $user, Tag $tag): bool
+    public function view(?User $user, Tag $tag): bool
     {
         return true;
     }

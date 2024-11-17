@@ -9,12 +9,13 @@ use Illuminate\Http\JsonResponse;
 
 class CityController extends Controller
 {
+    protected string|array|null $modelsToReg = City::class;
     public function index(): JsonResponse
     {
         return response()->json(City::all());
     }
 
-    public function create(CityRequest $request): JsonResponse
+    public function store(CityRequest $request): JsonResponse
     {
         $city = City::create($request->validated());
         return response()->json([
@@ -28,7 +29,7 @@ class CityController extends Controller
         return response()->json($city);
     }
 
-    public function delete(City $city): JsonResponse
+    public function destroy(City $city): JsonResponse
     {
         $city->delete();
         return response()->json(null, 204);

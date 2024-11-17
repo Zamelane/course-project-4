@@ -7,7 +7,7 @@ use App\Models\User;
 
 class CommentPolicy
 {
-    public function showAll(?User $user): bool
+    public function viewAll(?User $user): bool
     {
         return true;
     }

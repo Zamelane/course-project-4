@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(Request $request, User $user)
+    protected string|array|null $modelsToReg = User::class;
+    public function show(Request $request, User $user)
     {
         $collection = $request->user()?->isAdministrator()
             ? FullUserResource::make($user)
@@ -30,7 +31,7 @@ class UserController extends Controller
         );
     }
 
-    public function delete(User $user)
+    public function destroy(User $user)
     {
         $user->delete();
         return response(null, 204);

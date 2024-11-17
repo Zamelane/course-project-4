@@ -7,12 +7,12 @@ use App\Models\User;
 
 class NewsPolicy
 {
-    public function showAll(?User $user): bool
+    public function viewAll(?User $user): bool
     {
         return true;
     }
 
-    public function show(?User $user, News $news): bool
+    public function view(?User $user, News $news): bool
     {
         return true;
     }

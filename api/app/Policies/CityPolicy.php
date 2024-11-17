@@ -7,7 +7,7 @@ use App\Models\User;
 
 class CityPolicy
 {
-    public function showAll(?User $user): bool
+    public function viewAll(?User $user): bool
     {
         return true;
     }
@@ -17,7 +17,7 @@ class CityPolicy
         return $user?->isAdministrator() ?: false;
     }
 
-    public function show(?User $user, City $city): bool
+    public function view(?User $user, City $city): bool
     {
         return true;
     }
