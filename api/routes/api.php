@@ -36,6 +36,8 @@ Route
 ->group(function() {
     // Создание пользователя
     Route::post('', 'store');
+    // Работа с собой
+    Route::get('me', 'me');
     // Работа с конкретным пользователем
     Route::group(['prefix' => '{user}'], function () {
         Route::get   ('', 'show'   );

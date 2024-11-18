@@ -16,6 +16,8 @@ trait PolicyMapRegister
         'destroy'   => 'delete'
     ];
     protected array $methodsWithoutModels = ['index', 'store'];
+    protected array $customAbilityMap = [];
+    protected array $customWithoutModels = [];
     //protected bool $isDefaultPolicyMap = true;
 
     /**
@@ -27,8 +29,6 @@ trait PolicyMapRegister
     {
         $models = is_array($models) ? $models : [$models];
         $this->modelsToReg = $models;
-        foreach ($models as $model)
-            $this->authorizeResource($model, lcfirst($this->getModelName($model)));
     }
 
     /**
@@ -115,6 +115,8 @@ trait PolicyMapRegister
      */
     public function __construct()
     {
+        $this->abilityMap           = array_merge($this->abilityMap, $this->customAbilityMap);
+        $this->methodsWithoutModels = array_merge($this->methodsWithoutModels, $this->customWithoutModels);
         if ($this->modelsToReg !== null)
             $this->regModels($this->modelsToReg);
         $this->applyRules();

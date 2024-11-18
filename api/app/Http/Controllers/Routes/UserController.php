@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     protected string|array|null $modelsToReg = User::class;
+    protected array $customAbilityMap = ['me' => 'me'];
+    protected array $customWithoutModels = ['me'];
+
+    public function me()
+    {
+        return response()->json(FullUserResource::make(auth()->user()));
+    }
     public function show(Request $request, User $user)
     {
         $collection = $request->user()?->isAdministrator()
