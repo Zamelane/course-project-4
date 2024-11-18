@@ -26,8 +26,20 @@ trait PolicyMapRegister
     protected function regModels(string|array $models): void
     {
         $models = is_array($models) ? $models : [$models];
+        $this->modelsToReg = $models;
         foreach ($models as $model)
-            $this->authorizeResource($model, lcfirst($model));
+            $this->authorizeResource($model, lcfirst($this->getModelName($model)));
+    }
+
+    /**
+     * Возвращает имя модели из строки-класса модели
+     * @param string $model
+     * @return string
+     */
+    protected function getModelName(string $model): string
+    {
+        $separatedPath = explode('\\', $model);
+        return $separatedPath[array_key_last($separatedPath)];
     }
 
     /**
@@ -81,6 +93,11 @@ trait PolicyMapRegister
 
         if ($methodType === MethodPolicyType::Without)
             $this->methodsWithoutModels[] = $methodName;
+
+        $this->middleware = [];
+        $this->authorizeResource($this->modelsToReg[0]);
+        //$this->middleware("can:{$policyName},{$methodType === MethodPolicyType::Required ?  : }")
+        //$this->authorizeResource($methodName);
 
         return $this;
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Routes;
 
-use App\Http\Middleware\CustomChecker;
+use App\Http\Middleware\OptionalAuth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,7 +19,6 @@ Route
     Route::post('login',    'login'   );
     Route::post('register', 'register');
     Route::prefix('logout')
-    ->middleware(CustomChecker::class)
     ->group(function () {
         Route::get('',    'logout'   );
         Route::get('all', 'logoutAll');
@@ -87,13 +86,21 @@ Route
  */
 Route
 ::controller(ReactionController::class)
-->prefix('reactions')
 ->group(function () {
-    Route::get ('', 'index');
-    Route::post('', 'store');
-    Route::group(['prefix' => '{reaction}'], function () {
-        Route::get   ('', 'show'   );
-        Route::put   ('', 'update' );
+    Route::group(['prefix' => 'reactions'], function () {
+        Route::get ('', 'index');
+        Route::post('', 'store');
+        Route::group(['prefix' => '{reaction}'], function () {
+            Route::get   ('', 'show'   );
+            Route::put   ('', 'update' );
+            Route::delete('', 'destroy');
+        });
+    });
+    Route::group([
+        'prefix' => '/news/{news}/reaction',
+        'controller' => ReactionController::class
+    ], function () {
+        Route::post  ('', 'store'  );
         Route::delete('', 'destroy');
     });
 });

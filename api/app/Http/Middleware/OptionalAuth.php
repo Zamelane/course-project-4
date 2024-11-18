@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CustomChecker
+class OptionalAuth
 {
     public function handle(Request $request, Closure $next)
     {

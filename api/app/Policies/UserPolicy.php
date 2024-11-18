@@ -26,8 +26,8 @@ class UserPolicy
         return $user->isAdministrator();
     }
 
-    public function logout(?User $user)
+    public function logout(User $user)
     {
-        return $user !== null;
+        return true;
     }
 }
