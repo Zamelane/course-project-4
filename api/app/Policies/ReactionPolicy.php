@@ -17,18 +17,18 @@ class ReactionPolicy
         return true;
     }
 
-    public function create(?User $user): bool
+    public function create(User $user): bool
     {
         return true;
     }
 
-    public function delete(?User $user, Reaction $reaction): bool
+    public function delete(User $user, Reaction $reaction): bool
     {
-        return $user?->isAdministrator() ?: false;
+        return $user->isAdministrator();
     }
 
-    public function update(?User $user, Reaction $reaction): bool
+    public function update(User $user, Reaction $reaction): bool
     {
-        return $user?->isAdministrator() ?: false;
+        return $user->isAdministrator();
     }
 }

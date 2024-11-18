@@ -12,18 +12,18 @@ class CommentPolicy
         return true;
     }
 
-    public function create(?User $user): bool
+    public function create(User $user): bool
     {
-        return $user !== null;
+        return true;
     }
 
-    public function update(?User $user, Comment $comment): bool
+    public function update(User $user, Comment $comment): bool
     {
-        return $user?->id === $comment->user_id;
+        return $user->id === $comment->user_id;
     }
 
-    public function delete(?User $user, Comment $comment): bool
+    public function delete(User $user, Comment $comment): bool
     {
-        return $user?->isAdministrator() || $user?->id === $comment->user_id;
+        return $user->isAdministrator() || $user->id === $comment->user_id;
     }
 }

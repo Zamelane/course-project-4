@@ -17,18 +17,18 @@ class NewsPolicy
         return true;
     }
 
-    public function create(?User $user): bool
+    public function create(User $user): bool
     {
-        return $user?->role === 'reporter';
+        return $user->role === 'reporter';
     }
 
-    public function update(?User $user, News $news): bool
+    public function update(User $user, News $news): bool
     {
-        return $user?->isAdministrator() || $user?->id === $news->user_id;
+        return $user->isAdministrator() || $user->id === $news->user_id;
     }
 
-    public function delete(?User $user, News $news): bool
+    public function delete(User $user, News $news): bool
     {
-        return $user?->isAdministrator() || $user?->id === $news->user_id;
+        return $user->isAdministrator() || $user->id === $news->user_id;
     }
 }

@@ -12,9 +12,9 @@ class CityPolicy
         return true;
     }
 
-    public function create(?User $user): bool
+    public function create(User $user): bool
     {
-        return $user?->isAdministrator() ?: false;
+        return $user->isAdministrator();
     }
 
     public function view(?User $user, City $city): bool
@@ -22,13 +22,13 @@ class CityPolicy
         return true;
     }
 
-    public function delete(?User $user, City $city): bool
+    public function delete(User $user, City $city): bool
     {
-        return $user?->isAdministrator() ?: false;
+        return $user->isAdministrator();
     }
 
-    public function update(?User $user, City $city): bool
+    public function update(User $user, City $city): bool
     {
-        return $user?->isAdministrator() ?: false;
+        return $user?->isAdministrator();
     }
 }

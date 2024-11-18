@@ -18,13 +18,13 @@ class TagPolicy
         return true;
     }
 
-    public function delete(?User $user, Tag $tag): bool
+    public function delete(User $user, Tag $tag): bool
     {
-        return $user?->isAdministrator() ?: false;
+        return $user->isAdministrator();
     }
 
-    public function create(?User $user): bool
+    public function create(User $user): bool
     {
-        return $user?->isAdministrator() ?: false;
+        return $user->isAdministrator();
     }
 }
