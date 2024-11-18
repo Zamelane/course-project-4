@@ -16,7 +16,8 @@ class AuthController extends Controller
     {
         $this->regModels(User::class);
         $this->regAbility('logout', 'logout', MethodPolicyType::Without)
-             ->regAbility('logoutAll', 'logout', MethodPolicyType::Without);
+             ->regAbility('logoutAll', 'logout', MethodPolicyType::Without)
+             ->applyRules();
     }
     public function login(Request $request)
     {

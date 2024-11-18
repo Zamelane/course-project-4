@@ -95,11 +95,19 @@ trait PolicyMapRegister
             $this->methodsWithoutModels[] = $methodName;
 
         $this->middleware = [];
-        $this->authorizeResource($this->modelsToReg[0]);
         //$this->middleware("can:{$policyName},{$methodType === MethodPolicyType::Required ?  : }")
         //$this->authorizeResource($methodName);
 
         return $this;
+    }
+
+    /**
+     * Применяет методы запросов к способностям
+     * @return void
+     */
+    public function applyRules(): void
+    {
+        $this->authorizeResource($this->modelsToReg[0]);
     }
 
     /**
@@ -109,5 +117,6 @@ trait PolicyMapRegister
     {
         if ($this->modelsToReg !== null)
             $this->regModels($this->modelsToReg);
+        $this->applyRules();
     }
 }
