@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\TModel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Reaction extends Authenticatable
+class Reaction extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -17,4 +19,34 @@ class Reaction extends Authenticatable
     ];
 
     protected $hidden = [];
+
+    /**
+     * @param User $user
+     * @param News $news
+     * @return TModel
+     */
+    public function setReaction(User $user, News $news)
+    {
+        return UserReaction::updateOrCreate([
+            'user_id' => $user->id,
+            'news_id' => $news->id
+        ], [
+            'user_id' => $user->id,
+            'news_id' => $news->id,
+            'reaction_id' => $this->id
+        ]);
+    }
+
+    /**
+     * @param User $user
+     * @param News $news
+     * @return bool|mixed|null
+     */
+    public static function deleteReaction(User $user, News $news)
+    {
+        return UserReaction::where([
+            'user_id' => $user->id,
+            'news_id' => $news->id
+        ])->delete();
+    }
 }

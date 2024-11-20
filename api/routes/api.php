@@ -99,11 +99,11 @@ Route
         });
     });
     Route::group([
-        'prefix' => '/news/{news}/reaction',
+        'prefix' => '/news/{news}/reactions',
         'controller' => ReactionController::class
     ], function () {
-        Route::post  ('', 'store'  );
-        Route::delete('', 'destroy');
+        Route::post  ('{reaction}', 'userReactionStore'  );
+        Route::delete('',           'userReactionDestroy');
     });
 });
 

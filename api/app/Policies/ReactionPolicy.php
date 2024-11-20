@@ -31,4 +31,9 @@ class ReactionPolicy
     {
         return $user->isAdministrator();
     }
+
+    public function userReaction(User $user): bool
+    {
+        return true;
+    }
 }

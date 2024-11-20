@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -35,12 +36,6 @@ class News extends Model
     public function images(): BelongsToMany
     {
         return $this->belongsToMany(Image::class, NewsImage::class);
-    }
-
-    public function user_reaction(User $user): Reaction | null
-    {
-        return $this->hasOneThrough(Reaction::class, 'user_reactions')
-            ->where('user_id', '=', $user->id)->first();
     }
 
     public function author(): BelongsTo

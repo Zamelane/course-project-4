@@ -5,18 +5,27 @@ namespace App\Http\Controllers\Routes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reaction\ReactionCreateRequest;
 use App\Http\Requests\Reaction\ReactionUpdateRequest;
+use App\Http\Resources\Reaction\ReactionResource;
+use App\Models\News;
 use App\Models\Reaction;
 use Illuminate\Http\JsonResponse;
 
 class ReactionController extends Controller
 {
     protected string|array|null $modelsToReg = Reaction::class;
+    protected array $customAbilityMap = [
+        "userReactionStore" => "userReaction",
+        "userReactionDestroy" => "userReaction",
+    ];
+    protected array $customWithoutModels = [
+        "userReactionDestroy"
+    ];
     public function index(): JsonResponse
     {
         return response()->json(Reaction::all());
     }
 
-    public function show(?Reaction $reaction): JsonResponse
+    public function show(Reaction $reaction): JsonResponse
     {
         return response()->json($reaction);
     }
@@ -42,6 +51,18 @@ class ReactionController extends Controller
     public function destroy(Reaction $reaction): JsonResponse
     {
         $reaction->delete();
+        return response()->json(null, 204);
+    }
+
+    public function userReactionStore(News $news, Reaction $reaction)
+    {
+        $reaction->setReaction(auth()->user(), $news);
+        return response()->json(ReactionResource::make($reaction), 201);
+    }
+
+    public function userReactionDestroy(News $news)
+    {
+        Reaction::deleteReaction(auth()->user(), $news);
         return response()->json(null, 204);
     }
 }
