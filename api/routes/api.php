@@ -157,8 +157,8 @@ Route
 ->group(function () {
     Route::group(['prefix' => '{news}/comments/{comment}/complaints'], function () {
         Route::get ('',            'index'       );
-        Route::post('',            'create'      );
-        Route::put ('',            'updateStatus');
+        Route::post('',            'store'       );
+        Route::put ('{complaint}', 'updateStatus');
         Route::get ('{complaint}', 'show'        );
     });
 });

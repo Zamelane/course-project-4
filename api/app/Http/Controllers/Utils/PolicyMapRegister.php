@@ -18,6 +18,8 @@ trait PolicyMapRegister
     protected array $methodsWithoutModels = ['index', 'store'];
     protected array $customAbilityMap = [];
     protected array $customWithoutModels = [];
+    protected bool $clearWithoutModels = false;
+    protected string|null $parameter = null;
     //protected bool $isDefaultPolicyMap = true;
 
     /**
@@ -107,7 +109,7 @@ trait PolicyMapRegister
      */
     public function applyRules(): void
     {
-        $this->authorizeResource($this->modelsToReg[0]);
+        $this->authorizeResource($this->modelsToReg[0], $this->parameter);
     }
 
     /**
@@ -115,6 +117,10 @@ trait PolicyMapRegister
      */
     public function __construct()
     {
+        // Если нужно переопределить withoutModels
+        if ($this->clearWithoutModels)
+            $this->methodsWithoutModels = [];
+
         $this->abilityMap           = array_merge($this->abilityMap, $this->customAbilityMap);
         $this->methodsWithoutModels = array_merge($this->methodsWithoutModels, $this->customWithoutModels);
         if ($this->modelsToReg !== null)

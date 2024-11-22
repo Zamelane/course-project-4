@@ -53,4 +53,9 @@ class User extends Authenticatable
 //        return $this->hasManyThrough(News::class, 'history_views')
 //            ->where('user_id', '=', $this->id)->offset($offset)->limit($count)->get();
     }
+
+    public function bans()
+    {
+        $this->belongsToMany(Ban::class);
+    }
 }

@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Comment extends Authenticatable
+class Comment extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -30,5 +31,15 @@ class Comment extends Authenticatable
     public function news(): BelongsTo
     {
         return $this->belongsTo(News::class);
+    }
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
+    public function checkComplaintExists(User $user)
+    {
+        return $this->complaints()->where('author_user_id', '=', $user->id)->exists();
     }
 }
