@@ -17,6 +17,8 @@ class ComplaintController extends Controller
         'updateStatus' => 'updateStatus'
     ];
 
+    protected string $class = __CLASS__;
+
     protected string|null $parameter = Complaint::class . ',comment';
 
     protected bool $clearWithoutModels = true;

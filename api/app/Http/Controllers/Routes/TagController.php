@@ -9,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 
 class TagController extends Controller
 {
-    protected string|array|null $modelsToReg = Tag::class;
     public function index(): JsonResponse
     {
         return response()->json(Tag::all());

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Utils;
 
+use App\Exceptions\ApiException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use ReflectionClass;
 
 trait PolicyMapRegister
 {
@@ -117,14 +119,80 @@ trait PolicyMapRegister
      */
     public function __construct()
     {
-        // Если нужно переопределить withoutModels
-        if ($this->clearWithoutModels)
-            $this->methodsWithoutModels = [];
+//        // Если нужно переопределить withoutModels
+//        if ($this->clearWithoutModels)
+//            $this->methodsWithoutModels = [];
+//
+//        $this->abilityMap           = array_merge($this->abilityMap, $this->customAbilityMap);
+//        $this->methodsWithoutModels = array_merge($this->methodsWithoutModels, $this->customWithoutModels);
+//        if ($this->modelsToReg !== null)
+//            $this->regModels($this->modelsToReg);
+//        $this->applyRules();
 
-        $this->abilityMap           = array_merge($this->abilityMap, $this->customAbilityMap);
-        $this->methodsWithoutModels = array_merge($this->methodsWithoutModels, $this->customWithoutModels);
-        if ($this->modelsToReg !== null)
-            $this->regModels($this->modelsToReg);
+        //$this->methodsWithoutModels = [];
+        //->abilityMap = [];
+
+        $targetClass = static::class;
+
+        $name = str_replace('Controller', '', $this->getModelName($targetClass));
+
+        $policyClass = "\App\Policies\\{$name}Policy";
+
+        $policyInfo = new ReflectionClass($policyClass);
+        $controllerInfo = new ReflectionClass($targetClass);
+
+        // Перебираем ability политики
+        foreach ($policyInfo->getMethods() as $method)
+        {
+            $isContains = false; // Смотрим, содержится ли модель от контроллера в параметрах политики
+            foreach ($method->getParameters() as $parameter)
+            {
+                if (str_contains($parameter->getType()->getName(), $name))
+                {
+                    // Если содержит, то перебираем методы контроллера
+                    foreach ($controllerInfo->getMethods() as $controllerMethod)
+                        // Если метод контроллера содержится в карте способностей
+                        if (isset($this->abilityMap[$controllerMethod->getName()])
+                        && $this->abilityMap[$controllerMethod->getName()] === $method->getName())
+                        {
+                            // То перебираем параметры этого метода
+                            foreach ($controllerMethod->getParameters() as $controllerParameter)
+                            {
+                                // Если метод и вправду использует этот класс, то помечаем
+                                if (str_contains($controllerParameter->getType()->getName(), $name))
+                                {
+                                    $isContains = true;
+                                    break;
+                                }
+                            }
+                        }
+                }
+            }
+
+            $controllerMethod = $this->searchMethodInController($method->getName()) ?: $method->getName();
+
+            $this->customAbilityMap[$controllerMethod] = $method->getName();
+
+            if (!$isContains)
+            {
+                $this->customWithoutModels[] = $controllerMethod;
+            }
+        }
+
+        $this->methodsWithoutModels = $this->customWithoutModels;
+        $this->abilityMap = $this->customAbilityMap;
+
+        $this->modelsToReg = "\App\Models\\{$name}";
+
+        $this->regModels($this->modelsToReg);
         $this->applyRules();
+    }
+
+    public function searchMethodInController($abilityName)
+    {
+        foreach ($this->abilityMap as $methodName => $policyName)
+            if ($policyName === $abilityName)
+                return $methodName;
+        return null;
     }
 }
