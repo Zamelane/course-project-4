@@ -4,36 +4,24 @@ namespace App\Http\Controllers\Utils;
 
 use App\Exceptions\ApiException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use PHPUnit\Framework\Exception;
 use ReflectionClass;
 
 trait PolicyMapRegister
 {
     use AuthorizesRequests;
-    protected string|array|null $modelsToReg = null;
-    protected array $abilityMap = [
-        'index'     => 'viewAll',
-        'store'     => 'create',
-        'show'      => 'view',
-        'update'    => 'update',
-        'destroy'   => 'delete'
-    ];
-    protected array $methodsWithoutModels = ['index', 'store'];
-    protected array $customAbilityMap = [];
-    protected array $customWithoutModels = [];
-    protected bool $clearWithoutModels = false;
-    protected string|null $parameter = null;
-    //protected bool $isDefaultPolicyMap = true;
 
-    /**
-     * Указывает модели, политики которых будут использоваться для проверки прав
-     * @param string|array $models
-     * @return void
-     */
-    protected function regModels(string|array $models): void
-    {
-        $models = is_array($models) ? $models : [$models];
-        $this->modelsToReg = $models;
-    }
+    protected string|null $modelToReg = null;
+    protected array $abilityMap = [
+        'index' => 'viewAll',
+        'store' => 'create',
+        'show' => 'view',
+        'update' => 'update',
+        'destroy' => 'delete'
+    ];
+    protected array $methodsWithoutModels = [];
+    // К какой модели относится контроллер
+    protected string|null $target = null;
 
     /**
      * Возвращает имя модели из строки-класса модели
@@ -44,6 +32,162 @@ trait PolicyMapRegister
     {
         $separatedPath = explode('\\', $model);
         return $separatedPath[array_key_last($separatedPath)];
+    }
+
+    /**
+     * Связывает контроллер с политикой указанной модели, если она была задана
+     */
+    public function __construct()
+    {
+        $this->target ??= static::class;
+        $targetClass = $this->target;
+        $generatedAbilityMap = [];      // Итоговые правила мэппинга
+        $generatedWithoutModels = [];   // Перечисление моделей без параметров
+        $middleware = [];               // Для отладки
+
+        // Извлекаем имя для общего именования через контроллер
+        $name = str_replace('Controller', '', $this->getModelName($targetClass));
+
+        $this->modelToReg ??= "\App\Models\\{$name}";
+        $policyClass = "\App\Policies\\{$name}Policy";
+
+        // Если политики не существует, то не привязываем ability
+        if (!class_exists($policyClass))
+            return;
+
+        $policyInfo = $this->getMapForClassMethods($policyClass);
+        $controllerInfo = $this->getMapForClassMethods($targetClass);
+
+        // Перебираем ability политики
+        foreach ($policyInfo as $method) {
+            $abilityName = $method['name'];
+            $modelName = $this->modelToReg;
+
+            // Имя текущего метода контроллера, связанного со способностью
+            $controllerMethodName = $this->getControllerMethodNameByAbilityName($abilityName);
+
+            // Если способность и метод политики содержит модель с тем же именованием, как у контроллера
+            $isContains = $this->checkPolicyContains($method, $controllerMethodName, $controllerInfo, $name);
+
+            $generatedAbilityMap[$controllerMethodName] = $abilityName;
+
+            if (!$isContains)
+                $generatedWithoutModels[] = $controllerMethodName;
+            else
+                $modelName = lcfirst($name);
+
+            $method = null;
+            foreach ($controllerInfo as $controllerMethod)
+                if ($controllerMethod['name']  === $controllerMethodName)
+                    $method = $controllerMethod;
+
+            if (!$method)
+                throw new Exception("The controller ({$controllerMethodName}) method is not set for the corresponding policy method");
+
+            $models = $this->getModelsNamesForMethodParams($method['params'], $name);
+            if (count($models))
+                $modelName = join(',', [$modelName, ...$models]);
+
+            $middleware["can:{$abilityName},{$modelName}"][] = $controllerMethodName; // Для отладки
+            $this->middleware("can:{$abilityName},{$modelName}", [])->only($controllerMethodName);
+        }
+
+        $this->methodsWithoutModels = $generatedWithoutModels;
+        $this->abilityMap = $generatedAbilityMap;
+    }
+
+    /**
+     * Получает имена моделей используемых в параметрах метода контроллера
+     * @param $params
+     * @param $nameToContinue
+     * @return array
+     */
+    public function getModelsNamesForMethodParams($params, $nameToContinue): array
+    {
+        foreach ($params as $param)
+            if (str_contains($param['typeHint'], '\Models\\'
+                && $modelName = $this->getModelName($param['typeHint'] !== $nameToContinue)))
+                $names[] = lcfirst($modelName);
+        return $names ?? [];
+    }
+
+    /**
+     * Получает имя связанного метода в контроллере со способностью
+     * @param $controllerMethodName
+     * @return false|int|mixed|string
+     */
+    public function getControllerMethodNameByAbilityName($controllerMethodName): mixed
+    {
+        return array_search($controllerMethodName, $this->abilityMap) ?: $controllerMethodName;
+    }
+
+    /**
+     * Проверяет, принимает ли политика и метод контроллера модель с именем контроллера
+     * @param $policyMethod
+     * @param $controllerMethodName
+     * @param $controllerMethods
+     * @param $checkContainsName
+     * @return bool
+     */
+    public function checkPolicyContains($policyMethod, $controllerMethodName, $controllerMethods, $checkContainsName): bool
+    {
+        foreach ($policyMethod['params'] as $param)
+            if (str_contains($param['typeHint'], $checkContainsName))
+                // Если содержит, то перебираем методы контроллера
+                return $this->checkControllerContains($controllerMethods, $controllerMethodName, $checkContainsName);
+        return false;
+    }
+
+    /**
+     * Проверяет, принимает ли метод контроллера модель с именем контроллера
+     * @param $controllerMethods
+     * @param $searchMethodName
+     * @param $checkContainsName
+     * @return bool
+     */
+    public function checkControllerContains($controllerMethods, $searchMethodName, $checkContainsName): bool
+    {
+        // Если содержит, то перебираем методы контроллера
+        foreach ($controllerMethods as $controllerMethod)
+        {
+            if ($controllerMethod['name'] != $searchMethodName)
+                continue;
+            // Если метод контроллера содержится в карте способностей, то перебираем параметры этого метода
+            foreach ($controllerMethod['params'] as $controllerParameter)
+                // Если метод и вправду использует этот класс, то помечаем
+                if (!str_contains($controllerParameter['typeHint'], 'Request')
+                    && str_contains($controllerParameter['typeHint'], $checkContainsName))
+                    return true;
+        }
+        return false;
+    }
+
+    /**
+     * Составляет карту методов у класса и их параметры
+     * @param $class
+     * @return array
+     * @throws \ReflectionException
+     */
+    public function getMapForClassMethods($class)
+    {
+        $map = [];  // Карта методов класса
+        $reflection = new ReflectionClass($class);
+
+        foreach ($reflection->getMethods() as $method) {
+            // Перебираем все параметры методов
+            foreach ($method->getParameters() as $parameter)
+                $params[] = [
+                    'name' => $parameter->getName(),
+                    'typeHint' => $parameter->getType()?->getName(),
+                    'position' => $parameter->getPosition()
+                ];
+            // Сохраняем в карту методов класса
+            $map[] = [
+                'name' => $method->getName(),
+                'params' => $params ?? []
+            ];
+        }
+        return $map;
     }
 
     /**
@@ -62,137 +206,5 @@ trait PolicyMapRegister
     protected function resourceMethodsWithoutModels(): array
     {
         return $this->methodsWithoutModels;
-    }
-
-    /**
-     * Регистрирует способность или ассоциацию метода
-     * контроллера с именованием метода проверки прав в политике
-     * @param string $methodName
-     * @param string|MethodPolicyType|null $param1
-     * @param string|MethodPolicyType|null $param2
-     * @return $this
-     */
-    protected function regAbility(
-        string $methodName,
-        string|MethodPolicyType|null $param1 = null,
-        string|MethodPolicyType|null $param2 = MethodPolicyType::Required
-    )
-    {
-        //if ($this->isDefaultPolicyMap)
-        //{
-        //    $this->isDefaultPolicyMap = false;
-        //    $this->abilityMap = [];
-        //    $this->methodsWithoutModels = [];
-        //}
-
-        $policyName = is_string($param1)
-            ? $param1
-            : (is_string($param2) ? $param2 : $methodName);
-
-        $methodType = $param1 instanceof MethodPolicyType
-            ? $param1
-            : ($param2 instanceof MethodPolicyType ? $param2 : MethodPolicyType::Required);
-
-        $this->abilityMap[$methodName] = $policyName;
-
-        if ($methodType === MethodPolicyType::Without)
-            $this->methodsWithoutModels[] = $methodName;
-
-        $this->middleware = [];
-        //$this->middleware("can:{$policyName},{$methodType === MethodPolicyType::Required ?  : }")
-        //$this->authorizeResource($methodName);
-
-        return $this;
-    }
-
-    /**
-     * Применяет методы запросов к способностям
-     * @return void
-     */
-    public function applyRules(): void
-    {
-        $this->authorizeResource($this->modelsToReg[0], $this->parameter);
-    }
-
-    /**
-     * Связывает контроллер с политикой указанной модели, если она была задана
-     */
-    public function __construct()
-    {
-//        // Если нужно переопределить withoutModels
-//        if ($this->clearWithoutModels)
-//            $this->methodsWithoutModels = [];
-//
-//        $this->abilityMap           = array_merge($this->abilityMap, $this->customAbilityMap);
-//        $this->methodsWithoutModels = array_merge($this->methodsWithoutModels, $this->customWithoutModels);
-//        if ($this->modelsToReg !== null)
-//            $this->regModels($this->modelsToReg);
-//        $this->applyRules();
-
-        //$this->methodsWithoutModels = [];
-        //->abilityMap = [];
-
-        $targetClass = static::class;
-
-        $name = str_replace('Controller', '', $this->getModelName($targetClass));
-
-        $policyClass = "\App\Policies\\{$name}Policy";
-
-        $policyInfo = new ReflectionClass($policyClass);
-        $controllerInfo = new ReflectionClass($targetClass);
-
-        // Перебираем ability политики
-        foreach ($policyInfo->getMethods() as $method)
-        {
-            $isContains = false; // Смотрим, содержится ли модель от контроллера в параметрах политики
-            foreach ($method->getParameters() as $parameter)
-            {
-                if (str_contains($parameter->getType()->getName(), $name))
-                {
-                    // Если содержит, то перебираем методы контроллера
-                    foreach ($controllerInfo->getMethods() as $controllerMethod)
-                        // Если метод контроллера содержится в карте способностей
-                        if (isset($this->abilityMap[$controllerMethod->getName()])
-                        && $this->abilityMap[$controllerMethod->getName()] === $method->getName())
-                        {
-                            // То перебираем параметры этого метода
-                            foreach ($controllerMethod->getParameters() as $controllerParameter)
-                            {
-                                // Если метод и вправду использует этот класс, то помечаем
-                                if (str_contains($controllerParameter->getType()->getName(), $name))
-                                {
-                                    $isContains = true;
-                                    break;
-                                }
-                            }
-                        }
-                }
-            }
-
-            $controllerMethod = $this->searchMethodInController($method->getName()) ?: $method->getName();
-
-            $this->customAbilityMap[$controllerMethod] = $method->getName();
-
-            if (!$isContains)
-            {
-                $this->customWithoutModels[] = $controllerMethod;
-            }
-        }
-
-        $this->methodsWithoutModels = $this->customWithoutModels;
-        $this->abilityMap = $this->customAbilityMap;
-
-        $this->modelsToReg = "\App\Models\\{$name}";
-
-        $this->regModels($this->modelsToReg);
-        $this->applyRules();
-    }
-
-    public function searchMethodInController($abilityName)
-    {
-        foreach ($this->abilityMap as $methodName => $policyName)
-            if ($policyName === $abilityName)
-                return $methodName;
-        return null;
     }
 }

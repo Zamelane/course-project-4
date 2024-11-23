@@ -12,13 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->regModels(User::class);
-        $this->regAbility('logout', 'logout', MethodPolicyType::Without)
-             ->regAbility('logoutAll', 'logout', MethodPolicyType::Without)
-             ->applyRules();
-    }
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('login', 'password')))

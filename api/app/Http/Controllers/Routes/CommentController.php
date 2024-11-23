@@ -11,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
-    protected string|array|null $modelsToReg = Comment::class;
     public function index(News $news): JsonResponse
     {
         $paginateResponse = $news->comments()->simplePaginate();

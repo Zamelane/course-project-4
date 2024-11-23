@@ -12,7 +12,6 @@ use App\Models\NewsTag;
 
 class NewsController extends Controller
 {
-    protected string|array|null $modelsToReg = News::class;
     public function index()
     {
         // TODO: отображать всего количество страниц

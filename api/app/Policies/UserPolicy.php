@@ -20,18 +20,8 @@ class UserPolicy
         return $user->isAdministrator() || $user->id === $updatedUser->id;
     }
 
-    public function create(User $user): bool
-    {
-        return $user->isAdministrator();
-    }
-
     public function delete(User $user): bool
     {
         return $user->isAdministrator();
-    }
-
-    public function logout(User $user)
-    {
-        return true;
     }
 }
