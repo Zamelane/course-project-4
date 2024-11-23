@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Utils;
 
-use App\Exceptions\ApiException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use PHPUnit\Framework\Exception;
+use RecursiveIteratorIterator;
 use ReflectionClass;
+use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
 
 trait PolicyMapRegister
 {
@@ -48,12 +49,15 @@ trait PolicyMapRegister
         // Извлекаем имя для общего именования через контроллер
         $name = str_replace('Controller', '', $this->getModelName($targetClass));
 
-        $this->modelToReg ??= "\App\Models\\{$name}";
+        $this->modelToReg ??= $this->searchModelByName($name);
         $policyClass = "\App\Policies\\{$name}Policy";
 
         // Если политики не существует, то не привязываем ability
         if (!class_exists($policyClass))
             return;
+
+        if (!class_exists($this->modelToReg))
+            throw new Exception('Model not found');
 
         $policyInfo = $this->getMapForClassMethods($policyClass);
         $controllerInfo = $this->getMapForClassMethods($targetClass);
@@ -96,6 +100,19 @@ trait PolicyMapRegister
         $this->abilityMap = $generatedAbilityMap;
     }
 
+    public function searchModelByName($name)
+    {
+        $directories = new RecursiveDirectoryIterator(app_path('Models'), \FilesystemIterator::FOLLOW_SYMLINKS);
+        $iterator = new RecursiveIteratorIterator($directories);
+        foreach ($iterator as $dir)
+            if(!$dir->isDir() && substr($dir->getFileName(), 0, -(strlen($dir->getExtension()) + 1)) === $name)
+            {
+                $path = $dir->getPath();
+                return 'App\\' . explode('app\\', $path)[1] . "\\{$name}";
+            }
+        return null;
+    }
+
     /**
      * Получает имена моделей используемых в параметрах метода контроллера
      * @param $params
@@ -105,9 +122,10 @@ trait PolicyMapRegister
     public function getModelsNamesForMethodParams($params, $nameToContinue): array
     {
         foreach ($params as $param)
-            if (str_contains($param['typeHint'], '\Models\\'
-                && $modelName = $this->getModelName($param['typeHint'] !== $nameToContinue)))
+            if (str_contains($param['typeHint'], '\Models\\')
+                && ($modelName = $this->getModelName($param['typeHint'])) !== $nameToContinue)
                 $names[] = lcfirst($modelName);
+
         return $names ?? [];
     }
 

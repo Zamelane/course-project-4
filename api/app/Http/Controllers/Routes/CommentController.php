@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Routes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Comment\CommentCreateRequest;
 use App\Http\Resources\Comment\CommentResource;
-use App\Models\Comment;
-use App\Models\News;
+use App\Models\Comment\Comment;
+use App\Models\News\News;
 use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\News\News;
+use App\Models\User\Ban;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;

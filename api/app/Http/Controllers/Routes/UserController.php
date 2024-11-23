@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Routes;
 
+use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\UserRegistrationRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\FullUserResource;
 use App\Http\Resources\User\MinUserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {

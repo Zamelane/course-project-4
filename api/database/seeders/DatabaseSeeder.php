@@ -3,16 +3,15 @@
 namespace Database\Seeders;
 
 use App\Models\City;
-use App\Models\Comment;
-use App\Models\News;
+use App\Models\Comment\Comment;
+use App\Models\News\News;
 use App\Models\Reaction;
 use App\Models\Reason;
 use App\Models\Tag;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {

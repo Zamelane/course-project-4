@@ -7,8 +7,8 @@ use App\Http\Requests\News\NewsCreateRequest;
 use App\Http\Requests\News\NewsUpdateRequest;
 use App\Http\Resources\News\NewsFullResource;
 use App\Http\Resources\News\NewsMinResource;
-use App\Models\News;
-use App\Models\NewsTag;
+use App\Models\News\News;
+use App\Models\News\NewsTag;
 
 class NewsController extends Controller
 {

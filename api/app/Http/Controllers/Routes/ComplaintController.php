@@ -6,23 +6,12 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Complaint\ComplaintRequest;
 use App\Http\Requests\Complaint\ComplaintUpdateStatusRequest;
-use App\Models\Comment;
-use App\Models\Complaint;
-use App\Models\News;
+use App\Models\Comment\Comment;
+use App\Models\Comment\Complaint;
+use App\Models\News\News;
 
 class ComplaintController extends Controller
 {
-    protected string|array|null $modelsToReg = Complaint::class;
-    protected array $customAbilityMap = [
-        'updateStatus' => 'updateStatus'
-    ];
-
-    protected string $class = __CLASS__;
-
-    protected string|null $parameter = Complaint::class . ',comment';
-
-    protected bool $clearWithoutModels = true;
-
     public function index(News $news, Comment $comment)
     {
         // TODO: не забыть сделать ресурсы !!!

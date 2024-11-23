@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Reaction\ReactionCreateRequest;
 use App\Http\Requests\Reaction\ReactionUpdateRequest;
 use App\Http\Resources\Reaction\ReactionResource;
-use App\Models\News;
+use App\Models\News\News;
 use App\Models\Reaction;
 use Illuminate\Http\JsonResponse;
 

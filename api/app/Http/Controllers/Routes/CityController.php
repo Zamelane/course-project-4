@@ -9,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 
 class CityController extends Controller
 {
-    protected string|array|null $modelsToReg = City::class;
     public function index(): JsonResponse
     {
         return response()->json(City::all());

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Comment;
-use App\Models\News;
+use App\Models\Comment\Comment;
+use App\Models\News\News;
 use App\Models\User;
 
 class ComplaintPolicy
@@ -13,7 +13,7 @@ class ComplaintPolicy
         return $user->isAdministrator();
     }
 
-    public function create(User $user, Comment $comment)
+    public function create(User $user, News $news, Comment $comment)
     {
         return $comment->user->id !== $user->id;
     }
