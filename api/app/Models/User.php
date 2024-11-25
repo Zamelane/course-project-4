@@ -58,6 +58,7 @@ class User extends Authenticatable
 
     public function bans()
     {
-        $this->belongsToMany(Ban::class);
+        // TODO: доделать
+        return Complaint::join('comments', 'comments.id', '=', 'complaint.comment_id');
     }
 }

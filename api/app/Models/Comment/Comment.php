@@ -4,6 +4,7 @@ namespace App\Models\Comment;
 
 use App\Models\News\News;
 use App\Models\User;
+use Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +24,15 @@ class Comment extends Model
     ];
 
     protected $hidden = [];
+
+    /**
+     * Подсказывает, где лежит фабрика
+     * @return CommentFactory
+     */
+    protected static function newFactory(): CommentFactory
+    {
+        return CommentFactory::new();
+    }
 
     public function user(): BelongsTo
     {

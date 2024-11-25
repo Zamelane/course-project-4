@@ -14,14 +14,9 @@ class Ban extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'user_id',
+        'complaint_id',
         'end_date'
     ];
 
     protected $hidden = [];
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 }

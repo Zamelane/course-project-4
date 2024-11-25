@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Comment\Comment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CommentFactory extends Factory
 {
+    protected $model = Comment::class;
     /**
      * Define the model's default state.
      *
