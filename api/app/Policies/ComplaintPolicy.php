@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Comment\Comment;
+use App\Models\Comment\Complaint;
 use App\Models\News\News;
 use App\Models\User;
 
@@ -18,7 +19,7 @@ class ComplaintPolicy
         return $comment->user->id !== $user->id;
     }
 
-    public function updateStatus(User $user, Comment $comment): bool
+    public function updateStatus(User $user, Complaint $complaint): bool
     {
         return $user->isAdministrator();
     }

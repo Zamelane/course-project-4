@@ -6,6 +6,7 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Complaint\ComplaintRequest;
 use App\Http\Requests\Complaint\ComplaintUpdateStatusRequest;
+use App\Http\Resources\Complaint\ComplaintResource;
 use App\Models\Comment\Comment;
 use App\Models\Comment\Complaint;
 use App\Models\News\News;
@@ -34,15 +35,13 @@ class ComplaintController extends Controller
 
     public function updateStatus(ComplaintUpdateStatusRequest $request, News $news, Comment $comment, Complaint $complaint)
     {
-        $complaint->update([
-            $request->validated()
-        ]);
+        $complaint->update($request->validated());
 
-        return response()->json($complaint);
+        return response()->json(ComplaintResource::make($complaint));
     }
 
     public function show(News $news, Comment $comment, Complaint $complaint)
     {
-        return response()->json($complaint);
+        return response()->json(ComplaintResource::make($complaint));
     }
 }
