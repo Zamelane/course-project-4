@@ -173,13 +173,8 @@ Route
 ::prefix('users/{user}/bans')
 ->controller(BanController::class)
 ->group(function () {
-    Route::get ('', 'index' );
-    Route::post('', 'create');
-    Route::group(['prefix' => '{ban}'], function () {
-        Route::get   ('', 'show'  );
-        Route::put   ('', 'update');
-        Route::delete('', 'delete');
-    });
+    Route::get ('',      'index' );
+    Route::get ('{ban}', 'show'  );
 });
 
 /*
