@@ -1,7 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\News;
 
+use App\Models\City;
+use App\Models\Comment\Comment;
+use App\Models\Image;
+use App\Models\Reaction;
+use App\Models\Tag;
+use App\Models\User;
+use App\Models\User\UserReaction;
+use Database\Factories\NewsFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,6 +32,16 @@ class News extends Model
     ];
 
     protected $hidden = [];
+
+
+    /**
+     * Подсказывает, где лежит фабрика
+     * @return NewsFactory
+     */
+    protected static function newFactory(): NewsFactory
+    {
+        return NewsFactory::new();
+    }
 
     public function city(): BelongsTo
     {

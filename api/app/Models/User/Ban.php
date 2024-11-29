@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,14 +14,9 @@ class Ban extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'user_id',
+        'complaint_id',
         'end_date'
     ];
 
     protected $hidden = [];
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 }

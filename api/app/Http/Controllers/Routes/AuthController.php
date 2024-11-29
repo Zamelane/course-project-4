@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Routes;
 
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Utils\MethodPolicyType;
 use App\Http\Requests\User\UserRegistrationRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,13 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->regModels(User::class);
-        $this->regAbility('logout', 'logout', MethodPolicyType::Without)
-             ->regAbility('logoutAll', 'logout', MethodPolicyType::Without)
-             ->applyRules();
-    }
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('login', 'password')))

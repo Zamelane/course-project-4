@@ -6,20 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Reaction\ReactionCreateRequest;
 use App\Http\Requests\Reaction\ReactionUpdateRequest;
 use App\Http\Resources\Reaction\ReactionResource;
-use App\Models\News;
+use App\Models\News\News;
 use App\Models\Reaction;
 use Illuminate\Http\JsonResponse;
 
 class ReactionController extends Controller
 {
-    protected string|array|null $modelsToReg = Reaction::class;
-    protected array $customAbilityMap = [
-        "userReactionStore" => "userReaction",
-        "userReactionDestroy" => "userReaction",
-    ];
-    protected array $customWithoutModels = [
-        "userReactionDestroy"
-    ];
     public function index(): JsonResponse
     {
         return response()->json(Reaction::all());

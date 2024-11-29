@@ -7,5 +7,4 @@ use App\Models\Image;
 
 class ImageController extends Controller
 {
-    protected string|array|null $modelsToReg = Image::class;
 }

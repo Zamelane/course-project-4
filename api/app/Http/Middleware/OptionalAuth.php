@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class OptionalAuth
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $allowNull = true)
     {
-        if (request()->bearerToken()) {
+        if (request()->bearerToken() || !$allowNull) {
             if ($user = Auth::guard('sanctum')->user())
                 Auth::setUser($user);
             else throw new UnauthorizedException();

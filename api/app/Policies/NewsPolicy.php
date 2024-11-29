@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\News;
+use App\Models\News\News;
 use App\Models\User;
 
 class NewsPolicy

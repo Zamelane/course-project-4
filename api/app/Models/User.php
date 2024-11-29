@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\News\News;
+use App\Models\User\Ban;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -56,6 +58,7 @@ class User extends Authenticatable
 
     public function bans()
     {
-        $this->belongsToMany(Ban::class);
+        // TODO: доделать
+        return Complaint::join('comments', 'comments.id', '=', 'complaint.comment_id');
     }
 }
