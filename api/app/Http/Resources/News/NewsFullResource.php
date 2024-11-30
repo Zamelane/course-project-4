@@ -9,7 +9,6 @@ use App\Http\Resources\User\MinUserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class NewsFullResource extends JsonResource
 {

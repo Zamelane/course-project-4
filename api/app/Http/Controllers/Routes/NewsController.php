@@ -41,77 +41,12 @@ class NewsController extends Controller
                     'tag_id' => $tag
                 ]);
 
-        $pictures = $request->pictures ?? [];
-        $pathToSave = "images/news/$news->id";
-
-        // Успешные и не успешные загрузки
-        $errored = [];
-        $successful = [];
-
-        foreach ($pictures as $key => $pictureInRequest) {
-            $file = $request->file("pictures.$key");
-            $filename = $file->getClientOriginalName();
-            try {
-                // Проверяем, разрешён ли загружаемый тип файла (картинки)
-                $validator = Validator::make($pictures, [
-                    $key => 'mimes:' . implode(',', config('settings.allowed_upload_mimes'))
-                ]);
-                if ($validator->fails()) {
-                    $errored[] = [
-                        'name' => $filename,
-                        'message' => 'Validation failed',
-                        'errors' => $validator->errors()->toArray()['file']
-                    ];
-                    continue;
-                }
-
-                // Проверяем, не слишком ли большое изображение
-                $filesize = $file->getSize();
-                if (config('settings.max_file_size') < $filesize) {
-                    $errored[] = [
-                        'name' => $filename,
-                        'message' => 'File is too large'
-                    ];
-                    continue;
-                }
-
-                // Сохраняем изображение
-                $extension    = $file->getClientOriginalExtension();
-                $time         = microtime(true);
-                $fileNameSave = "$time.$extension";
-
-                $file->storeAs($pathToSave, $fileNameSave, ['disk' => 'public']);
-
-                $result = Image::create([
-                    'path' => "$pathToSave/$fileNameSave",
-                    'upload_date' => now()
-                ]);
-
-                // TODO: убрать дублирование картинок
-                NewsImage::create([
-                    'news_id' => $news->id,
-                    'image_id' => $result->id
-                ]);
-
-                $successful[] = [
-                    'url' => asset($result->path),
-                    'upload_date' => $result->upload_date
-                ];
-            } catch (Exception) {
-                $errored[] = [
-                    'name' => $filename,
-                    'message' => "Something went wrong"
-                ];
-            }
-        }
+        $uploadStatuses = Image::savePhotos($news);
 
         return response()->json([
             'code' => 201,
             'data' => NewsMinResource::make($news),
-            'uploadStatus' => [
-                'errored' => $errored,
-                'successful' => $successful
-            ]
+            'uploadStatuses' => $uploadStatuses
         ], 201);
     }
 
@@ -133,9 +68,13 @@ class NewsController extends Controller
             }
         }
 
+        $uploadStatuses = Image::savePhotos($news, 'newPictures');
+        Image::deletePictures($news, $request->deletedPictures ?? []);
+
         return response()->json([
             'code' => 200,
-            'data' => NewsMinResource::make($news)
+            'data' => NewsFullResource::make($news),
+            'uploadStatuses' => $uploadStatuses
         ]);
     }
 
