@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Routes;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BanMinResource;
+use App\Http\Resources\Ban\BanMinResource;
 use App\Http\Resources\Resource\BanResource;
 use App\Models\User;
 use App\Models\User\Ban;

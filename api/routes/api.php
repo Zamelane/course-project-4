@@ -180,12 +180,10 @@ Route
 /*
  * [Изображения]
  * /news/{news}/images         | get
- * /news/{news}/images/{image} | get
  */
 Route
 ::prefix('news/{news}/images')
 ->controller(ImageController::class)
 ->group(function () {
-    Route::get('',        'showAll');
-    Route::get('{image}', 'show'   );
+    Route::get('',        'index');
 });

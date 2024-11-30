@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Routes;
 
+use Exception;
+use Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\News\NewsCreateRequest;
 use App\Http\Requests\News\NewsUpdateRequest;
@@ -36,6 +38,33 @@ class NewsController extends Controller
                     'news_id' => $news->id,
                     'tag_id' => $tag
                 ]);
+
+        $pictures = $request->pictures;
+        $pathToSave = "images/news/$news->id/";
+
+        // Успешные и не успешные загрузки
+        $errored    = [];
+        $successful = [];
+
+        foreach ($pictures as $key => $pictureInRequest)
+        {
+            $file = $request->file("pictures.$key.file");
+            $filename = $file->getClientOriginalName();
+            try {
+                $validator = Validator::make($pictureInRequest, [
+                    'file' => 'mimes:' .  implode(',', config('settings.allowed_upload_mimes'))
+                ]);
+                if ($validator->fails()) {
+                    $errored[] = [
+                      'name' => $filename,
+                      'message' => 'Validation failed',
+
+                    ];
+                }
+            } catch (Exception) {
+
+            }
+        }
 
         return response()->json([
             'code' => 201,
