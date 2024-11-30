@@ -41,9 +41,9 @@ Route
     Route::get('me', 'me');
     // Работа с конкретным пользователем
     Route::group(['prefix' => '{user}'], function () {
-        Route::get   ('', 'show'   );
-        Route::put   ('', 'update' );
-        Route::delete('', 'destroy');
+        Route::get   ('',       'show'   );
+        Route::post  ('update', 'update' );
+        Route::delete('',       'destroy');
     });
 });
 
@@ -120,9 +120,9 @@ Route
     Route::get ('', 'index');
     Route::post('', 'store');
     Route::group(['prefix' => '{news}'], function () {
-        Route::get   ('', 'show'   );
+        Route::get   ('',       'show'   );
         Route::post  ('update', 'update' );
-        Route::delete('', 'destroy');
+        Route::delete('',       'destroy');
     });
 });
 

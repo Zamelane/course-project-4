@@ -8,6 +8,7 @@ use App\Http\Requests\User\UserRegistrationRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\FullUserResource;
 use App\Http\Resources\User\MinUserResource;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,14 @@ class UserController extends Controller
     {
         $data = $request->validated();
         $user->update($data);
+
+        if (isset($data['avatar']))
+        {
+            $image = Image::savePhoto('avatar', "images/users/$user->id", 'avatar');
+            if (!isset($image['message']))
+                $user->update(['image_id' => $image->id]);
+        }
+
         return response()->json(
             $request->user()->isAdministrator()
                 ? new FullUserResource($user)

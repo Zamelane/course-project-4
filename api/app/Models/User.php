@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function avatar(): BelongsTo
     {
-        return $this->belongsTo(Image::class);
+        return $this->belongsTo(Image::class, 'image_id');
     }
 
     public function history_views(int $count = 20, int $offset = 0): Collection

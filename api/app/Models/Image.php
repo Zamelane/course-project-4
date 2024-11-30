@@ -107,4 +107,54 @@ class Image extends Model
     {
         NewsImage::where('news_id', '=', $news->id)->whereIn('image_id', $ids)->delete();
     }
+
+    /**
+     * @param $parameter
+     * @param $pathToSave
+     * @return array|\Illuminate\Database\Eloquent\TModel
+     */
+    public static function savePhoto($parameter, $pathToSave, $customName = null)
+    {
+        $file = request()->file("$parameter");
+        $filename = $file->getClientOriginalName();
+        try {
+            // Проверяем, разрешён ли загружаемый тип файла (картинки)
+            $validator = Validator::make(request()->all(), [
+                $parameter => 'mimes:' . implode(',', config('settings.allowed_upload_mimes'))
+            ]);
+            if ($validator->fails()) {
+                return [
+                    'name' => $filename,
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors()->toArray()['file']
+                ];
+            }
+
+            // Проверяем, не слишком ли большое изображение
+            $filesize = $file->getSize();
+            if (config('settings.max_file_size') < $filesize) {
+               return [
+                    'name' => $filename,
+                    'message' => 'File is too large'
+                ];
+            }
+
+            // Сохраняем изображение
+            $extension = $file->getClientOriginalExtension();
+            $time = microtime(true);
+            $fileNameSave = ($customName ?: $time) . ".$extension";
+
+            $file->storeAs($pathToSave, $fileNameSave, ['disk' => 'public']);
+
+            return Image::create([
+                'path' => "$pathToSave/$fileNameSave",
+                'upload_date' => now()
+            ]);
+        } catch (Exception) {
+            return [
+                'name' => $filename,
+                'message' => "Something went wrong"
+            ];
+        }
+    }
 }

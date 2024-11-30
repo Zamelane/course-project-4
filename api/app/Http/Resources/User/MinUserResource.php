@@ -9,12 +9,13 @@ class MinUserResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        $avatar = $this->avatar;
         return [
             'id'        => $this->id,
             'firstName' => $this->firstName,
             'lastName'  => $this->lastName,
             'role'      => $this->role,
-            'avatar'    => 'TODO: не забыть сделать'
+            'avatar'    => $avatar->path ?? ''
         ];
     }
 }

@@ -11,7 +11,8 @@ class UserUpdateRequest extends ApiRequest
         return [
             'firstName' => 'string|min:2|max:45',
             'lastName'  => 'string|min:2|max:45',
-            'password'  => 'string|min:6|max:255'
+            'password'  => 'string|min:6|max:255',
+            'avatar'    => 'image',
         ];
     }
 }
