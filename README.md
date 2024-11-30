@@ -52,6 +52,13 @@ php artisan key:generate
 php artisan migrate --seed
 ```
 Для запуска сервера, можете использовать `php artisan serve`.
+
+## Связывание символической ссылкой общедоступных файлов
+```bat
+php artisan storage:link
+```
+Эта команда создаст символическую ссылку на `storage/app/public` в `public/storage`.
+
 ## Обновление
 
 ```bat
