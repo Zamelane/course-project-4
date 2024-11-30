@@ -133,7 +133,7 @@ class Image extends Model
             // Проверяем, не слишком ли большое изображение
             $filesize = $file->getSize();
             if (config('settings.max_file_size') < $filesize) {
-               return [
+                return [
                     'name' => $filename,
                     'message' => 'File is too large'
                 ];
@@ -146,10 +146,14 @@ class Image extends Model
 
             $file->storeAs($pathToSave, $fileNameSave, ['disk' => 'public']);
 
-            return Image::create([
-                'path' => "$pathToSave/$fileNameSave",
-                'upload_date' => now()
-            ]);
+            return Image::updateOrCreate(
+                [
+                    'path' => "$pathToSave/$fileNameSave"
+                ],
+                [
+                    'path' => "$pathToSave/$fileNameSave",
+                    'upload_date' => now()
+                ]);
         } catch (Exception) {
             return [
                 'name' => $filename,
