@@ -19,7 +19,7 @@ class ComplaintController extends Controller
     public function index(News $news, Comment $comment): JsonResponse
     {
         // TODO: не забыть сделать ресурсы !!!
-        return response()->json($comment->complaints);
+        return response()->json(ComplaintResource::collection($comment->complaints));
     }
 
     public function store(ComplaintRequest $request, News $news, Comment $comment): JsonResponse
@@ -33,7 +33,7 @@ class ComplaintController extends Controller
             'comment_id' => $comment->id
         ]);
 
-        return response()->json($complaint);
+        return response()->json(ComplaintResource::make($complaint));
     }
 
     public function updateStatus(ComplaintUpdateStatusRequest $request, News $news, Comment $comment, Complaint $complaint): JsonResponse

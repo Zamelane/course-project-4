@@ -59,6 +59,8 @@ class User extends Authenticatable
     public function bans()
     {
         // TODO: доделать
-        return Complaint::join('comments', 'comments.id', '=', 'complaint.comment_id');
+        return Ban::join('complaints', 'bans.complaint_id', '=', 'complaints.id')
+            ->join('comments', 'complaints.comment_id', '=', 'comments.id')
+            ->where('comments.user_id', '=', $this->id)->get();
     }
 }

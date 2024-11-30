@@ -2,14 +2,15 @@
 
 namespace App\Models\User;
 
+use App\Models\Comment\Complaint;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Ban extends Authenticatable
+class Ban extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -19,4 +20,9 @@ class Ban extends Authenticatable
     ];
 
     protected $hidden = [];
+
+    public function complaint(): BelongsTo
+    {
+        return $this->belongsTo(Complaint::class);
+    }
 }
