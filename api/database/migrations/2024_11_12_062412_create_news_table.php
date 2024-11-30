@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->string('title', 125);
             $table->text('content');
-            $table->date('create_date');
+            $table->date('create_date')->default(now());
             $table->date('update_date')->nullable();
             $table->timestamps();
         });

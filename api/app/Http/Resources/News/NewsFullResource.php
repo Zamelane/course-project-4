@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\News;
 
+use App\Http\Resources\Image\ImageResource;
 use App\Http\Resources\Reaction\ReactionForTotalResource;
 use App\Http\Resources\Tag\TagResource;
 use App\Http\Resources\User\MinUserResource;
@@ -19,7 +20,7 @@ class NewsFullResource extends JsonResource
             'author' => MinUserResource::make($this->author),
             'title' => $this->title,
             'content' => $this->content,
-            'images' => $this->images, // TODO: сделать коллекцию для нормального вывода
+            'images' => ImageResource::collection($this->images), // TODO: сделать коллекцию для нормального вывода
             'city' => $this->city,
             'tags' => TagResource::collection($this->tags),
             'reactions' => ReactionForTotalResource::collection(

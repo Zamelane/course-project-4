@@ -82,7 +82,7 @@ trait PolicyMapRegister
 
             $method = null;
             foreach ($controllerInfo as $controllerMethod)
-                if ($controllerMethod['name']  === $controllerMethodName)
+                if ($controllerMethod['name'] === $controllerMethodName)
                     $method = $controllerMethod;
 
             if (!$method)
@@ -105,8 +105,7 @@ trait PolicyMapRegister
         $directories = new RecursiveDirectoryIterator(app_path('Models'), \FilesystemIterator::FOLLOW_SYMLINKS);
         $iterator = new RecursiveIteratorIterator($directories);
         foreach ($iterator as $dir)
-            if(!$dir->isDir() && substr($dir->getFileName(), 0, -(strlen($dir->getExtension()) + 1)) === $name)
-            {
+            if (!$dir->isDir() && substr($dir->getFileName(), 0, -(strlen($dir->getExtension()) + 1)) === $name) {
                 $path = $dir->getPath();
                 return 'App\\' . explode('app\\', $path)[1] . "\\{$name}";
             }
@@ -166,15 +165,15 @@ trait PolicyMapRegister
     public function checkControllerContains($controllerMethods, $searchMethodName, $checkContainsName): bool
     {
         // Если содержит, то перебираем методы контроллера
-        foreach ($controllerMethods as $controllerMethod)
-        {
+        foreach ($controllerMethods as $controllerMethod) {
             if ($controllerMethod['name'] != $searchMethodName)
                 continue;
             // Если метод контроллера содержится в карте способностей, то перебираем параметры этого метода
             foreach ($controllerMethod['params'] as $controllerParameter)
                 // Если метод и вправду использует этот класс, то помечаем
                 if (!str_contains($controllerParameter['typeHint'], 'Request')
-                    && str_contains($controllerParameter['typeHint'], $checkContainsName))
+                    && str_contains($controllerParameter['typeHint'], $checkContainsName)
+                    && ($controllerParameter['position'] != 0 || count($controllerMethod['params']) == 1))
                     return true;
         }
         return false;
@@ -197,7 +196,7 @@ trait PolicyMapRegister
                 $params[] = [
                     'name' => $parameter->getName(),
                     'typeHint' => $parameter->getType()?->getName(),
-                    'position' => $parameter->getPosition()
+                    'position' => count($params ?? [])
                 ];
             // Сохраняем в карту методов класса
             $map[] = [
