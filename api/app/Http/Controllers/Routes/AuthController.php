@@ -8,6 +8,7 @@ use App\Http\Requests\User\UserRegistrationRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DateTime;
 
 class AuthController extends Controller
 {
@@ -17,6 +18,18 @@ class AuthController extends Controller
             throw new ApiException('Invalid credentials', 401);
 
         $user = Auth::user();
+
+        $currentDate = (new DateTime())->format('Y-m-d');
+
+        $ban = User\Ban::join('complaints', 'complaints.id', '=', 'bans.complaint_id')
+            ->join('comments', 'comments.id', '=', 'complaints.comment_id')
+            ->where('end_date', '>', $currentDate)
+            ->where('user_id', '=', $user->id)
+            ->first();
+
+        if ($ban)
+            throw new ApiException('Your account is blocked', 403);
+
         $token = $user->createToken('token')->plainTextToken;
 
         return response([
