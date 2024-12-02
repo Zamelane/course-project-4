@@ -127,6 +127,29 @@ Route
 });
 
 /*
+ * [История]
+ * /history | get
+ */
+Route
+::controller(HistoryViewController::class)
+->prefix('history')
+->group(function () {
+    Route::get ('', 'index');
+});
+
+/*
+ * [Избранное]
+ * /favourites | get
+ */
+Route
+::controller(FavouriteController::class)
+->prefix('favourites')
+->group(function () {
+    Route::get ('', 'index');
+    Route::post('', 'store');
+});
+
+/*
  * [Комментарии]
  * /news/{news}/comments           | get, post
  * /news/{news}/comments/{comment} | put, delete

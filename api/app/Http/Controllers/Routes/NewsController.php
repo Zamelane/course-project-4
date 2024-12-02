@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Routes;
 
+use App\Models\HistoryView;
 use App\Models\Image;
 use App\Models\News\NewsImage;
 use Exception;
+use DateTime;
 use Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\News\NewsCreateRequest;
@@ -24,6 +26,19 @@ class NewsController extends Controller
 
     public function show(News $news)
     {
+        $user = auth()->user();
+        if ($user) {
+            $historyData = [
+                'news_id' => $news->id,
+                'user_id' => $user->id,
+                'read_date' => (new DateTime())->format('Y-m-d'),
+            ];
+            HistoryView::firstOrCreate($historyData,
+                [
+                    'read_time' => now()->format('H:i:s')
+                ]);
+        }
+
         return response()->json(NewsFullResource::make($news));
     }
 
@@ -46,8 +61,7 @@ class NewsController extends Controller
         // Привязываем картинки
         $picturesHashes = $request->get('pictures') ?? [];
 
-        foreach ($picturesHashes as $hash)
-        {
+        foreach ($picturesHashes as $hash) {
             $image = Image::where(['hash' => $hash])->first();
             NewsImage::updateOrCreate([
                 'news_id' => $news->id,
@@ -87,10 +101,9 @@ class NewsController extends Controller
 
         // Привязываем картинки
         $picturesHashes = $request->get('pictures') ?? [];
-        $picturesIds    = [];
+        $picturesIds = [];
 
-        foreach ($picturesHashes as $hash)
-        {
+        foreach ($picturesHashes as $hash) {
             $image = Image::where(['hash' => $hash])->first();
             $picturesIds[] = $image->id;
             NewsImage::updateOrCreate([

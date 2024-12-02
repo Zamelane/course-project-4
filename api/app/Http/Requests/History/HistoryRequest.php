@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Image;
+namespace App\Http\Requests\History;
 
 use App\Http\Requests\ApiRequest;
 
-class ImageUploadRequest extends ApiRequest
+class HistoryRequest extends ApiRequest
 {
     public function rules(): array
     {
         return [
-            'image' => 'required|image',
+            'date' => 'date'
         ];
     }
 }
