@@ -179,11 +179,11 @@ Route
 
 /*
  * [Изображения]
- * /news/{news}/images         | get
+ * /images/{image] | get
  */
 Route
-::prefix('news/{news}/images')
+::prefix('images')
 ->controller(ImageController::class)
 ->group(function () {
-    Route::get('',        'index');
+   Route::post('', 'upload');
 });

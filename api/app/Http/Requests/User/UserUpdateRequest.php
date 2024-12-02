@@ -12,7 +12,7 @@ class UserUpdateRequest extends ApiRequest
             'firstName' => 'string|min:2|max:45',
             'lastName'  => 'string|min:2|max:45',
             'password'  => 'string|min:6|max:255',
-            'avatar'    => 'image',
+            'avatar'    => 'string|exists:images,hash',
         ];
     }
 }
