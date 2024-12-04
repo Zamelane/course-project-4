@@ -65,6 +65,11 @@
 
 	<ItemGroup>
 	  <Folder Include="Src\Models\" />
+	  <Folder Include="Src\Navigators\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\RequestsLibrary\RequestsLibrary.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
