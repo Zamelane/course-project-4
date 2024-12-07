@@ -3,13 +3,23 @@
     x:Class="ClientApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ClientApp.Src.Views"
+    xmlns:views="clr-namespace:ClientApp.Src.Views"
+    xmlns:local="clr-namespace:ClientApp.Src.ViewModels"
     Shell.FlyoutBehavior="Disabled"
     Title="ClientApp">
+    <Shell.BindingContext>
+        <local:TabsViewModel/>
+    </Shell.BindingContext>
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:HomePage}"
-        Route="MainPage" />
-
+    <TabBar>
+        <Tab Title="Главная" Icon="news.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" Route="Main"/>
+        </Tab>
+        <Tab Title="Избранное" Icon="bookmark.svg" IsEnabled="{Binding BookmarkIsEnabled}">
+            <ShellContent ContentTemplate="{DataTemplate views:FavouritesPage}" Route="Favourites"/>
+        </Tab>
+        <Tab Title="Настройки" Icon="settings.svg" IsEnabled="{Binding SettingsIsEnabled}">
+            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="Settings"/>
+        </Tab>
+    </TabBar>
 </Shell>

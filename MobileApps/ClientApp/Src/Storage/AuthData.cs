@@ -48,5 +48,11 @@ namespace ClientApp.Src.Storage
                     Preferences.Set("user", JsonSerializer.Serialize(value));
             }
         }
+
+        public static void SaveAuthData(string token, User user)
+        {
+            Token = token;
+            User = user;
+        }
     }
 }
