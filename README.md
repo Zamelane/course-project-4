@@ -25,7 +25,7 @@ cd menews.ru/api
 composer update & composer i
 copy .env.example .env
 php artisan key:generate
-php artisan migrate --seed
+php artisan migrate:fresh --seed
 ```
 После можно перезапускать OSPanel для видимости нового домена.
 
@@ -49,7 +49,7 @@ cd course-project-4/api
 composer update & composer i
 copy .env.example .env
 php artisan key:generate
-php artisan migrate --seed
+php artisan migrate:fresh --seed
 ```
 Для запуска сервера, можете использовать `php artisan serve`.
 

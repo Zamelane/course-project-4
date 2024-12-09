@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Routes;
 
+use App\Models\HistoryView;
 use App\Models\Image;
 use App\Models\News\NewsImage;
 use Exception;
+use DateTime;
 use Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\News\NewsCreateRequest;
@@ -24,16 +26,31 @@ class NewsController extends Controller
 
     public function show(News $news)
     {
+        $user = auth()->user();
+        if ($user) {
+            $historyData = [
+                'news_id' => $news->id,
+                'user_id' => $user->id,
+                'read_date' => (new DateTime())->format('Y-m-d'),
+            ];
+            HistoryView::firstOrCreate($historyData,
+                [
+                    'read_time' => now()->format('H:i:s')
+                ]);
+        }
+
         return response()->json(NewsFullResource::make($news));
     }
 
     public function store(NewsCreateRequest $request)
     {
+        // Создаём новость
         $news = News::create([
             ...$request->validated(),
             'user_id' => auth()->id()
         ]);
 
+        // Привязываем теги
         if ($tags = $request->validated('tags'))
             foreach ($tags as $tag)
                 NewsTag::create([
@@ -41,21 +58,35 @@ class NewsController extends Controller
                     'tag_id' => $tag
                 ]);
 
-        $uploadStatuses = Image::savePhotos($news);
+        // Привязываем картинки
+        $picturesHashes = $request->get('pictures') ?? [];
+
+        foreach ($picturesHashes as $hash) {
+            $image = Image::where(['hash' => $hash])->first();
+            NewsImage::updateOrCreate([
+                'news_id' => $news->id,
+                'image_id' => $image->id
+            ]);
+        }
 
         return response()->json([
             'code' => 201,
-            'data' => NewsMinResource::make($news),
-            'uploadStatuses' => $uploadStatuses
+            'data' => NewsMinResource::make($news)
         ], 201);
     }
 
     public function update(NewsUpdateRequest $request, News $news)
     {
-        $news->update([
-            'title' => $request->validated('title'),
-            'description' => $request->validated('description')
-        ]);
+        $updateData = [];
+        $validatedData = $request->validated();
+
+        if (isset($validatedData['title']))
+            $updateData['title'] = $validatedData['title'];
+
+        if (isset($validatedData['content']))
+            $updateData['description'] = $validatedData['content'];
+
+        $news->update($updateData);
 
         $tags = $request->validated('tags');
         NewsTag::whereNotIn('tag_id', $tags ?: [])->delete();
@@ -68,13 +99,25 @@ class NewsController extends Controller
             }
         }
 
-        $uploadStatuses = Image::savePhotos($news, 'newPictures');
-        Image::deletePictures($news, $request->deletedPictures ?? []);
+        // Привязываем картинки
+        $picturesHashes = $request->get('pictures') ?? [];
+        $picturesIds = [];
+
+        foreach ($picturesHashes as $hash) {
+            $image = Image::where(['hash' => $hash])->first();
+            $picturesIds[] = $image->id;
+            NewsImage::updateOrCreate([
+                'news_id' => $news->id,
+                'image_id' => $image->id
+            ]);
+        }
+
+        // Удаляем старые картинки
+        Image::deletePictures($news, $picturesIds);
 
         return response()->json([
             'code' => 200,
-            'data' => NewsFullResource::make($news),
-            'uploadStatuses' => $uploadStatuses
+            'data' => NewsFullResource::make($news)
         ]);
     }
 

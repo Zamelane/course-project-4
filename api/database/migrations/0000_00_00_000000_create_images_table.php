@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('path', 125);
+            $table->string('hash', 256);
+            $table->enum('extension', config('settings.allowed_upload_mimes'));
             $table->date('upload_date');
-            $table->timestamps();
         });
     }
 

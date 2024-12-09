@@ -127,6 +127,29 @@ Route
 });
 
 /*
+ * [История]
+ * /history | get
+ */
+Route
+::controller(HistoryViewController::class)
+->prefix('history')
+->group(function () {
+    Route::get ('', 'index');
+});
+
+/*
+ * [Избранное]
+ * /favourites | get
+ */
+Route
+::controller(FavouriteController::class)
+->prefix('favourites')
+->group(function () {
+    Route::get ('', 'index');
+    Route::post('', 'store');
+});
+
+/*
  * [Комментарии]
  * /news/{news}/comments           | get, post
  * /news/{news}/comments/{comment} | put, delete
@@ -179,11 +202,11 @@ Route
 
 /*
  * [Изображения]
- * /news/{news}/images         | get
+ * /images/{image] | get
  */
 Route
-::prefix('news/{news}/images')
+::prefix('images')
 ->controller(ImageController::class)
 ->group(function () {
-    Route::get('',        'index');
+   Route::post('', 'upload');
 });

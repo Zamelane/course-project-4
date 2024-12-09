@@ -15,7 +15,7 @@ class NewsCreateRequest extends ApiRequest
             'tags.*'    => 'integer|exists:tags,id',
             'city'      => 'integer|exists:cities,id',
             'pictures'  => 'array|min:1',
-            'pictures.*'=> 'required|file'
+            'pictures.*'=> 'required|string|exists:images,hash'
         ];
     }
 }

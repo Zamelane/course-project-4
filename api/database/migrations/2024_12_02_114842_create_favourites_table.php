@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('history_views', function (Blueprint $table) {
+        Schema::create('favourites', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('news_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->date('read_date');
-            $table->time('read_time');
-            $table->primary(['user_id', 'news_id', 'read_date']);
+            $table->dateTime('added_date');
+            $table->primary(['user_id', 'news_id']);
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('history_views');
+        Schema::dropIfExists('favourites');
     }
 };

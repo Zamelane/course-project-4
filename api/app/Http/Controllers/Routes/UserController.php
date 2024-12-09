@@ -30,14 +30,14 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, User $user)
     {
         $data = $request->validated();
-        $user->update($data);
 
         if (isset($data['avatar']))
         {
-            $image = Image::savePhoto('avatar', "images/users/$user->id", 'avatar');
-            if (!isset($image['message']))
-                $user->update(['image_id' => $image->id]);
+            $image = Image::where(['hash' => $data['avatar']])->first();
+            $data['image_id'] = $image->id;
         }
+
+        $user->update($data);
 
         return response()->json(
             $request->user()->isAdministrator()
