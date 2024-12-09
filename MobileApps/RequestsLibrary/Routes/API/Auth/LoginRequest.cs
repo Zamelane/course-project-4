@@ -6,21 +6,19 @@ using System.Diagnostics;
 
 namespace RequestsLibrary.Routes.API.Auth
 {
-    public class LoginRequest : DefaultRoute
+    public static class LoginRequest
     {
-        public LoginRequest(string login, string password)
-            : base("login", HttpMethod.Post, null, null)
+        public static async Task<(HttpResponseMessage, LoginResponse?, RequestException?)> RequestToServer(
+            string login,
+            string password
+        )
         {
-            Body = new Content()
+            var Body = new Content()
             {
                 Value = new LoginRequestData(login, password),
                 ValueType = Content.ContentType.JSON
             };
-        }
-
-        public async Task<(HttpResponseMessage, LoginResponse?, RequestException?)> RequestToServer()
-        {
-            return await CustomRequestToServer<LoginResponse>();
+            return await DefaultRoute.CustomRequestToServer<LoginResponse>(Path: "login", Method: HttpMethod.Post, Body: Body);
         }
     }
 }

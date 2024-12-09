@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "SE9HjBCWRDQ=",
+  "dgSpecHash": "+gQ3d/kClSc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\malinin-em\\Documents\\repos\\course-project-4\\MobileApps\\RequestsLibrary\\RequestsLibrary.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\malinin-em\\source\\repos\\course-project-4\\MobileApps\\RequestsLibrary\\RequestsLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\malinin-em\\.nuget\\packages\\dubacik22.observabledictionary\\1.0.4\\dubacik22.observabledictionary.1.0.4.nupkg.sha512"
+  ],
   "logs": []
 }

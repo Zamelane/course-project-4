@@ -7,11 +7,7 @@
     <ContentPage.BindingContext>
         <viewModels:HomeViewModel/>
     </ContentPage.BindingContext>
-    
-    <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="key.svg" Command="{Binding GoToLoginPageCommand}"/>
-    </ContentPage.ToolbarItems>
-    
+
     <VerticalStackLayout>
         <Label 
             Text="Welcome to .NET MAUI!"

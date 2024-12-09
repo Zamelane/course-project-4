@@ -1,19 +1,11 @@
-﻿using RequestsLibrary.Exceptions;
-using RequestsLibrary.Responses;
-using RequestsLibrary.Types;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using RequestsLibrary.Types;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace RequestsLibrary
 {
     public static class Fetcher
     {
-        public static Uri API_URL = new("http://localhost:8000/api/");
+        public static Uri API_URL = new("http://127.0.0.1:8000/api/");
 
         private readonly static HttpClient _httpClient = new() { BaseAddress = API_URL };
 
@@ -43,10 +35,11 @@ namespace RequestsLibrary
             try
             {
                 responseContent = await response.Content.ReadAsStringAsync();
+                var exception = default(E);
 
                 if (!response.IsSuccessStatusCode)
-                    return (response, default(T), JsonSerializer.Deserialize<E>(responseContent));
-                return (response, JsonSerializer.Deserialize<T>(responseContent), default(E));
+                    exception = JsonSerializer.Deserialize<E>(responseContent);
+                return (response, JsonSerializer.Deserialize<T>(responseContent), exception);
             }
             catch (Exception) when (!response.IsSuccessStatusCode)
             {

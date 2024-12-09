@@ -59,11 +59,13 @@
 	  <None Remove="Resources\Images\bookmark.svg" />
 	  <None Remove="Resources\Images\key.svg" />
 	  <None Remove="Resources\Images\news.svg" />
+	  <None Remove="Resources\Images\search.svg" />
 	  <None Remove="Resources\Images\settings.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Dubacik22.ObservableDictionary" Version="1.0.4" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
