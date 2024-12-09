@@ -1,12 +1,87 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ClientApp.Src.Views.Auth.SignupPage"
-             Title="SignupPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:viewModals="clr-namespace:ClientApp.Src.ViewModels.Auth"
+             xmlns:utils="clr-namespace:ClientApp.Src.Utils"
+             x:Class="ClientApp.Src.Views.Auth.SignupPage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <utils:ErrorConverter x:Key="ErrorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.BindingContext>
+        <viewModals:SignupViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <StackLayout Spacing="10" Padding="10" VerticalOptions="Center" MaximumWidthRequest="400">
+            <Label Text="Регистрация" HorizontalTextAlignment="Center" FontSize="24"/>
+
+            <Label Text="{Binding Error}" TextColor="Red" HorizontalTextAlignment="Center"/>
+
+            <Entry Text="{Binding FirstName}"
+                   Placeholder="Введите своё имя"
+                   Completed="FocusToLastName"/>
+            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
+                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=firstName}"/>
+
+            <Entry Text="{Binding LastName}"
+                   Placeholder="Введите свою фамилию"
+                   Completed="FocusToBirthDay"
+                   x:Name="LastName"/>
+            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
+                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=lastName}"/>
+
+            <DatePicker Date="{Binding BirthDay}"
+                        x:Name="BirthDay"/>
+            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
+                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=birthDay}"/>
+            
+            <Entry Text="{Binding Login}"
+                   Placeholder="Придумайте логин"
+                   Completed="FocusToEmail"/>
+            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
+                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=login}"/>
+            
+            <Entry Text="{Binding Email}"
+                   Placeholder="Введите свой email"
+                   Completed="FocusToPassword"
+                   x:Name="Email"/>
+            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
+                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=email}"/>
+            
+            <Entry Text="{Binding Password}"
+                   Placeholder="Придумайте пароль"
+                   IsPassword="True"
+                   Completed="FocusToPasswordConfirm"
+                   x:Name="Password"/>
+            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
+                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=password}"/>
+            
+            <Entry Text="{Binding PasswordConfirm}"
+                   Placeholder="Повторите пароль"
+                   IsPassword="True"
+                   x:Name="PasswordConfirm"/>
+            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
+                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=passwordConfirm}"/>
+
+            <Button Text="Зарегистрироваться"
+                    Command="{Binding TrySignUpCommand}"/>
+
+            <Label Text="У вас уже есть учётная запись?"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,10,0,0"/>
+            <Label Text="Авторизироваться"
+                   TextColor="Blue"
+                   TextDecorations="Underline"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,-5,0,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToLoginCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

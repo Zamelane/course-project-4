@@ -35,6 +35,8 @@ public static class ExceptionsFormatter
         {
             case "Invalid credentials":
                 return "Неправильный логин и/или пароль";
+            case "Validation failed":
+                return "Ошибка валидации полей";
             default:
                 return body.Message;
         }

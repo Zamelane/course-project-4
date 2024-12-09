@@ -14,6 +14,7 @@
 
             <Entry Text="{Binding Login}" Placeholder="Введите логин" Completed="FocusToPassword"/>
             <Entry Text="{Binding Password}" Placeholder="Введите пароль" IsPassword="True" x:Name="PasswordEntry" Completed="GoToSignupCommand"/>
+            
             <Button Text="Войти" Command="{Binding TryLoginCommand}"/>
 
             <Label Text="Нет учётной записи?" HorizontalTextAlignment="Center" Margin="0,10,0,0"/>

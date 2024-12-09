@@ -20,7 +20,7 @@ public partial class LoginViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanLogin))]
     private async Task TryLogin()
     {
-        (var response, var body, var exception) = await new LoginRequest(Login, Password).RequestToServer();
+        (var response, var body, var exception) = await LoginRequest.RequestToServer(Login, Password);
 
         if (body is null && exception is null)
             exception = new RequestsLibrary.Exceptions.RequestException("Сервер не вернул данные: " + response.StatusCode);
@@ -37,7 +37,9 @@ public partial class LoginViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task GoToSignup() => await Shell.Current.GoToAsync("//Signup");
+    private async Task GoToSignup() => await Shell.Current.Navigation.PushModalAsync(new Src.Views.Auth.SignupPage());
 
-    private bool CanLogin() => true;
+    private bool CanLogin() =>
+        Login != ""
+        && Password != "";
 }

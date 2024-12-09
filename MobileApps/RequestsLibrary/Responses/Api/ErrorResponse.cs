@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using ObservableDictionary;
+using System.Text.Json.Serialization;
 
 namespace RequestsLibrary.Responses.Api
 {
@@ -6,6 +7,6 @@ namespace RequestsLibrary.Responses.Api
     {
         [JsonPropertyName("code")] public int? Code { get; set; }
         [JsonPropertyName("message")] public string? Message { get; set; }
-        [JsonPropertyName("errors")] public Dictionary<string, List<string>>? Errors { get; set; }
+        [JsonPropertyName("errors")] public ObservableStringDictionary<List<string>>? Errors { get; set; }
     }
 }

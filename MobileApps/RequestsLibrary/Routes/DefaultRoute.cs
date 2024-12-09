@@ -10,22 +10,14 @@ using System.Threading.Tasks;
 
 namespace RequestsLibrary.Routes
 {
-    public class DefaultRoute
+    public static class DefaultRoute
     {
-        public string Path;
-        public Content? Body;
-        public HttpMethod Method;
-        public Headers[]? Headers;
-
-        public DefaultRoute(string path, HttpMethod method, Content? body = null, Headers[]? headers = null)
-        {
-            Path = path;
-            Body = body;
-            Method = method;
-            Headers = headers;
-        }
-
-        protected async Task<(HttpResponseMessage, T?, RequestException?)> CustomRequestToServer<T>()
+        public static async Task<(HttpResponseMessage, T?, RequestException?)> CustomRequestToServer<T>(
+            string Path,
+            HttpMethod Method,
+            Content? Body = null,
+            Headers[]? Headers = null
+        )
         {
             try
             {

@@ -21,5 +21,8 @@
         <Tab Title="Настройки" Icon="settings.svg" IsEnabled="{Binding SettingsIsEnabled}">
             <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="Settings"/>
         </Tab>
+        <Tab Title="Авторизация" Icon="key.svg" IsVisible="{Binding LoginIsVisible}">
+            <ShellContent ContentTemplate="{DataTemplate views:Auth.LoginPage}"/>
+        </Tab>
     </TabBar>
 </Shell>
