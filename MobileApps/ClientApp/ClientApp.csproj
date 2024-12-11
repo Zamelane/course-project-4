@@ -56,8 +56,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Roboto-Medium.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
+	  <None Remove="Resources\Images\avatar.png" />
 	  <None Remove="Resources\Images\bookmark.svg" />
 	  <None Remove="Resources\Images\key.svg" />
+	  <None Remove="Resources\Images\more.svg" />
 	  <None Remove="Resources\Images\news.svg" />
 	  <None Remove="Resources\Images\search.svg" />
 	  <None Remove="Resources\Images\settings.svg" />
@@ -72,7 +76,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Src\Models\" />
 	  <Folder Include="Src\Navigators\" />
 	</ItemGroup>
 

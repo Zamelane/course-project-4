@@ -15,10 +15,10 @@
         <Tab Title="Главная" Icon="news.svg">
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" Route="Main"/>
         </Tab>
-        <Tab Title="Избранное" Icon="bookmark.svg" IsEnabled="{Binding BookmarkIsEnabled}">
+        <Tab Title="Избранное" Icon="bookmark.svg" IsVisible="{Binding BookmarkIsEnabled}">
             <ShellContent ContentTemplate="{DataTemplate views:FavouritesPage}" Route="Favourites"/>
         </Tab>
-        <Tab Title="Настройки" Icon="settings.svg" IsEnabled="{Binding SettingsIsEnabled}">
+        <Tab Title="Настройки" Icon="settings.svg" IsVisible="{Binding SettingsIsEnabled}">
             <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="Settings"/>
         </Tab>
         <Tab Title="Авторизация" Icon="key.svg" IsVisible="{Binding LoginIsVisible}">
