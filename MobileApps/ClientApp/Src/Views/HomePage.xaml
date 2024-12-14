@@ -7,199 +7,105 @@
         <viewModels:HomeViewModel/>
     </ContentPage.BindingContext>
 
-    <ScrollView Padding="0,10,0,10" Scrolled="">
-        <StackLayout Spacing="32">
-            <StackLayout Spacing="24">
-                <!--ШАПКА-->
-                <HorizontalStackLayout Spacing="6" Padding="10,0,10,0">
-                    <Frame WidthRequest="50"
-                           HeightRequest="50"
-                           Padding="-1"
-                           CornerRadius="7"
-                           BorderColor="Transparent">
-                        <Image Source="avatar"
-                               Aspect="AspectFill"/>
-                    </Frame>
-                    <StackLayout Spacing="6">
-                        <Label Text="Здравствуйте, Евгений!"
-                               TextColor="#1A1A1A"
-                               FontSize="20"
-                               FontAttributes="Bold"
-                               FontFamily="RobotoMedium"/>
-                        <Label Text="Откройте для себя мир новостей"
-                               FontSize="16"
-                               FontFamily="RobotoRegular"
-                               TextColor="#999999"
-                               Grid.Row="1"/>
-                    </StackLayout>
-                </HorizontalStackLayout>
-                
-                <!--ПОПУЛЯРНЫЕ-->
-                <Grid ColumnDefinitions="auto,*,auto" Padding="15,0,15,0">
-                    <Label Text="Топ новостей"
-                           VerticalTextAlignment="End"
-                           TextColor="#1A1A1A"
-                           FontSize="20"
-                           FontFamily="RobotoMedium"/>
-                    <Label Text="Показать ещё"
-                           VerticalTextAlignment="End"
-                           FontSize="16"
-                           FontFamily="RobotoRegular"
-                           TextColor="#999999"
-                           Grid.Column="2"/>
+    <Grid RowDefinitions="auto,*" RowSpacing="24">
+        <!--Верхняя шапочка с профилем и поиском-->
+        <Grid ColumnDefinitions="auto, *" ColumnSpacing="25" Margin="20,20,20,0">
+            <!--Аватарка пользователя-->
+            <Frame CornerRadius="100" BorderColor="Transparent" Padding="-1">
+                <Image Source="avatar.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"/>
+            </Frame>
+            <!--Строка поиска-->
+            <Frame BorderColor="#DADDE5" Padding="16,12" Grid.Column="1" CornerRadius="0">
+                <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
+                    <Image Source="search.png" WidthRequest="22" HeightRequest="22"/>
+                    <Label Text="Search..." FontSize="16" FontFamily="Nunito" Grid.Column="1"/>
                 </Grid>
-                <CarouselView ItemsSource="{Binding Newses}" Margin="0,-8,0,0">
-                    <CarouselView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame CornerRadius="10"
-                                   BorderColor="Transparent"
-                                   BackgroundColor="#F3F5F5"
-                                   HeightRequest="300"
-                                   Padding="8"
-                                   Margin="15,0,15,0">
-                                <StackLayout Spacing="12">
-                                    <Grid ColumnDefinitions="auto,*"
-                                          RowDefinitions="auto, 105">
-                                        <!--КАРТИНКА-->
-                                        <Frame CornerRadius="10"
-                                               Grid.ColumnSpan="2"
-                                               Grid.RowSpan="2"
-                                               Padding="-1"
-                                               HeightRequest="161"
-                                               BorderColor="Transparent">
-                                            <Image Source="{Binding ImgUrl}" Aspect="AspectFill"/>
-                                        </Frame>
-                                        <!--КАТЕГОРИЯ-->
-                                        <Frame Padding="7" Margin="10" CornerRadius="7" BackgroundColor="#2ABAFF" BorderColor="Transparent">
-                                            <Label Text="{Binding Category}"
-                                                   FontFamily="RobotoRegular"
-                                                   TextColor="White"/>
-                                        </Frame>
-                                    </Grid>
-                                    <!--НАЗВАНИЕ НОВОСТИ-->
-                                    <Label Text="{Binding Title}"
-                                           TextColor="#1A1A1A"
-                                           FontSize="18"
-                                           FontFamily="RobotoMedium"
-                                           Grid.ColumnSpan="2"
-                                           Grid.Row="2"/>
-                                    <!--АВТОР (издание)-->
-                                    <Grid ColumnDefinitions="auto, *, auto"
-                                          Grid.ColumnSpan="2"
-                                          Grid.Row="3">
-                                        <Frame CornerRadius="5"
-                                               BorderColor="Transparent"
-                                               Padding="-1"
-                                               WidthRequest="30"
-                                               HeightRequest="30"
-                                               Margin="0,0,8,0">
-                                            <Image Source="{Binding CompanyImgUrl}"
-                                                   Aspect="AspectFill"/>
-                                        </Frame>
-                                        <Label Text="{Binding CompanyName}"
-                                               FontSize="16"
-                                               FontFamily="RobotoRegular"
-                                               TextColor="#999999"
-                                               VerticalOptions="Center"
-                                               Grid.Column="1"/>
-                                        <Label Text="{Binding Date}"
-                                               FontSize="16"
-                                               FontFamily="RobotoRegular"
-                                               TextColor="#999999"
-                                               VerticalOptions="Center"
-                                               Grid.Column="2"/>
-                                    </Grid>
+            </Frame>
+        </Grid>
+        <!--Содержимое страницы-->
+        <ScrollView Grid.Row="1">
+            <StackLayout>
+                <!--Карточка с топ-новостью-->
+                <Grid RowDefinitions="250,auto">
+                    <Image Source="news_1.png" Aspect="AspectFill"/>
+                    <!--Содержимое карточки-->
+                    <VerticalStackLayout Margin="20" Spacing="20" Grid.Row="1">
+                        <!--Заголовок и описание новости-->
+                        <VerticalStackLayout Spacing="6">
+                            <Label LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="20" TextColor="#191F33" FontFamily="Nunito" Text="Maecenas mattis hendrerit enim ac vestibulu"/>
+                            <Label FontSize="14" TextColor="#767E94" FontFamily="Nunito" Text="Phasellus interdum neque nunc, non tempor dui auctor eu. Mauris tincidunt tincidunt odio, eu elementum tellus. Curabitur blandit nisl sit amet mauris finibus."/>
+                        </VerticalStackLayout>
+                        <!--Социальная информация-->
+                        <Grid ColumnDefinitions="auto,auto,*,auto" ColumnSpacing="16">
+                            <HorizontalStackLayout Spacing="6">
+                                <Image Source="eye.png" WidthRequest="20" HeightRequest="20"/>
+                                <Label Text="25.9k" FontFamily="Nunito" FontSize="14" TextColor="#464D61"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="6" Grid.Column="1">
+                                <Image Source="chat.png" WidthRequest="20" HeightRequest="20"/>
+                                <Label Text="657 Comments" FontFamily="Nunito" FontSize="14" TextColor="#464D61"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="19" Grid.Column="3">
+                                <Image Source="share_network.png" WidthRequest="20" HeightRequest="20"/>
+                                <Image Source="bookmark.png" WidthRequest="20" HeightRequest="20"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Grid>
+                
+                <Label BackgroundColor="#DADDE5" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
+
+                <!--Разделы содержимого-->
+                <StackLayout Spacing="32" Padding="0,32">
+                    <!--Категории-->
+                    <Grid RowDefinitions="auto,auto" RowSpacing="10">
+                        <Grid ColumnDefinitions="auto,*,auto" Padding="20,0">
+                            <Label Text="TOP CATEGORY" FontFamily="Nunito" FontAttributes="Bold" FontSize="16" TextColor="#191F33"/>
+                            <HorizontalStackLayout Grid.Column="2" Spacing="8">
+                                <Label Text="View all" FontFamily="Nunito" TextColor="#0864ED"/>
+                                <Image Source="arrow_right.png" WidthRequest="16" HeightRequest="16"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                        <ScrollView Grid.Row="1" Orientation="Horizontal">
+                            <HorizontalStackLayout Spacing="12" Padding="20,0">
+
+                                <Frame CornerRadius="4" BorderColor="Transparent" Padding="16" WidthRequest="179" BackgroundColor="#E4F9E0">
+                                    <VerticalStackLayout Spacing="16">
+                                        <Image Source="handshake.png" HorizontalOptions="Start" WidthRequest="24" HeightRequest="24"/>
+                                        <Label Text="Business" FontSize="14" FontFamily="Nunito"/>
+                                    </VerticalStackLayout>
+                                </Frame>
+                                <Frame CornerRadius="4" BorderColor="Transparent" Padding="16" WidthRequest="179" BackgroundColor="#FFE5E5">
+                                    <VerticalStackLayout Spacing="16">
+                                        <Image Source="coffee.png" HorizontalOptions="Start" WidthRequest="24" HeightRequest="24"/>
+                                        <Label Text="Officy Productivity" FontSize="14" FontFamily="Nunito"/>
+                                    </VerticalStackLayout>
+                                </Frame>
+                                <Frame CornerRadius="4" BorderColor="Transparent" Padding="16" WidthRequest="179" BackgroundColor="#E6F0FD">
+                                    <VerticalStackLayout Spacing="16">
+                                        <Image Source="buildings.png" HorizontalOptions="Start" WidthRequest="24" HeightRequest="24"/>
+                                        <Label Text="IT and Software" FontSize="14" FontFamily="Nunito"/>
+                                    </VerticalStackLayout>
+                                </Frame>
+
+                            </HorizontalStackLayout>
+                        </ScrollView>
+                    </Grid>
+                    <!--РЕКОМЕНДАЦИИ-->
+                    <StackLayout Padding="20,0" Spacing="18">
+                        <Label Text="MOST READ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito" Margin="0,0,0,16"/>
+                        <!--Большая карторчка для первой рекомендации-->
+                        <Frame BorderColor="#E9EAF0" CornerRadius="0" Padding="0">
+                            <Grid RowDefinitions="200,auto" RowSpacing="16">
+                                <Image Source="news_1.png" Aspect="AspectFill"/>
+                                <StackLayout>
+                                    
                                 </StackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
-
-            <!--РЕКОМЕНДАЦИИ-->
-            <StackLayout Spacing="8"
-                         Margin="15,0,15,0">
-                <Label Text="Рекомендации"
-                       VerticalTextAlignment="End"
-                       TextColor="#1A1A1A"
-                       FontSize="20"
-                       FontFamily="RobotoMedium"/>
-                <CollectionView ItemsSource="{Binding Newses}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame BorderColor="Transparent"
-                                   BackgroundColor="#F3F5F5"
-                                   CornerRadius="10"
-                                   Padding="16,12,16,12"
-                                   Margin="0,0,0,10">
-                                <StackLayout Spacing="16">
-                                    <Grid ColumnDefinitions="auto, auto, *, auto, auto"
-                                          Grid.ColumnSpan="2"
-                                          Grid.Row="3">
-                                        <Frame CornerRadius="5"
-                                               BorderColor="Transparent"
-                                               Padding="-1"
-                                               WidthRequest="46"
-                                               HeightRequest="46"
-                                               Margin="0,0,8,0">
-                                            <Image Source="{Binding CompanyImgUrl}"
-                                                   Aspect="AspectFill"/>
-                                        </Frame>
-
-                                        <StackLayout Grid.Column="1">
-                                            <Label Text="BBC News"
-                                                   TextColor="#999999"
-                                                   FontSize="18"
-                                                   FontFamily="RobotoRegular"/>
-                                            <Label Text="11 июля, 2024"
-                                                   FontSize="16"
-                                                   FontFamily="RobotoRegular"
-                                                   TextColor="#999999"
-                                                   Grid.Row="1"/>
-                                        </StackLayout>
-
-                                        <Button Text="Follow"
-                                                TextColor="#121314"
-                                                BackgroundColor="#E6E9EC"
-                                                Grid.Column="3"/>
-
-                                        <Image Margin="8,0,-8,0"
-                                               Source="more.svg"
-                                               Grid.Column="4"/>
-                                    </Grid>
-                                    <StackLayout Spacing="8">
-                                        <Label Text="{Binding Title}"
-                                               TextColor="#1A1A1A"
-                                               FontSize="20"
-                                               FontFamily="RobotoMedium"
-                                               Grid.ColumnSpan="2"
-                                               Grid.Row="2"/>
-                                        <!--КАТЕГОРИЯ-->
-                                        <Grid ColumnDefinitions="auto, *">
-                                            <Frame Padding="7"
-                                                   CornerRadius="7"
-                                                   BackgroundColor="Transparent"
-                                                   BorderColor="#2ABAFF">
-                                                <Label Text="{Binding Category}"
-                                                       FontFamily="RobotoRegular"
-                                                       TextColor="#2ABAFF"/>
-                                            </Frame>
-                                        </Grid>
-                                        <Frame CornerRadius="10"
-                                               Grid.ColumnSpan="2"
-                                               Grid.RowSpan="2"
-                                               Padding="-1"
-                                               HeightRequest="161"
-                                               BorderColor="Transparent">
-                                            <Image Source="{Binding ImgUrl}" Aspect="AspectFill"/>
-                                        </Frame>
-                                    </StackLayout>
-                                </StackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-        </StackLayout>
-    </ScrollView>
+        </ScrollView>
+    </Grid>
 </ContentPage>

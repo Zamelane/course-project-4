@@ -15,6 +15,8 @@ namespace ClientApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Roboto-Medium.ttf"    , "RobotoMedium"    );
                     fonts.AddFont("Roboto-Regular.ttf"   , "RobotoRegular"   );
+                    fonts.AddFont("Nunito.ttf"           , "Nunito"          );
+                    fonts.AddFont("Nunito-Italic.ttf"    , "Nunito-Italic"   );
                 });
 
 #if DEBUG

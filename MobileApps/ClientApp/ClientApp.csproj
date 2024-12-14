@@ -56,15 +56,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Nunito-Italic.ttf" />
+	  <None Remove="Resources\Fonts\Nunito.ttf" />
 	  <None Remove="Resources\Fonts\Roboto-Medium.ttf" />
 	  <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
+	  <None Remove="Resources\Images\arrow_right.svg" />
 	  <None Remove="Resources\Images\avatar.png" />
 	  <None Remove="Resources\Images\bookmark.svg" />
+	  <None Remove="Resources\Images\buildings.svg" />
+	  <None Remove="Resources\Images\chat.svg" />
+	  <None Remove="Resources\Images\coffee.svg" />
+	  <None Remove="Resources\Images\eye.svg" />
+	  <None Remove="Resources\Images\handshake.svg" />
 	  <None Remove="Resources\Images\key.svg" />
 	  <None Remove="Resources\Images\more.svg" />
 	  <None Remove="Resources\Images\news.svg" />
+	  <None Remove="Resources\Images\news_1.png" />
 	  <None Remove="Resources\Images\search.svg" />
 	  <None Remove="Resources\Images\settings.svg" />
+	  <None Remove="Resources\Images\share_network.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
