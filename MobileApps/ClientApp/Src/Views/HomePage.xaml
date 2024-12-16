@@ -30,7 +30,7 @@
                 <!--Разделы содержимого-->
                 <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
                     <!--Категории-->
-                    <components:TitledContentTemplate>
+                    <components:TitledContentTemplate Title="TOP CATEGORY" ShowMore="True">
                         <HorizontalStackLayout Spacing="{StaticResource MarginPreMin}" Padding="{StaticResource LeftRightMarginLarge}">
                             <components:CategoryCard Text="Business" IconSource="handshake.png" CardColor="#E4F9E0"/>
                             <components:CategoryCard Text="Officy Productivity" IconSource="coffee.png" CardColor="#FFE5E5"/>

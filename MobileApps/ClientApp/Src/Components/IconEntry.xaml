@@ -11,6 +11,7 @@
                     <Image Source="{TemplateBinding IconSource}" WidthRequest="22" HeightRequest="22"/>
                     <controls:BorderlessEntry PlaceholderColor="{StaticResource Gray500}"
                                   Placeholder="{TemplateBinding PlaceholderText}"
+                                  Text="{TemplateBinding Text}"
                                   FontSize="16"
                                   FontFamily="Nunito"
                                   Grid.Column="1"/>

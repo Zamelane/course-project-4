@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ClientApp.Src.ViewModels.Auth"
+             xmlns:components="clr-namespace:ClientApp.Src.Components"
              x:Class="ClientApp.Src.Views.Auth.LoginPage">
     <ContentPage.BindingContext>
         <local:LoginViewModel/>
@@ -12,6 +13,7 @@
 
             <Label Text="{Binding Error}" TextColor="Red" HorizontalTextAlignment="Center"/>
 
+            <components:IconEntry Text="{Binding Login}" IconSource="user.png" PlaceholderText="Введите логин"/>
             <Entry Text="{Binding Login}" Placeholder="Введите логин" Completed="FocusToPassword"/>
             <Entry Text="{Binding Password}" Placeholder="Введите пароль" IsPassword="True" x:Name="PasswordEntry" Completed="GoToSignupCommand"/>
             
