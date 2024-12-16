@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientApp.Src.Components.MinNewsCard">
+
+    <!--Мини карточка-->
+    <Frame BorderColor="#E9EAF0" CornerRadius="0" Padding="0">
+        <Grid ColumnDefinitions="*,100" RowDefinitions="100">
+            <Grid RowDefinitions="auto,*" Margin="20,16">
+                <Label MaxLines="2" LineBreakMode="TailTruncation" FontSize="14" FontFamily="Nunito" Text="Proin vitae suscipit nisi. Mauris odio nisi, posuere ac viverra eu, molest"/>
+                <!--Социальная информация-->
+                <Grid Grid.Row="1" VerticalOptions="End" Margin="0,12,0,0" ColumnDefinitions="auto,auto,*,auto" ColumnSpacing="16">
+                    <HorizontalStackLayout Spacing="6">
+                        <Image Source="eye_no_accent.png" WidthRequest="20" HeightRequest="20"/>
+                        <Label Text="32.7k" FontFamily="Nunito" FontSize="14" TextColor="#767E94"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="6" Grid.Column="1">
+                        <Image Source="chat_no_accent.png" WidthRequest="20" HeightRequest="20"/>
+                        <Label Text="94 Comments" FontFamily="Nunito" FontSize="14" TextColor="#767E94"/>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Grid>
+            <Image Source="news_1.png" Aspect="AspectFill" Grid.Column="1"/>
+        </Grid>
+    </Frame>
+
+</ContentView>

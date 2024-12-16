@@ -56,6 +56,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Src\Navigators\**" />
+	  <Compile Remove="Src\Navigators\**" />
+	  <EmbeddedResource Remove="Src\Navigators\**" />
+	  <MauiCss Remove="Src\Navigators\**" />
+	  <MauiXaml Remove="Src\Navigators\**" />
+	  <None Remove="Src\Navigators\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Fonts\Nunito-Italic.ttf" />
 	  <None Remove="Resources\Fonts\Nunito.ttf" />
 	  <None Remove="Resources\Fonts\Roboto-Medium.ttf" />
@@ -65,8 +74,10 @@
 	  <None Remove="Resources\Images\bookmark.svg" />
 	  <None Remove="Resources\Images\buildings.svg" />
 	  <None Remove="Resources\Images\chat.svg" />
+	  <None Remove="Resources\Images\chat_no_accent.svg" />
 	  <None Remove="Resources\Images\coffee.svg" />
 	  <None Remove="Resources\Images\eye.svg" />
+	  <None Remove="Resources\Images\eye_no_accent.svg" />
 	  <None Remove="Resources\Images\handshake.svg" />
 	  <None Remove="Resources\Images\key.svg" />
 	  <None Remove="Resources\Images\more.svg" />
@@ -86,14 +97,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Src\Navigators\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\RequestsLibrary\RequestsLibrary.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\Values.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Src\Components\BigNewsCard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Src\Components\CategoryCard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Src\Components\DefaultNewsCard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Src\Components\IconEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Src\Components\MinNewsCard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Src\Components\TitledContentTemplate.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Src\Views\Auth\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

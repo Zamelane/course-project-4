@@ -4,6 +4,64 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <!--My custom colors-->
+
+    <Color x:Key="Gray30" >#F5F7FA</Color>
+    <Color x:Key="Gray60" >#E9EAF0</Color>
+    <Color x:Key="Gray100">#DADDE5</Color>
+    <Color x:Key="Gray200">#C5C9D6</Color>
+    <Color x:Key="Gray300">#AEB3C2</Color>
+    <Color x:Key="Gray400">#939AAD</Color>
+    <Color x:Key="Gray500">#767E94</Color>
+    <Color x:Key="Gray600">#636A80</Color>
+    <Color x:Key="Gray700">#464D61</Color>
+    <Color x:Key="Gray800">#2E3447</Color>
+    <Color x:Key="Gray900">#191F33</Color>
+
+    <Color x:Key="Primary50" >#E6F0FD</Color>
+    <Color x:Key="Primary100">#CEE0FB</Color>
+    <Color x:Key="Primary200">#9CC1F8</Color>
+    <Color x:Key="Primary300">#6BA2F4</Color>
+    <Color x:Key="Primary400">#3983F1</Color>
+    <Color x:Key="Primary500">#0864ED</Color>
+    <Color x:Key="Primary600">#0650BE</Color>
+    <Color x:Key="Primary700">#053C8E</Color>
+    <Color x:Key="Primary800">#03285F</Color>
+    <Color x:Key="Primary900">#02142F</Color>
+
+    <Color x:Key="Success50" >#E4F9E0</Color>
+    <Color x:Key="Success100">#D4F3CC</Color>
+    <Color x:Key="Success200">#A9E799</Color>
+    <Color x:Key="Success300">#7DDA66</Color>
+    <Color x:Key="Success400">#52CE33</Color>
+    <Color x:Key="Success500">#27C200</Color>
+    <Color x:Key="Success600">#1F9B00</Color>
+    <Color x:Key="Success700">#177400</Color>
+    <Color x:Key="Success800">#104E00</Color>
+    <Color x:Key="Success900">#082700</Color>
+
+    <Color x:Key="Warning50" >#FFF8E0</Color>
+    <Color x:Key="Warning100">#FFF2CC</Color>
+    <Color x:Key="Warning200">#FFE599</Color>
+    <Color x:Key="Warning300">#FFD966</Color>
+    <Color x:Key="Warning400">#FFCC33</Color>
+    <Color x:Key="Warning500">#FFBF00</Color>
+    <Color x:Key="Warning600">#CC9900</Color>
+    <Color x:Key="Warning700">#997300</Color>
+    <Color x:Key="Warning800">#664C00</Color>
+    <Color x:Key="Warning900">#332600</Color>
+
+    <Color x:Key="Error50" >#FFE5E5</Color>
+    <Color x:Key="Error100">#FFCCCC</Color>
+    <Color x:Key="Error200">#FFB2B2</Color>
+    <Color x:Key="Error300">#FF9999</Color>
+    <Color x:Key="Error400">#FF7272</Color>
+    <Color x:Key="Error500">#FF4F4F</Color>
+    <Color x:Key="Error600">#CC3F3F</Color>
+    <Color x:Key="Error700">#992F2F</Color>
+    <Color x:Key="Error800">#662020</Color>
+    <Color x:Key="Error900">#331010</Color>
+
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
     <Color x:Key="Primary">#512BD4</Color>
@@ -19,13 +77,6 @@
     <Color x:Key="MidnightBlue">#190649</Color>
     <Color x:Key="OffBlack">#1f1f1f</Color>
 
-    <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
-    <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
-    <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
@@ -42,4 +93,5 @@
     <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
     <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
     <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+
 </ResourceDictionary>

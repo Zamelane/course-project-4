@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ClientApp.Src.Controls"
+             x:Class="ClientApp.Src.Components.IconEntry">
+
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <Frame BorderColor="{StaticResource Gray100}" Padding="16,12" CornerRadius="0">
+                <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
+                    <Image Source="{TemplateBinding IconSource}" WidthRequest="22" HeightRequest="22"/>
+                    <controls:BorderlessEntry PlaceholderColor="{StaticResource Gray500}"
+                                  Placeholder="{TemplateBinding PlaceholderText}"
+                                  FontSize="16"
+                                  FontFamily="Nunito"
+                                  Grid.Column="1"/>
+                </Grid>
+            </Frame>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+    
+</ContentView>

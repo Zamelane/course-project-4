@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+	
+	<!--Отступы-->
+    <x:Double x:Key="MarginMax"    >32</x:Double>
+    <x:Double x:Key="MarginLarge"  >20</x:Double>
+    <x:Double x:Key="MarginDefault">18</x:Double>
+    <x:Double x:Key="MarginSmall"  >16</x:Double>
+    <x:Double x:Key="MarginPreMin" >12</x:Double>
+    <x:Double x:Key="MarginMin"    >6 </x:Double>
+    
+    <!--Заготовленные отступы-->
+    <Thickness x:Key="LeftRightMarginLarge"
+               Left="{StaticResource MarginLarge}"
+               Right="{StaticResource MarginLarge}"/>
+    <Thickness x:Key="TopBottomMarginMax"
+           Top="{StaticResource MarginMax}"
+           Bottom="{StaticResource MarginMax}"/>
+    <Thickness x:Key="WithoutBottomMarginLarge"
+           Left="{StaticResource MarginLarge}"
+           Top="{StaticResource MarginLarge}"
+           Right="{StaticResource MarginLarge}"/>
+
+    <!--Закругления-->
+    <x:Double x:Key="CornerNone" >0</x:Double>
+    <x:Double x:Key="CornerSmall">4</x:Double>
+    <x:Double x:Key="CornerFull">100</x:Double>
+
+</ResourceDictionary>
