@@ -13,11 +13,11 @@
         <!--Верхняя шапочка с профилем и поиском-->
         <Grid ColumnDefinitions="auto, *" ColumnSpacing="25" Margin="{StaticResource WithoutBottomMarginLarge}">
             <!--Аватарка пользователя-->
-            <Frame CornerRadius="100" BorderColor="Transparent" Padding="-1">
+            <Frame CornerRadius="100" Margin="0,-12,0,0" BorderColor="Transparent" Padding="-1" WidthRequest="40" HeightRequest="40">
                 <Image Source="avatar.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"/>
             </Frame>
             <!--Строка поиска-->
-            <components:IconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1"/>
+            <controls:IconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1"/>
         </Grid>
         <!--Содержимое страницы-->
         <ScrollView Grid.Row="1">

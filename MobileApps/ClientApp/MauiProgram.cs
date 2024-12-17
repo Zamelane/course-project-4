@@ -1,5 +1,6 @@
 ﻿using ClientApp.Src.Controls;
 using CommunityToolkit.Maui;
+using Microsoft.Maui.Platform;
 
 namespace ClientApp
 {
@@ -21,22 +22,18 @@ namespace ClientApp
                     fonts.AddFont("Nunito-Italic.ttf"     , "Nunito-Italic"   );
                 });
 
-            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(BorderlessEntry), (handler, view) =>
             {
-                if (view is BorderlessEntry)
-                {
 #if ANDROID
                    handler.PlatformView.Background=null;
                    handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
 #elif IOS || MACCATALYST
-                        handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
+                handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
                         handler.PlatformView.Layer.BorderWidth= 0;
                         handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #elif WINDOWS
                     handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
 #endif
-                }
-
             });
 
             return builder.Build();

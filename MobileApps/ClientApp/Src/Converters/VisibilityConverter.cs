@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace ClientApp.Src.Utils;
+namespace ClientApp.Src.Converters;
 public class VisibilityConverter : IValueConverter
 {
     public object Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)

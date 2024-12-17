@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ClientApp.Src.ViewModels.Auth"
-             xmlns:components="clr-namespace:ClientApp.Src.Components"
+             xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              x:Class="ClientApp.Src.Views.Auth.LoginPage">
     <ContentPage.BindingContext>
         <local:LoginViewModel/>
@@ -13,12 +13,12 @@
 
             <Label Text="{Binding Error}" TextColor="Red" HorizontalTextAlignment="Center"/>
 
-            <components:IconEntry
+            <controls:IconEntry
                 IconSource="user.png"
                 Text="{Binding Login}"
                 PlaceholderText="Введите логин"
                 Completed="FocusToPassword"/>
-            <components:IconEntry 
+            <controls:IconEntry 
                 x:Name="PasswordEntry"
                 IconSource="password.png"
                 Text="{Binding Password}"
@@ -26,7 +26,7 @@
                 IsPassword="True"
                 Completed="GoToSignupCommand"/>
 
-            <Button Text="Войти" Command="{Binding TryLoginCommand}"/>
+            <controls:Button Text="SIGN IN" Command="{Binding TryLoginCommand}"/>
 
             <Label Text="Нет учётной записи?" HorizontalTextAlignment="Center" Margin="0,10,0,0"/>
             <Label Text="Зарегистрироваться"

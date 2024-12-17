@@ -2,12 +2,12 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
-             xmlns:utils="clr-namespace:ClientApp.Src.Utils"
-             x:Class="ClientApp.Src.Components.IconEntry">
+             xmlns:cnv="clr-namespace:ClientApp.Src.Converters"
+             x:Class="ClientApp.Src.Controls.IconEntry">
 
     <ContentView.Resources>
         <ResourceDictionary>
-            <utils:VisibilityConverter x:Key="VisibilityConverter"/>
+            <cnv:VisibilityConverter x:Key="VisibilityConverter"/>
         </ResourceDictionary>
     </ContentView.Resources>
 
@@ -36,7 +36,6 @@
                                                       Completed="OnEntryCompleted"
                                                       Focused="OnEntryFocused"
                                                       Unfocused="OnEntryUnfocused"
-                                                      Background="Transparent"
                                                       FontSize="16"
                                                       FontFamily="Nunito"
                                                       Grid.Row="1"/>

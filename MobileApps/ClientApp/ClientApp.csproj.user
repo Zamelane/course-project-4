@@ -25,7 +25,10 @@
     <MauiXaml Update="Src\Components\DefaultNewsCard.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="Src\Components\IconEntry.xaml">
+    <MauiXaml Update="Src\Controls\Button.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Src\Controls\IconEntry.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Src\Components\MinNewsCard.xaml">

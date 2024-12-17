@@ -117,7 +117,10 @@
 	  <MauiXaml Update="Src\Components\DefaultNewsCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Src\Components\IconEntry.xaml">
+	  <MauiXaml Update="Src\Controls\Button.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Src\Controls\IconEntry.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Src\Components\MinNewsCard.xaml">

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 
-namespace ClientApp.Src.Utils;
+namespace ClientApp.Src.Converters;
 public class ErrorConverter : IValueConverter
 {
     public object Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)

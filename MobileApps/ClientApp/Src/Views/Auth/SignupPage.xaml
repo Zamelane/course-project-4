@@ -2,13 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModals="clr-namespace:ClientApp.Src.ViewModels.Auth"
-             xmlns:utils="clr-namespace:ClientApp.Src.Utils"
-             xmlns:components="clr-namespace:ClientApp.Src.Components"
+             xmlns:cnv="clr-namespace:ClientApp.Src.Converters"
+             xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              x:Class="ClientApp.Src.Views.Auth.SignupPage">
     
     <ContentPage.Resources>
         <ResourceDictionary>
-            <utils:ErrorConverter x:Key="ErrorConverter"/>
+            <cnv:ErrorConverter x:Key="ErrorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -22,13 +22,13 @@
 
             <Label Text="{Binding Error}" TextColor="Red" HorizontalTextAlignment="Center"/>
 
-            <components:IconEntry Text="{Binding FirstName}"
+            <controls:IconEntry Text="{Binding FirstName}"
                                   PlaceholderText="Введите своё имя"
                                   IconSource="user.png"
                                   Completed="FocusToLastName"
                                   ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=firstName}"/>
 
-            <components:IconEntry Text="{Binding LastName}"
+            <controls:IconEntry Text="{Binding LastName}"
                                   PlaceholderText="Введите свою фамилию"
                                   IconSource="user.png"
                                   Completed="FocusToBirthDay"
@@ -40,20 +40,20 @@
             <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
                    Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=birthDay}"/>
 
-            <components:IconEntry Text="{Binding Login}"
+            <controls:IconEntry Text="{Binding Login}"
                                   PlaceholderText="Придумайте логин"
                                   IconSource="user.png"
                                   Completed="FocusToEmail"
                                   ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=login}"/>
 
-            <components:IconEntry Text="{Binding Email}"
+            <controls:IconEntry Text="{Binding Email}"
                                   PlaceholderText="Введите свой email"
                                   IconSource="email.png"
                                   Completed="FocusToPassword"
                                   ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=email}"
                                   x:Name="Email"/>
 
-            <components:IconEntry Text="{Binding Password}"
+            <controls:IconEntry Text="{Binding Password}"
                                   PlaceholderText="Придумайте пароль"
                                   IconSource="password.png"
                                   IsPassword="True"
@@ -61,7 +61,7 @@
                                   ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=password}"
                                   x:Name="Password"/>
 
-            <components:IconEntry Text="{Binding PasswordConfirm}"
+            <controls:IconEntry Text="{Binding PasswordConfirm}"
                                   PlaceholderText="Повторите пароль"
                                   IconSource="password.png"
                                   IsPassword="True"

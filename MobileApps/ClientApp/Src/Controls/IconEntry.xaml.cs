@@ -1,4 +1,4 @@
-namespace ClientApp.Src.Components;
+namespace ClientApp.Src.Controls;
 
 public partial class IconEntry : ContentView
 {
