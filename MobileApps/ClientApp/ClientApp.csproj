@@ -76,6 +76,7 @@
 	  <None Remove="Resources\Images\chat.svg" />
 	  <None Remove="Resources\Images\chat_no_accent.svg" />
 	  <None Remove="Resources\Images\coffee.svg" />
+	  <None Remove="Resources\Images\email.svg" />
 	  <None Remove="Resources\Images\eye.svg" />
 	  <None Remove="Resources\Images\eye_no_accent.svg" />
 	  <None Remove="Resources\Images\handshake.svg" />
@@ -91,6 +92,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Dubacik22.ObservableDictionary" Version="1.0.4" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />

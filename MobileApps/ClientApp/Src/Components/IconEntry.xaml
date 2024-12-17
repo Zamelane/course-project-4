@@ -2,22 +2,53 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
+             xmlns:utils="clr-namespace:ClientApp.Src.Utils"
              x:Class="ClientApp.Src.Components.IconEntry">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <utils:VisibilityConverter x:Key="VisibilityConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
 
     <ContentView.ControlTemplate>
         <ControlTemplate>
-            <Frame BorderColor="{StaticResource Gray100}" Padding="16,12" CornerRadius="0">
-                <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
-                    <Image Source="{TemplateBinding IconSource}" WidthRequest="22" HeightRequest="22"/>
-                    <controls:BorderlessEntry PlaceholderColor="{StaticResource Gray500}"
-                                  Placeholder="{TemplateBinding PlaceholderText}"
-                                  Text="{TemplateBinding Text}"
-                                  FontSize="16"
-                                  FontFamily="Nunito"
-                                  Grid.Column="1"/>
-                </Grid>
-            </Frame>
+            <VerticalStackLayout Spacing="8">
+                <Frame x:Name="EntryBorder" BorderColor="{StaticResource Gray100}" Padding="16,0" CornerRadius="0">
+                    <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
+                        <Image Source="{TemplateBinding IconSource}"
+                               WidthRequest="22"
+                               HeightRequest="22"
+                               IsVisible="{TemplateBinding IconSource, Converter={StaticResource VisibilityConverter}}"
+                               Margin="0,16"/>
+                        <Grid RowDefinitions="auto, *" Grid.Column="1">
+                            <Label Text="{TemplateBinding PlaceholderText}"
+                                   TextColor="{StaticResource Gray500}"
+                                   FontSize="14"
+                                   FontFamily="Nunito"
+                                   IsVisible="{TemplateBinding Text, Converter={StaticResource VisibilityConverter}}"
+                                   Margin="9,5,0,-8"
+                                   />
+                            <controls:BorderlessEntry PlaceholderColor="{StaticResource Gray500}"
+                                                      Placeholder="{TemplateBinding PlaceholderText}"
+                                                      Text="{TemplateBinding Text}"
+                                                      IsPassword="{TemplateBinding IsPassword}"
+                                                      Completed="OnEntryCompleted"
+                                                      Focused="OnEntryFocused"
+                                                      Unfocused="OnEntryUnfocused"
+                                                      Background="Transparent"
+                                                      FontSize="16"
+                                                      FontFamily="Nunito"
+                                                      Grid.Row="1"/>
+                        </Grid>
+                    </Grid>
+                </Frame>
+                <Label TextColor="Red" FontSize="12"
+                       Text="{TemplateBinding ErrorText}"
+                       IsVisible="{TemplateBinding ErrorText, Converter={StaticResource VisibilityConverter}}"
+                       Margin="0,-8,0,0"/>
+            </VerticalStackLayout>
         </ControlTemplate>
     </ContentView.ControlTemplate>
-    
+
 </ContentView>
