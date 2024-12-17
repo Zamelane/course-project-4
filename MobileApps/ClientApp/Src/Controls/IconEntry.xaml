@@ -22,13 +22,6 @@
                                IsVisible="{TemplateBinding IconSource, Converter={StaticResource VisibilityConverter}}"
                                Margin="0,16"/>
                         <Grid RowDefinitions="auto, *" Grid.Column="1">
-                            <Label Text="{TemplateBinding PlaceholderText}"
-                                   TextColor="{StaticResource Gray500}"
-                                   FontSize="14"
-                                   FontFamily="Nunito"
-                                   IsVisible="{TemplateBinding Text, Converter={StaticResource VisibilityConverter}}"
-                                   Margin="9,5,0,-8"
-                                   />
                             <controls:BorderlessEntry PlaceholderColor="{StaticResource Gray500}"
                                                       Placeholder="{TemplateBinding PlaceholderText}"
                                                       Text="{TemplateBinding Text}"
@@ -39,6 +32,13 @@
                                                       FontSize="16"
                                                       FontFamily="Nunito"
                                                       Grid.Row="1"/>
+                            <Label Text="{TemplateBinding PlaceholderText}"
+                                   TextColor="{StaticResource Gray500}"
+                                   FontSize="14"
+                                   FontFamily="Nunito"
+                                   IsVisible="{TemplateBinding Text, Converter={StaticResource VisibilityConverter}}"
+                                   Margin="9,5,0,-8"
+                                   />
                         </Grid>
                     </Grid>
                 </Frame>
