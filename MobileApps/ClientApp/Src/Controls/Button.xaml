@@ -12,7 +12,7 @@
                     TextColor="{StaticResource White}"
                     FontSize="14"
                     FontFamily="Nunito"
-                    ImageSource="user.png"
+                    ImageSource="arrow_right_white.png"
                     ContentLayout="Right"
                     CornerRadius="0">
                 <Button.Style>
@@ -20,6 +20,7 @@
                         <Style.Triggers>
                             <Trigger TargetType="Button" Property="IsEnabled" Value="False">
                                 <Setter Property="Background" Value="{StaticResource Primary200}"/>
+                                <Setter Property="TextColor" Value="{StaticResource White}"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>

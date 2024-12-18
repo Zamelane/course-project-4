@@ -14,7 +14,7 @@
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <VerticalStackLayout Spacing="8">
-                <Frame x:Name="EntryBorder" BorderColor="{StaticResource Gray100}" Padding="16,0" CornerRadius="0">
+                <Frame x:Name="EntryBorder" BorderColor="{StaticResource Gray100}" Padding="16,0" CornerRadius="0" HeightRequest="57">
                     <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
                         <Image Source="{TemplateBinding IconSource}"
                                WidthRequest="22"
@@ -31,14 +31,15 @@
                                                       Unfocused="OnEntryUnfocused"
                                                       FontSize="16"
                                                       FontFamily="Nunito"
+                                                      VerticalTextAlignment="Center"
+                                                      VerticalOptions="Center"
                                                       Grid.Row="1"/>
                             <Label Text="{TemplateBinding PlaceholderText}"
                                    TextColor="{StaticResource Gray500}"
                                    FontSize="14"
                                    FontFamily="Nunito"
                                    IsVisible="{TemplateBinding Text, Converter={StaticResource VisibilityConverter}}"
-                                   Margin="9,5,0,-8"
-                                   />
+                                   Margin="{OnPlatform '10,5,0,-8', Android='3,5,0,-8'}"/>
                         </Grid>
                     </Grid>
                 </Frame>

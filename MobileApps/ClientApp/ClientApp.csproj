@@ -69,7 +69,8 @@
 	  <None Remove="Resources\Fonts\Nunito.ttf" />
 	  <None Remove="Resources\Fonts\Roboto-Medium.ttf" />
 	  <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
-	  <None Remove="Resources\Images\arrow_right.svg" />
+	  <None Remove="Resources\Images\arrow_right_blue.svg" />
+	  <None Remove="Resources\Images\arrow_right_white.svg" />
 	  <None Remove="Resources\Images\avatar.png" />
 	  <None Remove="Resources\Images\bookmark.svg" />
 	  <None Remove="Resources\Images\buildings.svg" />

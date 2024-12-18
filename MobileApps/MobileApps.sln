@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp", "ClientApp\Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminApp", "AdminApp\AdminApp.csproj", "{E15F14EB-3272-4D40-9805-CAE15E368E77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestsLibrary", "RequestsLibrary\RequestsLibrary.csproj", "{4E443FDD-8D69-48E3-89CF-9ADD85C4A9A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RequestsLibrary", "RequestsLibrary\RequestsLibrary.csproj", "{4E443FDD-8D69-48E3-89CF-9ADD85C4A9A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
