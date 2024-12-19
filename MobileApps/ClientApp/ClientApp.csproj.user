@@ -37,6 +37,9 @@
     <MauiXaml Update="Src\Components\TitledContentTemplate.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Src\Controls\NonPriorityButton.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Src\Views\Auth\LoginPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

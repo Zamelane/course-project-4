@@ -33,6 +33,7 @@
                                                       FontFamily="Nunito"
                                                       VerticalTextAlignment="Center"
                                                       VerticalOptions="Center"
+                                                      x:Name="CustomEntry"
                                                       Grid.Row="1"/>
                             <Label Text="{TemplateBinding PlaceholderText}"
                                    TextColor="{StaticResource Gray500}"
@@ -50,5 +51,9 @@
             </VerticalStackLayout>
         </ControlTemplate>
     </ContentView.ControlTemplate>
+
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer Tapped="Entry_Tap"/>
+    </ContentView.GestureRecognizers>
 
 </ContentView>

@@ -69,6 +69,7 @@
 	  <None Remove="Resources\Fonts\Nunito.ttf" />
 	  <None Remove="Resources\Fonts\Roboto-Medium.ttf" />
 	  <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
+	  <None Remove="Resources\Images\arrow_left_black.svg" />
 	  <None Remove="Resources\Images\arrow_right_blue.svg" />
 	  <None Remove="Resources\Images\arrow_right_white.svg" />
 	  <None Remove="Resources\Images\avatar.png" />
@@ -128,6 +129,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Src\Components\TitledContentTemplate.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Src\Controls\NonPriorityButton.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Src\Views\Auth\LoginPage.xaml">

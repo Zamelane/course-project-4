@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace ClientApp.Src.Controls;
 
 public partial class IconEntry : ContentView
@@ -75,5 +77,18 @@ public partial class IconEntry : ContentView
 
         Color color = resourceName is Color ? resourceName : (Color)rd[resourceName];
         ((Frame)entryBorder).BorderColor = color;
+    }
+
+    private void Entry_Tap(object sender, TappedEventArgs e)
+    {
+        var entry = this.GetTemplateChild("CustomEntry");
+
+        if (entry is Entry ce)
+        {
+            ce.Focus();
+            Debug.WriteLine("Сфокусировал на " + ce.Id);
+        }
+
+        Debug.WriteLine("Вижу нажатие");
     }
 }
