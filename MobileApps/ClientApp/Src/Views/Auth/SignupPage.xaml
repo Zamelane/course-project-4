@@ -2,12 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModals="clr-namespace:ClientApp.Src.ViewModels.Auth"
-             xmlns:utils="clr-namespace:ClientApp.Src.Utils"
+             xmlns:cnv="clr-namespace:ClientApp.Src.Converters"
+             xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              x:Class="ClientApp.Src.Views.Auth.SignupPage">
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
-            <utils:ErrorConverter x:Key="ErrorConverter"/>
+            <cnv:ErrorConverter x:Key="ErrorConverter"/>
+            <cnv:VisibilityConverter x:Key="VisibilityConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -16,72 +18,65 @@
     </ContentPage.BindingContext>
 
     <ScrollView>
-        <StackLayout Spacing="10" Padding="10" VerticalOptions="Center" MaximumWidthRequest="400">
-            <Label Text="Регистрация" HorizontalTextAlignment="Center" FontSize="24"/>
+        <StackLayout Spacing="10" Margin="20,20">
+            <StackLayout>
+                <Label Text="HELLO!" FontFamily="Nunito" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource Gray500}"/>
+                <Label Text="Create account" FontFamily="Nunito" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource Gray900}"/>
+            </StackLayout>
 
-            <Label Text="{Binding Error}" TextColor="Red" HorizontalTextAlignment="Center"/>
+            <StackLayout Spacing="10">
+                <Label Text="{Binding Error}" TextColor="Red" HorizontalTextAlignment="Center" IsVisible="{Binding Error, Converter={StaticResource VisibilityConverter}}"/>
+                <controls:IconEntry Text="{Binding FirstName}"
+                                  PlaceholderText="Введите своё имя"
+                                  IconSource="user.png"
+                                  Completed="FocusToLastName"
+                                  ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=firstName}"/>
 
-            <Entry Text="{Binding FirstName}"
-                   Placeholder="Введите своё имя"
-                   Completed="FocusToLastName"/>
-            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
-                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=firstName}"/>
+                <controls:IconEntry Text="{Binding LastName}"
+                                  PlaceholderText="Введите свою фамилию"
+                                  IconSource="user.png"
+                                  Completed="FocusToBirthDay"
+                                  ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=lastName}"
+                                  x:Name="LastName"/>
 
-            <Entry Text="{Binding LastName}"
-                   Placeholder="Введите свою фамилию"
-                   Completed="FocusToBirthDay"
-                   x:Name="LastName"/>
-            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
-                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=lastName}"/>
-
-            <DatePicker Date="{Binding BirthDay}"
+                <DatePicker Date="{Binding BirthDay}"
                         x:Name="BirthDay"/>
-            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
+                <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
                    Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=birthDay}"/>
-            
-            <Entry Text="{Binding Login}"
-                   Placeholder="Придумайте логин"
-                   Completed="FocusToEmail"/>
-            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
-                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=login}"/>
-            
-            <Entry Text="{Binding Email}"
-                   Placeholder="Введите свой email"
-                   Completed="FocusToPassword"
-                   x:Name="Email"/>
-            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
-                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=email}"/>
-            
-            <Entry Text="{Binding Password}"
-                   Placeholder="Придумайте пароль"
-                   IsPassword="True"
-                   Completed="FocusToPasswordConfirm"
-                   x:Name="Password"/>
-            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
-                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=password}"/>
-            
-            <Entry Text="{Binding PasswordConfirm}"
-                   Placeholder="Повторите пароль"
-                   IsPassword="True"
-                   x:Name="PasswordConfirm"/>
-            <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
-                   Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=passwordConfirm}"/>
 
-            <Button Text="Зарегистрироваться"
-                    Command="{Binding TrySignUpCommand}"/>
+                <controls:IconEntry Text="{Binding Login}"
+                                  PlaceholderText="Придумайте логин"
+                                  IconSource="user.png"
+                                  Completed="FocusToEmail"
+                                  ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=login}"/>
 
-            <Label Text="У вас уже есть учётная запись?"
-                   HorizontalTextAlignment="Center"
-                   Margin="0,10,0,0"/>
-            <Label Text="Авторизироваться"
-                   TextColor="Blue"
-                   TextDecorations="Underline"
-                   HorizontalTextAlignment="Center"
-                   Margin="0,-5,0,0">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToLoginCommand}"/>
-                </Label.GestureRecognizers>
-            </Label>
+                <controls:IconEntry Text="{Binding Email}"
+                                  PlaceholderText="Введите свой email"
+                                  IconSource="email.png"
+                                  Completed="FocusToPassword"
+                                  ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=email}"
+                                  x:Name="Email"/>
+
+                <controls:IconEntry Text="{Binding Password}"
+                                  PlaceholderText="Придумайте пароль"
+                                  IconSource="password.png"
+                                  IsPassword="True"
+                                  Completed="FocusToPasswordConfirm"
+                                  ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=password}"
+                                  x:Name="Password"/>
+
+                <controls:IconEntry Text="{Binding PasswordConfirm}"
+                                  PlaceholderText="Повторите пароль"
+                                  IconSource="password.png"
+                                  IsPassword="True"
+                                  ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=passwordConfirm}"
+                                  x:Name="PasswordConfirm"/>
+
+                <controls:Button Text="CREATE ACCOUNT" Command="{Binding TrySignUpCommand}"/>
+
+                <controls:NonPriorityButton Text="LOG IN" Command="{Binding GoToLoginCommand}"/>
+
+            </StackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>

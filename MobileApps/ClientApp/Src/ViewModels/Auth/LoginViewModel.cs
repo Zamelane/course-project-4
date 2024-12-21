@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary.Routes.API.Auth;
+using System.Diagnostics;
 
 namespace ClientApp.Src.ViewModels.Auth;
 public partial class LoginViewModel : ObservableObject
@@ -20,6 +21,7 @@ public partial class LoginViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanLogin))]
     private async Task TryLogin()
     {
+        Debug.WriteLine(Login); // TODO: DEBUG
         (var response, var body, var exception) = await LoginRequest.RequestToServer(Login, Password);
 
         if (body is null && exception is null)

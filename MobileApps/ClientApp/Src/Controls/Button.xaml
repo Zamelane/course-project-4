@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientApp.Src.Controls.Button">
+
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <Button Text="{TemplateBinding Text}"
+                    Command="{TemplateBinding Command}"
+                    FontAttributes="Bold"
+                    Background="{StaticResource Primary500}"
+                    TextColor="{StaticResource White}"
+                    FontSize="14"
+                    FontFamily="Nunito"
+                    ImageSource="arrow_right_white.png"
+                    ContentLayout="Right"
+                    CornerRadius="0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource Primary200}"/>
+                                <Setter Property="TextColor" Value="{StaticResource White}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+    
+</ContentView>
