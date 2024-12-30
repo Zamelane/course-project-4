@@ -41,9 +41,18 @@
                     <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
                         <Label Text="MOST READ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito"/>
                         <!--Большая карторчка для первой рекомендации-->
-                        <components:DefaultNewsCard/>
+                        <components:DefaultNewsCard FilteredNews="{Binding MostReadNewsTop}"/>
                         <!--Остальные мини карточки-->
-                        <components:MinNewsCard/>
+                        <CollectionView ItemsSource="{Binding MostReadNewses}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <components:MinNewsCard FilteredNews="{Binding .}"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>

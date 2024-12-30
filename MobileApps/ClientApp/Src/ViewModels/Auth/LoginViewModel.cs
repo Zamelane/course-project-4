@@ -34,8 +34,8 @@ public partial class LoginViewModel : ObservableObject
         }
 
         Storage.AuthData.SaveAuthData(body.Token, body.User);
-        Provider.appShell.setEnabledTabsAll(true);
         await Shell.Current.GoToAsync("//Main");
+        Provider.appShell.setEnabledTabsAll(true);
     }
 
     [RelayCommand]

@@ -1,46 +1,50 @@
 ﻿using ClientApp.Src.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using RequestsLibrary.Responses.Api.News;
+using RequestsLibrary.Routes.API.News;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace ClientApp.Src.ViewModels;
 public partial class HomeViewModel : ObservableObject
 {
     [ObservableProperty]
-    private ObservableCollection<News> newses = new ObservableCollection<News>()
+    private string? error = null;
+
+    [ObservableProperty]
+    private ObservableCollection<FilteredNewsResponse>? mostReadNewses = null;
+    [ObservableProperty]
+    private FilteredNewsResponse? mostReadNewsTop = null;
+
+    public HomeViewModel()
     {
-        new News()
-        {
-            Title = "Технологический гигант представил революционное устройство на базе ...",
-            Category = "Технологии",
-            ImgUrl = "https://proza.ru/pics/2021/12/31/213.jpg",
-            CompanyImgUrl = "https://avatars.mds.yandex.net/i?id=930cf37534cf1d2f8e1c6c9a19d5e15a5da26d02-6637353-images-thumbs&n=13",
-            CompanyName = "BBC News",
-            Date = "9 июня, 2024"
-        },
-        new News()
-        {
-            Title = "Технологический гигант представил революционное устройство на базе ...",
-            Category = "Технологии",
-            ImgUrl = "https://proza.ru/pics/2021/12/31/213.jpg",
-            CompanyImgUrl = "https://avatars.mds.yandex.net/i?id=930cf37534cf1d2f8e1c6c9a19d5e15a5da26d02-6637353-images-thumbs&n=13",
-            CompanyName = "BBC News",
-            Date = "9 июня, 2024"
-        },
-        new News()
-        {
-            Title = "Технологический гигант представил революционное устройство на базе ...",
-            Category = "Технологии",
-            ImgUrl = "https://proza.ru/pics/2021/12/31/213.jpg",
-            CompanyImgUrl = "https://avatars.mds.yandex.net/i?id=930cf37534cf1d2f8e1c6c9a19d5e15a5da26d02-6637353-images-thumbs&n=13",
-            CompanyName = "BBC News",
-            Date = "9 июня, 2024"
-        }
-    };
+        TryFetchNews();
+    }
 
     [RelayCommand]
-    private async Task GoToLoginPage()
+    private async Task TryFetchNews()
     {
-        await Shell.Current.Navigation.PushModalAsync(new Views.Auth.LoginPage());
+        Debug.WriteLine("Start TryFetchNews"); // TODO: DEBUG
+        (var response, var body, var exception) = await FilteredNewsRequest.RequestToServer();
+
+        if (body is null && exception is null)
+            exception = new RequestsLibrary.Exceptions.RequestException("Сервер не вернул данные: " + response.StatusCode);
+
+        if (exception is not null)
+        {
+            Error = exception.Message;
+            Debug.WriteLine("Error TryFetchNews: " + Error); // TODO: DEBUG
+            return;
+        }
+
+        if (body.Count > 0)
+        {
+            MostReadNewsTop = body.First();
+            body.Remove(MostReadNewsTop);
+            MostReadNewses = body;
+        }
+
+        Debug.WriteLine("End TryFetchNews"); // TODO: DEBUG
     }
 }
