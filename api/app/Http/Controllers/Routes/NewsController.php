@@ -21,7 +21,17 @@ class NewsController extends Controller
     public function index()
     {
         // TODO: отображать всего количество страниц
-        return response()->json(NewsMinResource::collection(News::simplePaginate()));
+        return response()->json(NewsMinResource::collection(News::orderBy('create_date', 'desc')->simplePaginate()));
+    }
+
+    public function mostRead()
+    {
+        // TODO: самое читаемое
+    }
+
+    public function topNews()
+    {
+        // TODO: самая популярная новость
     }
 
     public function show(News $news)
