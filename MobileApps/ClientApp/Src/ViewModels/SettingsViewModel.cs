@@ -18,7 +18,7 @@ public partial class SettingsViewModel : ObservableObject
 
             isExit = true;
         }
-        catch (Exception ex)
+        catch
         {
             isExit = await Shell.Current.DisplayAlert(
                 "Ошибка",

@@ -21,7 +21,7 @@
            Bottom="{StaticResource MarginMax}"/>
     <Thickness x:Key="WithoutBottomMarginLarge"
            Left="{StaticResource MarginLarge}"
-           Top="{StaticResource MarginLarge}"
+           Top="{StaticResource MarginSmall}"
            Right="{StaticResource MarginLarge}"/>
 
     <!--Закругления-->

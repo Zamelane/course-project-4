@@ -4,12 +4,13 @@
              xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              xmlns:components="clr-namespace:ClientApp.Src.Components"
+             xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="ClientApp.Src.Views.HomePage">
     <ContentPage.BindingContext>
         <viewModels:HomeViewModel/>
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="auto,*" RowSpacing="24">
+    <Grid RowDefinitions="auto,*">
         <!--Верхняя шапочка с профилем и поиском-->
         <Grid ColumnDefinitions="auto, *" ColumnSpacing="25" Margin="{StaticResource WithoutBottomMarginLarge}">
             <!--Аватарка пользователя-->
@@ -20,42 +21,44 @@
             <controls:IconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1"/>
         </Grid>
         <!--Содержимое страницы-->
-        <ScrollView Grid.Row="1">
-            <StackLayout>
-                <!--Карточка с топ-новостью-->
-                <components:BigNewsCard/>
+        <RefreshView Grid.Row="1" Command="{Binding TryFetchNewsCommand}" IsRefreshing="{Binding IsFetching}">
+            <ScrollView x:Name="RVScrollContainer" Scrolled="ScrollView_Scrolled">
+                <StackLayout>
+                    <!--Карточка с топ-новостью-->
+                    <components:BigNewsCard/>
 
-                <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
+                    <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
 
-                <!--Разделы содержимого-->
-                <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
-                    <!--Категории-->
-                    <components:TitledContentTemplate Title="TOP CATEGORY" ShowMore="True">
-                        <HorizontalStackLayout Spacing="{StaticResource MarginPreMin}" Padding="{StaticResource LeftRightMarginLarge}">
-                            <components:CategoryCard Text="Business" IconSource="handshake.png" CardColor="#E4F9E0"/>
-                            <components:CategoryCard Text="Officy Productivity" IconSource="coffee.png" CardColor="#FFE5E5"/>
-                            <components:CategoryCard Text="IT and Software" IconSource="buildings.png" CardColor="#E6F0FD"/>
-                        </HorizontalStackLayout>
-                    </components:TitledContentTemplate>
-                    <!--РЕКОМЕНДАЦИИ-->
-                    <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
-                        <Label Text="MOST READ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito"/>
-                        <!--Большая карторчка для первой рекомендации-->
-                        <components:DefaultNewsCard FilteredNews="{Binding MostReadNewsTop}"/>
-                        <!--Остальные мини карточки-->
-                        <CollectionView ItemsSource="{Binding MostReadNewses}">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}"/>
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <components:MinNewsCard FilteredNews="{Binding .}"/>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                    <!--Разделы содержимого-->
+                    <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
+                        <!--Категории-->
+                        <components:TitledContentTemplate Title="TOP CATEGORY" ShowMore="True">
+                            <HorizontalStackLayout Spacing="{StaticResource MarginPreMin}" Padding="{StaticResource LeftRightMarginLarge}">
+                                <components:CategoryCard Text="Business" IconSource="handshake.png" CardColor="#E4F9E0"/>
+                                <components:CategoryCard Text="Officy Productivity" IconSource="coffee.png" CardColor="#FFE5E5"/>
+                                <components:CategoryCard Text="IT and Software" IconSource="buildings.png" CardColor="#E6F0FD"/>
+                            </HorizontalStackLayout>
+                        </components:TitledContentTemplate>
+                        <!--РЕКОМЕНДАЦИИ-->
+                        <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
+                            <Label Text="MOST READ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito"/>
+                            <!--Большая карторчка для первой рекомендации-->
+                            <components:DefaultNewsCard FilteredNews="{Binding MostReadNewsTop}"/>
+                            <!--Остальные мини карточки-->
+                            <CollectionView ItemsSource="{Binding MostReadNewses}">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <components:MinNewsCard FilteredNews="{Binding .}"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
                     </StackLayout>
                 </StackLayout>
-            </StackLayout>
-        </ScrollView>
+            </ScrollView>
+        </RefreshView>
     </Grid>
 </ContentPage>

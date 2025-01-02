@@ -11,6 +11,8 @@ public partial class HomeViewModel : ObservableObject
 {
     [ObservableProperty]
     private string? error = null;
+    [ObservableProperty]
+    private bool isFetching = false;
 
     [ObservableProperty]
     private ObservableCollection<FilteredNewsResponse>? mostReadNewses = null;
@@ -25,26 +27,34 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand]
     private async Task TryFetchNews()
     {
-        Debug.WriteLine("Start TryFetchNews"); // TODO: DEBUG
-        (var response, var body, var exception) = await FilteredNewsRequest.RequestToServer();
-
-        if (body is null && exception is null)
-            exception = new RequestsLibrary.Exceptions.RequestException("Сервер не вернул данные: " + response.StatusCode);
-
-        if (exception is not null)
+        try
         {
-            Error = exception.Message;
-            Debug.WriteLine("Error TryFetchNews: " + Error); // TODO: DEBUG
-            return;
-        }
+            IsFetching = true;
+            Debug.WriteLine("Start TryFetchNews"); // TODO: DEBUG
+            (var response, var body, var exception) = await FilteredNewsRequest.RequestToServer();
 
-        if (body.Count > 0)
+            if (body is null && exception is null)
+                exception = new RequestsLibrary.Exceptions.RequestException("Сервер не вернул данные: " + response.StatusCode);
+
+            if (exception is not null)
+            {
+                Error = exception.Message;
+                Debug.WriteLine("Error TryFetchNews: " + Error); // TODO: DEBUG
+                return;
+            }
+
+            if (body.Count > 0)
+            {
+                MostReadNewsTop = body.First();
+                body.Remove(MostReadNewsTop);
+                MostReadNewses = body;
+            }
+
+            Debug.WriteLine("End TryFetchNews"); // TODO: DEBUG
+        }
+        finally
         {
-            MostReadNewsTop = body.First();
-            body.Remove(MostReadNewsTop);
-            MostReadNewses = body;
+            IsFetching = false;
         }
-
-        Debug.WriteLine("End TryFetchNews"); // TODO: DEBUG
     }
 }
