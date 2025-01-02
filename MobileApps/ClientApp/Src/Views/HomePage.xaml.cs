@@ -46,9 +46,6 @@ public partial class HomePage : ContentPage
 			currentPositionScrollY = currentScrollY;
 		}
 
-		if (previousPositionScrollY < currentPositionScrollY)
-			d = Direction.Bottom;
-
         //Debug.WriteLine($"Previous: {previousPositionScrollY}, Current: {currentPositionScrollY}, Direction: {d.ToString()}");
     }
 
