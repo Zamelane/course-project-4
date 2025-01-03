@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Comment\Comment;
 use App\Models\News\News;
@@ -49,6 +50,8 @@ class DatabaseSeeder extends Seeder
         $this->reasons = Reason::factory()->createMany(10);
         $this->reactions = Reaction::factory()->createMany(10);
 
+        $this->make_categories();
+
         for($i = 0; $i < 10; $i++)
             $this->make_news($reader);
     }
@@ -65,5 +68,30 @@ class DatabaseSeeder extends Seeder
         $comments = Comment::factory(10)->create([
             'news_id' => $news->id
         ]);
+    }
+
+    private function make_categories()
+    {
+        $categories = [
+            "Business",
+            "Food & Culture",
+            "Office Productivity",
+            "Finance & Accounting",
+            "IT & Software",
+            "Office Productivity",
+            "Personal Development",
+            "Design",
+            "Lifestyle",
+            "Photography & Video",
+            "Health & Fitness",
+            "Development"
+        ];
+
+        foreach($categories as $category)
+            Category::create([
+                'name' => $category,
+                'accent_color' => '000000',
+                'background_color' => 'ffffff'
+            ]);
     }
 }
