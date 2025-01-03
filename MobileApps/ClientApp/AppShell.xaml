@@ -15,6 +15,9 @@
         <Tab Title="Главная" Icon="news.svg">
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" Route="Main"/>
         </Tab>
+        <Tab Title="Категории">
+            <ShellContent ContentTemplate="{DataTemplate views:CategoriesPage}" Route="Categories"/>
+        </Tab>
         <Tab Title="Избранное" Icon="bookmark.svg" IsVisible="{Binding BookmarkIsEnabled}">
             <ShellContent ContentTemplate="{DataTemplate views:FavouritesPage}" Route="Favourites"/>
         </Tab>
