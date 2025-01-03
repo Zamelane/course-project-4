@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ObservableDictionary;
-using System.Diagnostics;
 
 namespace ClientApp.Src.ViewModels.Auth
 {
@@ -54,6 +53,7 @@ namespace ClientApp.Src.ViewModels.Auth
             {
                 Error = "Ошибка валидации данных";
                 BadFields.Add("passwordConfirm", ["Пароли не совпадают"]);
+                OnPropertyChanged(nameof(BadFields));
                 return;
             }
 
@@ -85,6 +85,7 @@ namespace ClientApp.Src.ViewModels.Auth
             && LastName != String.Empty
             && Login != String.Empty
             && Password != String.Empty
+            && PasswordConfirm != String.Empty
             && Email != String.Empty;
 
         [RelayCommand]

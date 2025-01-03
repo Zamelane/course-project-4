@@ -1,18 +1,17 @@
 ﻿using System.Globalization;
 
-namespace ClientApp.Src.Utils;
-public class ErrorConverter : IValueConverter
+namespace ClientApp.Src.Converters;
+public class VisibilityConverter : IValueConverter
 {
     public object Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)
     {
-        if (value is Dictionary<string, List<string>> errors
-            && parameter is string key
-            && errors.ContainsKey(key)
+        if (value is string s
+            && s == String.Empty
         )
         {
-            return string.Join("\n", errors[key]);
+            return Visibility.Visible;
         }
-        return string.Empty;
+        return Visibility.Collapsed;
     }
 
     public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)

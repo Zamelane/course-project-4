@@ -14,7 +14,7 @@ namespace ClientApp
         public void setEnabledTabsAll(bool isVisibly)
         {
             if (BindingContext is TabsViewModel tvm)
-                tvm.SetEnabledTabsAll(true);
+                tvm.SetEnabledTabsAll(isVisibly);
         }
     }
 }

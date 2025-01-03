@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ClientApp.Src.Controls"
+             xmlns:cnv="clr-namespace:ClientApp.Src.Converters"
+             x:Class="ClientApp.Src.Controls.IconEntry">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <cnv:VisibilityConverter x:Key="VisibilityConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <VerticalStackLayout Spacing="8">
+                <Frame x:Name="EntryBorder" BorderColor="{StaticResource Gray100}" Padding="16,0" CornerRadius="0" HeightRequest="57">
+                    <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
+                        <Image Source="{TemplateBinding IconSource}"
+                               WidthRequest="22"
+                               HeightRequest="22"
+                               IsVisible="{TemplateBinding IconSource, Converter={StaticResource VisibilityConverter}}"
+                               Margin="0,16"/>
+                        <Grid RowDefinitions="auto, *" Grid.Column="1">
+                            <controls:BorderlessEntry PlaceholderColor="{StaticResource Gray500}"
+                                                      Placeholder="{TemplateBinding PlaceholderText}"
+                                                      Text="{TemplateBinding Text}"
+                                                      IsPassword="{TemplateBinding IsPassword}"
+                                                      Completed="OnEntryCompleted"
+                                                      Focused="OnEntryFocused"
+                                                      Unfocused="OnEntryUnfocused"
+                                                      FontSize="16"
+                                                      FontFamily="Nunito"
+                                                      VerticalTextAlignment="Center"
+                                                      VerticalOptions="Center"
+                                                      x:Name="CustomEntry"
+                                                      Grid.Row="1"/>
+                            <Label Text="{TemplateBinding PlaceholderText}"
+                                   TextColor="{StaticResource Gray500}"
+                                   FontSize="14"
+                                   FontFamily="Nunito"
+                                   IsVisible="{TemplateBinding Text, Converter={StaticResource VisibilityConverter}}"
+                                   Margin="{OnPlatform '10,5,0,-8', Android='3,5,0,-8'}"/>
+                        </Grid>
+                    </Grid>
+                </Frame>
+                <Label TextColor="Red" FontSize="12"
+                       Text="{TemplateBinding ErrorText}"
+                       IsVisible="{TemplateBinding ErrorText, Converter={StaticResource VisibilityConverter}}"
+                       Margin="0,-8,0,0"/>
+            </VerticalStackLayout>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer Tapped="Entry_Tap"/>
+    </ContentView.GestureRecognizers>
+
+</ContentView>
