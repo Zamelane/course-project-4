@@ -210,3 +210,12 @@ Route
 ->group(function () {
    Route::post('', 'upload');
 });
+
+Route
+::prefix('categories')
+->controller(CategoryController::class)
+->group(function () {
+    Route::get('', 'index');
+    Route::post('', 'store');
+    Route::delete('{category}', 'destroy');
+});
