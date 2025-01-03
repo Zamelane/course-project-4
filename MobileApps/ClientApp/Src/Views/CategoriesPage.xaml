@@ -2,21 +2,28 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:ClientApp.Src.ViewModels"
+             xmlns:components="clr-namespace:ClientApp.Src.Components"
              x:Class="ClientApp.Src.Views.CategoriesPage">
     <ContentPage.BindingContext>
         <views:CategoriesViewModel/>
     </ContentPage.BindingContext>
 
-    <RefreshView>
-        <ScrollView>
-            <CollectionView ItemsLayout="VerticalGrid,2">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </ScrollView>
-    </RefreshView>
-    
+    <Grid RowDefinitions="auto, *">
+        <StackLayout Spacing="9" Margin="12">
+            <Label Text="All Category" HorizontalTextAlignment="Center" FontSize="16"/>
+            <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
+        </StackLayout>
+        <RefreshView Grid.Row="1" Command="{Binding TryFetchCategoriesCommand}" IsRefreshing="{Binding IsFetching}">
+            <ScrollView>
+                <CollectionView ItemsLayout="VerticalGrid,2" ItemsSource="{Binding Categories}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <components:CategoryCard Text="{Binding Name}" CardColor="{Binding BackgroundColor}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+        </RefreshView>
+    </Grid>
+
 </ContentPage>
