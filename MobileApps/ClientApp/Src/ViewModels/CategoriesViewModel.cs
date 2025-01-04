@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using RequestsLibrary;
 using RequestsLibrary.Responses.Api.Category;
 using RequestsLibrary.Routes.API;
 using System.Collections.ObjectModel;
@@ -44,6 +45,8 @@ namespace ClientApp.Src.ViewModels
                 {
                     cr.AccentColor = $"#{cr.AccentColor}";
                     cr.BackgroundColor = $"#{cr.BackgroundColor}";
+                    if (cr.Image is not null)
+                        cr.Image.Path = $"{Fetcher.API_URL}{cr.Image.Path}";
                 }
 
                 Categories = body;

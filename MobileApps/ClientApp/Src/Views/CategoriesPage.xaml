@@ -18,7 +18,7 @@
                 <CollectionView ItemsLayout="VerticalGrid,2" ItemsSource="{Binding Categories}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <components:CategoryCard Text="{Binding Name}" CardColor="{Binding BackgroundColor}"/>
+                            <components:CategoryCard IconSource="{Binding Image}" Text="{Binding Name}" CardColor="{Binding BackgroundColor}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
