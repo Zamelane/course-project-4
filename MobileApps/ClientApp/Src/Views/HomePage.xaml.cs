@@ -61,7 +61,7 @@ public partial class HomePage : ContentPage
 			&& (currentTime - previousUpdateTime) / 10_000 > 450)
         {
             Debug.WriteLine("Execute update ...");
-			hvm.TryFetchNewsCommand.Execute(null);
+			hvm.TryFetchCommand.Execute(null);
         }
 
         previousUpdateTime = DateTime.Now.Ticks;

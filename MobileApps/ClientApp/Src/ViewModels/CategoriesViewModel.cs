@@ -23,7 +23,8 @@ namespace ClientApp.Src.ViewModels
         }
 
         [RelayCommand]
-        private async Task TryFetchCategories()
+        private async Task TryFetchCategories() => await Fetch();
+        public async Task<ObservableCollection<CategoryResponse>?> Fetch()
         {
             try
             {
@@ -38,7 +39,7 @@ namespace ClientApp.Src.ViewModels
                 {
                     Error = exception.Message;
                     Debug.WriteLine("Error TryFetchCategories: " + Error); // TODO: DEBUG
-                    return;
+                    return null;
                 }
 
                 foreach (CategoryResponse cr in body!)
@@ -46,7 +47,7 @@ namespace ClientApp.Src.ViewModels
                     cr.AccentColor = $"#{cr.AccentColor}";
                     cr.BackgroundColor = $"#{cr.BackgroundColor}";
                     if (cr.Image is not null)
-                        cr.Image.Path = $"{Fetcher.API_URL}{cr.Image.Path}";
+                        cr.Image.Path = $"{Fetcher.URL}{cr.Image.Path}";
                 }
 
                 Categories = body;
@@ -57,6 +58,8 @@ namespace ClientApp.Src.ViewModels
             {
                 IsFetching = false;
             }
+            
+            return Categories;
         }
     }
 }

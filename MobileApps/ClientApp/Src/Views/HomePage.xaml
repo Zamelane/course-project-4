@@ -33,11 +33,17 @@
                     <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
                         <!--Категории-->
                         <components:TitledContentTemplate Title="TOP CATEGORY" ShowMore="True">
-                            <HorizontalStackLayout Spacing="{StaticResource MarginPreMin}" Padding="{StaticResource LeftRightMarginLarge}">
-                                <components:CategoryCard Text="Business" IconSource="handshake.png" CardColor="#E4F9E0"/>
-                                <components:CategoryCard Text="Officy Productivity" IconSource="coffee.png" CardColor="#FFE5E5"/>
-                                <components:CategoryCard Text="IT and Software" IconSource="buildings.png" CardColor="#E6F0FD"/>
-                            </HorizontalStackLayout>
+                            <CollectionView ItemsSource="{Binding Categories}">
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Horizontal"
+                                                     HorizontalItemSpacing="{StaticResource MarginPreMin}"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <components:CategoryCard  IconSource="{Binding Image.Path}" Text="{Binding Name}" CardColor="{Binding BackgroundColor}" WidthRequest="179"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
                         </components:TitledContentTemplate>
                         <!--РЕКОМЕНДАЦИИ-->
                         <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">

@@ -1,5 +1,6 @@
 ﻿using ClientApp.Src.Controls;
 using CommunityToolkit.Maui;
+using FFImageLoading.Maui;
 using Microsoft.Maui.Platform;
 
 namespace ClientApp
@@ -12,6 +13,7 @@ namespace ClientApp
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseFFImageLoading()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf"  , "OpenSansRegular" );

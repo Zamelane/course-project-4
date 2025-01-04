@@ -15,10 +15,16 @@
         </StackLayout>
         <RefreshView Grid.Row="1" Command="{Binding TryFetchCategoriesCommand}" IsRefreshing="{Binding IsFetching}">
             <ScrollView>
-                <CollectionView ItemsLayout="VerticalGrid,2" ItemsSource="{Binding Categories}">
+                <CollectionView ItemsSource="{Binding Categories}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"
+                                         Span="2"
+                                         VerticalItemSpacing="{StaticResource MarginPreMin}"
+                                         HorizontalItemSpacing="{StaticResource MarginPreMin}"/>
+                    </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <components:CategoryCard IconSource="{Binding Image}" Text="{Binding Name}" CardColor="{Binding BackgroundColor}"/>
+                            <components:CategoryCard IconSource="{Binding Image.Path}" Text="{Binding Name}" CardColor="{Binding BackgroundColor}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
