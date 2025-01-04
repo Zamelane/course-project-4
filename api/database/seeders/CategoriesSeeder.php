@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Image;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class CategoriesSeeder extends Seeder
 {
@@ -81,7 +82,7 @@ class CategoriesSeeder extends Seeder
         }
 
         // Сохраняем категории в базе
-        foreach ($categories as $category)
+        foreach ($categories as &$category)
             Category::create($category);
     }
 }
