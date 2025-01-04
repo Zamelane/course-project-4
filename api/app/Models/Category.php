@@ -8,7 +8,6 @@ class Category extends Model
 {
     protected $fillable = [
         'name',
-        'accent_color',
         'background_color',
         'image_id'
     ];

@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Category;
 
+use App\Models\Image;
+use App\Models\ImgType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,14 +14,13 @@ class CategoryResource extends JsonResource
         $data = [
             'id' => $this->id,
             'name' => $this->name,
-            'accent_color' => $this->accent_color,
             'background_color' => $this->background_color
         ];
 
         if ($this->image)
             $data['image'] = [
                 'id' => $this->image->id,
-                'path' => $this->image->path
+                'path' => Image::getPathUrl($this->image, ImgType::LocalCategory)
             ];
 
         return $data;
