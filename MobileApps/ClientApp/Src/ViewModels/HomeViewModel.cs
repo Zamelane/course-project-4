@@ -1,6 +1,7 @@
 ﻿using ClientApp.Src.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using RequestsLibrary.Responses.Api.Category;
 using RequestsLibrary.Responses.Api.News;
 using RequestsLibrary.Routes.API.News;
 using System.Collections.ObjectModel;
@@ -18,13 +19,21 @@ public partial class HomeViewModel : ObservableObject
     private ObservableCollection<FilteredNewsResponse>? mostReadNewses = null;
     [ObservableProperty]
     private FilteredNewsResponse? mostReadNewsTop = null;
+    [ObservableProperty]
+    private ObservableCollection<CategoryResponse>? categories = null;
 
     public HomeViewModel()
     {
-        TryFetchNews();
+        TryFetch();
     }
 
     [RelayCommand]
+    private async Task TryFetch()
+    {
+        await TryFetchNews();
+        Categories = await new CategoriesViewModel().Fetch();
+        Debug.WriteLine(Categories);
+    }
     private async Task TryFetchNews()
     {
         try

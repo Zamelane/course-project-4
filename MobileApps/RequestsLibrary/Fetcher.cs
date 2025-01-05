@@ -5,7 +5,11 @@ namespace RequestsLibrary
 {
     public static class Fetcher
     {
-        public static Uri API_URL = new("http://127.0.0.1:8000/api/");
+        public static Uri URL = new("http://127.0.0.1:8000/");
+        public static Uri API_URL
+        {
+            get => new($"{URL}api/");
+        }
         private static string? _token = null;
 
         public static void SetToken(string? token) => _token = token;

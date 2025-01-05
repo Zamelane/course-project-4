@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Comment\Comment;
 use App\Models\News\News;
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        $this->call(CategoriesSeeder::class);
         // User::factory(10)->create();
 
         User::factory()->create([
