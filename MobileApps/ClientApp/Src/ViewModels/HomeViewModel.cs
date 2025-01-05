@@ -24,7 +24,7 @@ public partial class HomeViewModel : ObservableObject
 
     public HomeViewModel()
     {
-        TryFetch();
+        Task.Run(TryFetch);
     }
 
     [RelayCommand]
@@ -52,7 +52,7 @@ public partial class HomeViewModel : ObservableObject
                 return;
             }
 
-            if (body.Count > 0)
+            if (body!.Count > 0)
             {
                 MostReadNewsTop = body.First();
                 body.Remove(MostReadNewsTop);

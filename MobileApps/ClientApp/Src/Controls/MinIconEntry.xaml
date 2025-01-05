@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ClientApp.Src.Controls"
+             xmlns:cnv="clr-namespace:ClientApp.Src.Converters"
+             x:Class="ClientApp.Src.Controls.MinIconEntry">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <cnv:VisibilityConverter x:Key="VisibilityConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <VerticalStackLayout Spacing="8">
+                <Frame x:Name="EntryBorder" BorderColor="{StaticResource Gray100}" Padding="16,0" CornerRadius="0" HeightRequest="40">
+                    <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
+                        <Image Source="{TemplateBinding IconSource}"
+                               WidthRequest="22"
+                               HeightRequest="22"
+                               IsVisible="{TemplateBinding IconSource, Converter={StaticResource VisibilityConverter}}"
+                               Margin="0,4"/>
+                        <controls:BorderlessEntry PlaceholderColor="{StaticResource Gray500}"
+                                                      Placeholder="{TemplateBinding PlaceholderText}"
+                                                      Text="{TemplateBinding Text}"
+                                                      IsPassword="{TemplateBinding IsPassword}"
+                                                      Completed="OnEntryCompleted"
+                                                      Focused="OnEntryFocused"
+                                                      Unfocused="OnEntryUnfocused"
+                                                      FontSize="16"
+                                                      VerticalTextAlignment="Center"
+                                                      VerticalOptions="Center"
+                                                      x:Name="CustomEntry"
+                                                      Grid.Column="1"/>
+                    </Grid>
+                </Frame>
+            </VerticalStackLayout>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer Tapped="Entry_Tap"/>
+    </ContentView.GestureRecognizers>
+
+</ContentView>

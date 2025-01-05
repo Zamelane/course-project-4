@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:ClientApp.Src.Views"
     xmlns:local="clr-namespace:ClientApp.Src.ViewModels"
+    xmlns:controls="clr-namespace:ClientApp.Src.Controls"
     Shell.FlyoutBehavior="Disabled"
     Title="ClientApp">
     <Shell.BindingContext>
@@ -15,7 +16,7 @@
         <Tab Title="Главная" Icon="news.png">
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" Route="Main"/>
         </Tab>
-        <Tab Title="Категории">
+        <Tab Title="Каталог" Icon="catalog.png">
             <ShellContent ContentTemplate="{DataTemplate views:CategoriesPage}" Route="Categories"/>
         </Tab>
         <Tab Title="Избранное" Icon="bookmark.png" IsVisible="{Binding BookmarkIsEnabled}">

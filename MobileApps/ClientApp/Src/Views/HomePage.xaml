@@ -10,79 +10,89 @@
         <viewModels:HomeViewModel/>
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="auto,*">
+    <Shell.TitleView>
         <!--Верхняя шапочка с профилем и поиском-->
-        <Grid ColumnDefinitions="auto, *" ColumnSpacing="25" Margin="{StaticResource WithoutBottomMarginLarge}">
+        <Grid ColumnDefinitions="auto, *, auto" ColumnSpacing="10" VerticalOptions="Center">
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments="Thickness" Default="10,0,10,0">
+                    <On Platform="Android" Value="0,0,15,0"/>
+                </OnPlatform>
+            </Grid.Padding>
             <!--Аватарка пользователя-->
-            <Frame CornerRadius="100" Margin="0,-12,0,0" BorderColor="Transparent" Padding="-1" WidthRequest="40" HeightRequest="40">
+            <Frame CornerRadius="100" BorderColor="Transparent" Padding="-1" WidthRequest="40" HeightRequest="40">
                 <Image Source="avatar.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"/>
             </Frame>
             <!--Строка поиска-->
-            <controls:IconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1"/>
+            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1" VerticalOptions="Center"/>
+            <!--Перезагрузка-->
+            <ImageButton x:Name="refreshButton" Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCommand}"/>
         </Grid>
+    </Shell.TitleView>
+
+    <Grid>
         <!--Содержимое страницы-->
-        <RefreshView Grid.Row="1" Command="{Binding TryFetchNewsCommand}" IsRefreshing="{Binding IsFetching}">
-            <ScrollView x:Name="RVScrollContainer" Scrolled="ScrollView_Scrolled">
-                <StackLayout>
-                    <!--Карточка с топ-новостью-->
-                    <components:BigNewsCard/>
+        <controls:CustomRefreshView Grid.Row="1" Command="{Binding TryFetchCommand}">
+            <StackLayout>
+                <!--Карточка с топ-новостью-->
+                <components:BigNewsCard/>
+
+                <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
+
+                <!--Разделы содержимого-->
+                <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
+                    <!--Категории-->
+                    <components:TitledContentTemplate Title="TOP CATEGORY" ShowMore="True">
+                        <CollectionView ItemsSource="{Binding Categories}">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Horizontal"
+                                                         HorizontalItemSpacing="{StaticResource MarginPreMin}"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <components:CategoryCard  IconSource="{Binding Image.Path}" Text="{Binding Name}" CardColor="{Binding BackgroundColor}" WidthRequest="179"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </components:TitledContentTemplate>
+                    <!--РЕКОМЕНДАЦИИ-->
+                    <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
+                        <Label Text="MOST READ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito"/>
+                        <!--Большая карторчка для первой рекомендации-->
+                        <components:DefaultNewsCard FilteredNews="{Binding MostReadNewsTop}"/>
+                        <!--Остальные мини карточки-->
+                        <CollectionView ItemsSource="{Binding MostReadNewses}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <components:MinNewsCard FilteredNews="{Binding .}"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
 
                     <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
 
-                    <!--Разделы содержимого-->
-                    <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
-                        <!--Категории-->
-                        <components:TitledContentTemplate Title="TOP CATEGORY" ShowMore="True">
-                            <CollectionView ItemsSource="{Binding Categories}">
-                                <CollectionView.ItemsLayout>
-                                    <GridItemsLayout Orientation="Horizontal"
-                                                     HorizontalItemSpacing="{StaticResource MarginPreMin}"/>
-                                </CollectionView.ItemsLayout>
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <components:CategoryCard  IconSource="{Binding Image.Path}" Text="{Binding Name}" CardColor="{Binding BackgroundColor}" WidthRequest="179"/>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </components:TitledContentTemplate>
-                        <!--РЕКОМЕНДАЦИИ-->
-                        <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
-                            <Label Text="MOST READ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito"/>
-                            <!--Большая карторчка для первой рекомендации-->
-                            <components:DefaultNewsCard FilteredNews="{Binding MostReadNewsTop}"/>
-                            <!--Остальные мини карточки-->
-                            <CollectionView ItemsSource="{Binding MostReadNewses}">
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}"/>
-                                </CollectionView.ItemsLayout>
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <components:MinNewsCard FilteredNews="{Binding .}"/>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </StackLayout>
-                        
-                        <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
-                        
-                        <!--ПОСЛЕДНИЕ НОВОСТИ-->
-                        <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
-                            <Label Text="LATEST NEWS" FontSize="16" FontAttributes="Bold" FontFamily="Nunito"/>
-                            <!--Остальные мини карточки-->
-                            <CollectionView ItemsSource="{Binding MostReadNewses}">
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}"/>
-                                </CollectionView.ItemsLayout>
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <components:MinNewsCard FilteredNews="{Binding .}"/>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </StackLayout>
+                    <!--ПОСЛЕДНИЕ НОВОСТИ-->
+                    <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
+                        <Label Text="LATEST NEWS" FontSize="16" FontAttributes="Bold" FontFamily="Nunito"/>
+                        <!--Остальные мини карточки-->
+                        <CollectionView ItemsSource="{Binding MostReadNewses}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <components:MinNewsCard FilteredNews="{Binding .}"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </StackLayout>
                 </StackLayout>
-            </ScrollView>
-        </RefreshView>
+            </StackLayout>
+        </controls:CustomRefreshView>
+
+        
     </Grid>
 </ContentPage>

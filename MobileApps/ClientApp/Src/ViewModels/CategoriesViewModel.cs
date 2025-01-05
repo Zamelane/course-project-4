@@ -19,7 +19,7 @@ namespace ClientApp.Src.ViewModels
 
         public CategoriesViewModel()
         {
-            TryFetchCategories();
+            Task.Run(TryFetchCategories);
         }
 
         [RelayCommand]

@@ -28,6 +28,12 @@
     <MauiXaml Update="Src\Controls\Button.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Src\Controls\CustomRefreshView.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Src\Controls\MinIconEntry.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Src\Controls\IconEntry.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
@@ -38,6 +44,9 @@
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Src\Controls\NonPriorityButton.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Src\Controls\ResizableCollectionView.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Src\Views\Auth\LoginPage.xaml">

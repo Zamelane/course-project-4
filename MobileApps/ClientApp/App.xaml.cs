@@ -18,12 +18,15 @@ namespace ClientApp
                 Provider.appShell.setEnabledTabsAll(true);
         }
 
-        protected override Window CreateWindow(IActivationState activationState)
+        protected override Window CreateWindow(IActivationState? activationState)
         {
             var window = base.CreateWindow(activationState);
 
             window.Width = newWidth;
             window.Height = newHeight;
+
+            window.MinimumWidth = 350;
+            window.MinimumHeight = 500;
 
             return window;
         }
