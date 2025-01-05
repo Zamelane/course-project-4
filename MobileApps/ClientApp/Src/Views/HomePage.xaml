@@ -56,6 +56,24 @@
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
                         </StackLayout>
+                        
+                        <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
+                        
+                        <!--ПОСЛЕДНИЕ НОВОСТИ-->
+                        <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
+                            <Label Text="LATEST NEWS" FontSize="16" FontAttributes="Bold" FontFamily="Nunito"/>
+                            <!--Остальные мини карточки-->
+                            <CollectionView ItemsSource="{Binding MostReadNewses}">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <components:MinNewsCard FilteredNews="{Binding .}"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
