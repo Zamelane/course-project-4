@@ -14,7 +14,7 @@
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <VerticalStackLayout Spacing="8">
-                <Frame x:Name="EntryBorder" BorderColor="{StaticResource Gray100}" Padding="16,0" CornerRadius="0" HeightRequest="57">
+                <Frame x:Name="EntryBorder" BorderColor="{StaticResource Gray100}" Padding="16,0" CornerRadius="{TemplateBinding CornerRadius}" HeightRequest="57">
                     <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
                         <Image Source="{TemplateBinding IconSource}"
                                WidthRequest="22"

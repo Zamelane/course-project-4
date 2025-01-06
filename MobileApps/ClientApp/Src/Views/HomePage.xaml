@@ -5,19 +5,38 @@
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              xmlns:components="clr-namespace:ClientApp.Src.Components"
              xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              x:Class="ClientApp.Src.Views.HomePage">
     <ContentPage.BindingContext>
         <viewModels:HomeViewModel/>
     </ContentPage.BindingContext>
 
-    <Shell.TitleView>
+    <Page.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="{StaticResource White}" StatusBarStyle="DarkContent"/>
+    </Page.Behaviors>
+
+    <Grid RowDefinitions="auto,*">
         <!--Верхняя шапочка с профилем и поиском-->
-        <Grid ColumnDefinitions="auto, *, auto" ColumnSpacing="10" VerticalOptions="Center">
-            <Grid.Padding>
-                <OnPlatform x:TypeArguments="Thickness" Default="10,0,10,0">
-                    <On Platform="Android" Value="0,0,15,0"/>
+        <Grid Padding="10,0,10,10" ColumnSpacing="10" VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <OnPlatform x:TypeArguments="ColumnDefinitionCollection">
+                    <OnPlatform.Default>
+                        <ColumnDefinitionCollection>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </ColumnDefinitionCollection>
+                    </OnPlatform.Default>
+                    <On Platform="Android">
+                        <On.Value>
+                            <ColumnDefinitionCollection>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </ColumnDefinitionCollection>
+                        </On.Value>
+                    </On>
                 </OnPlatform>
-            </Grid.Padding>
+            </Grid.ColumnDefinitions>
             <!--Аватарка пользователя-->
             <Frame CornerRadius="100" BorderColor="Transparent" Padding="-1" WidthRequest="40" HeightRequest="40">
                 <Image Source="avatar.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"/>
@@ -25,11 +44,14 @@
             <!--Строка поиска-->
             <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1" VerticalOptions="Center"/>
             <!--Перезагрузка-->
-            <ImageButton x:Name="refreshButton" Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCommand}"/>
+            <ImageButton Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCommand}">
+                <ImageButton.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean" Default="True">
+                        <On Platform="Android" Value="False"/>
+                    </OnPlatform>
+                </ImageButton.IsVisible>
+            </ImageButton>
         </Grid>
-    </Shell.TitleView>
-
-    <Grid>
         <!--Содержимое страницы-->
         <controls:CustomRefreshView Grid.Row="1" Command="{Binding TryFetchCommand}">
             <StackLayout>

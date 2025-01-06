@@ -17,7 +17,7 @@
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" Route="Main"/>
         </Tab>
         <Tab Title="Каталог" Icon="catalog.png">
-            <ShellContent ContentTemplate="{DataTemplate views:CategoriesPage}" Route="Categories"/>
+            <ShellContent ContentTemplate="{DataTemplate views:BrowsePage}" Route="Browse"/>
         </Tab>
         <Tab Title="Избранное" Icon="bookmark.png" IsVisible="{Binding BookmarkIsEnabled}">
             <ShellContent ContentTemplate="{DataTemplate views:FavouritesPage}" Route="Favourites"/>

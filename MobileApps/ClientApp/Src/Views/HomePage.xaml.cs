@@ -8,9 +8,5 @@ public partial class HomePage : ContentPage
     public HomePage()
 	{
 		InitializeComponent();
-#if ANDROID
-        refreshButton.IsVisible = false;
-        refreshButton.WidthRequest = 0;
-#endif
     }
 }

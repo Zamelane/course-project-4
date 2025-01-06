@@ -38,6 +38,13 @@ namespace ClientApp
 #endif
             });
 
+            Microsoft.Maui.Handlers.ToolbarHandler.Mapper.AppendToMapping("CustomNavigationView", (handler, view) => {
+#if ANDROID
+        handler.PlatformView.ContentInsetStartWithNavigation = 0;
+        handler.PlatformView.SetContentInsetsAbsolute(0, 0);
+#endif
+            });
+
             return builder.Build();
         }
     }

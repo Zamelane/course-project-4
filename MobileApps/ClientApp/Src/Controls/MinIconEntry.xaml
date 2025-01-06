@@ -32,7 +32,18 @@
                                                       VerticalTextAlignment="Center"
                                                       VerticalOptions="Center"
                                                       x:Name="CustomEntry"
-                                                      Grid.Column="1"/>
+                                                      Grid.Column="1">
+                            <controls:BorderlessEntry.HeightRequest>
+                                <OnPlatform x:TypeArguments="x:Double" Default="22">
+                                    <On Platform="Android" Value="44"/>
+                                </OnPlatform>
+                            </controls:BorderlessEntry.HeightRequest>
+                            <controls:BorderlessEntry.Margin>
+                                <OnPlatform x:TypeArguments="Thickness" Default="0,-2,0,0">
+                                    <On Platform="Android" Value="0"/>
+                                </OnPlatform>
+                            </controls:BorderlessEntry.Margin>
+                        </controls:BorderlessEntry>
                     </Grid>
                 </Frame>
             </VerticalStackLayout>
