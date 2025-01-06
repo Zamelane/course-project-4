@@ -26,6 +26,9 @@ public partial class IconEntry : ContentView
     public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
         nameof(IsPassword), typeof(bool), typeof(IconEntry), false
     );
+    public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(
+        nameof(CornerRadius), typeof(int), typeof(IconEntry), 0
+    );
     public event EventHandler Completed;
 
     public string ErrorText
@@ -52,6 +55,12 @@ public partial class IconEntry : ContentView
     {
         get => (bool)GetValue(IsPasswordProperty);
         set => SetValue(IsPasswordProperty, value);
+    }
+
+    public int CornerRadius
+    {
+        get => (int)GetValue(CornerRadiusProperty);
+        set => SetValue(CornerRadiusProperty, value);
     }
 
     private void OnEntryCompleted(object sender, EventArgs e)

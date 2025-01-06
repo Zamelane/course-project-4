@@ -12,12 +12,7 @@
 
     <Shell.TitleView>
         <!--Верхняя шапочка с профилем и поиском-->
-        <Grid ColumnDefinitions="auto, *, auto" ColumnSpacing="10" VerticalOptions="Center">
-            <Grid.Padding>
-                <OnPlatform x:TypeArguments="Thickness" Default="10,0,10,0">
-                    <On Platform="Android" Value="0,0,15,0"/>
-                </OnPlatform>
-            </Grid.Padding>
+        <Grid ColumnDefinitions="auto, *, auto" ColumnSpacing="10" VerticalOptions="Center" Padding="10,0,10,0">
             <!--Аватарка пользователя-->
             <Frame CornerRadius="100" BorderColor="Transparent" Padding="-1" WidthRequest="40" HeightRequest="40">
                 <Image Source="avatar.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"/>
