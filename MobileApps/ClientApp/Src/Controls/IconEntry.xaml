@@ -14,7 +14,10 @@
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <VerticalStackLayout Spacing="8">
-                <Frame x:Name="EntryBorder" BorderColor="{StaticResource Gray100}" Padding="16,0" CornerRadius="{TemplateBinding CornerRadius}" HeightRequest="57">
+                <Border x:Name="EntryBorder" BackgroundColor="{StaticResource White}" Stroke="{StaticResource Gray100}" StrokeThickness="1" Padding="16,0" HeightRequest="57">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}"/>
+                    </Border.StrokeShape>
                     <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
                         <Image Source="{TemplateBinding IconSource}"
                                WidthRequest="22"
@@ -40,10 +43,10 @@
                                    FontSize="14"
                                    FontFamily="Nunito"
                                    IsVisible="{TemplateBinding Text, Converter={StaticResource VisibilityConverter}}"
-                                   Margin="{OnPlatform '10,5,0,-8', Android='3,5,0,-8'}"/>
+                                   Margin="{OnPlatform '10,5,0,-8', Android='0,5,0,-8'}"/>
                         </Grid>
                     </Grid>
-                </Frame>
+                </Border>
                 <Label TextColor="Red" FontSize="12"
                        Text="{TemplateBinding ErrorText}"
                        IsVisible="{TemplateBinding ErrorText, Converter={StaticResource VisibilityConverter}}"

@@ -58,7 +58,7 @@
                 <!--Карточка с топ-новостью-->
                 <components:BigNewsCard/>
 
-                <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
+                <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="2" Opacity="0.5"/>
 
                 <!--Разделы содержимого-->
                 <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
@@ -94,7 +94,7 @@
                         </CollectionView>
                     </StackLayout>
 
-                    <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
+                    <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="2" Opacity="0.5"/>
 
                     <!--ПОСЛЕДНИЕ НОВОСТИ-->
                     <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">

@@ -14,7 +14,7 @@
                     FontFamily="Nunito"
                     ImageSource="arrow_right_white.png"
                     ContentLayout="Right"
-                    CornerRadius="0">
+                    CornerRadius="5">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Style.Triggers>
