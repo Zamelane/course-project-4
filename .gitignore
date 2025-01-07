@@ -11,3 +11,4 @@ _ide_*
 .idea/
 *iml
 *idea
+/MobileApps/ClientApp/Properties/PublishProfiles/MSIX-win-x64.pubxml
