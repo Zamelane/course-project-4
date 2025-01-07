@@ -1,3 +1,7 @@
+using ClientApp.Src.Utils;
+using System.Diagnostics;
+using ClientApp.Src.Components;
+
 namespace ClientApp.Src.Controls;
 
 public partial class Select : ContentView
@@ -14,5 +18,11 @@ public partial class Select : ContentView
     {
         get => (int)GetValue(CornerRadiusProperty);
         set => SetValue(CornerRadiusProperty, value);
+    }
+
+    private void Select_Tapped(object sender, TappedEventArgs e)
+    {
+
+        //rl.OpenPopup(new Popup());
     }
 }

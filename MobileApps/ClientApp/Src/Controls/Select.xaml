@@ -5,6 +5,9 @@
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <Border BackgroundColor="{StaticResource White}" Stroke="{StaticResource Gray100}" StrokeThickness="1" Padding="5">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Select_Tapped"/>
+                </Border.GestureRecognizers>
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}"/>
                 </Border.StrokeShape>

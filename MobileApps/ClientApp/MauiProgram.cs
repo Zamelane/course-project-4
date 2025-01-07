@@ -1,5 +1,6 @@
 ﻿using ClientApp.Src.Controls;
 using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
 using FFImageLoading.Maui;
 using Microsoft.Maui.Platform;
 

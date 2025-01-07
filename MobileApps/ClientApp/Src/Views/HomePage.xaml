@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              xmlns:components="clr-namespace:ClientApp.Src.Components"
              xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
-             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              x:Class="ClientApp.Src.Views.HomePage">
     <ContentPage.BindingContext>
         <viewModels:HomeViewModel/>
     </ContentPage.BindingContext>
 
     <Page.Behaviors>
-        <mct:StatusBarBehavior StatusBarColor="{StaticResource White}" StatusBarStyle="DarkContent"/>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource White}" StatusBarStyle="DarkContent"/>
     </Page.Behaviors>
 
     <Grid RowDefinitions="auto,*">
@@ -37,20 +37,31 @@
                     </On>
                 </OnPlatform>
             </Grid.ColumnDefinitions>
-            <!--Аватарка пользователя-->
-            <Frame CornerRadius="100" BorderColor="Transparent" Padding="-1" WidthRequest="40" HeightRequest="40">
-                <Image Source="avatar.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"/>
-            </Frame>
-            <!--Строка поиска-->
-            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1" VerticalOptions="Center"/>
             <!--Перезагрузка-->
-            <ImageButton Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCommand}">
+            <ImageButton Source="refresh.png" Command="{Binding TryFetchCommand}">
                 <ImageButton.IsVisible>
                     <OnPlatform x:TypeArguments="x:Boolean" Default="True">
                         <On Platform="Android" Value="False"/>
                     </OnPlatform>
                 </ImageButton.IsVisible>
             </ImageButton>
+            <!--Строка поиска-->
+            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1" VerticalOptions="Center"/>
+            <!--Аватарка пользователя-->
+            <Border Grid.Column="2" WidthRequest="40" HeightRequest="40" Stroke="{StaticResource Gray100}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5"/>
+                </Border.StrokeShape>
+                <Image>
+                    <Image.Source>
+                        <toolkit:GravatarImageSource
+                    CacheValidity="1"
+                    CachingEnabled="True"
+                    Email="test@mail.ru"
+                    Image="Robohash"/>
+                    </Image.Source>
+                </Image>
+            </Border>
         </Grid>
         <!--Содержимое страницы-->
         <controls:CustomRefreshView Grid.Row="1" Command="{Binding TryFetchCommand}">
@@ -67,7 +78,7 @@
                         <CollectionView ItemsSource="{Binding Categories}">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Horizontal"
-                                                         HorizontalItemSpacing="{StaticResource MarginPreMin}"/>
+                                                     HorizontalItemSpacing="{StaticResource MarginPreMin}"/>
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
@@ -115,6 +126,7 @@
             </StackLayout>
         </controls:CustomRefreshView>
 
-        
+
     </Grid>
+
 </ContentPage>
