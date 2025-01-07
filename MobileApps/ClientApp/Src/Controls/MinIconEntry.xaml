@@ -14,7 +14,10 @@
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <VerticalStackLayout Spacing="8">
-                <Frame x:Name="EntryBorder" BorderColor="{StaticResource Gray100}" Padding="16,0" CornerRadius="0" HeightRequest="40">
+                <Border x:Name="EntryBorder" Stroke="{StaticResource Gray100}" Padding="16,0" HeightRequest="40">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
                     <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
                         <Image Source="{TemplateBinding IconSource}"
                                WidthRequest="22"
@@ -45,7 +48,7 @@
                             </controls:BorderlessEntry.Margin>
                         </controls:BorderlessEntry>
                     </Grid>
-                </Frame>
+                </Border>
             </VerticalStackLayout>
         </ControlTemplate>
     </ContentView.ControlTemplate>

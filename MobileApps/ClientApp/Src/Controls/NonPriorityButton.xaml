@@ -12,7 +12,7 @@
                 TextColor="{StaticResource Primary500}"
                 FontSize="14"
                 FontFamily="Nunito"
-                CornerRadius="0">
+                CornerRadius="5">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Style.Triggers>
