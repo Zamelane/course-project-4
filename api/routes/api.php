@@ -211,6 +211,11 @@ Route
    Route::post('', 'upload');
 });
 
+/*
+ * [Категории]
+ * /categories | get, post
+ * /categories/{category} | delete
+ */
 Route
 ::prefix('categories')
 ->controller(CategoryController::class)
