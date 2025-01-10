@@ -1,5 +1,4 @@
-﻿using ClientApp.Src.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary.Responses.Api.Category;
 using RequestsLibrary.Responses.Api.News;

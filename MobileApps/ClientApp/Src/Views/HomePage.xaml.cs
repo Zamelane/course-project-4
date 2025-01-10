@@ -15,6 +15,6 @@ public partial class HomePage : ContentPage
 
         popup.CanBeDismissedByTappingOutsideOfPopup = false;
 
-        this.ShowPopupAsync(popup);
+        //this.ShowPopupAsync(popup);
     }
 }
