@@ -14,7 +14,7 @@
                         <Image Source="arrow_right_blue.png" WidthRequest="16" HeightRequest="16"/>
                     </HorizontalStackLayout>
                 </Grid>
-                <ScrollView Grid.Row="1" Orientation="Horizontal">
+                <ScrollView Padding="{OnPlatform '0,0,0,12', Android='10,0'}" Grid.Row="1" Orientation="Horizontal">
                     <ContentPresenter/>
                 </ScrollView>
             </Grid>

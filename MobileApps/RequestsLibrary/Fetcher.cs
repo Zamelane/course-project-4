@@ -1,11 +1,12 @@
 ﻿using RequestsLibrary.Types;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace RequestsLibrary
 {
     public static class Fetcher
     {
-        public static Uri URL = new("http://127.0.0.1:8000/");
+        public static Uri URL = new("http://192.168.1.193:8000/");
         public static Uri API_URL
         {
             get => new($"{URL}api/");

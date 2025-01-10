@@ -38,6 +38,8 @@
                      IsPassword="True"
                      Completed="GoToSignupCommand"/>
 
+                <Label HeightRequest="5"/>
+
                 <controls:Button Text="SIGN IN" Command="{Binding TryLoginCommand}" IsVisibleArrow="True"/>
                 <controls:NonPriorityButton Text="REGISTER NOW" Command="{Binding GoToSignupCommand}"/>
             </StackLayout>

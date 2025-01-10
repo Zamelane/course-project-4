@@ -4,7 +4,7 @@ namespace ClientApp.Src.Controls;
 
 public partial class IconEntry : ContentView
 {
-    private Color _beforeBordeColor;
+    private Brush _beforeBordeColor;
 
     public IconEntry()
     {
@@ -27,7 +27,7 @@ public partial class IconEntry : ContentView
         nameof(IsPassword), typeof(bool), typeof(IconEntry), false
     );
     public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(
-        nameof(CornerRadius), typeof(int), typeof(IconEntry), 0, BindingMode.OneWayToSource
+        nameof(CornerRadius), typeof(int), typeof(IconEntry), 5, BindingMode.OneWayToSource
     );
     public event EventHandler Completed;
 
@@ -79,13 +79,13 @@ public partial class IconEntry : ContentView
         var rd = App.Current.Resources.MergedDictionaries.First();
 
 
-        if (entryBorder is not Frame fr)
+        if (entryBorder is not Border fr)
             return;
 
-        _beforeBordeColor = ((Frame)entryBorder).BorderColor;
+        _beforeBordeColor = ((Border)entryBorder).Stroke;
 
-        Color color = resourceName is Color ? resourceName : (Color)rd[resourceName];
-        ((Frame)entryBorder).BorderColor = color;
+        Brush color = resourceName is Brush ? resourceName : (Color)rd[resourceName];
+        ((Border)entryBorder).Stroke = color;
     }
 
     private void Entry_Tap(object sender, TappedEventArgs e)

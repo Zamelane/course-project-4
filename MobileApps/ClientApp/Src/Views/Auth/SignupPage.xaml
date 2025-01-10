@@ -72,6 +72,8 @@
                                   ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=passwordConfirm}"
                                   x:Name="PasswordConfirm"/>
 
+                <Label HeightRequest="5"/>
+
                 <controls:Button Text="CREATE ACCOUNT" Command="{Binding TrySignUpCommand}"/>
 
                 <controls:NonPriorityButton Text="LOG IN" Command="{Binding GoToLoginCommand}"/>

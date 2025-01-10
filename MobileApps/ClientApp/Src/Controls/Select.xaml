@@ -4,12 +4,18 @@
              x:Class="ClientApp.Src.Controls.Select">
     <ContentView.ControlTemplate>
         <ControlTemplate>
-            <Frame BorderColor="{StaticResource Gray60}" Padding="5" CornerRadius="0">
+            <Border BackgroundColor="{StaticResource White}" Stroke="{StaticResource Gray100}" StrokeThickness="1" Padding="5">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Select_Tapped"/>
+                </Border.GestureRecognizers>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}"/>
+                </Border.StrokeShape>
                 <Grid ColumnDefinitions="*, auto" Padding="18,13">
                     <Label Text="Popular" FontAttributes="Bold" FontSize="16" TextColor="{StaticResource Gray500}" VerticalOptions="Center"/>
                     <Image Source="caret_down.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" Grid.Column="1"/>
                 </Grid>
-            </Frame>
+            </Border>
         </ControlTemplate>
     </ContentView.ControlTemplate>
 </ContentView>

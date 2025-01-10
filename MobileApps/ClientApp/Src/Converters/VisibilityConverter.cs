@@ -7,11 +7,12 @@ public class VisibilityConverter : IValueConverter
     {
         if (value is string s
             && s == String.Empty
+            || value is null
         )
         {
-            return Visibility.Visible;
+            return false;
         }
-        return Visibility.Collapsed;
+        return true;
     }
 
     public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
