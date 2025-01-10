@@ -1,33 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <Shell
     x:Class="ClientApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:ClientApp.Src.Views"
+    xmlns:authViews="clr-namespace:ClientApp.Src.Views.Auth"
     xmlns:local="clr-namespace:ClientApp.Src.ViewModels"
-    xmlns:controls="clr-namespace:ClientApp.Src.Controls"
-    xmlns:components="clr-namespace:ClientApp.Src.Components"
-    Shell.FlyoutBehavior="Disabled"
+    FlyoutBehavior="Disabled"
     Title="ClientApp">
     <Shell.BindingContext>
-        <local:TabsViewModel/>
+        <local:TabsViewModel />
     </Shell.BindingContext>
 
     <TabBar>
         <Tab Title="Главная" Icon="news.png">
-            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" Route="Main"/>
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" Route="Main" />
         </Tab>
         <Tab Title="Каталог" Icon="catalog.png">
-            <ShellContent ContentTemplate="{DataTemplate views:BrowsePage}" Route="Browse"/>
+            <ShellContent ContentTemplate="{DataTemplate views:BrowsePage}" Route="Browse" />
         </Tab>
         <Tab Title="Избранное" Icon="bookmark.png" IsVisible="{Binding BookmarkIsEnabled}">
-            <ShellContent ContentTemplate="{DataTemplate views:FavouritesPage}" Route="Favourites"/>
+            <ShellContent ContentTemplate="{DataTemplate views:FavouritesPage}" Route="Favourites" />
         </Tab>
         <Tab Title="Настройки" Icon="settings.png" IsVisible="{Binding SettingsIsEnabled}">
-            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="Settings"/>
+            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="Settings" />
         </Tab>
         <Tab Title="Авторизация" Icon="key.png" IsVisible="{Binding LoginIsVisible}">
-            <ShellContent ContentTemplate="{DataTemplate views:Auth.LoginPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate authViews:LoginPage}" />
         </Tab>
     </TabBar>
 </Shell>

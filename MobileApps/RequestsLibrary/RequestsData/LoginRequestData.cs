@@ -1,16 +1,15 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RequestsLibrary.RequestsData
-{
-    public class LoginRequestData
-    {
-        public LoginRequestData(string login, string password)
-        {
-            Login = login;
-            Password = password;
-        }
+namespace RequestsLibrary.RequestsData;
 
-        [JsonPropertyName("login")   ] public string Login { get; set; }
-        [JsonPropertyName("password")] public string Password { get; set; }
+public class LoginRequestData
+{
+    public LoginRequestData(string login, string password)
+    {
+        Login = login;
+        Password = password;
     }
+
+    [JsonPropertyName("login")] public string Login { get; set; }
+    [JsonPropertyName("password")] public string Password { get; set; }
 }

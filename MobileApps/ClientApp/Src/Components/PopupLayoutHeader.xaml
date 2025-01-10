@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClientApp.Src.Components.PopupLayoutHeader">
@@ -6,9 +7,11 @@
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <Grid RowDefinitions="auto, *" ColumnDefinitions="auto,*,auto" MinimumWidthRequest="150" Margin="0,0,0,10">
-                <Image WidthRequest="48" HeightRequest="48" Source="{TemplateBinding IconSource}" VerticalOptions="Start"/>
+                <Image WidthRequest="48" HeightRequest="48" Source="{TemplateBinding IconSource}"
+                       VerticalOptions="Start" />
 
-                <Image WidthRequest="24" HeightRequest="24" Grid.Column="2" Source="x_close.png" VerticalOptions="Start"/>
+                <Image WidthRequest="24" HeightRequest="24" Grid.Column="2" Source="x_close.png"
+                       VerticalOptions="Start" />
 
                 <Label Grid.Column="1"
                        Text="{TemplateBinding Title}"
@@ -17,16 +20,16 @@
                        FontSize="18"
                        TextColor="{StaticResource Gray900}"
                        FontAttributes="Bold"
-                       Padding="16,0"/>
+                       Padding="16,0" />
                 <StackLayout Grid.Column="1" Margin="0,25,0,0">
-                    <Label Grid.Column="1"
-                           Text="{TemplateBinding Description}"
-                           FontSize="14"
-                           TextColor="{StaticResource Gray600}"
-                           Padding="16,0"/>
+                    <Label
+                        Text="{TemplateBinding Description}"
+                        FontSize="14"
+                        TextColor="{StaticResource Gray600}"
+                        Padding="16,0" />
                 </StackLayout>
             </Grid>
         </ControlTemplate>
     </ContentView.ControlTemplate>
-    
+
 </ContentView>

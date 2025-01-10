@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClientApp.Src.Components.PopupLayout">
@@ -10,7 +11,7 @@
                     Margin="22"
                     Padding="16">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="12"/>
+                    <RoundRectangle CornerRadius="12" />
                 </Border.StrokeShape>
                 <Border.Shadow>
                     <Shadow Brush="#0A0D12"
@@ -18,7 +19,7 @@
                             Radius="24"
                             Opacity="0.12" />
                 </Border.Shadow>
-                <ContentPresenter/>
+                <ContentPresenter />
             </Border>
         </ControlTemplate>
     </ContentView.ControlTemplate>

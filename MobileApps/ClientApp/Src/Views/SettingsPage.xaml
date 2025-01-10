@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
              x:Class="ClientApp.Src.Views.SettingsPage"
              Title="SettingsPage">
     <ContentPage.BindingContext>
-        <viewModels:SettingsViewModel/>
+        <viewModels:SettingsViewModel />
     </ContentPage.BindingContext>
     <ScrollView>
         <StackLayout Padding="10">
-            <Button Text="Выйти" Command="{Binding TryExitCommand}"/>
+            <Button Text="Выйти" Command="{Binding TryExitCommand}" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -2,96 +2,90 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ObservableDictionary;
+using RequestsLibrary.Exceptions;
+using RequestsLibrary.Routes.API.Auth;
 
-namespace ClientApp.Src.ViewModels.Auth
+namespace ClientApp.Src.ViewModels.Auth;
+
+public partial class SignupViewModel : ObservableObject
 {
-    public partial class SignupViewModel: ObservableObject
+    [ObservableProperty] private ObservableStringDictionary<List<string>> badFields = [];
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
+    private DateTime birthDay;
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
+    private string email = "";
+
+    [ObservableProperty] private string? error;
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
+    private string firstName = "";
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
+    private string lastName = "";
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
+    private string login = "";
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
+    private string password = "";
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
+    private string passwordConfirm = "";
+
+    [RelayCommand(CanExecute = nameof(CanSignup))]
+    private async Task TrySignUp()
     {
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
-        private string firstName = "";
+        // Сбрасываем статусы ошибок
+        Error = null;
+        BadFields = [];
 
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
-        private string lastName = "";
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
-        private string login = "";
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
-        private string password = "";
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
-        private string passwordConfirm = "";
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
-        private DateTime birthDay;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
-        private string email = "";
-
-        [ObservableProperty]
-        private string? error = null;
-
-        [ObservableProperty]
-        private ObservableStringDictionary<List<string>> badFields = [];
-
-        [RelayCommand(CanExecute = nameof(CanSignup))]
-        private async Task TrySignUp()
+        // Проводим валидацию перед отправкой
+        if (Password != PasswordConfirm)
         {
-            // Сбрасываем статусы ошибок
-            Error = null;
-            BadFields = [];
-
-            // Проводим валидацию перед отправкой
-            if (Password != PasswordConfirm)
-            {
-                Error = "Ошибка валидации данных";
-                BadFields.Add("passwordConfirm", ["Пароли не совпадают"]);
-                OnPropertyChanged(nameof(BadFields));
-                return;
-            }
-
-            // Пробуем зарегаться
-            (var response, var body, var exception) 
-                = await RequestsLibrary.Routes.API.Auth
-                .SignupRequest.RequestToServer(FirstName, LastName, Login, Password, BirthDay, Email);
-
-            // Проверям на ошибки
-            if (body is null && exception is null)
-                exception = new RequestsLibrary.Exceptions.RequestException("Сервер не вернул данные: " + response.StatusCode);
-
-            if (exception is not null)
-            {
-                Error = exception.Message;
-                if (body?.Errors != null)
-                    BadFields = body.Errors;
-                return;
-            }
-
-            // Если всё ок - сохраняем авторизацию
-            Storage.AuthData.SaveAuthData(body.Token, body.User);
-            Provider.appShell.setEnabledTabsAll(true);
-            await Shell.Current.GoToAsync("//Main");
+            Error = "Ошибка валидации данных";
+            BadFields.Add("passwordConfirm", ["Пароли не совпадают"]);
+            OnPropertyChanged(nameof(BadFields));
+            return;
         }
 
-        private bool CanSignup() =>
-            FirstName != String.Empty
-            && LastName != String.Empty
-            && Login != String.Empty
-            && Password != String.Empty
-            && PasswordConfirm != String.Empty
-            && Email != String.Empty;
+        // Пробуем зарегаться
+        var (response, body, exception)
+            = await SignupRequest.RequestToServer(FirstName, LastName, Login, Password, BirthDay, Email);
 
-        [RelayCommand]
-        private async Task GoToLogin()
+        // Проверям на ошибки
+        if (body is null && exception is null)
+            exception = new RequestException("Сервер не вернул данные: " +
+                                             response.StatusCode);
+
+        if (exception is not null)
         {
-            await Shell.Current.Navigation.PopAsync();
+            Error = exception.Message;
+            if (body?.Errors != null)
+                BadFields = body.Errors;
+            return;
         }
+
+        // Если всё ок - сохраняем авторизацию
+        AuthData.SaveAuthData(body.Token, body.User);
+        Provider.appShell.setEnabledTabsAll(true);
+        await Shell.Current.GoToAsync("//Main");
+    }
+
+    private bool CanSignup()
+    {
+        return FirstName != string.Empty
+               && LastName != string.Empty
+               && Login != string.Empty
+               && Password != string.Empty
+               && PasswordConfirm != string.Empty
+               && Email != string.Empty;
+    }
+
+    [RelayCommand]
+    private async Task GoToLogin()
+    {
+        await Shell.Current.Navigation.PopAsync();
     }
 }

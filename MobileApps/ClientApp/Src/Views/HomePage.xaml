@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              xmlns:components="clr-namespace:ClientApp.Src.Components"
-             xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
              x:Class="ClientApp.Src.Views.HomePage">
     <ContentPage.BindingContext>
-        <viewModels:HomeViewModel/>
+        <viewModels:HomeViewModel />
     </ContentPage.BindingContext>
 
     <Page.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource White}" StatusBarStyle="DarkContent"/>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource White}" StatusBarStyle="DarkContent" />
     </Page.Behaviors>
 
     <Grid RowDefinitions="auto,*">
@@ -22,16 +22,16 @@
                 <OnPlatform x:TypeArguments="ColumnDefinitionCollection">
                     <OnPlatform.Default>
                         <ColumnDefinitionCollection>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
                         </ColumnDefinitionCollection>
                     </OnPlatform.Default>
                     <On Platform="Android">
                         <On.Value>
                             <ColumnDefinitionCollection>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
                             </ColumnDefinitionCollection>
                         </On.Value>
                     </On>
@@ -40,7 +40,7 @@
             <!--Аватарка пользователя-->
             <Border WidthRequest="40" HeightRequest="40" Stroke="{StaticResource Gray100}">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="5"/>
+                    <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
                 <Image>
                     <Image.Source>
@@ -48,17 +48,18 @@
                             CacheValidity="1"
                             CachingEnabled="True"
                             Email="test@mail.ru"
-                            Image="Robohash"/>
+                            Image="Robohash" />
                     </Image.Source>
                 </Image>
             </Border>
             <!--Строка поиска-->
-            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1" VerticalOptions="Center"/>
+            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1"
+                                   VerticalOptions="Center" />
             <!--Перезагрузка-->
             <ImageButton Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCommand}">
                 <ImageButton.IsVisible>
                     <OnPlatform x:TypeArguments="x:Boolean" Default="True">
-                        <On Platform="Android" Value="False"/>
+                        <On Platform="Android" Value="False" />
                     </OnPlatform>
                 </ImageButton.IsVisible>
             </ImageButton>
@@ -67,9 +68,10 @@
         <controls:CustomRefreshView Grid.Row="1" Command="{Binding TryFetchCommand}">
             <StackLayout>
                 <!--Карточка с топ-новостью-->
-                <components:BigNewsCard/>
+                <components:BigNewsCard />
 
-                <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="2" Opacity="0.5"/>
+                <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="2"
+                       Opacity="0.5" />
 
                 <!--Разделы содержимого-->
                 <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
@@ -78,46 +80,48 @@
                         <CollectionView ItemsSource="{Binding Categories}">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Horizontal"
-                                                     HorizontalItemSpacing="{StaticResource MarginPreMin}"/>
+                                                 HorizontalItemSpacing="{StaticResource MarginPreMin}" />
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <components:CategoryCard  IconSource="{Binding Image.Path}" Text="{Binding Name}" CardColor="{Binding BackgroundColor}" WidthRequest="179"/>
+                                    <components:CategoryCard IconSource="{Binding Image.Path}" Text="{Binding Name}"
+                                                             CardColor="{Binding BackgroundColor}" WidthRequest="179" />
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </components:TitledContentTemplate>
                     <!--РЕКОМЕНДАЦИИ-->
                     <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
-                        <Label Text="MOST READ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito"/>
+                        <Label Text="MOST READ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito" />
                         <!--Большая карторчка для первой рекомендации-->
-                        <components:DefaultNewsCard FilteredNews="{Binding MostReadNewsTop}"/>
+                        <components:DefaultNewsCard FilteredNews="{Binding MostReadNewsTop}" />
                         <!--Остальные мини карточки-->
                         <CollectionView ItemsSource="{Binding MostReadNewses}">
                             <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}"/>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}" />
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <components:MinNewsCard FilteredNews="{Binding .}"/>
+                                    <components:MinNewsCard FilteredNews="{Binding .}" />
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </StackLayout>
 
-                    <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="2" Opacity="0.5"/>
+                    <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand"
+                           HeightRequest="2" Opacity="0.5" />
 
                     <!--ПОСЛЕДНИЕ НОВОСТИ-->
                     <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
-                        <Label Text="LATEST NEWS" FontSize="16" FontAttributes="Bold" FontFamily="Nunito"/>
+                        <Label Text="LATEST NEWS" FontSize="16" FontAttributes="Bold" FontFamily="Nunito" />
                         <!--Остальные мини карточки-->
                         <CollectionView ItemsSource="{Binding MostReadNewses}">
                             <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}"/>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}" />
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <components:MinNewsCard FilteredNews="{Binding .}"/>
+                                    <components:MinNewsCard FilteredNews="{Binding .}" />
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>

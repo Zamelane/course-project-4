@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClientApp.Src.Components.DefaultNewsCard">
@@ -8,19 +9,21 @@
             <!--Большая карторчка для первой рекомендации-->
             <Frame BorderColor="#E9EAF0" CornerRadius="0" Padding="0" BindingContext="{TemplateBinding FilteredNews}">
                 <Grid RowDefinitions="200,auto" RowSpacing="16">
-                    <Image Source="news_1.png" Aspect="AspectFill"/>
+                    <Image Source="news_1.png" Aspect="AspectFill" />
                     <StackLayout Grid.Row="1" Margin="20,0,20,20" Spacing="8">
-                        <Label LineBreakMode="TailTruncation" MaxLines="1" FontSize="16" FontFamily="Nunito" Text="{Binding Title}"/>
-                        <Label Text="{Binding Content}" MaxLines="2" FontSize="14" TextColor="#767E94" FontFamily="Nunito"/>
+                        <Label LineBreakMode="TailTruncation" MaxLines="1" FontSize="16" FontFamily="Nunito"
+                               Text="{Binding Title}" />
+                        <Label Text="{Binding Content}" MaxLines="2" FontSize="14" TextColor="#767E94"
+                               FontFamily="Nunito" />
                         <!--Социальная информация-->
                         <Grid Margin="0,12,0,0" ColumnDefinitions="auto,auto,*,auto" ColumnSpacing="16">
                             <HorizontalStackLayout Spacing="6">
-                                <Image Source="eye_no_accent.png" WidthRequest="20" HeightRequest="20"/>
-                                <Label Text="32.7k" FontFamily="Nunito" FontSize="14" TextColor="#767E94"/>
+                                <Image Source="eye_no_accent.png" WidthRequest="20" HeightRequest="20" />
+                                <Label Text="32.7k" FontFamily="Nunito" FontSize="14" TextColor="#767E94" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Spacing="6" Grid.Column="1">
-                                <Image Source="chat_no_accent.png" WidthRequest="20" HeightRequest="20"/>
-                                <Label Text="94" FontFamily="Nunito" FontSize="14" TextColor="#767E94"/>
+                                <Image Source="chat_no_accent.png" WidthRequest="20" HeightRequest="20" />
+                                <Label Text="94" FontFamily="Nunito" FontSize="14" TextColor="#767E94" />
                             </HorizontalStackLayout>
                         </Grid>
                     </StackLayout>
@@ -28,5 +31,5 @@
             </Frame>
         </ControlTemplate>
     </ContentView.ControlTemplate>
-    
+
 </ContentView>
