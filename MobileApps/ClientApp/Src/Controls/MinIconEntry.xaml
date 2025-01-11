@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
@@ -7,7 +8,7 @@
 
     <ContentView.Resources>
         <ResourceDictionary>
-            <cnv:VisibilityConverter x:Key="VisibilityConverter"/>
+            <cnv:VisibilityConverter x:Key="VisibilityConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
 
@@ -16,34 +17,34 @@
             <VerticalStackLayout Spacing="8">
                 <Border x:Name="EntryBorder" Stroke="{StaticResource Gray100}" Padding="16,0" HeightRequest="40">
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="5"/>
+                        <RoundRectangle CornerRadius="5" />
                     </Border.StrokeShape>
                     <Grid ColumnDefinitions="auto,*" ColumnSpacing="8">
                         <Image Source="{TemplateBinding IconSource}"
                                WidthRequest="22"
                                HeightRequest="22"
                                IsVisible="{TemplateBinding IconSource, Converter={StaticResource VisibilityConverter}}"
-                               Margin="0,4"/>
+                               Margin="0,4" />
                         <controls:BorderlessEntry PlaceholderColor="{StaticResource Gray500}"
-                                                      Placeholder="{TemplateBinding PlaceholderText}"
-                                                      Text="{TemplateBinding Text}"
-                                                      IsPassword="{TemplateBinding IsPassword}"
-                                                      Completed="OnEntryCompleted"
-                                                      Focused="OnEntryFocused"
-                                                      Unfocused="OnEntryUnfocused"
-                                                      FontSize="16"
-                                                      VerticalTextAlignment="Center"
-                                                      VerticalOptions="Center"
-                                                      x:Name="CustomEntry"
-                                                      Grid.Column="1">
+                                                  Placeholder="{TemplateBinding PlaceholderText}"
+                                                  Text="{TemplateBinding Text}"
+                                                  IsPassword="{TemplateBinding IsPassword}"
+                                                  Completed="OnEntryCompleted"
+                                                  Focused="OnEntryFocused"
+                                                  Unfocused="OnEntryUnfocused"
+                                                  FontSize="16"
+                                                  VerticalTextAlignment="Center"
+                                                  VerticalOptions="Center"
+                                                  x:Name="CustomEntry"
+                                                  Grid.Column="1">
                             <controls:BorderlessEntry.HeightRequest>
                                 <OnPlatform x:TypeArguments="x:Double" Default="22">
-                                    <On Platform="Android" Value="44"/>
+                                    <On Platform="Android" Value="44" />
                                 </OnPlatform>
                             </controls:BorderlessEntry.HeightRequest>
                             <controls:BorderlessEntry.Margin>
                                 <OnPlatform x:TypeArguments="Thickness" Default="0,-2,0,0">
-                                    <On Platform="Android" Value="0"/>
+                                    <On Platform="Android" Value="0" />
                                 </OnPlatform>
                             </controls:BorderlessEntry.Margin>
                         </controls:BorderlessEntry>
@@ -54,7 +55,7 @@
     </ContentView.ControlTemplate>
 
     <ContentView.GestureRecognizers>
-        <TapGestureRecognizer Tapped="Entry_Tap"/>
+        <TapGestureRecognizer Tapped="Entry_Tap" />
     </ContentView.GestureRecognizers>
 
 </ContentView>

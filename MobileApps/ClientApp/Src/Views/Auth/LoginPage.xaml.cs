@@ -4,12 +4,15 @@ namespace ClientApp.Src.Views.Auth;
 
 public partial class LoginPage : ContentPage
 {
-	public LoginPage()
-	{
-		InitializeComponent();
-	}
+    public LoginPage()
+    {
+        InitializeComponent();
+    }
 
-    private void FocusToPassword(object sender, EventArgs e) => PasswordEntry.Focus();
+    private void FocusToPassword(object sender, EventArgs e)
+    {
+        PasswordEntry.Focus();
+    }
 
     private void GoToSignupCommand(object sender, EventArgs e)
     {

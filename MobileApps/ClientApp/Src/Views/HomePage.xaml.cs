@@ -1,20 +1,27 @@
-using ClientApp.Src.Popups;
-using ClientApp.Src.ViewModels;
-using CommunityToolkit.Maui.Views;
 using System.Diagnostics;
+using ClientApp.Src.Popups;
+using CommunityToolkit.Maui.Views;
 
 namespace ClientApp.Src.Views;
 
 public partial class HomePage : ContentPage
 {
     public HomePage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
-        var popup = new QuestionPopup();
+        DisplayPopup();
+    }
 
-        popup.CanBeDismissedByTappingOutsideOfPopup = false;
+    public async Task DisplayPopup()
+    {
+        var popup = new QuestionPopup("Тестовый заголовок", "Описание :)");
 
-        //this.ShowPopupAsync(popup);
+        var result = await this.ShowPopupAsync(popup, CancellationToken.None);
+
+        if (result is bool boolResult)
+        {
+            Debug.WriteLine(boolResult);
+        }
     }
 }

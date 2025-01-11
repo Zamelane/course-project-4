@@ -1,65 +1,68 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
+using RequestsLibrary.Exceptions;
 using RequestsLibrary.Responses.Api.Category;
-using RequestsLibrary.Routes.API;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+using RequestsLibrary.Routes.API.Categories;
 
-namespace ClientApp.Src.ViewModels
+namespace ClientApp.Src.ViewModels;
+
+public partial class CategoriesViewModel : ObservableObject
 {
-    public partial class CategoriesViewModel : ObservableObject
+    [ObservableProperty] private ObservableCollection<CategoryResponse>? categories;
+    [ObservableProperty] private string? error;
+    [ObservableProperty] private bool isFetching;
+
+    public CategoriesViewModel()
     {
-        [ObservableProperty]
-        private ObservableCollection<CategoryResponse>? categories;
-        [ObservableProperty]
-        private string? error = null;
-        [ObservableProperty]
-        private bool isFetching = false;
+        Task.Run(TryFetchCategories);
+    }
 
-        public CategoriesViewModel()
+    [RelayCommand]
+    private async Task TryFetchCategories()
+    {
+        await Fetch();
+    }
+
+    public async Task<ObservableCollection<CategoryResponse>?> Fetch()
+    {
+        try
         {
-            Task.Run(TryFetchCategories);
+            IsFetching = true;
+            Debug.WriteLine("Start TryFetchCategories"); // TODO: DEBUG
+            var (response, body, exception) =
+                await GetAllRequest.RequestToServer();
+
+            if (body is null && exception is null)
+                exception = new RequestException("Сервер не вернул данные: " +
+                                                 response.StatusCode);
+
+            if (exception is not null)
+            {
+                Error = exception.Message;
+                Debug.WriteLine("Error TryFetchCategories: " + Error); // TODO: DEBUG
+                return null;
+            }
+
+            foreach (var cr in body!)
+            {
+                cr.AccentColor = $"#{cr.AccentColor}";
+                cr.BackgroundColor = $"#{cr.BackgroundColor}";
+                if (cr.Image is not null)
+                    cr.Image.Path = $"{Fetcher.URL}{cr.Image.Path}";
+            }
+
+            Categories = body;
+
+            Debug.WriteLine("End TryFetchCategories"); // TODO: DEBUG
+        }
+        finally
+        {
+            IsFetching = false;
         }
 
-        [RelayCommand]
-        private async Task TryFetchCategories() => await Fetch();
-        public async Task<ObservableCollection<CategoryResponse>?> Fetch()
-        {
-            try
-            {
-                IsFetching = true;
-                Debug.WriteLine("Start TryFetchCategories"); // TODO: DEBUG
-                (var response, var body, var exception) = await RequestsLibrary.Routes.API.Categories.GetAllRequest.RequestToServer();
-
-                if (body is null && exception is null)
-                    exception = new RequestsLibrary.Exceptions.RequestException("Сервер не вернул данные: " + response.StatusCode);
-
-                if (exception is not null)
-                {
-                    Error = exception.Message;
-                    Debug.WriteLine("Error TryFetchCategories: " + Error); // TODO: DEBUG
-                    return null;
-                }
-
-                foreach (CategoryResponse cr in body!)
-                {
-                    cr.AccentColor = $"#{cr.AccentColor}";
-                    cr.BackgroundColor = $"#{cr.BackgroundColor}";
-                    if (cr.Image is not null)
-                        cr.Image.Path = $"{Fetcher.URL}{cr.Image.Path}";
-                }
-
-                Categories = body;
-
-                Debug.WriteLine("End TryFetchCategories"); // TODO: DEBUG
-            }
-            finally
-            {
-                IsFetching = false;
-            }
-            
-            return Categories;
-        }
+        return Categories;
     }
 }

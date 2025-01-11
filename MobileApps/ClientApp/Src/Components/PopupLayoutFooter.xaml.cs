@@ -1,31 +1,29 @@
 using ClientApp.Src.Utils;
-using System.Diagnostics;
 
 namespace ClientApp.Src.Components;
 
 public partial class PopupLayoutFooter : ModifyContentView
 {
-	public PopupLayoutFooter()
-	{
-		InitializeComponent();
+    public static readonly BindableProperty BeforeTemplateProperty = BindableProperty.Create(nameof(BeforeTemplate),
+        typeof(View), typeof(PopupLayoutFooter));
+
+    public static readonly BindableProperty AfterTemplateProperty = BindableProperty.Create(nameof(AfterTemplate),
+        typeof(View), typeof(PopupLayoutFooter));
+
+    public PopupLayoutFooter()
+    {
+        InitializeComponent();
     }
 
-    public static readonly BindableProperty BeforeTemplateProperty = BindableProperty.Create(nameof(BeforeTemplate), typeof(ControlTemplate), typeof(PopupLayoutFooter), default);
-
-    public ControlTemplate BeforeTemplate
+    public View BeforeTemplate
     {
-        get => (ControlTemplate)GetValue(BeforeTemplateProperty);
-        set
-        {
-            SetValue(BeforeTemplateProperty, value);
-        }
+        get => (View)GetValue(BeforeTemplateProperty);
+        set => SetValue(BeforeTemplateProperty, value);
     }
 
-    public static readonly BindableProperty AfterTemplateProperty = BindableProperty.Create(nameof(AfterTemplate), typeof(ControlTemplate), typeof(PopupLayoutFooter), default);
-
-    public ControlTemplate AfterTemplate
+    public View AfterTemplate
     {
-        get => (ControlTemplate)GetValue(AfterTemplateProperty);
+        get => (View)GetValue(AfterTemplateProperty);
         set => SetValue(AfterTemplateProperty, value);
     }
 }

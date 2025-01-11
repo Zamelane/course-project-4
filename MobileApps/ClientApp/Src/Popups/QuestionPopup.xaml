@@ -1,30 +1,35 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:components="clr-namespace:ClientApp.Src.Components"
                xmlns:controls="clr-namespace:ClientApp.Src.Controls"
+               xmlns:viewModel="clr-namespace:ClientApp.Src.Popups.ViewModels"
                x:Class="ClientApp.Src.Popups.QuestionPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False"
                Color="Transparent">
+
+    <toolkit:Popup.BindingContext>
+        <viewModel:QuestionPopupViewModel />
+    </toolkit:Popup.BindingContext>
 
     <components:PopupLayout>
         <StackLayout>
             <components:PopupLayoutHeader Icon="Delete"
-                              Title="Delete blog post"
-                              Description="Are you sure you want to delete this post? This action cannot be undone."/>
+                                          Title="{Binding Title}"
+                                          Description="{Binding Description}" />
             <components:PopupLayoutFooter>
-                <components:PopupLayoutFooter.BeforeTemplate>
-                    <ControlTemplate>
-                        <Label Text="Test1"/>
-                    </ControlTemplate>
-                </components:PopupLayoutFooter.BeforeTemplate>
                 <components:PopupLayoutFooter.AfterTemplate>
-                    <ControlTemplate>
-                        <controls:Button Text="OK"/>
-                    </ControlTemplate>
+                    <HorizontalStackLayout Spacing="8">
+                        <controls:NonPriorityButton Text="НЕТ"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type toolkit:Popup}}, Path=BindingContext.NoButtonClickedCommand}" />
+                        <controls:NonPriorityButton Text="ДА"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type toolkit:Popup}}, Path=BindingContext.YesButtonClickedCommand}" />
+                    </HorizontalStackLayout>
                 </components:PopupLayoutFooter.AfterTemplate>
             </components:PopupLayoutFooter>
         </StackLayout>
     </components:PopupLayout>
-    
+
 </toolkit:Popup>

@@ -4,14 +4,14 @@ namespace ClientApp.Src.Components;
 
 public partial class MinNewsCard : ContentView
 {
-	public MinNewsCard()
-	{
-		InitializeComponent();
-	}
-
     public static readonly BindableProperty FilteredNewsProperty = BindableProperty.Create(
         nameof(FilteredNews), typeof(FilteredNewsResponse), typeof(DefaultNewsCard), null, BindingMode.TwoWay
     );
+
+    public MinNewsCard()
+    {
+        InitializeComponent();
+    }
 
     public FilteredNewsResponse? FilteredNews
     {

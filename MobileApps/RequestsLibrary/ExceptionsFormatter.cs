@@ -1,7 +1,9 @@
-﻿using RequestsLibrary.Responses.Api;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using System.Net;
+using RequestsLibrary.Responses.Api;
 
 namespace RequestsLibrary;
+
 public static class ExceptionsFormatter
 {
     public static string? Detect(HttpResponseMessage? response, Exception? ex = null, ErrorResponse? body = null)
@@ -18,7 +20,7 @@ public static class ExceptionsFormatter
 
             switch (response.StatusCode)
             {
-                case System.Net.HttpStatusCode.Unauthorized:
+                case HttpStatusCode.Unauthorized:
                     return "Неправильный логин и/или пароль";
             }
         }

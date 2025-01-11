@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClientApp.Src.Controls.Select">
     <ContentView.ControlTemplate>
         <ControlTemplate>
-            <Border BackgroundColor="{StaticResource White}" Stroke="{StaticResource Gray100}" StrokeThickness="1" Padding="5">
+            <Border BackgroundColor="{StaticResource White}" Stroke="{StaticResource Gray100}" StrokeThickness="1"
+                    Padding="5">
                 <Border.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Select_Tapped"/>
+                    <TapGestureRecognizer Tapped="Select_Tapped" />
                 </Border.GestureRecognizers>
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}"/>
+                    <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}" />
                 </Border.StrokeShape>
                 <Grid ColumnDefinitions="*, auto" Padding="18,13">
-                    <Label Text="Popular" FontAttributes="Bold" FontSize="16" TextColor="{StaticResource Gray500}" VerticalOptions="Center"/>
-                    <Image Source="caret_down.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center" Grid.Column="1"/>
+                    <Label Text="Popular" FontAttributes="Bold" FontSize="16" TextColor="{StaticResource Gray500}"
+                           VerticalOptions="Center" />
+                    <Image Source="caret_down.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center"
+                           Grid.Column="1" />
                 </Grid>
             </Border>
         </ControlTemplate>

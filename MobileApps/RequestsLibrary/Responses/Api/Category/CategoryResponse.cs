@@ -1,7 +1,8 @@
-﻿using RequestsLibrary.Responses.ComponentsResponses;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using RequestsLibrary.Responses.ComponentsResponses;
 
 namespace RequestsLibrary.Responses.Api.Category;
+
 public class CategoryResponse : ErrorResponse
 {
     [JsonPropertyName("id")] public int Id { get; set; }

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ClientApp.Src.ViewModels.Auth"
@@ -8,40 +9,43 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <cnv:VisibilityConverter x:Key="VisibilityConverter"/>
+            <cnv:VisibilityConverter x:Key="VisibilityConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <ContentPage.BindingContext>
-        <local:LoginViewModel/>
+        <local:LoginViewModel />
     </ContentPage.BindingContext>
     <ScrollView>
         <StackLayout Spacing="10" Margin="20,10">
             <StackLayout>
-                <Label Text="WELCOME BACK!" FontFamily="Nunito" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource Gray500}"/>
-                <Label Text="Login" FontFamily="Nunito" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource Gray900}"/>
+                <Label Text="WELCOME BACK!" FontFamily="Nunito" FontSize="12" FontAttributes="Bold"
+                       TextColor="{StaticResource Gray500}" />
+                <Label Text="Login" FontFamily="Nunito" FontSize="32" FontAttributes="Bold"
+                       TextColor="{StaticResource Gray900}" />
             </StackLayout>
 
             <StackLayout Spacing="10">
-                <Label Text="{Binding Error}" TextColor="Red" HorizontalTextAlignment="Center" IsVisible="{Binding Error, Converter={StaticResource VisibilityConverter}}"/>
+                <Label Text="{Binding Error}" TextColor="Red" HorizontalTextAlignment="Center"
+                       IsVisible="{Binding Error, Converter={StaticResource VisibilityConverter}}" />
 
                 <controls:IconEntry
                     IconSource="user.png"
                     Text="{Binding Login}"
                     PlaceholderText="Введите логин"
-                    Completed="FocusToPassword"/>
-                <controls:IconEntry 
-                     x:Name="PasswordEntry"
-                     IconSource="password.png"
-                     Text="{Binding Password}"
-                     PlaceholderText="Введите пароль"
-                     IsPassword="True"
-                     Completed="GoToSignupCommand"/>
+                    Completed="FocusToPassword" />
+                <controls:IconEntry
+                    x:Name="PasswordEntry"
+                    IconSource="password.png"
+                    Text="{Binding Password}"
+                    PlaceholderText="Введите пароль"
+                    IsPassword="True"
+                    Completed="GoToSignupCommand" />
 
-                <Label HeightRequest="5"/>
+                <Label HeightRequest="5" />
 
-                <controls:Button Text="SIGN IN" Command="{Binding TryLoginCommand}" IsVisibleArrow="True"/>
-                <controls:NonPriorityButton Text="REGISTER NOW" Command="{Binding GoToSignupCommand}"/>
+                <controls:Button Text="SIGN IN" Command="{Binding TryLoginCommand}" IsVisibleArrow="True" />
+                <controls:NonPriorityButton Text="REGISTER NOW" Command="{Binding GoToSignupCommand}" />
             </StackLayout>
         </StackLayout>
     </ScrollView>

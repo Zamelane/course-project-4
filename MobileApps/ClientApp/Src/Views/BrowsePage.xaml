@@ -1,31 +1,32 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:components="clr-namespace:ClientApp.Src.Components"
              xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ClientApp.Src.Views.BrowsePage">
-    
+
     <Page.Behaviors>
-        <mct:StatusBarBehavior StatusBarColor="{StaticResource Primary600}" StatusBarStyle="Default"/>
+        <mct:StatusBarBehavior StatusBarColor="{StaticResource Primary600}" StatusBarStyle="Default" />
     </Page.Behaviors>
 
     <Shell.TitleView>
         <StackLayout Spacing="12">
             <StackLayout.BackgroundColor>
                 <OnPlatform x:TypeArguments="Color" Default="{StaticResource White}">
-                    <On Platform="Android" Value="{StaticResource Primary600}"/>
+                    <On Platform="Android" Value="{StaticResource Primary600}" />
                 </OnPlatform>
             </StackLayout.BackgroundColor>
-            <Label Text="Browse" FontSize="20" FontAttributes="Bold" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalOptions="Center" TextColor="White"/>
-            <Label BackgroundColor="{StaticResource White}" HorizontalOptions="FillAndExpand" HeightRequest="1" Opacity="0.1"/>
+            <Label Text="Browse" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center"
+                   VerticalOptions="Center" TextColor="White" />
+            <Label BackgroundColor="{StaticResource White}" HorizontalOptions="FillAndExpand" HeightRequest="1"
+                   Opacity="0.1" />
         </StackLayout>
     </Shell.TitleView>
 
     <Shell.NavBarIsVisible>
         <OnPlatform x:TypeArguments="x:Boolean" Default="False">
-            <On Platform="Android" Value="True"/>
+            <On Platform="Android" Value="True" />
         </OnPlatform>
     </Shell.NavBarIsVisible>
 
@@ -33,12 +34,12 @@
         <Grid>
             <Grid.BackgroundColor>
                 <OnPlatform x:TypeArguments="Color" Default="{StaticResource White}">
-                    <On Platform="Android" Value="{StaticResource Primary600}"/>
+                    <On Platform="Android" Value="{StaticResource Primary600}" />
                 </OnPlatform>
             </Grid.BackgroundColor>
             <Grid.Padding>
                 <OnPlatform x:TypeArguments="Thickness" Default="0,0,0,-40">
-                    <On Platform="Android" Value="0"/>
+                    <On Platform="Android" Value="0" />
                 </OnPlatform>
             </Grid.Padding>
             <controls:IconEntry CornerRadius="5" IconSource="search.png" PlaceholderText="Search ..." Margin="20,25">
@@ -47,9 +48,9 @@
                         <On Platform="Android">
                             <On.Value>
                                 <Shadow Brush="Black"
-                                    Offset="20,20"
-                                    Radius="40"
-                                    Opacity="0.12" />
+                                        Offset="20,20"
+                                        Radius="40"
+                                        Opacity="0.12" />
                             </On.Value>
                         </On>
                     </OnPlatform>
@@ -60,31 +61,39 @@
             <!--Фильтры select'ом-->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="16" Padding="20">
                 <StackLayout Spacing="9">
-                    <Label Text="Category" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}"/>
-                    <controls:Select/>
+                    <Label Text="Category" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
+                    <controls:Select />
                 </StackLayout>
                 <StackLayout Spacing="9" Grid.Column="1">
-                    <Label Text="Sort by" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}"/>
-                    <controls:Select/>
+                    <Label Text="Sort by" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
+                    <controls:Select />
                 </StackLayout>
             </Grid>
 
-            <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="2" Opacity="0.5"/>
+            <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="2"
+                   Opacity="0.5" />
 
+            <!--Теги-->
             <Grid RowDefinitions="auto, auto" ColumnDefinitions="*, auto" RowSpacing="12" Padding="20">
-                <Label Text="TAGS" FontSize="16" FontAttributes="Bold"/>
-                <ScrollView Grid.Row="1" Orientation="Horizontal">
-                    <HorizontalStackLayout Grid.ColumnSpan="2" Spacing="10">
-                        <Label FontSize="16" FontAttributes="Bold" Text="Lifestyle" BackgroundColor="{StaticResource Gray60}" Padding="12,6"/>
-                        <Label FontSize="16" FontAttributes="Bold" Text="Food" BackgroundColor="{StaticResource Gray60}" Padding="12,6"/>
-                        <Label FontSize="16" FontAttributes="Bold" Text="Adobe XD" BackgroundColor="{StaticResource Gray60}" Padding="12,6"/>
-                        <Label FontSize="16" FontAttributes="Bold" Text="Figma" BackgroundColor="{StaticResource Gray60}" Padding="12,6"/>
-                        <Label FontSize="16" FontAttributes="Bold" Text="React Native" BackgroundColor="{StaticResource Gray60}" Padding="12,6"/>
+                <Label Text="TAGS" FontSize="16" FontAttributes="Bold" />
+                <ScrollView Grid.Row="1" Orientation="Horizontal" Padding="{OnPlatform WinUI='0,0,0,14'}">
+                    <HorizontalStackLayout Spacing="10">
+                        <Label FontSize="16" FontAttributes="Bold" Text="Lifestyle"
+                               BackgroundColor="{StaticResource Gray60}" Padding="12,6" />
+                        <Label FontSize="16" FontAttributes="Bold" Text="Food"
+                               BackgroundColor="{StaticResource Gray60}" Padding="12,6" />
+                        <Label FontSize="16" FontAttributes="Bold" Text="Adobe XD"
+                               BackgroundColor="{StaticResource Gray60}" Padding="12,6" />
+                        <Label FontSize="16" FontAttributes="Bold" Text="Figma"
+                               BackgroundColor="{StaticResource Gray60}" Padding="12,6" />
+                        <Label FontSize="16" FontAttributes="Bold" Text="React Native"
+                               BackgroundColor="{StaticResource Gray60}" Padding="12,6" />
                     </HorizontalStackLayout>
                 </ScrollView>
             </Grid>
 
-            <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="2" Opacity="0.5"/>
+            <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="2"
+                   Opacity="0.5" />
         </StackLayout>
     </Grid>
 

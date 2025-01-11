@@ -1,20 +1,23 @@
-﻿namespace ClientApp.Src.Utils;
-public partial class ModifyContentView : ContentView
+﻿using System.Diagnostics;
+
+namespace ClientApp.Src.Utils;
+
+public class ModifyContentView : ContentView
 {
     public T? GetTemplateElement<T>(string name)
     {
         try
         {
-            var templateElement = this.GetTemplateChild(name);
+            var templateElement = GetTemplateChild(name);
 
             if (templateElement is T e)
                 return e;
-
-            return default;
         }
         catch
         {
-            return default;
+            Debug.WriteLine($"{ToString()}: Template element not found");
         }
+
+        return default;
     }
 }

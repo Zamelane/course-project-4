@@ -1,209 +1,204 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<!--<TargetFrameworks>net9.0-android;net8.0-maccatalyst</TargetFrameworks>-->
-		<TargetFrameworks>net9.0-android</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+    <PropertyGroup>
+	<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+        <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+        <!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
 
-		<!-- Note for MacCatalyst:
-		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
-		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
-		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
-		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
-		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+        <!-- Note for MacCatalyst:
+        The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+        When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+        The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+        either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+        <!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
-		<OutputType>Exe</OutputType>
-		<RootNamespace>ClientApp</RootNamespace>
-		<UseMaui>true</UseMaui>
-		<SingleProject>true</SingleProject>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
+        <OutputType>Exe</OutputType>
+        <UseMaui>true</UseMaui>
+        <SingleProject>true</SingleProject>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
 
-		<!-- Display name -->
-		<ApplicationTitle>ClientApp</ApplicationTitle>
 
-		<!-- App Identifier -->
-		<ApplicationId>com.companyname.clientapp</ApplicationId>
+        <!-- Display name -->
+        <ApplicationTitle>ClientApp</ApplicationTitle>
 
-		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-		<ApplicationVersion>1</ApplicationVersion>
+        <!-- App Identifier -->
+        <ApplicationId>com.companyname.clientapp</ApplicationId>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
-		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-		<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
-		<GenerateTestArtifacts>True</GenerateTestArtifacts>
-		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-		<PackageCertificateThumbprint>45BBFBFE40740C267C34FDD36844A201ECF8567E</PackageCertificateThumbprint>
-	</PropertyGroup>
+        <!-- Versions -->
+        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+        <ApplicationVersion>1</ApplicationVersion>
 
-	<ItemGroup>
-		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+        <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
+        <WindowsPackageType>None</WindowsPackageType>
 
-		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 
-		<!-- Images -->
-		<MauiImage Include="Resources\Images\*" />
+    </PropertyGroup>
 
-		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*" />
+    <ItemGroup>
+        <!-- App Icon -->
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4"/>
 
-		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
-	</ItemGroup>
+        <!-- Splash Screen -->
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128"/>
 
-	<ItemGroup>
-	  <AndroidResource Remove="Src\Navigators\**" />
-	  <Compile Remove="Src\Navigators\**" />
-	  <EmbeddedResource Remove="Src\Navigators\**" />
-	  <MauiCss Remove="Src\Navigators\**" />
-	  <MauiXaml Remove="Src\Navigators\**" />
-	  <None Remove="Src\Navigators\**" />
-	</ItemGroup>
+        <!-- Images -->
+        <MauiImage Include="Resources\Images\*"/>
 
-	<ItemGroup>
-	  <None Remove="Resources\Fonts\Nunito-Italic.ttf" />
-	  <None Remove="Resources\Fonts\Nunito.ttf" />
-	  <None Remove="Resources\Fonts\Roboto-Medium.ttf" />
-	  <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
-	  <None Remove="Resources\Images\arrow_left_black.svg" />
-	  <None Remove="Resources\Images\arrow_right_blue.svg" />
-	  <None Remove="Resources\Images\arrow_right_white.svg" />
-	  <None Remove="Resources\Images\avatar.png" />
-	  <None Remove="Resources\Images\bookmark.svg" />
-	  <None Remove="Resources\Images\buildings.svg" />
-	  <None Remove="Resources\Images\chat.svg" />
-	  <None Remove="Resources\Images\chat_no_accent.svg" />
-	  <None Remove="Resources\Images\coffee.svg" />
-	  <None Remove="Resources\Images\email.svg" />
-	  <None Remove="Resources\Images\eye.svg" />
-	  <None Remove="Resources\Images\eye_no_accent.svg" />
-	  <None Remove="Resources\Images\handshake.svg" />
-	  <None Remove="Resources\Images\key.svg" />
-	  <None Remove="Resources\Images\more.svg" />
-	  <None Remove="Resources\Images\news.svg" />
-	  <None Remove="Resources\Images\news_1.png" />
-	  <None Remove="Resources\Images\password.svg" />
-	  <None Remove="Resources\Images\search.svg" />
-	  <None Remove="Resources\Images\settings.svg" />
-	  <None Remove="Resources\Images\share_network.svg" />
-	  <None Remove="Resources\Images\user.svg" />
-	</ItemGroup>
+        <!-- Custom Fonts -->
+        <MauiFont Include="Resources\Fonts\*"/>
 
-	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="10.0.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-		<PackageReference Include="Dubacik22.ObservableDictionary" Version="1.0.4" />
-		<PackageReference Include="FFImageLoading.Maui" Version="1.2.7" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.21" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.21" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
-	</ItemGroup>
+        <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\RequestsLibrary\RequestsLibrary.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <AndroidResource Remove="Src\Navigators\**"/>
+        <Compile Remove="Src\Navigators\**"/>
+        <EmbeddedResource Remove="Src\Navigators\**"/>
+        <MauiCss Remove="Src\Navigators\**"/>
+        <MauiXaml Remove="Src\Navigators\**"/>
+        <None Remove="Src\Navigators\**"/>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Src\Controls\MinIconEntry.xaml.cs">
-	    <DependentUpon>MinIconEntry.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
+    <ItemGroup>
+        <None Remove="Resources\Fonts\Nunito-Italic.ttf"/>
+        <None Remove="Resources\Fonts\Nunito.ttf"/>
+        <None Remove="Resources\Fonts\Roboto-Medium.ttf"/>
+        <None Remove="Resources\Fonts\Roboto-Regular.ttf"/>
+        <None Remove="Resources\Images\arrow_left_black.svg"/>
+        <None Remove="Resources\Images\arrow_right_blue.svg"/>
+        <None Remove="Resources\Images\arrow_right_white.svg"/>
+        <None Remove="Resources\Images\avatar.png"/>
+        <None Remove="Resources\Images\bookmark.svg"/>
+        <None Remove="Resources\Images\buildings.svg"/>
+        <None Remove="Resources\Images\chat.svg"/>
+        <None Remove="Resources\Images\chat_no_accent.svg"/>
+        <None Remove="Resources\Images\coffee.svg"/>
+        <None Remove="Resources\Images\email.svg"/>
+        <None Remove="Resources\Images\eye.svg"/>
+        <None Remove="Resources\Images\eye_no_accent.svg"/>
+        <None Remove="Resources\Images\handshake.svg"/>
+        <None Remove="Resources\Images\key.svg"/>
+        <None Remove="Resources\Images\more.svg"/>
+        <None Remove="Resources\Images\news.svg"/>
+        <None Remove="Resources\Images\news_1.png"/>
+        <None Remove="Resources\Images\password.svg"/>
+        <None Remove="Resources\Images\search.svg"/>
+        <None Remove="Resources\Images\settings.svg"/>
+        <None Remove="Resources\Images\share_network.svg"/>
+        <None Remove="Resources\Images\user.svg"/>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <MauiXaml Update="Resources\Styles\Values.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Components\BigNewsCard.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Components\CategoryCard.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Components\DefaultNewsCard.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Components\PopupLayout.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Components\PopupLayoutFooter.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Components\PopupLayoutHeader.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Controls\Button.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Controls\CustomRefreshView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Controls\MinIconEntry.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Controls\IconEntry.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Components\MinNewsCard.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Components\TitledContentTemplate.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Controls\NonPriorityButton.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Controls\ResizableCollectionView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Controls\Select.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Popups\QuestionPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Views\Auth\LoginPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Views\Auth\SignupPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Views\BrowsePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Views\CategoriesPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Views\FavouritesPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Views\HistoryViewsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Views\HomePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Src\Views\SettingsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Maui" Version="10.0.0"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+        <PackageReference Include="Dubacik22.ObservableDictionary" Version="1.0.4"/>
+        <PackageReference Include="FFImageLoading.Maui" Version="1.2.7"/>
+        <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.22"/>
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.22"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0"/>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <None Update="Src\Views\HomePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </None>
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\RequestsLibrary\RequestsLibrary.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Src\Controls\MinIconEntry.xaml.cs">
+            <DependentUpon>MinIconEntry.xaml</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <MauiXaml Update="Resources\Styles\Values.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Components\BigNewsCard.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Components\CategoryCard.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Components\DefaultNewsCard.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Components\PopupLayout.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Components\PopupLayoutFooter.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Components\PopupLayoutHeader.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Controls\Button.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Controls\CustomRefreshView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Controls\MinIconEntry.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Controls\IconEntry.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Components\MinNewsCard.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Components\TitledContentTemplate.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Controls\NonPriorityButton.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Controls\ResizableCollectionView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Controls\Select.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Popups\QuestionPopup.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\Auth\LoginPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\Auth\SignupPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\BrowsePage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\CategoriesPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\FavouritesPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\HistoryViewsPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\HomePage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\SettingsPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Src\Views\HomePage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </None>
+    </ItemGroup>
 
 </Project>

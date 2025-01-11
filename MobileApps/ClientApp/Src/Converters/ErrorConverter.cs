@@ -2,6 +2,7 @@
 using System.Globalization;
 
 namespace ClientApp.Src.Converters;
+
 public class ErrorConverter : IValueConverter
 {
     public object Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)
@@ -11,10 +12,8 @@ public class ErrorConverter : IValueConverter
         if (value is Dictionary<string, List<string>> errors
             && parameter is string key
             && errors.ContainsKey(key)
-        )
-        {
+           )
             return string.Join("\n", errors[key]);
-        }
         return string.Empty;
     }
 
