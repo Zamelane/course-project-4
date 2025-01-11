@@ -9,13 +9,13 @@
         <ControlTemplate>
             <Grid ColumnDefinitions="auto, *, auto" Margin="0,10,0,0">
                 <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
-                    <TemplatedView ControlTemplate="{TemplateBinding BeforeTemplate}" />
+                    <ContentPresenter Content="{TemplateBinding BeforeTemplate}"/>
                 </StackLayout>
 
                 <Label Grid.Column="1" MinimumWidthRequest="10" />
 
                 <StackLayout HorizontalOptions="End" Grid.Column="2" VerticalOptions="Center">
-                    <TemplatedView ControlTemplate="{TemplateBinding AfterTemplate}" />
+                    <ContentPresenter Content="{TemplateBinding AfterTemplate}"/>
                 </StackLayout>
             </Grid>
         </ControlTemplate>
