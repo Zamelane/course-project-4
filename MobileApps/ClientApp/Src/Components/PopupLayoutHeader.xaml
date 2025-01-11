@@ -11,7 +11,11 @@
                        VerticalOptions="Start" />
 
                 <Image WidthRequest="24" HeightRequest="24" Grid.Column="2" Source="x_close.png"
-                       VerticalOptions="Start" />
+                       VerticalOptions="Start">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{TemplateBinding Command}"/>
+                    </Image.GestureRecognizers>
+                </Image>
 
                 <Label Grid.Column="1"
                        Text="{TemplateBinding Title}"

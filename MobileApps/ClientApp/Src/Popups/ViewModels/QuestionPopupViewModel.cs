@@ -10,16 +10,17 @@ public partial class QuestionPopupViewModel : ObservableObject
     [ObservableProperty] private string title = "Title";
 
     [RelayCommand]
-    private async Task YesButtonClicked()
+    private async Task Close()
     {
-        await ReturnPopupResult(true);
+        if (QuestionPopup is null)
+            return;
+        
+        await QuestionPopup.CloseAsync();
     }
 
-    [RelayCommand]
-    private async Task NoButtonClicked()
-    {
-        await ReturnPopupResult(false);
-    }
+    [RelayCommand] private async Task YesButtonClicked() => await ReturnPopupResult(true);
+
+    [RelayCommand] private async Task NoButtonClicked() => await ReturnPopupResult(false);
 
     private async Task ReturnPopupResult(bool returnedValue)
     {

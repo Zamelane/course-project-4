@@ -1,5 +1,7 @@
 ﻿using System.Net;
+using ClientApp.Src.Popups;
 using ClientApp.Src.Storage;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary.Routes.API.Auth;
@@ -23,11 +25,15 @@ public partial class SettingsViewModel : ObservableObject
         }
         catch
         {
-            isExit = await Shell.Current.DisplayAlert(
-                "Ошибка",
-                "Что-то пошло не так.\nВыйти принудительно?",
-                "Да", "Отмена"
+            var result = await Shell.Current.ShowPopupAsync(
+                new QuestionPopup(
+                    "Ошибка",
+                    "Что-то пошло не так.\nВыйти принудительно?"
+                ), CancellationToken.None
             );
+            
+            if (result is bool boolResult)
+                isExit = boolResult;
         }
 
         if (!isExit)

@@ -3,6 +3,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
+             xmlns:controls="clr-namespace:ClientApp.Src.Controls"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ClientApp.Src.Views.SettingsPage"
              Title="SettingsPage">
     <ContentPage.BindingContext>
@@ -10,7 +12,7 @@
     </ContentPage.BindingContext>
     <ScrollView>
         <StackLayout Padding="10">
-            <Button Text="Выйти" Command="{Binding TryExitCommand}" />
+            <controls:NonPriorityButton Text="Выйти" Command="{Binding TryExitCommand}" />
         </StackLayout>
     </ScrollView>
 </ContentPage>
