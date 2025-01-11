@@ -1,11 +1,22 @@
+using System.Windows.Input;
+
 namespace ClientApp.Src.Components;
 
 public partial class PopupLayoutHeader : ContentView
 {
+    public static readonly BindableProperty CommandProperty = BindableProperty.Create(
+        nameof(Command), typeof(ICommand), typeof(PopupLayoutHeader), default, BindingMode.TwoWay
+    );
+    public ICommand Command
+    {
+        get => (ICommand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
+    
     public enum IconType
     {
         Delete,
-        Info
+        Protected
     }
 
     public static readonly BindableProperty IconProperty = BindableProperty.Create(
@@ -27,6 +38,7 @@ public partial class PopupLayoutHeader : ContentView
     public PopupLayoutHeader()
     {
         InitializeComponent();
+        IconSource = Source((IconType)GetValue(IconProperty));
     }
 
     public IconType? Icon
@@ -61,12 +73,12 @@ public partial class PopupLayoutHeader : ContentView
     {
         switch (t)
         {
-            case IconType.Info:
-                return "info_icon.png";
+            case IconType.Protected:
+                return "protected_icon.png";
             case IconType.Delete:
                 return "delete_icon.png";
         }
 
-        return "info_icon.png";
+        return "protected_icon.png";
     }
 }
