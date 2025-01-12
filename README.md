@@ -4,13 +4,13 @@
 
 ## Настройка серверной части (backend)
 
-Вы можете запустить проект (в том числе для разработки) используя 2 вариант:
+Вы можете запустить проект (в том числе для разработки) используя 2 варианта:
 1. Установить для разработки программный комплекс ***OSPanel***
 2. Установить php, compose и установщик laravel локально в систему
 
 Ниже вы можете выбрать подходящий вам вариант и следовать инструкциям.
 
-### 1 Вариант - Установка программного комплекса для разработки (OSPanel)
+### 1 Вариант - установка программного комплекса для разработки (OSPanel)
 
 Необходимо:
 * Установить [git](https://git-scm.com/download/win)
@@ -25,6 +25,7 @@ cd menews.ru/api
 composer update & composer i
 copy .env.example .env
 php artisan key:generate
+php artisan storage:link
 php artisan migrate:fresh --seed
 ```
 После можно перезапускать OSPanel для видимости нового домена.
@@ -49,11 +50,12 @@ cd course-project-4/api
 composer update & composer i
 copy .env.example .env
 php artisan key:generate
+php artisan storage:link
 php artisan migrate:fresh --seed
 ```
 Для запуска сервера, можете использовать `php artisan serve`.
 
-## Связывание символической ссылкой общедоступных файлов
+## Связывание символической ссылкой общедоступных файлов (если выполнили команды выше, то пропускайте)
 ```bat
 php artisan storage:link
 ```
