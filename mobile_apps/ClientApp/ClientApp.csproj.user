@@ -26,6 +26,9 @@
     <MauiXaml Update="Src\Components\BigNewsCard.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Src\Components\MinCategoryCard.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Src\Components\CategoryCard.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
@@ -69,6 +72,9 @@
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Src\Popups\QuestionPopup.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Src\Popups\SelectPopup.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Src\Views\Auth\LoginPage.xaml">

@@ -14,7 +14,7 @@
                     <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}" />
                 </Border.StrokeShape>
                 <Grid ColumnDefinitions="*, auto" Padding="18,13">
-                    <Label Text="Popular" FontAttributes="Bold" FontSize="16" TextColor="{StaticResource Gray500}"
+                    <Label Text="{TemplateBinding SelectedText}" FontAttributes="Bold" FontSize="16" TextColor="{StaticResource Gray500}"
                            VerticalOptions="Center" />
                     <Image Source="caret_down.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center"
                            Grid.Column="1" />

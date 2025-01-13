@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:components="clr-namespace:ClientApp.Src.Components"
+               xmlns:popups="clr-namespace:ClientApp.Src.Popups"
+               x:Class="ClientApp.Src.Popups.SelectPopup"
+               Color="Transparent">
+
+    <components:PopupLayout>
+        <Grid RowDefinitions="auto,*" RowSpacing="8" HeightRequest="350">
+            <Label Text="{Binding Title}" FontSize="16"/>
+            <ScrollView Grid.Row="1">
+                <CollectionView ItemTemplate="{Binding ItemTemplate}" ItemsSource="{Binding ItemsSource}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"
+                                         VerticalItemSpacing="{StaticResource MarginPreNone}"/>
+                    </CollectionView.ItemsLayout>
+                </CollectionView>
+            </ScrollView>
+        </Grid>
+    </components:PopupLayout>
+    
+</toolkit:Popup>

@@ -1,6 +1,6 @@
 namespace ClientApp.Src.Components;
 
-public partial class CategoryCard : ContentView
+public partial class MinCategoryCard : ContentView
 {
     public static readonly BindableProperty TextProperty =
         BindableProperty.Create(nameof(Text), typeof(string), typeof(CategoryCard), string.Empty);
@@ -11,7 +11,7 @@ public partial class CategoryCard : ContentView
     public static readonly BindableProperty CardColorProperty =
         BindableProperty.Create(nameof(CardColor), typeof(string), typeof(CategoryCard), string.Empty);
 
-    public CategoryCard()
+    public MinCategoryCard()
     {
         InitializeComponent();
     }

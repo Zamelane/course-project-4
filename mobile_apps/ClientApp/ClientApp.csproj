@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-	<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+	<TargetFrameworks>net9.0-android;net9.0-maccatalyst</TargetFrameworks>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
         <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
         <!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
@@ -31,7 +31,7 @@
         <ApplicationVersion>1</ApplicationVersion>
 
         <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
-        <WindowsPackageType>None</WindowsPackageType>
+        <WindowsPackageType>MSIX</WindowsPackageType>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
@@ -44,71 +44,71 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4"/>
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128"/>
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
         <!-- Images -->
-        <MauiImage Include="Resources\Images\*"/>
+        <MauiImage Include="Resources\Images\*" />
 
         <!-- Custom Fonts -->
-        <MauiFont Include="Resources\Fonts\*"/>
+        <MauiFont Include="Resources\Fonts\*" />
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
-        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
     <ItemGroup>
-        <AndroidResource Remove="Src\Navigators\**"/>
-        <Compile Remove="Src\Navigators\**"/>
-        <EmbeddedResource Remove="Src\Navigators\**"/>
-        <MauiCss Remove="Src\Navigators\**"/>
-        <MauiXaml Remove="Src\Navigators\**"/>
-        <None Remove="Src\Navigators\**"/>
+        <AndroidResource Remove="Src\Navigators\**" />
+        <Compile Remove="Src\Navigators\**" />
+        <EmbeddedResource Remove="Src\Navigators\**" />
+        <MauiCss Remove="Src\Navigators\**" />
+        <MauiXaml Remove="Src\Navigators\**" />
+        <None Remove="Src\Navigators\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Resources\Fonts\Nunito-Italic.ttf"/>
-        <None Remove="Resources\Fonts\Nunito.ttf"/>
-        <None Remove="Resources\Fonts\Roboto-Medium.ttf"/>
-        <None Remove="Resources\Fonts\Roboto-Regular.ttf"/>
-        <None Remove="Resources\Images\arrow_left_black.svg"/>
-        <None Remove="Resources\Images\arrow_right_blue.svg"/>
-        <None Remove="Resources\Images\arrow_right_white.svg"/>
-        <None Remove="Resources\Images\avatar.png"/>
-        <None Remove="Resources\Images\bookmark.svg"/>
-        <None Remove="Resources\Images\buildings.svg"/>
-        <None Remove="Resources\Images\chat.svg"/>
-        <None Remove="Resources\Images\chat_no_accent.svg"/>
-        <None Remove="Resources\Images\coffee.svg"/>
-        <None Remove="Resources\Images\email.svg"/>
-        <None Remove="Resources\Images\eye.svg"/>
-        <None Remove="Resources\Images\eye_no_accent.svg"/>
-        <None Remove="Resources\Images\handshake.svg"/>
-        <None Remove="Resources\Images\key.svg"/>
-        <None Remove="Resources\Images\more.svg"/>
-        <None Remove="Resources\Images\news.svg"/>
-        <None Remove="Resources\Images\news_1.png"/>
-        <None Remove="Resources\Images\password.svg"/>
-        <None Remove="Resources\Images\search.svg"/>
-        <None Remove="Resources\Images\settings.svg"/>
-        <None Remove="Resources\Images\share_network.svg"/>
-        <None Remove="Resources\Images\user.svg"/>
+        <None Remove="Resources\Fonts\Nunito-Italic.ttf" />
+        <None Remove="Resources\Fonts\Nunito.ttf" />
+        <None Remove="Resources\Fonts\Roboto-Medium.ttf" />
+        <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
+        <None Remove="Resources\Images\arrow_left_black.svg" />
+        <None Remove="Resources\Images\arrow_right_blue.svg" />
+        <None Remove="Resources\Images\arrow_right_white.svg" />
+        <None Remove="Resources\Images\avatar.png" />
+        <None Remove="Resources\Images\bookmark.svg" />
+        <None Remove="Resources\Images\buildings.svg" />
+        <None Remove="Resources\Images\chat.svg" />
+        <None Remove="Resources\Images\chat_no_accent.svg" />
+        <None Remove="Resources\Images\coffee.svg" />
+        <None Remove="Resources\Images\email.svg" />
+        <None Remove="Resources\Images\eye.svg" />
+        <None Remove="Resources\Images\eye_no_accent.svg" />
+        <None Remove="Resources\Images\handshake.svg" />
+        <None Remove="Resources\Images\key.svg" />
+        <None Remove="Resources\Images\more.svg" />
+        <None Remove="Resources\Images\news.svg" />
+        <None Remove="Resources\Images\news_1.png" />
+        <None Remove="Resources\Images\password.svg" />
+        <None Remove="Resources\Images\search.svg" />
+        <None Remove="Resources\Images\settings.svg" />
+        <None Remove="Resources\Images\share_network.svg" />
+        <None Remove="Resources\Images\user.svg" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Maui" Version="10.0.0"/>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
-        <PackageReference Include="Dubacik22.ObservableDictionary" Version="1.0.4"/>
-        <PackageReference Include="FFImageLoading.Maui" Version="1.2.7"/>
-        <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.22"/>
-        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.22"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0"/>
+        <PackageReference Include="CommunityToolkit.Maui" Version="10.0.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="Dubacik22.ObservableDictionary" Version="1.0.4" />
+        <PackageReference Include="FFImageLoading.Maui" Version="1.2.7" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.22" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.22" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\RequestsLibrary\RequestsLibrary.csproj"/>
+        <ProjectReference Include="..\RequestsLibrary\RequestsLibrary.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -123,6 +123,9 @@
         </MauiXaml>
         <MauiXaml Update="Src\Components\BigNewsCard.xaml">
             <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Components\MinCategoryCard.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
         <MauiXaml Update="Src\Components\CategoryCard.xaml">
             <Generator>MSBuild:Compile</Generator>
@@ -168,6 +171,9 @@
         </MauiXaml>
         <MauiXaml Update="Src\Popups\QuestionPopup.xaml">
             <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Popups\SelectPopup.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
         <MauiXaml Update="Src\Views\Auth\LoginPage.xaml">
             <Generator>MSBuild:Compile</Generator>
