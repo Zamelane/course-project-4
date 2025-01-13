@@ -11,7 +11,7 @@ namespace ClientApp.Src.ViewModels;
 
 public partial class CategoriesViewModel : ObservableObject
 {
-    [ObservableProperty] private ObservableCollection<CategoryResponse>? categories;
+    [ObservableProperty] private ObservableCollection<CategoryResponse> categories = new();
     [ObservableProperty] private string? error;
     [ObservableProperty] private bool isFetching;
 

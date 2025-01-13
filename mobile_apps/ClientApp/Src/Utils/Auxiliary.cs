@@ -1,6 +1,6 @@
 ﻿namespace ClientApp.Src.Utils;
 
-internal static class Utils
+internal static class Auxiliary
 {
     public static T? GetRootLayout<T>(Element currentElement)
     {
@@ -16,5 +16,10 @@ internal static class Utils
         {
             return default;
         }
+    }
+
+    public static void Wait(Task t)
+    {
+        t.Wait();
     }
 }
