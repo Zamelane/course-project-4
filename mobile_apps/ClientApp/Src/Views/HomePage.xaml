@@ -12,12 +12,12 @@
     </ContentPage.BindingContext>
 
     <Page.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource White}" StatusBarStyle="DarkContent" />
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary600}" StatusBarStyle="Default" />
     </Page.Behaviors>
 
     <Grid RowDefinitions="auto,*">
         <!--Верхняя шапочка с профилем и поиском-->
-        <Grid Padding="10,0,10,10" ColumnSpacing="10" VerticalOptions="Center">
+        <Grid Padding="10,0,10,10" ColumnSpacing="10" VerticalOptions="Center" BackgroundColor="{StaticResource Primary600}">
             <Grid.ColumnDefinitions>
                 <OnPlatform x:TypeArguments="ColumnDefinitionCollection">
                     <OnPlatform.Default>
@@ -38,7 +38,7 @@
                 </OnPlatform>
             </Grid.ColumnDefinitions>
             <!--Аватарка пользователя-->
-            <Border WidthRequest="40" HeightRequest="40" Stroke="{StaticResource Gray100}">
+            <Border WidthRequest="40" HeightRequest="40" BackgroundColor="{StaticResource White}" Stroke="{StaticResource Gray100}">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
@@ -56,7 +56,7 @@
             <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1"
                                    VerticalOptions="Center" />
             <!--Перезагрузка-->
-            <ImageButton Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCommand}">
+            <ImageButton Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCommand}" Background="Transparent">
                 <ImageButton.IsVisible>
                     <OnPlatform x:TypeArguments="x:Boolean" Default="True">
                         <On Platform="Android" Value="False" />
