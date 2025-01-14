@@ -1,15 +1,29 @@
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ClientApp.Src.Popups;
 
 public partial class SelectPopup : Popup
 {
-	public SelectPopup()
-	{
-		InitializeComponent();
+    private readonly ObservableCollection<object> _selectedElements = [];
+    private readonly bool _isMultiple;
+
+    public SelectPopup(object? selectedElement) : this(false) {
+        if (selectedElement is null)
+            return;
+        _selectedElements.Add(selectedElement);
+    }
+
+    public SelectPopup(ObservableCollection<object> selectedElements) : this(true) => _selectedElements = selectedElements;
+
+    public SelectPopup(bool isMultiple)
+    {
+        _isMultiple = isMultiple;
+        InitializeComponent();
         BindingContext = this;
-	}
+    }
 
     public static readonly BindableProperty ItemTemplateProperty = BindableProperty.Create(nameof(ItemTemplate),
         typeof(DataTemplate), typeof(SelectPopup));
@@ -26,7 +40,16 @@ public partial class SelectPopup : Popup
                 tgr.Tapped += (s, e) =>
                 {
                     if (s is View v)
-                        CloseAsync(v.BindingContext);
+                    {
+                        if (!_isMultiple)
+                        {
+                            CloseAsync(v.BindingContext);
+                            return;
+                        }
+
+                        //_selectedElements.Add(v.BindingContext);
+                        //CloseAsync(v.BindingContext);
+                    }
                 };
 
                 if (template is View v)

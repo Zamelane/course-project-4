@@ -8,7 +8,7 @@ public partial class AppShell : Shell
     public AppShell()
     {
         InitializeComponent();
-        Provider.appShell = this;
+        Provider.AppShell = this;
     }
 
     public void setEnabledTabsAll(bool isVisibly)

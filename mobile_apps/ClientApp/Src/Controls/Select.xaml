@@ -15,7 +15,7 @@
                 </Border.StrokeShape>
                 <Grid ColumnDefinitions="*, auto" Padding="18,13">
                     <Label Text="{TemplateBinding SelectedText}" FontAttributes="Bold" FontSize="16" TextColor="{StaticResource Gray500}"
-                           VerticalOptions="Center" />
+                           VerticalOptions="Center" MaxLines="1" LineBreakMode="TailTruncation"/>
                     <Image Source="caret_down.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center"
                            Grid.Column="1" />
                 </Grid>

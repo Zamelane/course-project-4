@@ -42,6 +42,6 @@ public partial class SettingsViewModel : ObservableObject
         AuthData.Token = null;
         AuthData.User = null;
         await Shell.Current.GoToAsync("//Main");
-        Provider.appShell.setEnabledTabsAll(false);
+        Provider.AppShell.setEnabledTabsAll(false);
     }
 }
