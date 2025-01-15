@@ -4,6 +4,6 @@ namespace ClientApp.Src.Storage;
 
 public static class Provider
 {
-    public static AppShell? appShell;
+    public static AppShell? AppShell;
     public static CategoriesViewModel CategoriesViewModel = new();
 }

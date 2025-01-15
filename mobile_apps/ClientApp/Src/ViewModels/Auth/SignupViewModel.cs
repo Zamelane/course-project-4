@@ -69,7 +69,7 @@ public partial class SignupViewModel : ObservableObject
 
         // Если всё ок - сохраняем авторизацию
         AuthData.SaveAuthData(body.Token, body.User);
-        Provider.appShell.setEnabledTabsAll(true);
+        Provider.AppShell.setEnabledTabsAll(true);
         await Shell.Current.GoToAsync("//Main");
     }
 

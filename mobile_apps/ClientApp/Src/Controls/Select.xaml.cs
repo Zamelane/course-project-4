@@ -1,17 +1,23 @@
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Reflection;
 using ClientApp.Src.Popups;
 using CommunityToolkit.Maui.Views;
-using RequestsLibrary.Responses.Api.Category;
 
 namespace ClientApp.Src.Controls;
 
 public partial class Select : ContentView
 {
     public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(
-        nameof(CornerRadius), typeof(int), typeof(IconEntry), 5, BindingMode.OneWayToSource
+        nameof(CornerRadius), typeof(int), typeof(Select), 5, BindingMode.OneWayToSource
     );
+
+    public static readonly BindableProperty IsMultipleProperty = BindableProperty.Create(
+        nameof(IsMultiple), typeof(bool), typeof(Select), false, BindingMode.TwoWay
+    );
+    public bool IsMultiple
+    {
+        get => (bool)GetValue(IsMultipleProperty);
+        set => SetValue(IsMultipleProperty, value);
+    }
 
     // <------ Поля для прицепа
     public static readonly BindableProperty MultiplyItemsSelectedProperty = BindableProperty.Create(
@@ -85,23 +91,32 @@ public partial class Select : ContentView
 
     private void Select_Tapped(object sender, TappedEventArgs e)
     {
-        OpenPopup();
+        _ =  OpenPopup();
     }
 
     private async Task OpenPopup()
     {
-        var popup = new SelectPopup();
-
-        popup.ItemsSource = ItemsSource;
-        popup.ItemTemplate = ItemTemplate;
-        popup.Title = Title;
+        var popup = new SelectPopup(IsMultiple ? MultiplyItemsSelected : ItemSelected)
+        {
+            ItemsSource = ItemsSource,
+            ItemTemplate = ItemTemplate,
+            Title = Title
+        };
 
         object? result = await Shell.Current.CurrentPage.ShowPopupAsync(popup);
 
-        if (result is null)
+        //if (result is null)
+        //{
+        //    //ItemSelected = null;
+        //    MultiplyItemsSelected.Clear();
+        //}
+
+        if (result is ObservableCollection<object> collection)
         {
-            ItemSelected = null;
-            MultiplyItemsSelected.Clear();
+            if (IsMultiple)
+                MultiplyItemsSelected = collection;
+            else ItemSelected = collection.FirstOrDefault();
+            return;
         }
 
         if (result is object)

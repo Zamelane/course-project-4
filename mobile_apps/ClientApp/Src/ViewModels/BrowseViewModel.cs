@@ -7,16 +7,21 @@ namespace ClientApp.Src.ViewModels;
 
 public partial class BrowseViewModel : ObservableObject
 {
-    [ObservableProperty] private ObservableCollection<CategoryResponse>? categories;
+    [ObservableProperty] private ObservableCollection<CategoryResponse> categories = [];
     [ObservableProperty] private CategoryResponse? selectedCategory = null;
 
     public BrowseViewModel()
     {
-        Utils.Auxiliary.Wait(FetchCategories());
+        _ = FetchCategories();
     }
 
     private async Task FetchCategories()
     {
-        Categories = await Provider.CategoriesViewModel.Fetch();
+        var res = await Provider.CategoriesViewModel.Fetch();
+
+        if (res is null)
+            return;
+
+        Categories = res;
     }
 }

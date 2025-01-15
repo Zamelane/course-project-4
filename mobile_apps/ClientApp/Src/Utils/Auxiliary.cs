@@ -17,9 +17,4 @@ internal static class Auxiliary
             return default;
         }
     }
-
-    public static void Wait(Task t)
-    {
-        t.Wait();
-    }
 }
