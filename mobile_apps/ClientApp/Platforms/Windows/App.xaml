@@ -8,6 +8,22 @@
     <maui:MauiWinUIApplication.Resources>
         <Thickness x:Key="TextControlBorderThemeThickness">0</Thickness>
         <Thickness x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
+        <DataTemplate x:Key="MauiAppTitleBarTemplate">
+            <Grid>
+                <Border
+                    VerticalAlignment="Stretch"
+                    Background="#0650BE"
+                    Margin="0,0,0,0">
+
+                    <TextBlock
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        Text="ClientApp"
+                        Margin="7,0,0,0"/>
+
+                </Border>
+            </Grid>
+        </DataTemplate>
     </maui:MauiWinUIApplication.Resources>
 
 </maui:MauiWinUIApplication>

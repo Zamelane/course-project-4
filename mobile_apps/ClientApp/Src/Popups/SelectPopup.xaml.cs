@@ -53,7 +53,32 @@ public partial class SelectPopup : Popup
                 };
 
                 if (template is View v)
-                    v.GestureRecognizers.Add(tgr);
+                {
+                    //v.GestureRecognizers.Add(tgr);
+                    var g = new Grid()
+                    {
+                        ColumnDefinitions = [
+                            new(new GridLength(1, GridUnitType.Star)),
+                            new(new GridLength(1, GridUnitType.Auto))
+                        ],
+                        ColumnSpacing = 5
+                    };
+
+                    var checkbox = new Image()
+                    {
+                        Source = "check.png",
+                        WidthRequest = 24,
+                        HeightRequest = 24
+                    };
+
+                    g.SetColumn(checkbox, 1);
+                    g.SetColumn(v, 0);
+
+                    g.Children.Add(checkbox);
+                    g.Children.Add(v);
+
+                    return g;
+                }
 
                 return template;
             }

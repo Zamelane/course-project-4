@@ -15,7 +15,7 @@
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <VerticalStackLayout Spacing="8">
-                <Border x:Name="EntryBorder" Stroke="{StaticResource Gray100}" Padding="16,0" HeightRequest="40">
+                <Border x:Name="EntryBorder" BackgroundColor="{StaticResource White}" Stroke="{StaticResource Gray100}" Padding="16,0" HeightRequest="40">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="5" />
                     </Border.StrokeShape>
