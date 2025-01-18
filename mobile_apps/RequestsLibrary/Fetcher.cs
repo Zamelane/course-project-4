@@ -1,15 +1,16 @@
 ﻿using System.Text.Json;
+using RequestsLibrary.Routes;
 using RequestsLibrary.Types;
 
 namespace RequestsLibrary;
 
 public static class Fetcher
 {
-    public static Uri URL = new("http://127.0.0.1:8000/");
+    public static Config Config = new(Config.Protocol.http, "127.0.0.1");
+
     private static string? _token;
 
-    private static readonly HttpClient _httpClient = new() { BaseAddress = API_URL };
-    public static Uri API_URL => new($"{URL}api/");
+    private static readonly HttpClient _httpClient = new();
 
     public static void SetToken(string? token)
     {
@@ -21,42 +22,56 @@ public static class Fetcher
         return _token;
     }
 
-    public static async Task<(HttpResponseMessage, T?, E?)> SendCustomRequest<T, E>(
+    public static async Task<Response<T?>> Fetch<T>(
         HttpMethod method,
-        string path,
-        Headers[]? headers = null,
-        Content? body = null
+        string url,
+        RequestParams? rp = null
     )
     {
         // Инициализируем метод запроса
-        var request = new HttpRequestMessage(method, path);
+        var request = new HttpRequestMessage(method, url);
 
-        // Добавляем заголовки в запрос
-        if (headers != null)
-            foreach (var header in headers)
-                header.AddToRequest(request);
+        if (rp is null)
+            rp = new RequestParams();
 
-        // Подготавливаем тело к отправке
-        if (body != null)
-            body.AddToRequest(request);
+        if (_token is not null)
+            rp.AddHeader("Authorization", $"Bearer {_token}");
+
+        // Добавляем нагрузку в запрос
+        rp?.AddToRequest(request);
 
         // Выполняем запрос
         var response = await _httpClient.SendAsync(request);
 
         // Читаем ответ и отдаём ответ
         string? responseContent = null;
+        string? error = null;
+        T? content = default(T);
         try
         {
             responseContent = await response.Content.ReadAsStringAsync();
-            var exception = default(E);
 
             if (!response.IsSuccessStatusCode)
-                exception = JsonSerializer.Deserialize<E>(responseContent);
-            return (response, JsonSerializer.Deserialize<T>(responseContent), exception);
+                error = response.StatusCode.ToString();
+
+            content = JsonSerializer.Deserialize<T>(responseContent);
+
         }
         catch (Exception) when (!response.IsSuccessStatusCode)
         {
-            return (response, default, default);
+            error = response.StatusCode.ToString();
         }
+
+        return new Response<T?>()
+        {
+            Content = content,
+            Error = error is not null ? new()
+            {
+                comment = error
+            }
+            : null
+        };
     }
+
+    public static News News = new();
 }

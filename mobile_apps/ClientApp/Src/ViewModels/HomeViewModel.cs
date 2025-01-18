@@ -2,9 +2,11 @@
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using RequestsLibrary;
 using RequestsLibrary.Exceptions;
 using RequestsLibrary.Responses.Api.Category;
 using RequestsLibrary.Responses.Api.News;
+using RequestsLibrary.Routes;
 using RequestsLibrary.Routes.API.News;
 
 namespace ClientApp.Src.ViewModels;
@@ -27,8 +29,8 @@ public partial class HomeViewModel : ObservableObject
     private async Task TryFetch()
     {
         await TryFetchNews();
-        Categories = await new CategoriesViewModel().Fetch();
-        Debug.WriteLine(Categories);
+        //Categories = await new CategoriesViewModel().Fetch();
+        //Debug.WriteLine(Categories);
     }
 
     private async Task TryFetchNews()
@@ -37,18 +39,20 @@ public partial class HomeViewModel : ObservableObject
         {
             IsFetching = true;
             Debug.WriteLine("Start TryFetchNews"); // TODO: DEBUG
-            var (response, body, exception) = await FilteredNewsRequest.RequestToServer();
+            var response = await Fetcher.News.Get();
 
-            if (body is null && exception is null)
-                exception = new RequestException("Сервер не вернул данные: " +
-                                                 response.StatusCode);
+            if (response.Content is null && response.Error is null)
+                Error = "Сервер не вернул данные: "/* +
+                                                 response.StatusCode*/;
 
-            if (exception is not null)
+            if (response.Error is not null)
             {
-                Error = exception.Message;
+                Error = response.Error.comment;
                 Debug.WriteLine("Error TryFetchNews: " + Error); // TODO: DEBUG
                 return;
             }
+
+            var body = response.Content;
 
             if (body!.Count > 0)
             {
