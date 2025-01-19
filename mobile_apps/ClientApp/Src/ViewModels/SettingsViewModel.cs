@@ -4,7 +4,7 @@ using ClientApp.Src.Storage;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using RequestsLibrary.Routes.API.Auth;
+using RequestsLibrary;
 
 namespace ClientApp.Src.ViewModels;
 
@@ -16,9 +16,11 @@ public partial class SettingsViewModel : ObservableObject
         var isExit = false;
         try
         {
-            var (response, body, exception) = await LogoutRequest.RequestToServer();
+            var response = await Fetcher.Auth.Logout();
 
-            if (response.StatusCode != HttpStatusCode.NoContent)
+            /*if (response.StatusCode != HttpStatusCode.NoContent)
+                throw new Exception("Не удалось выйти, т.к. сервер вернул что-то не то ...");*/
+            if (response.Error is not null)
                 throw new Exception("Не удалось выйти, т.к. сервер вернул что-то не то ...");
 
             isExit = true;
@@ -31,7 +33,7 @@ public partial class SettingsViewModel : ObservableObject
                     "Что-то пошло не так.\nВыйти принудительно?"
                 ), CancellationToken.None
             );
-            
+
             if (result is bool boolResult)
                 isExit = boolResult;
         }
@@ -42,6 +44,6 @@ public partial class SettingsViewModel : ObservableObject
         AuthData.Token = null;
         AuthData.User = null;
         await Shell.Current.GoToAsync("//Main");
-        Provider.AppShell.setEnabledTabsAll(false);
+        Provider.AppShell.SetEnabledTabsAll(false);
     }
 }

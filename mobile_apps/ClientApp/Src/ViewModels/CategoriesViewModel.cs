@@ -3,15 +3,13 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
-using RequestsLibrary.Exceptions;
-using RequestsLibrary.Responses.Api.Category;
-using RequestsLibrary.Routes.API.Categories;
+using RequestsLibrary.Models;
 
 namespace ClientApp.Src.ViewModels;
 
 public partial class CategoriesViewModel : ObservableObject
 {
-    [ObservableProperty] private ObservableCollection<CategoryResponse> categories = new();
+    [ObservableProperty] private ObservableCollection<Category> categories = new();
     [ObservableProperty] private string? error;
     [ObservableProperty] private bool isFetching;
 
@@ -26,35 +24,34 @@ public partial class CategoriesViewModel : ObservableObject
         await Fetch();
     }
 
-    public async Task<ObservableCollection<CategoryResponse>?> Fetch()
+    public async Task<ObservableCollection<Category>?> Fetch()
     {
         try
         {
             IsFetching = true;
             Debug.WriteLine("Start TryFetchCategories"); // TODO: DEBUG
-            var (response, body, exception) =
-                await GetAllRequest.RequestToServer();
+            var response = await Fetcher.Categories.Get();
 
-            if (body is null && exception is null)
-                exception = new RequestException("Сервер не вернул данные: " +
-                                                 response.StatusCode);
+            if (response.Content is null && response.Error is null)
+                Error = "Сервер не вернул данные: "/* +
+                                                 response.StatusCode*/;
 
-            if (exception is not null)
+            if (response.Error is not null)
             {
-                Error = exception.Message;
-                Debug.WriteLine("Error TryFetchCategories: " + Error); // TODO: DEBUG
+                Error = response.Error.Comment;
+                Debug.WriteLine("Error TryFetchNews: " + Error); // TODO: DEBUG
                 return null;
             }
 
-            foreach (var cr in body!)
+            foreach (var cr in response.Content!)
             {
-                cr.AccentColor = $"#{cr.AccentColor}";
+                //cr.AccentColor = $"#{cr.AccentColor}";
                 cr.BackgroundColor = $"#{cr.BackgroundColor}";
                 if (cr.Image is not null)
-                    cr.Image.Path = $"{Fetcher.URL}{cr.Image.Path}";
+                    cr.Image.Path = $"{Fetcher.Config.GetServerUrl()}/{cr.Image.Path}";
             }
 
-            Categories = body;
+            Categories = response.Content;
 
             Debug.WriteLine("End TryFetchCategories"); // TODO: DEBUG
         }

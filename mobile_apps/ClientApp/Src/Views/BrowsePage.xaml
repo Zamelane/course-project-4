@@ -6,7 +6,7 @@
              xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              xmlns:components="clr-namespace:ClientApp.Src.Components"
-             xmlns:cfr="clr-namespace:RequestsLibrary.Responses.Api.Category;assembly=RequestsLibrary"
+             xmlns:cfr="clr-namespace:RequestsLibrary.Models;assembly=RequestsLibrary"
              x:Class="ClientApp.Src.Views.BrowsePage">
 
     <ContentPage.BindingContext>

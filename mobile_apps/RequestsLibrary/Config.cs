@@ -19,12 +19,23 @@ public class Config
         _apiPrefix = apiPrefix;
     }
 
-    public string GetServerUrl() 
-        => String.Join("/", $"{_protocol.ToString()}://{_host}", _path.Trim('/'));
+    public string GetServerUrl()
+        => Join($"{_protocol.ToString()}://{_host}", _path);
 
-    public string GetApiUrl(string path = "") 
-        => String.Join("/", GetServerUrl(), _apiPrefix.Trim('/'), path.Trim('/'));
+    public string GetApiUrl(string path = "")
+        => Join(Join(GetServerUrl(), _apiPrefix), path);
 
     public string GetStorageUrl() 
-        => String.Join("/", GetServerUrl(), "storage");
+        => Join(GetServerUrl(), "storage");
+
+    private string Join(string s1, string? s2)
+    {
+        s1 = s1.Trim('/');
+        s2 = s2?.Trim('/');
+
+        if (String.IsNullOrEmpty(s2))
+            return s1;
+
+        return $"{s1}/{s2}";
+    }
 }

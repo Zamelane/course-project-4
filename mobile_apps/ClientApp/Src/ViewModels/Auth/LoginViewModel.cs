@@ -3,8 +3,7 @@ using ClientApp.Src.Storage;
 using ClientApp.Src.Views.Auth;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using RequestsLibrary.Exceptions;
-using RequestsLibrary.Routes.API.Auth;
+using RequestsLibrary;
 
 namespace ClientApp.Src.ViewModels.Auth;
 
@@ -22,21 +21,23 @@ public partial class LoginViewModel : ObservableObject
     private async Task TryLogin()
     {
         Debug.WriteLine(Login); // TODO: DEBUG
-        var (response, body, exception) = await LoginRequest.RequestToServer(Login, Password);
+        var response = await Fetcher.Auth.Login(Login, Password);
 
-        if (body is null && exception is null)
-            exception = new RequestException("Сервер не вернул данные: " +
-                                             response.StatusCode);
+        if (response.IsEmpty)
+            Error = "Сервер не вернул данные";
 
-        if (exception is not null)
+        if (!response.IsEmptyError)
         {
-            Error = exception.Message;
+            Error = response.Error!.Comment;
+            Debug.WriteLine("Error TryFetchNews: " + Error); // TODO: DEBUG
             return;
         }
 
-        AuthData.SaveAuthData(body.Token, body.User);
+        var body = response.Content!;
+
+        AuthData.SaveAuthData(body.Token!, body.User!);
         await Shell.Current.GoToAsync("//Main");
-        Provider.AppShell.setEnabledTabsAll(true);
+        Provider.AppShell!.SetEnabledTabsAll(true);
     }
 
     [RelayCommand]

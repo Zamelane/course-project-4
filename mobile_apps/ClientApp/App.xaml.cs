@@ -15,7 +15,7 @@ public partial class App : Application
         MainPage = new AppShell();
 
         if (AuthData.User != null && AuthData.Token != null)
-            Provider.AppShell.setEnabledTabsAll(true);
+            Provider.AppShell.SetEnabledTabsAll(true);
     }
 
     protected override Window CreateWindow(IActivationState? activationState)

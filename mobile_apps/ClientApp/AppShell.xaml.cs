@@ -11,7 +11,7 @@ public partial class AppShell : Shell
         Provider.AppShell = this;
     }
 
-    public void setEnabledTabsAll(bool isVisibly)
+    public void SetEnabledTabsAll(bool isVisibly)
     {
         if (BindingContext is TabsViewModel tvm)
             tvm.SetEnabledTabsAll(isVisibly);

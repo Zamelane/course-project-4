@@ -3,22 +3,18 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
-using RequestsLibrary.Exceptions;
-using RequestsLibrary.Responses.Api.Category;
-using RequestsLibrary.Responses.Api.News;
-using RequestsLibrary.Routes;
-using RequestsLibrary.Routes.API.News;
+using RequestsLibrary.Models;
 
 namespace ClientApp.Src.ViewModels;
 
 public partial class HomeViewModel : ObservableObject
 {
-    [ObservableProperty] private ObservableCollection<CategoryResponse>? categories;
+    [ObservableProperty] private ObservableCollection<Category>? categories;
     [ObservableProperty] private string? error;
     [ObservableProperty] private bool isFetching;
 
-    [ObservableProperty] private ObservableCollection<FilteredNewsResponse>? mostReadNewses;
-    [ObservableProperty] private FilteredNewsResponse? mostReadNewsTop;
+    [ObservableProperty] private ObservableCollection<News>? mostReadNewses;
+    [ObservableProperty] private News? mostReadNewsTop;
 
     public HomeViewModel()
     {
@@ -29,7 +25,7 @@ public partial class HomeViewModel : ObservableObject
     private async Task TryFetch()
     {
         await TryFetchNews();
-        //Categories = await new CategoriesViewModel().Fetch();
+        Categories = await new CategoriesViewModel().Fetch();
         //Debug.WriteLine(Categories);
     }
 
@@ -47,7 +43,7 @@ public partial class HomeViewModel : ObservableObject
 
             if (response.Error is not null)
             {
-                Error = response.Error.comment;
+                Error = response.Error.Comment;
                 Debug.WriteLine("Error TryFetchNews: " + Error); // TODO: DEBUG
                 return;
             }
