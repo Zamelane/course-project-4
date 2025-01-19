@@ -1,11 +1,12 @@
-﻿using System.Text.Json.Serialization;
-using RequestsLibrary.RequestsData.ComponentsRequests;
+﻿using RequestsLibrary.Models;
+using System.Text.Json.Serialization;
 
-namespace RequestsLibrary.Responses.Api.Auth;
-
-public class LoginResponse : ErrorResponse
+namespace RequestsLibrary.Requests;
+public class AuthResponse
 {
     [JsonPropertyName("success")] public bool Success { get; set; }
+
     [JsonPropertyName("token")] public string? Token { get; set; }
+
     [JsonPropertyName("user")] public User? User { get; set; }
 }

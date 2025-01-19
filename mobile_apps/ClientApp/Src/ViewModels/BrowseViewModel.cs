@@ -1,14 +1,20 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using ClientApp.Src.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
-using RequestsLibrary.Responses.Api.Category;
+using CommunityToolkit.Mvvm.Input;
+using RequestsLibrary.Models;
 
 namespace ClientApp.Src.ViewModels;
 
 public partial class BrowseViewModel : ObservableObject
 {
-    [ObservableProperty] private ObservableCollection<CategoryResponse> categories = [];
-    [ObservableProperty] private CategoryResponse? selectedCategory = null;
+    [ObservableProperty] private ObservableCollection<Category> categories = [];
+    [ObservableProperty] private Category? selectedCategory = null;
+    [ObservableProperty] private ObservableCollection<News> filteredNews = [];
+
+    [ObservableProperty] private int pageSize  = 2;
+    [ObservableProperty] private string? error = null;
 
     public BrowseViewModel()
     {
@@ -23,5 +29,17 @@ public partial class BrowseViewModel : ObservableObject
             return;
 
         Categories = res;
+    }
+
+    [RelayCommand]
+    private async Task FetchSearchNews()
+    {
+        Debug.WriteLine("Выполняю поиск новостей ...");
+    }
+
+    [RelayCommand]
+    private async Task FetchMoreNews()
+    {
+        Debug.WriteLine("Загрузка ещё новостей ...");
     }
 }

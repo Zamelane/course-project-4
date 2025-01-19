@@ -39,7 +39,8 @@
                                                       VerticalTextAlignment="Center"
                                                       VerticalOptions="Center"
                                                       x:Name="CustomEntry"
-                                                      Grid.Row="1" />
+                                                      Grid.Row="1"
+                                                      TextChanged="CustomEntry_TextChanged"/>
                             <Label Text="{TemplateBinding PlaceholderText}"
                                    TextColor="{StaticResource Gray500}"
                                    FontSize="14"

@@ -1,5 +1,6 @@
-﻿using System.Text.Json;
-using RequestsLibrary.RequestsData.ComponentsRequests;
+﻿using RequestsLibrary;
+using RequestsLibrary.Models;
+using System.Text.Json;
 
 namespace ClientApp.Src.Storage;
 
@@ -14,6 +15,7 @@ public static class AuthData
         set
         {
             _token = value;
+            Fetcher.SetToken(value);
 
             if (value == null)
                 SecureStorage.Remove("token");

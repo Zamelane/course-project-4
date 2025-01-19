@@ -1,4 +1,6 @@
+using ClientApp.Src.Utils;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace ClientApp.Src.Controls;
 
@@ -114,5 +116,23 @@ public partial class IconEntry : ContentView
         }
 
         Debug.WriteLine("���� �������");
+    }
+
+    // *** ЛОГИКА ПОИСКА ** //
+    public static readonly BindableProperty SearchCommandProperty = BindableProperty.Create(
+        nameof(SearchCommand), typeof(ICommand), typeof(IconEntry), null, BindingMode.TwoWay
+    );
+    public ICommand SearchCommand
+    {
+        get => (ICommand)GetValue(SearchCommandProperty);
+        set => SetValue(SearchCommandProperty, value);
+    }
+
+    private Debouncer _debouncer = new(1000);
+    private void CustomEntry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (SearchCommand is null)
+            return;
+        _debouncer.Debounce(() => SearchCommand.Execute(null));
     }
 }

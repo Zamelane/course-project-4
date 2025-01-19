@@ -1,11 +1,11 @@
-using RequestsLibrary.Responses.Api.News;
+using RequestsLibrary.Models;
 
 namespace ClientApp.Src.Components;
 
 public partial class MinNewsCard : ContentView
 {
     public static readonly BindableProperty FilteredNewsProperty = BindableProperty.Create(
-        nameof(FilteredNews), typeof(FilteredNewsResponse), typeof(DefaultNewsCard), null, BindingMode.TwoWay
+        nameof(FilteredNews), typeof(News), typeof(DefaultNewsCard), null, BindingMode.TwoWay
     );
 
     public MinNewsCard()
@@ -13,9 +13,9 @@ public partial class MinNewsCard : ContentView
         InitializeComponent();
     }
 
-    public FilteredNewsResponse? FilteredNews
+    public News? FilteredNews
     {
-        get => (FilteredNewsResponse?)GetValue(FilteredNewsProperty);
+        get => (News?)GetValue(FilteredNewsProperty);
         set => SetValue(FilteredNewsProperty, value);
     }
 }

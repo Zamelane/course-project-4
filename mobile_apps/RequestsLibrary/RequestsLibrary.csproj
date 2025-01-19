@@ -12,7 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Dubacik22.ObservableDictionary" Version="1.0.4"/>
+        <PackageReference Include="Dubacik22.ObservableDictionary" Version="1.0.4" />
     </ItemGroup>
 
 </Project>

@@ -2,21 +2,19 @@
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using RequestsLibrary.Exceptions;
-using RequestsLibrary.Responses.Api.Category;
-using RequestsLibrary.Responses.Api.News;
-using RequestsLibrary.Routes.API.News;
+using RequestsLibrary;
+using RequestsLibrary.Models;
 
 namespace ClientApp.Src.ViewModels;
 
 public partial class HomeViewModel : ObservableObject
 {
-    [ObservableProperty] private ObservableCollection<CategoryResponse>? categories;
+    [ObservableProperty] private ObservableCollection<Category>? categories;
     [ObservableProperty] private string? error;
     [ObservableProperty] private bool isFetching;
 
-    [ObservableProperty] private ObservableCollection<FilteredNewsResponse>? mostReadNewses;
-    [ObservableProperty] private FilteredNewsResponse? mostReadNewsTop;
+    [ObservableProperty] private ObservableCollection<News>? mostReadNewses;
+    [ObservableProperty] private News? mostReadNewsTop;
 
     public HomeViewModel()
     {
@@ -28,7 +26,7 @@ public partial class HomeViewModel : ObservableObject
     {
         await TryFetchNews();
         Categories = await new CategoriesViewModel().Fetch();
-        Debug.WriteLine(Categories);
+        //Debug.WriteLine(Categories);
     }
 
     private async Task TryFetchNews()
@@ -37,18 +35,20 @@ public partial class HomeViewModel : ObservableObject
         {
             IsFetching = true;
             Debug.WriteLine("Start TryFetchNews"); // TODO: DEBUG
-            var (response, body, exception) = await FilteredNewsRequest.RequestToServer();
+            var response = await Fetcher.News.Get();
 
-            if (body is null && exception is null)
-                exception = new RequestException("Сервер не вернул данные: " +
-                                                 response.StatusCode);
+            if (response.Content is null && response.Error is null)
+                Error = "Сервер не вернул данные: "/* +
+                                                 response.StatusCode*/;
 
-            if (exception is not null)
+            if (response.Error is not null)
             {
-                Error = exception.Message;
+                Error = response.Error.Comment;
                 Debug.WriteLine("Error TryFetchNews: " + Error); // TODO: DEBUG
                 return;
             }
+
+            var body = response.Content;
 
             if (body!.Count > 0)
             {
