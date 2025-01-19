@@ -20,17 +20,17 @@ public partial class SettingsViewModel : ObservableObject
 
             /*if (response.StatusCode != HttpStatusCode.NoContent)
                 throw new Exception("Не удалось выйти, т.к. сервер вернул что-то не то ...");*/
-            if (response.Error is not null)
-                throw new Exception("Не удалось выйти, т.к. сервер вернул что-то не то ...");
+            if (response.Error is not null && response.StatusCode != HttpStatusCode.NoContent)
+                throw new Exception("Не удалось выйти, т.к. сервер вернул что-то не то: " + response.Error.Comment);
 
             isExit = true;
         }
-        catch
+        catch(Exception ex)
         {
             var result = await Shell.Current.ShowPopupAsync(
                 new QuestionPopup(
                     "Ошибка",
-                    "Что-то пошло не так.\nВыйти принудительно?"
+                    $"{ex.Message}.\nВыйти принудительно?"
                 ), CancellationToken.None
             );
 

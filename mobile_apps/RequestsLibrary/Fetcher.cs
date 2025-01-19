@@ -19,11 +19,6 @@ public static class Fetcher
         _token = token;
     }
 
-    internal static string? GetToken()
-    {
-        return _token;
-    }
-
     public static async Task<Response<T?>> Fetch<T>(
         HttpMethod method,
         string url,
@@ -41,6 +36,9 @@ public static class Fetcher
 
         // Добавляем нагрузку в запрос
         rp?.AddToRequest(request);
+
+        Debug.WriteLine(_token);
+        Debug.WriteLine(JsonSerializer.Serialize(request.Headers));
 
         Debug.WriteLine(request.RequestUri);
 
