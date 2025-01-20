@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using ClientApp.Src.Storage;
+using ClientApp.Src.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary.Models;
@@ -12,6 +13,7 @@ public partial class BrowseViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Category> categories = [];
     [ObservableProperty] private Category? selectedCategory = null;
     [ObservableProperty] private ObservableCollection<News> filteredNews = [];
+    [ObservableProperty] private bool isFetching = false;
 
     [ObservableProperty] private int pageSize  = 2;
     [ObservableProperty] private string? error = null;
@@ -23,12 +25,16 @@ public partial class BrowseViewModel : ObservableObject
 
     private async Task FetchCategories()
     {
-        var res = await Provider.CategoriesViewModel.Fetch();
-
-        if (res is null)
-            return;
-
-        Categories = res;
+        await Auxiliary.RunWithStateHandlingWithoutResponse<ObservableCollection<Category>?>(
+            () => Provider.CategoriesViewModel.Fetch(),
+            _ => IsFetching = _,
+            _ => Error = _,
+            res =>
+            {
+                if (res is not null)
+                    Categories = res;
+            }
+        );
     }
 
     [RelayCommand]

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using ClientApp.Src.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
@@ -31,37 +32,23 @@ public partial class HomeViewModel : ObservableObject
 
     private async Task TryFetchNews()
     {
-        try
-        {
-            IsFetching = true;
-            Debug.WriteLine("Start TryFetchNews"); // TODO: DEBUG
-            var response = await Fetcher.News.Get();
+        Debug.WriteLine("Start TryFetchNews"); // TODO: DEBUG
 
-            if (response.Content is null && response.Error is null)
-                Error = "Сервер не вернул данные: "/* +
-                                                 response.StatusCode*/;
-
-            if (response.Error is not null)
+        await Auxiliary.RunWithStateHandling(
+            () => Fetcher.News.Get(),
+            _ => IsFetching = _,
+            _ => Error = _,
+            newses =>
             {
-                Error = response.Error.Comment;
-                Debug.WriteLine("Error TryFetchNews: " + Error); // TODO: DEBUG
-                return;
+                if (newses is not null && newses!.Count > 0)
+                {
+                    MostReadNewsTop = newses.First();
+                    newses.Remove(MostReadNewsTop);
+                    MostReadNewses = newses;
+                }
             }
+        );
 
-            var body = response.Content;
-
-            if (body!.Count > 0)
-            {
-                MostReadNewsTop = body.First();
-                body.Remove(MostReadNewsTop);
-                MostReadNewses = body;
-            }
-
-            Debug.WriteLine("End TryFetchNews"); // TODO: DEBUG
-        }
-        finally
-        {
-            IsFetching = false;
-        }
+        Debug.WriteLine("End TryFetchNews"); // TODO: DEBUG
     }
 }

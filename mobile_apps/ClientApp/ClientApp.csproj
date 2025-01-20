@@ -102,6 +102,7 @@
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="Dubacik22.ObservableDictionary" Version="1.0.4" />
         <PackageReference Include="FFImageLoading.Maui" Version="1.2.7" />
+        <PackageReference Include="Indiko.Maui.Controls.Markdown" Version="1.2.0" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.22" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.22" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
@@ -195,6 +196,9 @@
         </MauiXaml>
         <MauiXaml Update="Src\Views\HomePage.xaml">
             <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\NewsPage.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
         <MauiXaml Update="Src\Views\SettingsPage.xaml">
             <Generator>MSBuild:Compile</Generator>

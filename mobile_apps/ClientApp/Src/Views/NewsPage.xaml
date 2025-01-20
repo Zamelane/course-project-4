@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:ClientApp.Src.Components"
+             xmlns:controls="clr-namespace:ClientApp.Src.Controls"
+             xmlns:idk="clr-namespace:Indiko.Maui.Controls.Markdown;assembly=Indiko.Maui.Controls.Markdown"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             x:Class="ClientApp.Src.Views.NewsPage"
+             Shell.BackgroundColor="{StaticResource Primary600}"
+             Shell.TitleColor="{StaticResource White}"
+             Title="Тут заголовок">
+    <ScrollView>
+        <VerticalStackLayout Spacing="{StaticResource MarginMin}">
+            <Image x:Name="img"
+                   Source="news_1.png"
+                   Aspect="AspectFill"/>
+            <StackLayout Padding="{StaticResource MarginLarge}" Spacing="{StaticResource MarginMin}">
+                <HorizontalStackLayout Spacing="{StaticResource MarginLarge}">
+                    <HorizontalStackLayout Spacing="6">
+                        <Image Source="eye.png" WidthRequest="20" HeightRequest="20" />
+                        <Label Text="25.9k" FontSize="14" TextColor="#464D61" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="6">
+                        <Image Source="chat.png" WidthRequest="20" HeightRequest="20" />
+                        <Label Text="657 Comments" FontSize="14" TextColor="#464D61" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="6">
+                        <Image Source="chat.png" WidthRequest="20" HeightRequest="20" />
+                        <Label Text="Technology" FontSize="14" TextColor="#464D61" />
+                    </HorizontalStackLayout>
+                </HorizontalStackLayout>
+                <Label 
+                    FontSize="24"
+                    TextColor="{StaticResource Gray900}"
+                    FontAttributes="Bold"
+                    Text="How to Become an Interior Designer (and What You Need to Know Before You Do)"/>
+            </StackLayout>
+
+            <StackLayout Spacing="20">
+                <Label HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource Gray100}" HeightRequest="1" Opacity="0.5"/>
+                <Grid ColumnDefinitions="auto, auto,*,auto"
+                      ColumnSpacing="{StaticResource MarginMin}"
+                      RowDefinitions="auto, auto"
+                      Padding="20,0">
+                    <!--Аватарка пользователя-->
+                    <Border Grid.RowSpan="2" WidthRequest="45" HeightRequest="45" BackgroundColor="{StaticResource Gray100}" Stroke="Transparent">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="100" />
+                        </Border.StrokeShape>
+                        <Image>
+                            <Image.Source>
+                                <toolkit:GravatarImageSource
+                                            CacheValidity="1"
+                                            CachingEnabled="True"
+                                            Email="test@mail.ru"
+                                            Image="Robohash" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+                    <Label Grid.Column="1"
+                           FontSize="16"
+                           VerticalTextAlignment="Start"
+                           Text="Kevin Gilbert"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Gray900}"/>
+                    <Label Grid.Column="1"
+                           Grid.Row="1"
+                           FontSize="14"
+                           VerticalTextAlignment="End"
+                           TextColor="{StaticResource Gray900}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span>Aug 3, 2021</Span>
+                                <Span Text=" "/>
+                                <Span>•</Span>
+                                <Span Text=" "/>
+                                <Span>8 mins read</Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <HorizontalStackLayout Grid.Column="3" Grid.RowSpan="2" Spacing="{StaticResource MarginLarge}">
+                        <ffimageloading:SvgCachedImage Source="share_network.svg" WidthRequest="30"/>
+                        <ffimageloading:SvgCachedImage Source="bookmark.svg" WidthRequest="30"/>
+                    </HorizontalStackLayout>
+                </Grid>
+                <Label HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource Gray100}" HeightRequest="1" Opacity="0.5"/>
+                <Grid ColumnDefinitions="auto, *, auto"
+                      Margin="20,0">
+                    <Label Text="657 Comments" FontSize="18" TextColor="{StaticResource Gray900}"/>
+                    <ffimageloading:SvgCachedImage Grid.Column="2" Source="caret_double_down.svg" WidthRequest="20"/>
+                </Grid>
+                <Label HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource Gray100}" HeightRequest="1" Opacity="0.5"/>
+            </StackLayout>
+
+            <idk:MarkdownView x:Name="md"
+                              Padding="20,24"
+                              H1FontSize="20"
+                              H1Color="{StaticResource Gray900}" 
+                              H2FontSize="18"
+                              H2Color="{StaticResource Gray900}"
+                              H3FontSize="16"
+                              H3Color="{StaticResource Gray900}"
+                              CodeBlockBackgroundColor="{StaticResource Gray100}"
+                              CodeBlockTextColor="{StaticResource Gray600}"
+                              CodeBlockBorderColor="{StaticResource Gray200}"
+                              CodeBlockFontFace="CamingoCodeRegular"
+                              CodeBlockFontSize="12"
+                              BlockQuoteBackgroundColor="{StaticResource Error500}"
+                              BlockQuoteTextColor="{StaticResource Gray600}"
+                              BlockQuoteBorderColor="{StaticResource Error200}"
+                              BlockQuoteFontFace="CamingoCodeItalic"
+                              TextFontFace="Nunito"
+                              TextFontSize="13"
+                              TextColor="{StaticResource Black}"
+                              TableHeaderBackgroundColor="{StaticResource Gray100}"
+                              TableHeaderFontFace="OpenSans"
+                              TableHeaderFontSize="13"
+                              TableHeaderTextColor="{StaticResource Gray900}"
+                              TableRowFontFace="OpenSans"
+                              TableRowFontSize="11"
+                              TableRowTextColor="{StaticResource Gray600}"
+                              ImageAspect="Fill"
+                              HyperlinkColor="{StaticResource Primary500}"
+                              LineColor="{StaticResource Gray700}"
+                              LineHeightMultiplier="1.2"
+                              ParagraphSpacing="1"/>
+
+            <StackLayout Padding="16,32" Spacing="16" BackgroundColor="{StaticResource Gray30}">
+                <Label Text="LATEST NEWS"
+                       HorizontalOptions="Center"
+                       FontSize="16"
+                       TextColor="{StaticResource Gray900}"
+                       FontAttributes="Bold"/>
+                <StackLayout Spacing="18">
+                    <components:MinNewsCard/>
+                    <components:MinNewsCard/>
+                    <components:MinNewsCard/>
+                    <components:MinNewsCard/>
+                </StackLayout>
+
+                <controls:Button Text="VIEW ALL"/>
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

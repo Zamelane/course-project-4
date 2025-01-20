@@ -6,6 +6,9 @@
 
     <!--Карточка с топ-новостью-->
     <Grid RowDefinitions="250,auto">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+        </Grid.GestureRecognizers>
         <Image Source="news_1.png" Aspect="AspectFill" />
         <!--Содержимое карточки-->
         <VerticalStackLayout Margin="20" Spacing="20" Grid.Row="1">

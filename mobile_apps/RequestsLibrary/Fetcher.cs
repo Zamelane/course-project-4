@@ -2,7 +2,6 @@
 using System.Text.Json;
 using RequestsLibrary.Responses;
 using RequestsLibrary.Routes;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RequestsLibrary;
 
@@ -43,7 +42,24 @@ public static class Fetcher
         Debug.WriteLine(request.RequestUri);
 
         // Выполняем запрос
-        var response = await _httpClient.SendAsync(request);
+        HttpResponseMessage response;
+
+        try
+        {
+            response = await _httpClient.SendAsync(request);
+        }
+        catch
+        {
+            return new Response<T?>()
+            {
+                Content = default,
+                Error = new()
+                {
+                    Comment = "Ошибка запроса",
+                },
+                StatusCode = System.Net.HttpStatusCode.BadRequest
+            };
+        }
 
         // Читаем ответ и отдаём ответ
         string? responseContent = null;

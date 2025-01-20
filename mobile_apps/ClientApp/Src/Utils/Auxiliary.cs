@@ -1,4 +1,7 @@
-﻿namespace ClientApp.Src.Utils;
+﻿using RequestsLibrary;
+using System.Diagnostics;
+
+namespace ClientApp.Src.Utils;
 
 internal static class Auxiliary
 {
@@ -16,5 +19,42 @@ internal static class Auxiliary
         {
             return default;
         }
+    }
+
+    public static async Task<Response<T?>> RunWithStateHandling<T>(Func<Task<Response<T?>>> fetchMathod, Action<bool> setIsFetching, Action<string>? setError = null, Action<T?>? setResult = null)
+    {
+        setIsFetching.Invoke(true);
+        Response<T?> response = await fetchMathod();
+        setIsFetching.Invoke(false);
+
+        string error = "";
+
+        if (response.IsEmpty)
+            error = "Сервер не вернул данные: " + response.StatusCode;
+
+        if (!response.IsEmptyError)
+            error = response.Error!.Comment!;
+
+        setError?.Invoke(error);
+        setResult?.Invoke(response.Content);
+
+        return response;
+    }
+
+    public static async Task<T?> RunWithStateHandlingWithoutResponse<T>(Func<Task<T?>> fetchMathod, Action<bool> setIsFetching, Action<string>? setError = null, Action<T?>? setResult = null)
+    {
+        setIsFetching.Invoke(true);
+        T? response = await fetchMathod();
+        setIsFetching.Invoke(false);
+
+        string error = "";
+
+        if (response is null)
+            error = "Нечего возвращать";
+
+        setError?.Invoke(error);
+        setResult?.Invoke(response);
+
+        return response;
     }
 }
