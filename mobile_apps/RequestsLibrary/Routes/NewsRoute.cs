@@ -9,7 +9,8 @@ public class NewsRoute : IGetRoute<News>
     {
         return await Fetcher.Fetch<ObservableCollection<News>>(
             HttpMethod.Get,
-            Fetcher.Config.GetApiUrl("news")
+            Fetcher.Config.GetApiUrl("news"),
+            rp
         );
     }
 

@@ -4,6 +4,7 @@ using ClientApp.Src.Storage;
 using ClientApp.Src.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using RequestsLibrary;
 using RequestsLibrary.Models;
 
 namespace ClientApp.Src.ViewModels;
@@ -16,11 +17,14 @@ public partial class BrowseViewModel : ObservableObject
     [ObservableProperty] private bool isFetching = false;
 
     [ObservableProperty] private int pageSize  = 2;
+    [ObservableProperty] private string searchText = "";
     [ObservableProperty] private string? error = null;
+    private int _currentPage = 0;
 
     public BrowseViewModel()
     {
         _ = FetchCategories();
+        _ = FetchMoreNews();
     }
 
     private async Task FetchCategories()
@@ -37,15 +41,57 @@ public partial class BrowseViewModel : ObservableObject
         );
     }
 
+    // Тута после ввода поискового запроса
     [RelayCommand]
     private async Task FetchSearchNews()
     {
         Debug.WriteLine("Выполняю поиск новостей ...");
+        _ = FetchMoreNews(0);
     }
 
     [RelayCommand]
-    private async Task FetchMoreNews()
+    private async Task FetchMoreNews(int? page = null)
     {
         Debug.WriteLine("Загрузка ещё новостей ...");
+
+        if (page is null)
+            page = _currentPage;
+
+        page++; // Загружаем сразу следующую
+
+        // Строим параметры запроса
+        RequestParams rp = new();
+
+        if (SearchText.Trim().Length >= 3)
+            rp.AddParameter("search", SearchText);
+
+        if (SelectedCategory is not null)
+            rp.AddParameter("category", SelectedCategory.Id);
+
+        rp.AddParameter("page", page);
+
+        // Запрашиваем данные
+        var response = await Auxiliary.RunWithStateHandling(
+            () => Fetcher.News.Get(rp),
+            _ => IsFetching = _,
+            _ => Error = _,
+            fn =>
+            {
+                if (fn is null)
+                    return;
+                if (page != 1)
+                    fn.ToList().ForEach(FilteredNews.Add);
+                else FilteredNews = fn;
+            }
+        );
+
+        Debug.WriteLine(Error);
+
+        // Прверяем, есть ли ошибки и пришло ли тело
+        if (!response.IsEmptyError && response.IsEmptyContent)
+            return;
+
+        // Если ошибок нет и ответ не пустой, то запоминаем текущую страницу
+        _currentPage = (int)page;
     }
 }

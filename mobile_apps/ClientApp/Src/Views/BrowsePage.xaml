@@ -53,6 +53,7 @@
                 <controls:IconEntry CornerRadius="5"
                                     IconSource="search.png"
                                     PlaceholderText="Search ..."
+                                    Text="{Binding SearchText}"
                                     SearchCommand="{Binding FetchSearchNewsCommand}"
                                     Margin="20,25">
                     <controls:IconEntry.Shadow>
@@ -117,17 +118,21 @@
                    Opacity="0.5" />
             </StackLayout>
         </StackLayout>
-        <ScrollView Grid.Row="1">
-            <CollectionView ItemsSource="{Binding FilteredNews}"
-                            RemainingItemsThresholdReachedCommand="{Binding FetchMoreNewsCommand}"
-                            RemainingItemsThreshold="{Binding PageSize}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <components:BigNewsCard />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </ScrollView>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding FilteredNews}"
+                        RemainingItemsThresholdReachedCommand="{Binding FetchMoreNewsCommand}"
+                        RemainingItemsThreshold="{Binding PageSize}"
+                        ItemsUpdatingScrollMode="KeepScrollOffset">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout 
+                        Orientation="Vertical"
+                        VerticalItemSpacing="{StaticResource MarginPreMin}" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <components:MinNewsCard FilteredNews="{Binding .}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
 
 </ContentPage>

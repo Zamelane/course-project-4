@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Web;
 
 namespace RequestsLibrary;
 public class RequestParams
@@ -17,12 +19,16 @@ public class RequestParams
     {
         if (request.Method == HttpMethod.Get && _params.Any())
         {
+            Debug.WriteLine("->>Добавляю GET парамерты в запрос");
             string getParams = String.Empty;
-
 
             foreach (KeyValuePair<string, string?> param in _params)
             {
-                getParams = String.Join('&', getParams, String.Join('=', param.Key, param.Value));
+                // TODO: Это бы как-то покрасивее (типа чтобы '?' только перед первым элементом был)
+                string pairValue = String.Join('=', param.Key, HttpUtility.UrlEncode(param.Value));
+                if (String.IsNullOrEmpty(getParams))
+                    getParams = pairValue;
+                else getParams = String.Join('&', getParams, pairValue);
             }
 
             request.RequestUri = new(String.Join('?', request.RequestUri!.ToString(), getParams));

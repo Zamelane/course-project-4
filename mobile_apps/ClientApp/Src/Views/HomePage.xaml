@@ -80,7 +80,7 @@
                         <CollectionView ItemsSource="{Binding Categories}">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Horizontal"
-                                                 HorizontalItemSpacing="{StaticResource MarginPreMin}" />
+                                                 HorizontalItemSpacing="{StaticResource MarginPreMin}"/>
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>

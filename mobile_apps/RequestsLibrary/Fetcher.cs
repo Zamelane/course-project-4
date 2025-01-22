@@ -26,7 +26,7 @@ public static class Fetcher
     {
         // Инициализируем метод запроса
         var request = new HttpRequestMessage(method, url);
-        Debug.WriteLine(Config.GetApiUrl());
+
         if (rp is null)
             rp = new RequestParams();
 
@@ -37,9 +37,7 @@ public static class Fetcher
         rp?.AddToRequest(request);
 
         Debug.WriteLine(_token);
-        Debug.WriteLine(JsonSerializer.Serialize(request.Headers));
-
-        Debug.WriteLine(request.RequestUri);
+        Debug.WriteLine(JsonSerializer.Serialize(request));
 
         // Выполняем запрос
         HttpResponseMessage response;

@@ -127,7 +127,6 @@ public partial class IconEntry : ContentView
         get => (ICommand)GetValue(SearchCommandProperty);
         set => SetValue(SearchCommandProperty, value);
     }
-
     private Debouncer _debouncer = new(1000);
     private void CustomEntry_TextChanged(object sender, TextChangedEventArgs e)
     {
