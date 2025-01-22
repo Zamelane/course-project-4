@@ -16,9 +16,10 @@ public partial class BrowseViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<News> filteredNews = [];
     [ObservableProperty] private bool isFetching = false;
 
-    [ObservableProperty] private int pageSize  = 2;
-    [ObservableProperty] private string searchText = "";
-    [ObservableProperty] private string? error = null;
+    [ObservableProperty] private int pageSize       = 2;
+    [ObservableProperty] private bool isEndPage     = false;
+    [ObservableProperty] private string searchText  = "";
+    [ObservableProperty] private string? error      = null;
     private int _currentPage = 0;
 
     public BrowseViewModel()
@@ -49,13 +50,19 @@ public partial class BrowseViewModel : ObservableObject
         _ = FetchMoreNews(0);
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanFetch))]
     private async Task FetchMoreNews(int? page = null)
     {
-        Debug.WriteLine("Загрузка ещё новостей ...");
-
         if (page is null)
             page = _currentPage;
+
+        if (page == 0)
+            IsEndPage = false;
+
+        if (IsEndPage)
+            return;
+
+        Debug.WriteLine("Загрузка ещё новостей ...");
 
         page++; // Загружаем сразу следующую
 
@@ -72,7 +79,7 @@ public partial class BrowseViewModel : ObservableObject
 
         // Запрашиваем данные
         var response = await Auxiliary.RunWithStateHandling(
-            () => Fetcher.News.Get(rp),
+            async () => await Fetcher.News.Get(rp),
             _ => IsFetching = _,
             _ => Error = _,
             fn =>
@@ -88,10 +95,19 @@ public partial class BrowseViewModel : ObservableObject
         Debug.WriteLine(Error);
 
         // Прверяем, есть ли ошибки и пришло ли тело
-        if (!response.IsEmptyError && response.IsEmptyContent)
+        if (!response.IsEmptyError || response.IsEmptyContent)
             return;
+
+        // Если не вернулись элементы, то не загружаем следующие страницы
+        if (response.Content?.Count == 0)
+        {
+            IsEndPage = true;
+            return;
+        }
 
         // Если ошибок нет и ответ не пустой, то запоминаем текущую страницу
         _currentPage = (int)page;
     }
+
+    private bool CanFetch() => !IsFetching;
 }

@@ -121,7 +121,8 @@
         <CollectionView Grid.Row="1" ItemsSource="{Binding FilteredNews}"
                         RemainingItemsThresholdReachedCommand="{Binding FetchMoreNewsCommand}"
                         RemainingItemsThreshold="{Binding PageSize}"
-                        ItemsUpdatingScrollMode="KeepScrollOffset">
+                        ItemsUpdatingScrollMode="KeepScrollOffset"
+                        Margin="20,12">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout 
                         Orientation="Vertical"
