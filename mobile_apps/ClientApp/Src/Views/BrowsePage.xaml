@@ -77,8 +77,9 @@
                         <Label Text="Category" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
                         <controls:Select ItemsSource="{Binding Categories}"
                                      Title="Выберите категорию"
-                                     SelectedText="{Binding SelectedCategory.Name}"
-                                     ItemSelected="{Binding SelectedCategory}">
+                                     SelectedText="{Binding SelectedCategories[0].Name}"
+                                     ItemsSelected="{Binding SelectedCategories}"
+                                     IsMultiple="True">
                             <controls:Select.ItemTemplate>
                                 <DataTemplate>
                                     <components:MinCategoryCard Text="{Binding Name}" IconSource="{Binding Image.Path}" CardColor="{Binding BackgroundColor}"/>

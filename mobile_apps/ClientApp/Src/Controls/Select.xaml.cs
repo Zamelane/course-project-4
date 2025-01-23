@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Text.Json;
 using ClientApp.Src.Popups;
 using CommunityToolkit.Maui.Views;
 
@@ -20,24 +22,24 @@ public partial class Select : ContentView
     }
 
     // <------ Поля для прицепа
-    public static readonly BindableProperty MultiplyItemsSelectedProperty = BindableProperty.Create(
-        nameof(MultiplyItemsSelected), typeof(ObservableCollection<object>), typeof(SelectPopup), new ObservableCollection<object>(), BindingMode.TwoWay);
-    public ObservableCollection<object> MultiplyItemsSelected
-    {
-        get => (ObservableCollection<object>)GetValue(MultiplyItemsSelectedProperty);
-        set => SetValue(MultiplyItemsSelectedProperty, value);
-    }
+    //public static readonly BindableProperty MultiplyItemsSelectedProperty = BindableProperty.Create(
+    //    nameof(MultiplyItemsSelected), typeof(ObservableCollection<object>), typeof(Select), new ObservableCollection<object>(), BindingMode.TwoWay);
+    //public ObservableCollection<object> MultiplyItemsSelected
+    //{
+    //    get => (ObservableCollection<object>)GetValue(MultiplyItemsSelectedProperty);
+    //    set => SetValue(MultiplyItemsSelectedProperty, value);
+    //}
 
-    public static readonly BindableProperty ItemSelectedProperty = BindableProperty.Create(
-        nameof(ItemSelected), typeof(object), typeof(SelectPopup), null, BindingMode.TwoWay);
-    public object? ItemSelected
+    public static readonly BindableProperty ItemsSelectedProperty = BindableProperty.Create(
+        nameof(ItemsSelected), typeof(object), typeof(Select), null, BindingMode.TwoWay);
+    public object? ItemsSelected
     {
-        get => (object?)GetValue(ItemSelectedProperty);
-        set => SetValue(ItemSelectedProperty, value);
+        get => (object?)GetValue(ItemsSelectedProperty);
+        set => SetValue(ItemsSelectedProperty, value);
     }
 
     public static readonly BindableProperty SelectedTextProperty = BindableProperty.Create(
-        nameof(SelectedText), typeof(string), typeof(SelectPopup), null, BindingMode.TwoWay
+        nameof(SelectedText), typeof(string), typeof(Select), null, BindingMode.TwoWay
     );
     public string SelectedText
     {
@@ -96,7 +98,9 @@ public partial class Select : ContentView
 
     private async Task OpenPopup()
     {
-        var popup = new SelectPopup(IsMultiple ? MultiplyItemsSelected : ItemSelected)
+        Debug.WriteLine(JsonSerializer.Serialize(ItemsSelected));
+
+        var popup = new SelectPopup(ItemsSelected)
         {
             ItemsSource = ItemsSource,
             ItemTemplate = ItemTemplate,
@@ -114,16 +118,14 @@ public partial class Select : ContentView
         if (result is ObservableCollection<object> collection)
         {
             if (IsMultiple)
-                MultiplyItemsSelected = collection;
-            else ItemSelected = collection.FirstOrDefault();
+                ItemsSelected = collection;
+            else ItemsSelected = collection.FirstOrDefault();
             return;
         }
 
         if (result is object)
         {
-            ItemSelected = result;
-            MultiplyItemsSelected.Clear();
-            MultiplyItemsSelected.Add(result);
+            ItemsSelected = result;
         }
     }
 }

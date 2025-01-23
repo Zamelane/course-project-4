@@ -12,7 +12,7 @@ namespace ClientApp.Src.ViewModels;
 public partial class BrowseViewModel : ObservableObject
 {
     [ObservableProperty] private ObservableCollection<Category> categories = [];
-    [ObservableProperty] private Category? selectedCategory = null;
+    [ObservableProperty] private ObservableCollection<Category> selectedCategories = [];
     [ObservableProperty] private ObservableCollection<News> filteredNews = [];
     [ObservableProperty] private bool isFetching = false;
 
@@ -37,6 +37,9 @@ public partial class BrowseViewModel : ObservableObject
             {
                 if (res is not null)
                     Categories = res;
+
+                if (res is not null)
+                    SelectedCategories.Add(Categories.First());
             }
         );
     }
@@ -65,8 +68,8 @@ public partial class BrowseViewModel : ObservableObject
         if (SearchText.Trim().Length >= 3)
             rp.AddParameter("search", SearchText);
 
-        if (SelectedCategory is not null)
-            rp.AddParameter("category", SelectedCategory.Id);
+        /*if (SelectedCategory is not null)
+            rp.AddParameter("category", SelectedCategory.Id);*/
 
         rp.AddParameter("page", page);
 
