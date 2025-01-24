@@ -109,6 +109,9 @@ public partial class Select : ContentView
 
         object? result = await Shell.Current.CurrentPage.ShowPopupAsync(popup);
 
+        if (result is null)
+            return;
+
         //if (result is null)
         //{
         //    //ItemSelected = null;

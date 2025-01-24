@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ClientApp.Src.Popups;
 
@@ -9,7 +11,9 @@ public partial class SelectPopup : Popup
     private readonly ObservableCollection<object> _selectedElements = [];
     private readonly bool _isMultiple = false;
 
-    public ObservableCollection<object> SelectedElements => _selectedElements;
+    public bool IsMultiple => _isMultiple;
+    public ICommand CloseCommand { get; set; }
+    public ICommand ApplyCommand { get; set; }
 
     public SelectPopup(dynamic? element)
     {
@@ -30,6 +34,16 @@ public partial class SelectPopup : Popup
         Debug.WriteLine(_selectedElements.Count);
         Debug.WriteLine(_isMultiple);
         Debug.WriteLine("==========");
+
+        CloseCommand = new RelayCommand(() =>
+        {
+            Close();
+        });
+
+        ApplyCommand = new RelayCommand(() =>
+        {
+            CloseAsync(_selectedElements);
+        });
 
         BindingContext = this;
         InitializeComponent();

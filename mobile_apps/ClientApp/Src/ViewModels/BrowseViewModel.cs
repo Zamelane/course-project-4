@@ -39,8 +39,8 @@ public partial class BrowseViewModel : ObservableObject
                 if (res is not null)
                     Categories = res;
 
-                if (res is not null)
-                    SelectedCategories.Add(Categories.First());
+                //if (res is not null)
+                //    SelectedCategories.Add(Categories.First());
             }
         );
     }
