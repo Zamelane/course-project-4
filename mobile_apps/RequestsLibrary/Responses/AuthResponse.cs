@@ -1,7 +1,7 @@
 ﻿using RequestsLibrary.Models;
 using System.Text.Json.Serialization;
 
-namespace RequestsLibrary.Requests;
+namespace RequestsLibrary.Responses;
 public class AuthResponse
 {
     [JsonPropertyName("success")] public bool Success { get; set; }

@@ -1,8 +1,8 @@
+using ClientApp.Src.Popups;
+using CommunityToolkit.Maui.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;
-using ClientApp.Src.Popups;
-using CommunityToolkit.Maui.Views;
 
 namespace ClientApp.Src.Controls;
 

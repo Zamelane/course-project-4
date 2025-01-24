@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
 using RequestsLibrary.Models;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace ClientApp.Src.ViewModels;
 

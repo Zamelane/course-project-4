@@ -1,17 +1,16 @@
+using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
-using CommunityToolkit.Maui.Views;
-using CommunityToolkit.Mvvm.Input;
 
 namespace ClientApp.Src.Popups;
 
 public partial class SelectPopup : Popup
 {
     private readonly ObservableCollection<object> _selectedElements = [];
-    private readonly bool _isMultiple = false;
 
-    public bool IsMultiple => _isMultiple;
+    public bool IsMultiple { get; } = false;
     public ICommand CloseCommand { get; set; }
     public ICommand ApplyCommand { get; set; }
 
@@ -24,7 +23,7 @@ public partial class SelectPopup : Popup
             // Проверяем, является ли тип ObservableCollection<>
             if (elementType.IsGenericType && elementType.GetGenericTypeDefinition() == typeof(ObservableCollection<>))
             {
-                _isMultiple = true;
+                IsMultiple = true;
                 _selectedElements = new ObservableCollection<object>((IEnumerable<object>)element);
             }
             else
@@ -32,7 +31,7 @@ public partial class SelectPopup : Popup
         }
 
         Debug.WriteLine(_selectedElements.Count);
-        Debug.WriteLine(_isMultiple);
+        Debug.WriteLine(IsMultiple);
         Debug.WriteLine("==========");
 
         CloseCommand = new RelayCommand(() =>
@@ -56,7 +55,7 @@ public partial class SelectPopup : Popup
         if (s is not View v)
             return;
         var currentItem = v.BindingContext;
-        if (!_isMultiple)
+        if (!IsMultiple)
         {
             CloseAsync(currentItem);
             return;
@@ -96,7 +95,7 @@ public partial class SelectPopup : Popup
                 {
                     var tgr = new TapGestureRecognizer();
 
-                    if (!_isMultiple)
+                    if (!IsMultiple)
                     {
                         tgr.Tapped += TapElementOne;
                         v.GestureRecognizers.Add(tgr);

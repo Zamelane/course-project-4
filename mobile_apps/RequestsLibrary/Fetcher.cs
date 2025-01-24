@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using System.Text.Json;
-using RequestsLibrary.Responses;
+﻿using RequestsLibrary.Responses;
 using RequestsLibrary.Routes;
+using System.Diagnostics;
+using System.Text.Json;
 
 namespace RequestsLibrary;
 

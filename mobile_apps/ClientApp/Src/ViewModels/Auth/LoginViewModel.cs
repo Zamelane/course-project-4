@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
-using ClientApp.Src.Storage;
+﻿using ClientApp.Src.Storage;
 using ClientApp.Src.Views.Auth;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
+using System.Diagnostics;
 
 namespace ClientApp.Src.ViewModels.Auth;
 

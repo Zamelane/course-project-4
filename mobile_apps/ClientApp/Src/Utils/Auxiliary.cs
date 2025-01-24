@@ -1,5 +1,4 @@
 ﻿using RequestsLibrary;
-using System.Diagnostics;
 
 namespace ClientApp.Src.Utils;
 

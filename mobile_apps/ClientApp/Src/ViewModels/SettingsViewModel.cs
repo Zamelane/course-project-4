@@ -1,10 +1,10 @@
-﻿using System.Net;
-using ClientApp.Src.Popups;
+﻿using ClientApp.Src.Popups;
 using ClientApp.Src.Storage;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
+using System.Net;
 
 namespace ClientApp.Src.ViewModels;
 

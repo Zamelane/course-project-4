@@ -1,5 +1,4 @@
 using ClientApp.Src.Views;
-using CommunityToolkit.Maui.Views;
 
 namespace ClientApp.Src.Components;
 

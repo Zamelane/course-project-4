@@ -1,6 +1,6 @@
 ﻿using RequestsLibrary.Interfaces;
 using RequestsLibrary.Requests;
-using System.Dynamic;
+using RequestsLibrary.Responses;
 
 namespace RequestsLibrary.Routes;
 public class AuthRoute : IPostRoute<AuthResponse>

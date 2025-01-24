@@ -1,11 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using ClientApp.Src.Storage;
+﻿using ClientApp.Src.Storage;
 using ClientApp.Src.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
 using RequestsLibrary.Models;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace ClientApp.Src.ViewModels;
 
@@ -56,8 +56,7 @@ public partial class BrowseViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanFetch))]
     private async Task FetchMoreNews(int? page = null)
     {
-        if (page is null)
-            page = _currentPage;
+        page ??= _currentPage;
 
         if (page == 0)
             IsEndPage = false;
