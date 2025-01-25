@@ -5,11 +5,11 @@ using System.Web;
 namespace RequestsLibrary;
 public class RequestParams
 {
-    private Dictionary<string, string?> _params = [];
+    private List<string> _params = [];
     private dynamic? _content = null;
     private Dictionary<string, string> _headers = [];
     public RequestParams() { }
-    public void AddParameter(string key, string? value) => _params.Add(key, value);
+    public void AddParameter(string key, string? value) => _params.Add($"{key}={value}");
     public void AddParameter(string key, int? value) => AddParameter(key, value.ToString());
     public void SetBody(dynamic content) => _content = content;
     public void AddHeader(string key, string value) => _headers.Add(key, value);
@@ -19,20 +19,9 @@ public class RequestParams
         if (request.Method == HttpMethod.Get && _params.Any())
         {
             Debug.WriteLine("->>Добавляю GET парамерты в запрос");
-            string getParams = String.Empty;
+            string getParams = String.Join("&", _params);
 
-            foreach (KeyValuePair<string, string?> param in _params)
-            {
-                // TODO: Это бы как-то покрасивее (типа чтобы '?' только перед первым элементом был)
-                string pairValue = String.Join('=', param.Key, HttpUtility.UrlEncode(param.Value));
-                if (String.IsNullOrEmpty(getParams))
-                    getParams = pairValue;
-                else getParams = String.Join('&', getParams, pairValue);
-            }
-
-            Debug.WriteLine(getParams);
-            request.RequestUri = new Uri(String.Join('?', request.RequestUri!.ToString(), getParams));
-
+            request.RequestUri = new ($"{request.RequestUri?.ToString()}?{getParams}");
         }
 
         if (_headers.Any())

@@ -27,6 +27,8 @@ public static class Fetcher
         // Инициализируем метод запроса
         var request = new HttpRequestMessage(method, url);
 
+        Debug.WriteLine("\nГотовлюсь к запросу ...");
+
         if (rp is null)
             rp = new RequestParams();
 
@@ -36,8 +38,9 @@ public static class Fetcher
         // Добавляем нагрузку в запрос
         rp?.AddToRequest(request);
 
-        Debug.WriteLine(_token);
-        Debug.WriteLine(JsonSerializer.Serialize(request));
+        Debug.WriteLine($"Url: {request.RequestUri}");
+        Debug.WriteLine($"Token: {_token ?? "Нету"}");
+        Debug.WriteLine($"HttpRequestMessage: {JsonSerializer.Serialize(request)}");
 
         // Выполняем запрос
         HttpResponseMessage response;
