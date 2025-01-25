@@ -30,7 +30,9 @@ public class RequestParams
                 else getParams = String.Join('&', getParams, pairValue);
             }
 
-            request.RequestUri = new(String.Join('?', request.RequestUri!.ToString(), getParams));
+            Debug.WriteLine(getParams);
+            request.RequestUri = new Uri(String.Join('?', request.RequestUri!.ToString(), getParams));
+
         }
 
         if (_headers.Any())
