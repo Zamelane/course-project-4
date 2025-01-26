@@ -4,6 +4,21 @@ namespace ClientApp.Src.Utils;
 
 internal static class Auxiliary
 {
+
+    public static readonly List<string> MonthNames = [
+        "Январь",
+        "Февраль",
+        "Март",
+        "Март",
+        "Апрель",
+        "Май",
+        "Июнь",
+        "Июль",
+        "Август",
+        "Сентябрь",
+        "Октябрь",
+        "Ноябрь"
+    ];
     public static T? GetRootLayout<T>(Element currentElement)
     {
         try
@@ -55,5 +70,29 @@ internal static class Auxiliary
         setResult?.Invoke(response);
 
         return response;
+    }
+    public static string FormateDate(DateTime date)
+    {
+        return $"{MonthNames[date.Month - 1].Substring(0, 3)} {date.Day}, {date.Year}";
+    }
+    public static string SymbolsToReadTime(int symbols)
+    {
+        // Сколько символов в минуту читаем
+        int symbolsInSeconds = 25;
+
+        List<string> units = ["секунд", "минут", "часов", "дней", "месяцев", "лет"];
+        List<int>   limits = [60, 60, 24, 31, 12, 1000];
+
+        int unit = 0;
+        int currentTime = symbols / symbolsInSeconds;
+
+        while (currentTime > limits[unit] && limits.Count - 1 > unit)
+        {
+            currentTime /= limits[unit];
+            unit++;
+        }
+
+        //return $"{currentTime / limits[unit]} {units[unit]} чтения";
+        return $"{currentTime} {units[unit]} чтения";
     }
 }

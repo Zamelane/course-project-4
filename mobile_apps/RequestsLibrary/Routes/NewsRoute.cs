@@ -3,23 +3,27 @@ using RequestsLibrary.Models;
 using System.Collections.ObjectModel;
 
 namespace RequestsLibrary.Routes;
-public class NewsRoute : IGetRoute<News>
+public class NewsRoute : IGetRoute<MinNews, FullNews>
 {
-    public async Task<Response<ObservableCollection<News>?>> Get(RequestParams? rp = null)
+    public async Task<Response<ObservableCollection<MinNews>?>> Get(RequestParams? rp = null)
     {
-        return await Fetcher.Fetch<ObservableCollection<News>>(
+        return await Fetcher.Fetch<ObservableCollection<MinNews>>(
             HttpMethod.Get,
             Fetcher.Config.GetApiUrl("news"),
             rp
         );
     }
 
-    public Task<Response<News?>> Get(int id, RequestParams? rp = null)
+    public async Task<Response<FullNews?>> Get(int id, RequestParams? rp = null)
     {
-        throw new NotImplementedException();
+        return await Fetcher.Fetch<FullNews>(
+            HttpMethod.Get,
+            Fetcher.Config.GetApiUrl("news/" + id),
+            rp
+        );
     }
 
-    public Task<Response<News?>> Get(string id, RequestParams? rp = null)
+    public Task<Response<MinNews?>> Get(string id, RequestParams? rp = null)
     {
         throw new NotImplementedException();
     }

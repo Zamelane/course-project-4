@@ -11,6 +11,7 @@ public partial class BigNewsCard : ContentView
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        Shell.Current.Navigation.PushAsync(new NewsPage());
+        // TODO: сделать для большой новости
+        //Shell.Current.Navigation.PushAsync(new NewsPage());
     }
 }

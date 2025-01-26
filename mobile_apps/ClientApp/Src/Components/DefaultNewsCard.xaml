@@ -2,6 +2,7 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
              x:Class="ClientApp.Src.Components.DefaultNewsCard">
 
     <ContentView.ControlTemplate>
@@ -18,11 +19,13 @@
                         <!--Социальная информация-->
                         <Grid Margin="0,12,0,0" ColumnDefinitions="auto,auto,*,auto" ColumnSpacing="16">
                             <HorizontalStackLayout Spacing="6">
-                                <Image Source="eye_no_accent.png" WidthRequest="20" HeightRequest="20" />
+                                <!--<Image Source="eye_no_accent.png" WidthRequest="20" HeightRequest="20" />-->
+                                <ffimageloading:SvgCachedImage Source="eye_no_accent.svg" WidthRequest="20" HeightRequest="20" />
                                 <Label Text="32.7k" FontFamily="Nunito" FontSize="14" TextColor="#767E94" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Spacing="6" Grid.Column="1">
-                                <Image Source="chat_no_accent.png" WidthRequest="20" HeightRequest="20" />
+                                <!--<Image Source="chat_no_accent.png" WidthRequest="20" HeightRequest="20" />-->
+                                <ffimageloading:SvgCachedImage Source="chat_no_accent.svg" WidthRequest="20" HeightRequest="20" />
                                 <Label Text="94" FontFamily="Nunito" FontSize="14" TextColor="#767E94" />
                             </HorizontalStackLayout>
                         </Grid>

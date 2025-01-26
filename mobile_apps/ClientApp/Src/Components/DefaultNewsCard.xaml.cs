@@ -5,7 +5,7 @@ namespace ClientApp.Src.Components;
 public partial class DefaultNewsCard : ContentView
 {
     public static readonly BindableProperty FilteredNewsProperty = BindableProperty.Create(
-        nameof(FilteredNews), typeof(News), typeof(DefaultNewsCard), null, BindingMode.TwoWay
+        nameof(FilteredNews), typeof(MinNews), typeof(DefaultNewsCard), null, BindingMode.TwoWay
     );
 
     public DefaultNewsCard()
@@ -13,9 +13,9 @@ public partial class DefaultNewsCard : ContentView
         InitializeComponent();
     }
 
-    public News? FilteredNews
+    public MinNews? FilteredNews
     {
-        get => (News?)GetValue(FilteredNewsProperty);
+        get => (MinNews?)GetValue(FilteredNewsProperty);
         set => SetValue(FilteredNewsProperty, value);
     }
 }

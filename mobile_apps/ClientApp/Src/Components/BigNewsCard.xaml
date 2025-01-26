@@ -2,6 +2,7 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
              x:Class="ClientApp.Src.Components.BigNewsCard">
 
     <!--Карточка с топ-новостью-->
@@ -22,16 +23,20 @@
             <!--Социальная информация-->
             <Grid ColumnDefinitions="auto,auto,*,auto" ColumnSpacing="16">
                 <HorizontalStackLayout Spacing="6">
-                    <Image Source="eye.png" WidthRequest="20" HeightRequest="20" />
+                    <!--<Image Source="eye.png" WidthRequest="20" HeightRequest="20" />-->
+                    <ffimageloading:SvgCachedImage Source="eye.svg" WidthRequest="20" HeightRequest="20" />
                     <Label Text="25.9k" FontFamily="Nunito" FontSize="14" TextColor="#464D61" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="6" Grid.Column="1">
-                    <Image Source="chat.png" WidthRequest="20" HeightRequest="20" />
+                    <!--<Image Source="chat.png" WidthRequest="20" HeightRequest="20" />-->
+                    <ffimageloading:SvgCachedImage Source="chat.svg" WidthRequest="20" HeightRequest="20" />
                     <Label Text="657 Comments" FontFamily="Nunito" FontSize="14" TextColor="#464D61" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="19" Grid.Column="3">
-                    <Image Source="share_network.png" WidthRequest="20" HeightRequest="20" />
-                    <Image Source="bookmark.png" WidthRequest="20" HeightRequest="20" />
+                    <ffimageloading:SvgCachedImage Source="share_network.svg" WidthRequest="20" HeightRequest="20" />
+                    <!--<Image Source="share_network.png" WidthRequest="20" HeightRequest="20" />-->
+                    <ffimageloading:SvgCachedImage Source="bookmark.svg" WidthRequest="20" HeightRequest="20" />
+                    <!--<Image Source="bookmark.png" WidthRequest="20" HeightRequest="20" />-->
                 </HorizontalStackLayout>
             </Grid>
         </VerticalStackLayout>

@@ -6,8 +6,14 @@
              xmlns:idk="clr-namespace:Indiko.Maui.Controls.Markdown;assembly=Indiko.Maui.Controls.Markdown"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
              x:Class="ClientApp.Src.Views.NewsPage">
-    <ScrollView>
+
+    <ContentPage.BindingContext>
+        <viewModels:NewsPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <controls:CustomRefreshView Command="{Binding UpdateNewsCommand}">
         <VerticalStackLayout Spacing="{StaticResource MarginMin}">
             <Image x:Name="img"
                    Source="news_1.png"
@@ -31,7 +37,7 @@
                     FontSize="24"
                     TextColor="{StaticResource Gray900}"
                     FontAttributes="Bold"
-                    Text="How to Become an Interior Designer (and What You Need to Know Before You Do)"/>
+                    Text="{Binding FullNews.Title}"/>
             </StackLayout>
 
             <StackLayout Spacing="20">
@@ -50,7 +56,7 @@
                                 <toolkit:GravatarImageSource
                                             CacheValidity="1"
                                             CachingEnabled="True"
-                                            Email="test@mail.ru"
+                                            Email="{Binding FullNews.Author.FirstName}"
                                             Image="Robohash" />
                             </Image.Source>
                         </Image>
@@ -58,9 +64,16 @@
                     <Label Grid.Column="1"
                            FontSize="16"
                            VerticalTextAlignment="Start"
-                           Text="Kevin Gilbert"
                            FontAttributes="Bold"
-                           TextColor="{StaticResource Gray900}"/>
+                           TextColor="{StaticResource Gray900}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding FullNews.Author.FirstName}"/>
+                                <Span Text=" "/>
+                                <Span Text="{Binding FullNews.Author.LastName}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                     <Label Grid.Column="1"
                            Grid.Row="1"
                            FontSize="14"
@@ -68,17 +81,23 @@
                            TextColor="{StaticResource Gray900}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span>Aug 3, 2021</Span>
+                                <!--<Span>Aug 3, 2021</Span>-->
+                                <Span Text="{Binding FormattedDate}"/>
                                 <Span Text=" "/>
                                 <Span>•</Span>
                                 <Span Text=" "/>
-                                <Span>8 mins read</Span>
+                                <!--<Span>8 mins read</Span>-->
+                                <Span Text="{Binding ReadTime}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
 
                     <HorizontalStackLayout Grid.Column="3" Grid.RowSpan="2" Spacing="{StaticResource MarginLarge}">
-                        <ffimageloading:SvgCachedImage Source="share_network.svg" WidthRequest="30"/>
+                        <ffimageloading:SvgCachedImage Source="share_network.svg" WidthRequest="30">
+                            <ffimageloading:SvgCachedImage.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShareNewsCommand}"/>
+                            </ffimageloading:SvgCachedImage.GestureRecognizers>
+                        </ffimageloading:SvgCachedImage>
                         <ffimageloading:SvgCachedImage Source="bookmark.svg" WidthRequest="30"/>
                     </HorizontalStackLayout>
                 </Grid>
@@ -92,6 +111,7 @@
             </StackLayout>
 
             <idk:MarkdownView x:Name="md"
+                              MarkdownText="{Binding FullNews.Content}"
                               Padding="20,24"
                               H1FontSize="20"
                               H1Color="{StaticResource Gray900}" 
@@ -140,5 +160,5 @@
                 <controls:Button Text="VIEW ALL"/>
             </StackLayout>
         </VerticalStackLayout>
-    </ScrollView>
+    </controls:CustomRefreshView>
 </ContentPage>

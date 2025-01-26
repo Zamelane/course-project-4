@@ -3,7 +3,7 @@ using RequestsLibrary.Models;
 using System.Collections.ObjectModel;
 
 namespace RequestsLibrary.Routes;
-public class CategoriesRoute : IGetRoute<Category>
+public class CategoriesRoute : IGetRoute<Category, Category>
 {
     public async Task<Response<ObservableCollection<Category>?>> Get(RequestParams? rp = null)
     {

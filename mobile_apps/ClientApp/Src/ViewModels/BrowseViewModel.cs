@@ -13,7 +13,7 @@ public partial class BrowseViewModel : ObservableObject
 {
     [ObservableProperty] private ObservableCollection<Category> categories = [];
     [ObservableProperty] private ObservableCollection<Category> selectedCategories = [];
-    [ObservableProperty] private ObservableCollection<News> filteredNews = [];
+    [ObservableProperty] private ObservableCollection<MinNews> filteredNews = [];
     [ObservableProperty] private bool isFetching = false;
 
     [ObservableProperty] private int pageSize       = 2;
@@ -84,14 +84,14 @@ public partial class BrowseViewModel : ObservableObject
             async () => await Fetcher.News.Get(rp),
             _ => IsFetching = _,
             _ => Error = _,
-            fn =>
+            (Action<ObservableCollection<MinNews>?>?)(            fn =>
             {
                 if (fn is null)
                     return;
                 if (page != 1)
-                    fn.ToList().ForEach(FilteredNews.Add);
+                    fn.ToList().ForEach((Action<MinNews>)FilteredNews.Add);
                 else FilteredNews = fn;
-            }
+            })
         );
 
         Debug.WriteLine(Error);

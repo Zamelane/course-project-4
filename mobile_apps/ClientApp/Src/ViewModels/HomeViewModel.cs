@@ -1,10 +1,10 @@
-﻿using ClientApp.Src.Utils;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using ClientApp.Src.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
 using RequestsLibrary.Models;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace ClientApp.Src.ViewModels;
 
@@ -14,8 +14,8 @@ public partial class HomeViewModel : ObservableObject
     [ObservableProperty] private string? error;
     [ObservableProperty] private bool isFetching;
 
-    [ObservableProperty] private ObservableCollection<News>? mostReadNewses;
-    [ObservableProperty] private News? mostReadNewsTop;
+    [ObservableProperty] private ObservableCollection<MinNews>? mostReadNewses;
+    [ObservableProperty] private MinNews? mostReadNewsTop;
 
     public HomeViewModel()
     {
@@ -38,15 +38,15 @@ public partial class HomeViewModel : ObservableObject
             () => Fetcher.News.Get(),
             _ => IsFetching = _,
             _ => Error = _,
-            newses =>
+            (Action<ObservableCollection<MinNews>?>?)(            newses =>
             {
                 if (newses is not null && newses!.Count > 0)
                 {
                     MostReadNewsTop = newses.First();
-                    newses.Remove(MostReadNewsTop);
+                    newses.Remove((MinNews)MostReadNewsTop);
                     MostReadNewses = newses;
                 }
-            }
+            })
         );
 
         Debug.WriteLine("End TryFetchNews"); // TODO: DEBUG
