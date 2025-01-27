@@ -3,6 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClientApp.Src.Controls.MarkdownViewer">
 
-    <StackLayout x:Name="MD_layout"/>
+    <StackLayout x:Name="MD_layout" Margin="0,0,0,20"/>
     
 </ContentView>

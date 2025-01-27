@@ -26,7 +26,21 @@ public partial class MarkdownViewer : ContentView
 
         string md_text = $@"# What is an Interior Designer?
 
-Donec at elit a sem tincidunt interdum in sed quam. In fringilla, massa eget sagittis viverra, sapien tellus mollis libero, nec ullamcorper purus quam ac turpis. ";
+Donec at elit a sem tincidunt interdum in sed quam. In fringilla, massa eget sagittis viverra, sapien tellus mollis libero, nec ullamcorper purus quam ac turpis.
+
+# What Does an Interior Designer Do?
+
+Integer id est ut nibh posuere feugiat sit amet at turpis. Ut turpis quam, posuere eu malesuada quis, dapibus nec ligula. Etiam porta lacus nec luctus luctus. Nullam ut vulputate nunc, eu ultrices velit. Morbi sagittis interdum arcu eu feugiat. Nam interdum justo risus.
+
+![The San Juan Mountains are beautiful!](https://cdn.zmln.ru/Rectangle%208.png ""San Juan Mountains"")
+
+# 1. Educate your eye. You can hone your eye at any age, whether you're just entering design school or coming to interior design later in life.
+
+Integer pulvinar lacus ac consequat dapibus. Aenean tristique accumsan nunc et lobortis. Nullam a lorem ligula. Pellentesque sit amet pretium ligula, in ullamcorper ligula.
+
+Morbi rutrum sagittis augue. Donec augue lorem, gravida ac diam a, accumsan egestas mauris. Fusce ut tortor nec nulla scelerisque vulputate. Duis pharetra pretium felis vitae interdum. Quisque et erat risus. Donec a ante felis. Aliquam id felis hendrerit elit elementum bibendum. Quisque turpis arcu, aliquam ac lectus et, fringilla semper sem. Nulla congue vitae orci ac aliquet. Aliquam eget blandit tellus, vel sagittis mi. Nam leo ipsum, scelerisque a turpis ac, feugiat rhoncus erat. Nulla ante orci, accumsan sed mauris vel, suscipit porta eros.
+
+";
 
         var control = (MarkdownViewer) bindable;
 
@@ -43,13 +57,6 @@ Donec at elit a sem tincidunt interdum in sed quam. In fringilla, massa eget sag
         {
             layout.Children.Add(ProcessNode(node));
         }
-
-
-        layout.Children.Add(new Label()
-        {
-            Text = "Test",
-            TextColor = Colors.Blue
-        });
     }
 
     private IView ProcessNode(MarkdownObject node)

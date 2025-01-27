@@ -1,38 +1,43 @@
 ﻿using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 
 namespace ClientApp.Src.Utils;
 public static class MarkdownGenerator
 {
+    private enum BlockType
+    {
+        Heading,
+        Paragraph
+    }
     public static IView GenerateElement(HeadingBlock heading)
     {
-        (var element, var status) = GenerateTextContent(heading.Inline);
+        (var element, var status) = GenerateTextContent(
+            heading.Inline,
+            "H" + heading.Level.Clamp(1, 3),
+            "Gray900"
+        );
 
-        if (status)
-        {
-            SetStyle(element, "H" + heading.Level.Clamp(1, 3));
-        }
+        if (!status)
+            return GenerateElement(heading);
 
         return element;
     }
     public static IView GenerateElement(ParagraphBlock paragraph)
     {
-        (var element, var status) = GenerateTextContent(paragraph.Inline);
+        (var element, var status) = GenerateTextContent(paragraph.Inline, "P", "Gray600");
 
-        if (status)
-        {
-            SetStyle(element, "P");
-        }
-
-        ((Label)element).TextColor = Colors.Red;
+        if (!status)
+            return GenerateElement(paragraph);
 
         return element;
     }
 
     /* ===ШАБЛОНЫ МЕЛКИХ КОМПОНЕНТОВ=== */
-    public static (IView, bool) GenerateTextContent(ContainerInline? conteinerInline)
+    private static (IView, bool) GenerateTextContent(ContainerInline? conteinerInline, string resourceKey, string colorResourceKey, BlockType t = BlockType.Paragraph)
     {
-        var tb = new FormattedString();
+        List<dynamic> tb = [new FormattedString()];
 
         if (conteinerInline is null)
             return (GenerateElement(), false);
@@ -40,22 +45,72 @@ public static class MarkdownGenerator
         foreach (var inline in conteinerInline)
         {
             if (inline is LiteralInline literal)
-                tb.Spans.Add(GenerateSpan(literal.Content.ToString()));
+                tb.First().Spans.Add(GenerateSpan(literal.Content.ToString()));
             else if (inline is LinkInline link)
-                tb.Spans.Add(link.Title is not null ? GenerateSpan(link.Title) : GenerateSpan(link.Url ?? "[no_link]"));
+            {
+                if (link.IsImage)
+                {
+                    tb.Add(new Image()
+                    {
+                        Source = link.Url
+                    });
+                    tb.Add(new FormattedString());
+                } else
+                {
+                    tb.First().Spans.Add(link.Title is not null ? GenerateSpan(link.Title) : GenerateSpan(link.Url ?? "[no_link]"));
+                }
+            } else
+            {
+                return (default, false);
+            }
         }
 
-        var element = new Label() { FormattedText = tb };
+        var sl = new StackLayout();
 
-        return (element, true);
+        foreach (var e in tb)
+        {
+            if (e is FormattedString fs && fs.Spans.Count > 0){
+                var label = new Label() { FormattedText = fs };
+
+                SetStyle((IView)label, resourceKey);
+                SetColorFromResourceToSpans(label.FormattedText, colorResourceKey);
+                SetFontToSpans(label.FormattedText, t == BlockType.Heading ? "Nunito-SemiBold" : "Nunito");
+
+                sl.Children.Add(label);
+            }
+            else if (e is Image i){
+                SetStyle((IView)i, "I");
+                sl.Children.Add(i);
+            }
+        }
+
+        return (sl, true);
     }
-    public static IView GenerateElement(string text = $"[Не могу отрисовать элемент]", MarkdownObject? node = null) => new Label() { Text = text };
+    public static IView GenerateElement(string text = "[Не могу отрисовать элемент]") => new Label() { Text = text };
     public static IView GenerateElement(MarkdownObject node) => new Label() { Text = $"[{node.GetType().Name}]" };
 
     /* ===СТИЛИЗАЦИЯ И ОФОРМЛЕНИЕ=== */
     private static Span GenerateSpan(string text, string? styleKey = null) => new Span() { Text = text };
-    private static void SetStyle(Element element, string key) => element.SetDynamicResource(VisualElement.StyleProperty, key);
-    private static void SetStyle(IView element, string key) => SetStyle((Element)element, key);
+    private static void SetStyle(
+        Element element,
+        string key,
+        BindableProperty? bp = null
+    ) => element.SetDynamicResource(bp ?? VisualElement.StyleProperty, key);
+    private static void SetStyle(
+        IView element,
+        string key,
+        BindableProperty? bp = null
+    ) => SetStyle((Element)element, key, bp);
+    private static void SetColorFromResourceToSpans(FormattedString fs, string resourceKey)
+    {
+        foreach (var span in fs.Spans)
+            SetStyle(span, resourceKey, Label.TextColorProperty);
+    }
+    private static void SetFontToSpans(FormattedString fs, string font = "Nunito")
+    {
+        foreach (var span in fs.Spans)
+            span.FontFamily = font;
+    }
 
     /* ===ВСПОМОГАТЕЛЬНОЕ===*/
     private static int Clamp(this int value, int min, int max) => min > value 

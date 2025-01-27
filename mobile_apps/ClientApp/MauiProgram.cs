@@ -22,6 +22,7 @@ public static class MauiProgram
                 fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular");
                 fonts.AddFont("Nunito.ttf", "Nunito");
                 fonts.AddFont("Nunito-Italic.ttf", "Nunito-Italic");
+                fonts.AddFont("Nunito-SemiBold.ttf", "Nunito-SemiBold");
             });
 
         EntryHandler.Mapper.AppendToMapping(nameof(BorderlessEntry), (handler, view) =>
