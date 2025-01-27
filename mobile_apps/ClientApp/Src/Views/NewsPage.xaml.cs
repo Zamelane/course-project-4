@@ -1,6 +1,5 @@
 using ClientApp.Src.ViewModels;
 using RequestsLibrary.Models;
-using System.Diagnostics;
 
 namespace ClientApp.Src.Views;
 

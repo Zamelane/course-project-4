@@ -110,7 +110,7 @@
                 <Label HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource Gray100}" HeightRequest="1" Opacity="0.5"/>
             </StackLayout>
 
-            <idk:MarkdownView x:Name="md"
+            <!--<idk:MarkdownView x:Name="md"
                               MarkdownText="{Binding FullNews.Content}"
                               Padding="20,24"
                               H1FontSize="20"
@@ -142,7 +142,9 @@
                               HyperlinkColor="{StaticResource Primary500}"
                               LineColor="{StaticResource Gray700}"
                               LineHeightMultiplier="1.2"
-                              ParagraphSpacing="1"/>
+                              ParagraphSpacing="1"/>-->
+
+            <controls:MarkdownViewer MarkdownText="{Binding FullNews.Content}"/>
 
             <StackLayout Padding="16,32" Spacing="16" BackgroundColor="{StaticResource Gray30}">
                 <Label Text="LATEST NEWS"

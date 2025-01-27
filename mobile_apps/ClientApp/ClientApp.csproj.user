@@ -50,6 +50,9 @@
     <MauiXaml Update="Src\Controls\CustomRefreshView.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Src\Controls\MarkdownViewer.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Src\Controls\MinIconEntry.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

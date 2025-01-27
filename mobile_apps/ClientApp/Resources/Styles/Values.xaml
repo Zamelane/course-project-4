@@ -30,5 +30,45 @@
     <x:Double x:Key="CornerNone">0</x:Double>
     <x:Double x:Key="CornerSmall">4</x:Double>
     <x:Double x:Key="CornerFull">100</x:Double>
+    
+    <!--Markdown стили-->
+    <x:Double x:Key="md_mlr">20</x:Double>
+    <Style x:Key="md_text" TargetType="Label">
+        <Setter Property="FontFamily" Value="Nunito"/>
+        <Setter Property="TextColor" Value="{StaticResource Gray900}"/>
+        <Setter Property="Margin">
+            <Setter.Value>
+                <Thickness Left="{StaticResource md_mlr}" Right="{StaticResource md_mlr}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="H" TargetType="Label" BasedOn="{StaticResource md_text}">
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="Margin">
+            <Setter.Value>
+                <Thickness Top="25" Bottom="4" Left="{StaticResource md_mlr}" Right="{StaticResource md_mlr}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="H1" TargetType="Label" BasedOn="{StaticResource H}">
+        <Setter Property="FontSize" Value="24"/>
+    </Style>
+    <Style x:Key="H2" TargetType="Label" BasedOn="{StaticResource H}">
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+    <Style x:Key="H3" TargetType="Label" BasedOn="{StaticResource H}">
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
+    <Style x:Key="P" TargetType="Label" BasedOn="{StaticResource md_text}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="LineBreakMode" Value="WordWrap"/>
+        <Setter Property="Margin">
+            <Setter.Value>
+                <Thickness Top="8" Bottom="8" Left="{StaticResource md_mlr}" Right="{StaticResource md_mlr}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>
