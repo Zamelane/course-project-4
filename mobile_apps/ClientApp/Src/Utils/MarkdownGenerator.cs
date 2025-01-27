@@ -1,7 +1,5 @@
 ﻿using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
 
 namespace ClientApp.Src.Utils;
 public static class MarkdownGenerator
