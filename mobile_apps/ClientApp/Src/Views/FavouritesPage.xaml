@@ -10,23 +10,22 @@
         <viewModels:FavouriteViewModel/>
     </ContentPage.BindingContext>
 
-    <ScrollView>
-        <RefreshView IsRefreshing="{Binding GetMoreNewsCommand.IsRunning}">
-            <CollectionView ItemsSource="{Binding News}"
+    <RefreshView IsRefreshing="{Binding GetMoreNewsCommand.IsRunning}"
+                 Command="{Binding UpdateNewsListCommand}">
+        <CollectionView ItemsSource="{Binding News}"
                 RemainingItemsThreshold="{Binding PageSize}"
                 RemainingItemsThresholdReachedCommand="{Binding GetMoreNewsCommand}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
                             Orientation="Vertical"
                             VerticalItemSpacing="{StaticResource MarginPreMin}" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <components:MinNewsCard FilteredNews="{Binding .}" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
-    </ScrollView>
-    
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <components:DefaultNewsCard FilteredNews="{Binding .}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+
 </ContentPage>

@@ -49,6 +49,7 @@ public partial class CategoriesViewModel : ObservableObject
                 cr.BackgroundColor = $"#{cr.BackgroundColor}";
                 if (cr.Image is not null)
                     cr.Image.Path = $"{Fetcher.Config.GetServerUrl()}/{cr.Image.Path}";
+                Debug.WriteLine(cr.BackgroundColor);
             }
 
             Categories = response.Content;

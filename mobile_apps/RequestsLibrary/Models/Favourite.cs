@@ -1,8 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace RequestsLibrary.Models;
 public class Favourite
 {
-    [JsonPropertyName("news")] public MinNews News { get; set; }
-    [JsonPropertyName("added_date")] public DateTime AddedDate { get; set; }
+    [JsonProperty("news")] public MinNews? News { get; set; }
+    [JsonProperty("added_date")] public DateTime AddedDate { get; set; }
 }

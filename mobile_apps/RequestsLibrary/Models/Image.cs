@@ -1,9 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace RequestsLibrary.Models;
 public class Image
 {
-    [JsonPropertyName("id")] public int Id { get; set; }
+    [JsonProperty("id")] public int Id { get; set; }
 
-    [JsonPropertyName("path")] public string? Path { get; set; }
+    [JsonProperty("path")] public string? Path { get; set; }
 }

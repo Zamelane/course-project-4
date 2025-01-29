@@ -1,13 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace RequestsLibrary.Models;
 public class Category
 {
-    [JsonPropertyName("id")] public int Id { get; set; }
+    [JsonProperty("id")] public int Id { get; set; }
 
-    [JsonPropertyName("name")] public string? Name { get; set; }
+    [JsonProperty("name")] public string? Name { get; set; }
 
-    [JsonPropertyName("background_color")] public string? BackgroundColor { get; set; }
+    [JsonProperty("background_color")] public string? BackgroundColor { get; set; }
 
-    [JsonPropertyName("image")] public Image? Image { get; set; }
+    [JsonProperty("image")] public Image? Image { get; set; }
 }

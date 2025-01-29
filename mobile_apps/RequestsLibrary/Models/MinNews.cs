@@ -1,24 +1,24 @@
-﻿using System.Collections.ObjectModel;
-using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace RequestsLibrary.Models;
 public class MinNews
 {
-    [JsonPropertyName("id")] public int Id { get; set; }
+    [JsonProperty("id")] public int Id { get; set; }
 
-    [JsonPropertyName("title")] public string? Title { get; set; }
+    [JsonProperty("title")] public string? Title { get; set; }
 
-    [JsonPropertyName("content")] public string? Content { get; set; }
+    [JsonProperty("content")] public string? Content { get; set; }
 
-    [JsonPropertyName("city")] public City? City { get; set; }
+    [JsonProperty("city")] public City? City { get; set; }
 
-    [JsonPropertyName("tags")] public ObservableCollection<Tag> Tags { get; set; }
+    [JsonProperty("tags")] public ObservableCollection<Tag> Tags { get; set; }
         = new ObservableCollection<Tag>();
 
-    [JsonPropertyName("reactions")] public ObservableCollection<Reaction> Reactions { get; set; } 
+    [JsonProperty("reactions")] public ObservableCollection<Reaction> Reactions { get; set; } 
         = new ObservableCollection<Reaction>();
 
-    [JsonPropertyName("create_date")] public DateTime CreateDate { get; set; }
+    [JsonProperty("create_date")] public DateTime CreateDate { get; set; }
 
-    [JsonPropertyName("update_date")] public DateTime? UpdateDate { get; set; }
+    [JsonProperty("update_date")] public DateTime? UpdateDate { get; set; }
 }

@@ -50,7 +50,17 @@ public partial class FavouriteViewModel : ObservableObject
                 }
                 else
                     r.ToList().ForEach(e => News.Add(e.News));
+                Debug.WriteLine($"Favourite news: {News.Count}");
             }
         );
+    }
+
+    [RelayCommand]
+    private async Task UpdateNewsList()
+    {
+        page = 0;
+        IsEndPage = false;
+        News.Clear();
+        GetMoreNewsCommand.Execute(null);
     }
 }

@@ -76,7 +76,6 @@
         <None Remove="Resources\Images\arrow_right_blue.svg" />
         <None Remove="Resources\Images\arrow_right_white.svg" />
         <None Remove="Resources\Images\avatar.png" />
-        <None Remove="Resources\Images\bookmark.svg" />
         <None Remove="Resources\Images\buildings.svg" />
         <None Remove="Resources\Images\chat.svg" />
         <None Remove="Resources\Images\chat_no_accent.svg" />

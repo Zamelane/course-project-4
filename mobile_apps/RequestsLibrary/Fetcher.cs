@@ -1,4 +1,5 @@
-﻿using RequestsLibrary.Responses;
+﻿using Newtonsoft.Json;
+using RequestsLibrary.Responses;
 using RequestsLibrary.Routes;
 using System.Diagnostics;
 using System.Text.Json;
@@ -7,7 +8,7 @@ namespace RequestsLibrary;
 
 public static class Fetcher
 {
-    public static Config Config = new(Config.Protocol.http, "127.0.0.1:8000");
+    public static Config Config = new(Config.Protocol.http, "192.168.1.193:8000");
 
     private static string? _token;
 
@@ -40,7 +41,7 @@ public static class Fetcher
 
         Debug.WriteLine($"Url: {request.RequestUri}");
         Debug.WriteLine($"Token: {_token ?? "Нету"}");
-        Debug.WriteLine($"HttpRequestMessage: {JsonSerializer.Serialize(request)}");
+        Debug.WriteLine($"HttpRequestMessage: {JsonConvert.SerializeObject(request)}");
 
         // Выполняем запрос
         HttpResponseMessage response;
@@ -73,12 +74,13 @@ public static class Fetcher
             Debug.WriteLine($"ResponseContent: {responseContent}");
 
             if (response.IsSuccessStatusCode)
-                content = JsonSerializer.Deserialize<T>(responseContent);
+                content = JsonConvert.DeserializeObject<T>(responseContent);
             else throw new Exception();
 
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Debug.WriteLine($"Ошибка чтения тела запроса: {ex.Message}");
             error = new()
             {
                 Comment = response.StatusCode.ToString()
@@ -93,7 +95,7 @@ public static class Fetcher
                 {
                     var errorJson = await response.Content.ReadAsStringAsync();
                     Debug.WriteLine("ERRJSON: " + errorJson);
-                    error!.ValidationResponse = JsonSerializer.Deserialize<ErrorResponse>(errorJson);
+                    error!.ValidationResponse = JsonConvert.DeserializeObject<ErrorResponse>(errorJson);
                 } catch
                 {
                     error.Comment = $"Не удалось обработать ошибку: {response.StatusCode}";

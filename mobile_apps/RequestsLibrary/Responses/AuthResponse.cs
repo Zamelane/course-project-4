@@ -1,12 +1,12 @@
-﻿using RequestsLibrary.Models;
-using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using RequestsLibrary.Models;
 
 namespace RequestsLibrary.Responses;
 public class AuthResponse
 {
-    [JsonPropertyName("success")] public bool Success { get; set; }
+    [JsonProperty("success")] public bool Success { get; set; }
 
-    [JsonPropertyName("token")] public string? Token { get; set; }
+    [JsonProperty("token")] public string? Token { get; set; }
 
-    [JsonPropertyName("user")] public User? User { get; set; }
+    [JsonProperty("user")] public User? User { get; set; }
 }

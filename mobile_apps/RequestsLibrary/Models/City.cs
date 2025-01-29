@@ -1,9 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace RequestsLibrary.Models;
 public class City
 {
-    [JsonPropertyName("id")] public long Id { get; set; }
+    [JsonProperty("id")] public long Id { get; set; }
 
-    [JsonPropertyName("name")] public string? Name { get; set; }
+    [JsonProperty("name")] public string? Name { get; set; }
 }
