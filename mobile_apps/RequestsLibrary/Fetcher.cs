@@ -70,6 +70,8 @@ public static class Fetcher
         {
             responseContent = await response.Content.ReadAsStringAsync();
 
+            Debug.WriteLine($"ResponseContent: {responseContent}");
+
             if (response.IsSuccessStatusCode)
                 content = JsonSerializer.Deserialize<T>(responseContent);
             else throw new Exception();
@@ -87,9 +89,15 @@ public static class Fetcher
         {
             if (!response.IsSuccessStatusCode)
             {
-                var errorJson = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine("ERRJSON: " + errorJson);
-                error!.ValidationResponse = JsonSerializer.Deserialize<ErrorResponse>(errorJson);
+                try
+                {
+                    var errorJson = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine("ERRJSON: " + errorJson);
+                    error!.ValidationResponse = JsonSerializer.Deserialize<ErrorResponse>(errorJson);
+                } catch
+                {
+                    error.Comment = $"Не удалось обработать ошибку: {response.StatusCode}";
+                }
             }
         }
 
@@ -104,4 +112,5 @@ public static class Fetcher
     public static NewsRoute News = new();
     public static CategoriesRoute Categories = new();
     public static AuthRoute Auth = new();
+    public static FavouriteRoute Favourite = new();
 }

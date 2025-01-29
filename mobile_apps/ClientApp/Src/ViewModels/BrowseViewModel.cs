@@ -84,14 +84,14 @@ public partial class BrowseViewModel : ObservableObject
             async () => await Fetcher.News.Get(rp),
             _ => IsFetching = _,
             _ => Error = _,
-            (Action<ObservableCollection<MinNews>?>?)(            fn =>
+            fn =>
             {
                 if (fn is null)
                     return;
                 if (page != 1)
-                    fn.ToList().ForEach((Action<MinNews>)FilteredNews.Add);
+                    fn.ToList().ForEach(FilteredNews.Add);
                 else FilteredNews = fn;
-            })
+            }
         );
 
         Debug.WriteLine(Error);

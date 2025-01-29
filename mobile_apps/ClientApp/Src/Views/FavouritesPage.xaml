@@ -2,12 +2,31 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ClientApp.Src.Views.FavouritesPage"
-             Title="FavouritesPage">
-    <VerticalStackLayout>
-        <Label
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center"
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
+             xmlns:components="clr-namespace:ClientApp.Src.Components"
+             x:Class="ClientApp.Src.Views.FavouritesPage">
+
+    <ContentPage.BindingContext>
+        <viewModels:FavouriteViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <RefreshView IsRefreshing="{Binding GetMoreNewsCommand.IsRunning}">
+            <CollectionView ItemsSource="{Binding News}"
+                RemainingItemsThreshold="{Binding PageSize}"
+                RemainingItemsThresholdReachedCommand="{Binding GetMoreNewsCommand}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                            Orientation="Vertical"
+                            VerticalItemSpacing="{StaticResource MarginPreMin}" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <components:MinNewsCard FilteredNews="{Binding .}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </ScrollView>
+    
 </ContentPage>

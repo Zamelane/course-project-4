@@ -7,6 +7,11 @@ public class RequestParams
     private List<string> _params = [];
     private dynamic? _content = null;
     private Dictionary<string, string> _headers = [];
+
+    public dynamic Body
+    {
+        set => _content = value;
+    }
     public RequestParams() { }
     public void AddParameter(string key, string? value) => _params.Add($"{key}={value}");
     public void AddParameter(string key, int? value) => AddParameter(key, value.ToString());

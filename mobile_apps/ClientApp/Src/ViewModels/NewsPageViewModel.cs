@@ -1,15 +1,18 @@
-﻿using ClientApp.Src.Utils;
+﻿using ClientApp.Src.Storage;
+using ClientApp.Src.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.ApplicationModel.DataTransfer;
 using RequestsLibrary;
 using RequestsLibrary.Models;
-using System.Diagnostics;
+using RequestsLibrary.Responses;
+using System.Net;
 
 namespace ClientApp.Src.ViewModels;
 public partial class NewsPageViewModel : ObservableObject
 {
     [ObservableProperty] private MinNews? news;
+    [NotifyCanExecuteChangedFor(nameof(AddToBookmarksCommand))]
+    [NotifyPropertyChangedFor(nameof(CanAddToBookmarks))]
     [ObservableProperty] private FullNews? fullNews;
 
     // Вычисляемые поля
@@ -55,7 +58,56 @@ public partial class NewsPageViewModel : ObservableObject
         });
     }
 
-    private void ChangedAll()
+    public bool CanAddToBookmarks => News is not null
+        && FullNews is not null
+        && AuthData.Token is not null;
+    //public bool CanAddToBookmarks
+    //{
+    //    get
+    //    {
+    //        var result = News is not null && FullNews is not null && AuthData.Token is not null;
+    //        Debug.WriteLine($"{result} {News is not null} {FullNews is not null} {AuthData.Token is not null} - CanAddToBookmarks");
+    //        return result;
+    //    }
+    //}
+    [RelayCommand(CanExecute = nameof(CanAddToBookmarks))]
+    private async Task AddToBookmarks()
+    {
+        if (!CanAddToBookmarks || IsFetching)
+            return;
+
+        // Сохраняем закладку
+        if (!FullNews.IsBookmarked)
+            await Auxiliary.RunWithStateHandling<FavouriteResponse?>(
+                () => Fetcher.Favourite.Post(News.Id),
+                null,
+                _ => Error = _,
+                r =>
+                {
+                    if (r is not null)
+                        FullNews!.IsBookmarked = true;
+
+                    OnPropertyChanged(nameof(FullNews));
+                }
+            );
+        else
+        {
+            var response = await Auxiliary.RunWithStateHandling<FavouriteResponse?>(
+                () => Fetcher.Favourite.Delete(News.Id),
+                null,
+                _ => Error = _,
+                null
+            );
+
+            if (response.StatusCode == HttpStatusCode.NoContent)
+            {
+                FullNews!.IsBookmarked = false;
+                OnPropertyChanged(nameof(FullNews));
+            }
+        }
+    }
+
+    public void ChangedAll()
     {
         OnPropertyChanged(nameof(FormattedDate));
         OnPropertyChanged(nameof(ReadTime));
