@@ -147,6 +147,7 @@ Route
 ->group(function () {
     Route::get ('', 'index');
     Route::post('', 'store');
+    Route::delete('{news}', 'destroy');
 });
 
 /*
