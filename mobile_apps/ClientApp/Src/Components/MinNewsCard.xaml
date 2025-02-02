@@ -18,12 +18,12 @@
                               ColumnSpacing="16">
                             <HorizontalStackLayout Spacing="6">
                                 <!--<Image Source="eye_no_accent.png" WidthRequest="20" HeightRequest="20" />-->
-                                <ffimageloading:SvgCachedImage Source="eye_no_accent.svg" WidthRequest="20" HeightRequest="20" />
+                                <ffimageloading:SvgCachedImage Source="eye_no_accent_raw.svg" WidthRequest="20" HeightRequest="20" />
                                 <Label Text="32.7k" FontFamily="Nunito" FontSize="14" TextColor="#767E94" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Spacing="6" Grid.Column="1">
                                 <!--<Image Source="chat_no_accent.png" WidthRequest="20" HeightRequest="20" />-->
-                                <ffimageloading:SvgCachedImage Source="chat_no_accent.svg" WidthRequest="20" HeightRequest="20" />
+                                <ffimageloading:SvgCachedImage Source="chat_no_accent_raw.svg" WidthRequest="20" HeightRequest="20" />
                                 <Label Text="94 Comments" FontFamily="Nunito" FontSize="14" TextColor="#767E94" />
                             </HorizontalStackLayout>
                         </Grid>

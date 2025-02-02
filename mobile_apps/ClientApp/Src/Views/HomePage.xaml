@@ -76,7 +76,7 @@
                 <!--Разделы содержимого-->
                 <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
                     <!--Категории-->
-                    <components:TitledContentTemplate Title="TOP CATEGORY" ShowMore="True">
+                    <components:TitledContentTemplate Title="TOP CATEGORY" ShowMore="True" Command="{Binding ShowCategoriesPageCommand}">
                         <CollectionView ItemsSource="{Binding Categories}">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Horizontal"

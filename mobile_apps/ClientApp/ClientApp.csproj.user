@@ -44,6 +44,9 @@
     <MauiXaml Update="Src\Components\PopupLayoutHeader.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Src\Components\Separator.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Src\Controls\Button.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
