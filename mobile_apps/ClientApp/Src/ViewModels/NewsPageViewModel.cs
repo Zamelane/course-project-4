@@ -1,5 +1,6 @@
 ﻿using ClientApp.Src.Storage;
 using ClientApp.Src.Utils;
+using ClientApp.Src.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
@@ -105,6 +106,12 @@ public partial class NewsPageViewModel : ObservableObject
                 OnPropertyChanged(nameof(FullNews));
             }
         }
+    }
+
+    [RelayCommand]
+    private void OpenEditNews()
+    {
+        Shell.Current.Navigation.PushAsync(new NewsEditPage());
     }
 
     public void ChangedAll()

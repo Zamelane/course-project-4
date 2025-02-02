@@ -55,11 +55,11 @@ internal static class Auxiliary
         return response;
     }
 
-    public static async Task<T?> RunWithStateHandlingWithoutResponse<T>(Func<Task<T?>> fetchMathod, Action<bool> setIsFetching, Action<string>? setError = null, Action<T?>? setResult = null)
+    public static async Task<T?> RunWithStateHandlingWithoutResponse<T>(Func<Task<T?>> fetchMathod, Action<bool>? setIsFetching = null, Action<string>? setError = null, Action<T?>? setResult = null)
     {
-        setIsFetching.Invoke(true);
+        setIsFetching?.Invoke(true);
         T? response = await fetchMathod();
-        setIsFetching.Invoke(false);
+        setIsFetching?.Invoke(false);
 
         string error = "";
 

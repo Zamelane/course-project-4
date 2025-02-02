@@ -10,6 +10,7 @@ namespace ClientApp.Src.ViewModels;
 public partial class FavouriteViewModel : ObservableObject
 {
     [ObservableProperty] private ObservableCollection<MinNews> news = [];
+    [ObservableProperty] private int total;
     [ObservableProperty] private string? error = null;
     [ObservableProperty] private int pageSize = 2;
     [ObservableProperty] private bool isEndPage = false;
@@ -39,8 +40,11 @@ public partial class FavouriteViewModel : ObservableObject
         if (IsEndPage || IsFetching)
             return;
 
-        if (page == 0)
+        if (page == 0){
+            IsEndPage = false;
             News.Clear();
+            Total = 0;
+        }
 
         page++;
 
@@ -59,14 +63,16 @@ public partial class FavouriteViewModel : ObservableObject
                     return;
                 }
 
-                if (r.Count == 0)
+                if (r.Favourites.Count == 0)
                 {
                     Debug.WriteLine("Избранное пустое");
                     IsEndPage = true;
                 }
                 else
-                    r.ToList().ForEach(e => News.Add(e.News));
+                    r.Favourites.ToList().ForEach(e => News.Add(e.News));
                 Debug.WriteLine($"Favourite news: {News.Count}");
+
+                Total = r.Total;
 
                 OnPropertyChanged(nameof(Title));
             }
@@ -77,7 +83,6 @@ public partial class FavouriteViewModel : ObservableObject
     private void UpdateNewsList()
     {
         page = 0;
-        IsEndPage = false;
         GetMoreNewsCommand.Execute(null);
     }
 }

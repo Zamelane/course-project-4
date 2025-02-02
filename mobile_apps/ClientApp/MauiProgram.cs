@@ -3,7 +3,6 @@ using CommunityToolkit.Maui;
 using FFImageLoading.Maui;
 using MauiContentButton;
 using Microsoft.Maui.Handlers;
-using RequestsLibrary;
 
 namespace ClientApp;
 
@@ -28,7 +27,7 @@ public static class MauiProgram
                 fonts.AddFont("Nunito-SemiBold.ttf", "Nunito-SemiBold");
             });
 
-        EntryHandler.Mapper.AppendToMapping(nameof(BorderlessEntry), (handler, view) =>
+        Action<IEntryHandler, IEntry> action = (handler, view) =>
         {
 #if ANDROID
                    handler.PlatformView.Background = null;
@@ -40,7 +39,10 @@ public static class MauiProgram
 #elif WINDOWS
             handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
 #endif
-        });
+        };
+
+        EntryHandler.Mapper.AppendToMapping(nameof(BorderlessEntry), action);
+        EntryHandler.Mapper.AppendToMapping(nameof(BorderlessEditor), action);
 
         ToolbarHandler.Mapper.AppendToMapping("CustomNavigationView", (handler, view) =>
         {

@@ -7,7 +7,7 @@ namespace RequestsLibrary;
 
 public static class Fetcher
 {
-    public static Config Config = new(Config.Protocol.http, "192.168.1.100:8000");
+    public static Config Config = new(Config.Protocol.http, "192.168.1.193:8000");
 
     private static string? _token;
 

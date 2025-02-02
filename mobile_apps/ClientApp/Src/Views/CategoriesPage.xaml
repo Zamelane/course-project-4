@@ -11,8 +11,8 @@
     </ContentPage.BindingContext>
 
     <Shell.NavBarIsVisible>
-        <OnPlatform x:TypeArguments="x:Boolean" Default="True">
-            <On Platform="Android" Value="False" />
+        <OnPlatform x:TypeArguments="x:Boolean" Default="False">
+            <On Platform="Android" Value="True" />
         </OnPlatform>
     </Shell.NavBarIsVisible>
 
@@ -20,21 +20,20 @@
         <!--Верхняя шапочка-->
         <VerticalStackLayout Spacing="9">
             <Grid HeightRequest="35" ColumnDefinitions="*, auto" ColumnSpacing="10" VerticalOptions="Center"
-                  Padding="10,0,10,0">
+                  Padding="-50,0,10,0">
                 <Label Text="All Category" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" FontSize="16"
                        VerticalOptions="Center" Padding="0,10,0,0" />
                 <!--Перезагрузка-->
                 <ImageButton Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCategoriesCommand}" />
             </Grid>
-            <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1" />
         </VerticalStackLayout>
     </Shell.TitleView>
 
     <Grid RowDefinitions="auto, *" Padding="5">
         <StackLayout Spacing="9" Margin="0,12,0,12">
             <StackLayout.IsVisible>
-                <OnPlatform x:TypeArguments="x:Boolean" Default="False">
-                    <On Platform="Android" Value="True" />
+                <OnPlatform x:TypeArguments="x:Boolean" Default="True">
+                    <On Platform="Android" Value="False" />
                 </OnPlatform>
             </StackLayout.IsVisible>
             <Label Text="All Category" HorizontalTextAlignment="Center" FontSize="16" />

@@ -124,9 +124,9 @@
                                        Opacity="0.5" />
 
                             <!--Теги-->
-                            <Grid RowDefinitions="auto, auto" ColumnDefinitions="*, auto" RowSpacing="12" Padding="20">
-                                <Label Text="TAGS" FontSize="16" FontAttributes="Bold" />
-                                <ScrollView Grid.Row="1" Orientation="Horizontal" Padding="{OnPlatform WinUI='0,0,0,14'}">
+                            <Grid RowDefinitions="auto, auto" ColumnDefinitions="*, auto" RowSpacing="12" Padding="0,20">
+                                <Label Text="TAGS" FontSize="16" FontAttributes="Bold" Padding="20,0"/>
+                                <ScrollView Grid.Row="1" Orientation="Horizontal" Padding="{OnPlatform WinUI='0,0,0,14', Default='20,0'}">
                                     <HorizontalStackLayout Spacing="10">
                                         <Label FontSize="16" FontAttributes="Bold" Text="Lifestyle"
                                                    BackgroundColor="{StaticResource Gray60}" Padding="12,6" />

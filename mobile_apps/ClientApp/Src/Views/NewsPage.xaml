@@ -192,6 +192,17 @@
 
             <controls:MarkdownViewer MarkdownText="{Binding FullNews.Content}"/>
 
+            <HorizontalStackLayout HorizontalOptions="End" Padding="20,0" Margin="0,0,0,5">
+                <mcb:ContentButton CornerRadius="5" Command="{Binding OpenEditNewsCommand}">
+                    <HorizontalStackLayout Padding="10" Spacing="5">
+                        <ffimageloading:SvgCachedImage Source="edit_raw.svg"
+                                                       HeightRequest="20"
+                                                       WidthRequest="20"/>
+                        <Label Text="Редактировать" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </mcb:ContentButton>
+            </HorizontalStackLayout>
+
             <StackLayout Padding="16,32" Spacing="16" BackgroundColor="{StaticResource Gray30}">
                 <Label Text="LATEST NEWS"
                        HorizontalOptions="Center"

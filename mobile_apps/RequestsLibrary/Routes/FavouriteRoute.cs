@@ -5,7 +5,7 @@ using RequestsLibrary.Responses;
 using System.Collections.ObjectModel;
 
 namespace RequestsLibrary.Routes;
-public class FavouriteRoute : IGetRoute<Favourite, FullNews>, IPostRoute<FavouriteResponse>, IDeleteRoute<FavouriteResponse>
+public class FavouriteRoute : IGetRoute<FavouriteResponse, FullNews>, IPostRoute<FavouriteResponse>, IDeleteRoute<FavouriteResponse>
 {
 
     public Task<Response<FavouriteResponse?>> Post(RequestParams? rp = null)
@@ -46,21 +46,26 @@ public class FavouriteRoute : IGetRoute<Favourite, FullNews>, IPostRoute<Favouri
         throw new NotImplementedException();
     }
 
-    public async Task<Response<ObservableCollection<Favourite>?>> Get(RequestParams? rp = null)
+    public async Task<Response<FavouriteResponse?>> Get(RequestParams? rp = null)
     {
-        return await Fetcher.Fetch<ObservableCollection<Favourite>?> (
+        return await Fetcher.Fetch<FavouriteResponse?> (
            HttpMethod.Get,
            Fetcher.Config.GetApiUrl("favourites"),
            rp
         );
     }
 
-    Task<Response<FullNews?>> IGetRoute<Favourite, FullNews>.Get(int id, RequestParams? rp)
+    Task<Response<ObservableCollection<FavouriteResponse>?>> IGetRoute<FavouriteResponse, FullNews>.Get(RequestParams? rp)
     {
         throw new NotImplementedException();
     }
 
-    Task<Response<Favourite?>> IGetRoute<Favourite, FullNews>.Get(string id, RequestParams? rp)
+    Task<Response<FullNews?>> IGetRoute<FavouriteResponse, FullNews>.Get(int id, RequestParams? rp)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<Response<FavouriteResponse?>> IGetRoute<FavouriteResponse, FullNews>.Get(string id, RequestParams? rp)
     {
         throw new NotImplementedException();
     }

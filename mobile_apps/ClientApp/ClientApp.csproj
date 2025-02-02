@@ -96,6 +96,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <MauiAsset Include="Resources\Images\menu.svg" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="CommunityToolkit.Maui" Version="10.0.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="Dubacik22.ObservableDictionary" Version="1.0.4" />
@@ -202,6 +206,9 @@
         </MauiXaml>
         <MauiXaml Update="Src\Views\HomePage.xaml">
             <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\NewsEditPage.xaml">
+          <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
         <MauiXaml Update="Src\Views\NewsPage.xaml">
           <Generator>MSBuild:Compile</Generator>

@@ -11,14 +11,14 @@
                 <Grid ColumnDefinitions="auto,*,auto" Padding="20,0">
                     <Label Text="{TemplateBinding Title}" FontFamily="Nunito" FontAttributes="Bold" FontSize="16"
                            TextColor="#191F33" />
-                    <mcb:ContentButton Grid.Column="2" Command="{TemplateBinding Command}">
+                    <mcb:ContentButton Grid.Column="2" Command="{TemplateBinding Command}" Background="Transparent" StrokeThickness="0">
                         <HorizontalStackLayout Spacing="8" IsVisible="{TemplateBinding ShowMore}">
                             <Label Text="View all" FontFamily="Nunito" TextColor="{StaticResource Primary500}" />
                             <Image Source="arrow_right_blue.png" WidthRequest="16" HeightRequest="16" />
                         </HorizontalStackLayout>
                     </mcb:ContentButton>
                 </Grid>
-                <ScrollView Padding="{OnPlatform '12,0,12,12', Android='10,0'}" Grid.Row="1" Orientation="Horizontal">
+                <ScrollView Padding="{OnPlatform '12,0,12,12', Android='20,0'}" Grid.Row="1" Orientation="Horizontal">
                     <ContentPresenter />
                 </ScrollView>
             </Grid>
