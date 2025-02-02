@@ -12,3 +12,4 @@ _ide_*
 *iml
 *idea
 /MobileApps/ClientApp/Properties/PublishProfiles/MSIX-win-x64.pubxml
+/api/public/images/categories
