@@ -19,6 +19,11 @@
                         <GridItemsLayout Orientation="Vertical"
                                          VerticalItemSpacing="{StaticResource MarginPreNone}"/>
                     </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                            <Label Text="Пусто ..." FontAttributes="Bold" FontSize="16"/>
+                        </HorizontalStackLayout>
+                    </CollectionView.EmptyView>
                 </CollectionView>
             </ScrollView>
             <Grid ColumnDefinitions="auto,*,auto" Grid.Row="2">
