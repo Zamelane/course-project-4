@@ -11,9 +11,26 @@
     </ContentPage.BindingContext>
 
     <Grid RowDefinitions="auto, auto, *">
-        <HorizontalStackLayout HorizontalOptions="Center" Padding="15">
-            <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold"/>
-        </HorizontalStackLayout>
+        <Grid ColumnDefinitions="{OnPlatform Android='*', Default='*,auto,*,auto,10'}">
+            <HorizontalStackLayout Grid.Column="1" HorizontalOptions="Center" Padding="15">
+                <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+            <!--Перезагрузка-->
+            <ImageButton Grid.Column="3"
+                         Command="{Binding UpdateNewsListCommand}"
+                         WidthRequest="55"
+                         HeightRequest="55"
+                         Margin="0,0,20,0"
+                         Source="refresh_dark.png"
+                         CornerRadius="5">
+                <ImageButton.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean" Default="True">
+                        <On Platform="Android" Value="False" />
+                    </OnPlatform>
+                </ImageButton.IsVisible>
+            </ImageButton>
+        </Grid>
+        
         <components:Separator Grid.Row="1"/>
         <RefreshView Grid.Row="2" IsRefreshing="{Binding GetMoreNewsCommand.IsRunning}"
              Command="{Binding UpdateNewsListCommand}">

@@ -13,6 +13,7 @@ public partial class FavouriteViewModel : ObservableObject
     [ObservableProperty] private string? error = null;
     [ObservableProperty] private int pageSize = 2;
     [ObservableProperty] private bool isEndPage = false;
+    [ObservableProperty] private bool isFetching = false;
     private int page = 0;
     public string Title
     {
@@ -35,8 +36,11 @@ public partial class FavouriteViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanGetMoreNews))]
     private async Task GetMoreNews()
     {
-        if (IsEndPage)
+        if (IsEndPage || IsFetching)
             return;
+
+        if (page == 0)
+            News.Clear();
 
         page++;
 
@@ -45,7 +49,7 @@ public partial class FavouriteViewModel : ObservableObject
 
         await Auxiliary.RunWithStateHandling(
             () => Fetcher.Favourite.Get(rp),
-            null,
+            _ => IsFetching = _,
             _ => Error = _,
             r =>
             {
@@ -70,11 +74,10 @@ public partial class FavouriteViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task UpdateNewsList()
+    private void UpdateNewsList()
     {
         page = 0;
         IsEndPage = false;
-        News.Clear();
         GetMoreNewsCommand.Execute(null);
     }
 }

@@ -91,13 +91,17 @@
                                 <StackLayout Spacing="9">
                                     <Label Text="Category" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
                                     <controls:Select ItemsSource="{Binding Categories}"
-                                                         Title="Выберите категорию"
-                                                         SelectedText="{Binding SelectedCategories[0].Name}"
-                                                         ItemsSelected="{Binding SelectedCategories}"
-                                                         IsMultiple="True">
+                                                     Title="Выберите категорию"
+                                                     SelectedText="{Binding SelectedCategories[0].Name}"
+                                                     ItemsSelected="{Binding SelectedCategories}"
+                                                     IsMultiple="True">
                                         <controls:Select.ItemTemplate>
                                             <DataTemplate>
-                                                <components:MinCategoryCard Text="{Binding Name}" IconSource="{Binding Image.Path}" CardColor="{Binding BackgroundColor}"/>
+                                                <components:MinCategoryCard Text="{Binding Name}" IconSource="{Binding Image.Path}" CardColor="{Binding BackgroundColor}">
+                                                    <components:MinCategoryCard.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                                    </components:MinCategoryCard.GestureRecognizers>
+                                                </components:MinCategoryCard>
                                             </DataTemplate>
                                         </controls:Select.ItemTemplate>
                                     </controls:Select>

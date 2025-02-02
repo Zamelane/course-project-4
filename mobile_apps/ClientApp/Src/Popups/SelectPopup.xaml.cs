@@ -1,5 +1,6 @@
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Input;
+using MauiContentButton;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -50,7 +51,7 @@ public partial class SelectPopup : Popup
 
     public static readonly BindableProperty ItemTemplateProperty = BindableProperty.Create(nameof(ItemTemplate),
         typeof(DataTemplate), typeof(SelectPopup));
-    public void TapElementOne(object? s, TappedEventArgs e)
+    public void TapElementOne(object? s)
     {
         Debug.WriteLine("321");
         if (s is not View v)
@@ -62,7 +63,7 @@ public partial class SelectPopup : Popup
             return;
         }
     }
-    public void TapElementMore(object? s, TappedEventArgs e, Image? i)
+    public void TapElementMore(object? s, Image? i)
     {
         Debug.WriteLine("123");
         if (s is not View v || i is null)
@@ -94,13 +95,18 @@ public partial class SelectPopup : Popup
 
                 if (template is View v)
                 {
-                    var tgr = new TapGestureRecognizer();
+                    //var tgr = new TapGestureRecognizer();
 
                     if (!IsMultiple)
                     {
-                        tgr.Tapped += TapElementOne;
-                        v.GestureRecognizers.Add(tgr);
-                        return v;
+                        return new ContentButton()
+                        {
+                            Content = v,
+                            Command = new Command(() => {
+                                Debug.WriteLine("Нажато, на удивление, одиночное");
+                                TapElementOne(v);
+                            })
+                        };
                     }
 
                     var g = new Grid()
@@ -109,7 +115,8 @@ public partial class SelectPopup : Popup
                             new(new GridLength(1, GridUnitType.Star)),
                             new(new GridLength(1, GridUnitType.Auto))
                         ],
-                        ColumnSpacing = 5
+                        ColumnSpacing = 5,
+                        InputTransparent = true
                     };
 
                     var checkbox = new Image()
@@ -120,7 +127,6 @@ public partial class SelectPopup : Popup
                         IsVisible = false
                     };
 
-                    tgr.Tapped += (object? s, TappedEventArgs e) => TapElementMore(s, e, checkbox);
 
                     checkbox.Loaded += (s, e) =>
                     {
@@ -136,9 +142,14 @@ public partial class SelectPopup : Popup
                     g.Children.Add(checkbox);
                     g.Children.Add(v);
 
-                    g.GestureRecognizers.Add(tgr);
-
-                    return g;
+                    return new ContentButton()
+                    {
+                        Content = g,
+                        Command = new Command(() => {
+                            Debug.WriteLine("Нажато, на удивление");
+                            TapElementMore(g, checkbox);
+                        })
+                    };
                 }
 
                 Debug.WriteLine("Рисую оригинальный template для select'a");
