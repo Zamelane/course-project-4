@@ -28,6 +28,9 @@ class NewsFullResource extends JsonResource
                     ->orderByDesc('total')
                     ->get()
             ),
+            "isBookmarked" => $this->isBookmarked(),
+            "comments" => $this->commentsCount(),
+            "views" => $this->viewsCount(),
             'create_date' => $this->create_date,
             'update_date' => $this->update_date
         ];

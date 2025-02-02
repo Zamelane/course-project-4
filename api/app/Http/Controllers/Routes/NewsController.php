@@ -94,7 +94,7 @@ class NewsController extends Controller
             $updateData['title'] = $validatedData['title'];
 
         if (isset($validatedData['content']))
-            $updateData['description'] = $validatedData['content'];
+            $updateData['content'] = $validatedData['content'];
 
         $news->update($updateData);
 

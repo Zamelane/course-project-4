@@ -4,6 +4,8 @@ namespace App\Models\News;
 
 use App\Models\City;
 use App\Models\Comment\Comment;
+use App\Models\Favourite;
+use App\Models\HistoryView;
 use App\Models\Image;
 use App\Models\Reaction;
 use App\Models\Tag;
@@ -16,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class News extends Model
@@ -71,5 +74,28 @@ class News extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function isBookmarked()
+    {
+        $user = Auth::user();
+
+        if (!$user)
+            return false;
+
+        return Favourite::where([
+            ["news_id", "=", $this->id],
+            ["user_id", "=", $user->id]
+        ])->first() != null;
+    }
+
+    public function commentsCount()
+    {
+        return Comment::where("news_id", $this->id)->count();
+    }
+
+    public function viewsCount()
+    {
+        return HistoryView::where("news_id", $this->id)->count();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\News\NewsMinResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -11,10 +12,7 @@ class FavouriteResource extends JsonResource
     {
         $news = $this->news;
         return [
-            'news' => [
-                'id' => $news->id,
-                'title' => $news->title
-            ],
+            'news' => NewsMinResource::make($news),
             'added_date' => $this->added_date
         ];
     }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FavouriteRequest;
 use App\Http\Resources\FavouriteResource;
 use App\Models\Favourite;
+use App\Models\News\News;
+use App\Models\User;
 
 class FavouriteController extends Controller
 {
@@ -16,7 +18,7 @@ class FavouriteController extends Controller
         ])->orderBy('added_date', 'desc')
         ->paginate(15);
 
-        return response()->json(formatPaginate($favourites, new FavouriteResource(null)));
+        return response()->json(FavouriteResource::collection($favourites));
     }
 
     public function store(FavouriteRequest $request)
@@ -29,5 +31,15 @@ class FavouriteController extends Controller
         ]);
 
         return response()->json(null, 201);
+    }
+
+    public function destroy(News $news)
+    {
+        Favourite::where([
+            ["news_id", "=", $news->id],
+            ["user_id", "=", auth()->id()]
+        ])->delete();
+
+        return response()->json(null, 204);
     }
 }
