@@ -3,7 +3,14 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             xmlns:converters="clr-namespace:ClientApp.Src.Converters"
              x:Class="ClientApp.Src.Components.MinNewsCard">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:ResultConverter x:Key="ResultConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
 
     <ContentView.ControlTemplate>
         <ControlTemplate>
@@ -12,7 +19,7 @@
                 <Grid ColumnDefinitions="*,100" RowDefinitions="100">
                     <Grid RowDefinitions="auto,*" Margin="20,16">
                         <Label MaxLines="2" LineBreakMode="TailTruncation" FontSize="14" FontFamily="Nunito"
-                               Text="{Binding Content}" />
+                               Text="{Binding Title}" />
                         <!--Социальная информация-->
                         <Grid Grid.Row="1" VerticalOptions="End" Margin="0,12,0,0" ColumnDefinitions="auto,auto,*,auto"
                               ColumnSpacing="16">
@@ -28,7 +35,7 @@
                             </HorizontalStackLayout>
                         </Grid>
                     </Grid>
-                    <Image Source="news_1.png" Aspect="AspectFill" Grid.Column="1" />
+                    <Image Source="{Binding Cover, Converter={StaticResource ResultConverter}, ConverterParameter='news_1.png'}" Aspect="AspectFill" Grid.Column="1" />
                 </Grid>
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>

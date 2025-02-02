@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\News;
 
+use App\Http\Resources\Image\ImageResource;
 use App\Http\Resources\Reaction\ReactionForTotalResource;
 use App\Http\Resources\Tag\TagResource;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ class NewsMinResource extends JsonResource
                     ->orderByDesc('total')
                     ->get()
             ),
+            'cover' => ImageResource::make($this->image),
             'create_date' => $this->create_date,
             'update_date' => $this->update_date
         ];

@@ -19,7 +19,8 @@ class NewsFullResource extends JsonResource
             'author' => MinUserResource::make($this->author),
             'title' => $this->title,
             'content' => $this->content,
-            'images' => ImageResource::collection($this->images), // TODO: сделать коллекцию для нормального вывода
+            //'images' => ImageResource::collection($this->images), // TODO: сделать коллекцию для нормального вывода
+            'cover' => ImageResource::make($this->image),
             'city' => $this->city,
             'tags' => TagResource::collection($this->tags),
             'reactions' => ReactionForTotalResource::collection(

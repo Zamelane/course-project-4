@@ -24,6 +24,6 @@ class ImageController extends Controller
         // Сохраняем картинку по своему пути
         $result = Image::savePhoto('image', "images/$year/$month/$day");
 
-        return response()->json($result);
+        return response()->json(ImageResource::make($result));
     }
 }

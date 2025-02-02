@@ -29,6 +29,7 @@ class News extends Model
         'title',
         'user_id',
         'city_id',
+        'image_id',
         'content',
         'create_date',
         'update_date'
@@ -49,6 +50,10 @@ class News extends Model
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+    public function image()
+    {
+        return $this->belongsTo(Image::class, 'image_id');
     }
 
     public function images(): BelongsToMany

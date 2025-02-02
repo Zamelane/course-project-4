@@ -1,4 +1,6 @@
-﻿namespace ClientApp.Src.Controls;
+﻿using System.Diagnostics;
+
+namespace ClientApp.Src.Controls;
 public class BorderlessEditor : Editor
 {
 }

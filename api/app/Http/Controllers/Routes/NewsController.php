@@ -54,10 +54,22 @@ class NewsController extends Controller
 
     public function store(NewsCreateRequest $request)
     {
+        $validatedData = $request->validated();
+
+        if (isset($validatedData['cover']))
+        {
+            $image = Image::where("hash", $validatedData['cover'])->first();
+            if ($image != null)
+                $cover_id = $image->id;
+        }
+        else
+            $cover_id = null;
+
         // Создаём новость
         $news = News::create([
             ...$request->validated(),
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
+            'image_id' => $cover_id
         ]);
 
         // Привязываем теги
@@ -69,7 +81,7 @@ class NewsController extends Controller
                 ]);
 
         // Привязываем картинки
-        $picturesHashes = $request->get('pictures') ?? [];
+        /*$picturesHashes = $request->get('pictures') ?? [];
 
         foreach ($picturesHashes as $hash) {
             $image = Image::where(['hash' => $hash])->first();
@@ -77,7 +89,7 @@ class NewsController extends Controller
                 'news_id' => $news->id,
                 'image_id' => $image->id
             ]);
-        }
+        }*/
 
         return response()->json([
             'code' => 201,
@@ -96,6 +108,11 @@ class NewsController extends Controller
         if (isset($validatedData['content']))
             $updateData['content'] = $validatedData['content'];
 
+        if (isset($validatedData['cover']) && $image = Image::where("hash", $validatedData['cover'])->first() != null)
+            $updateData['image_id'] = $image->id;
+        else
+            $updateData['image_id'] = null;
+
         $news->update($updateData);
 
         $tags = $request->validated('tags');
@@ -110,7 +127,7 @@ class NewsController extends Controller
         }
 
         // Привязываем картинки
-        $picturesHashes = $request->get('pictures') ?? [];
+        /*$picturesHashes = $request->get('pictures') ?? [];
         $picturesIds = [];
 
         foreach ($picturesHashes as $hash) {
@@ -123,7 +140,7 @@ class NewsController extends Controller
         }
 
         // Удаляем старые картинки
-        Image::deletePictures($news, $picturesIds);
+        Image::deletePictures($news, $picturesIds);*/
 
         return response()->json([
             'code' => 200,

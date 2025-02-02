@@ -6,6 +6,10 @@
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
              xmlns:viewModel="clr-namespace:ClientApp.Src.ViewModels"
              x:Class="ClientApp.Src.Views.NewsEditPage"
+             Shell.BackgroundColor="{StaticResource Primary600}"
+             Shell.TitleColor="{StaticResource White}"
+             Shell.TabBarForegroundColor="{StaticResource White}"
+             Shell.ForegroundColor="{StaticResource White}"
              Title="Редактирование новости">
 
     <ContentPage.BindingContext>
@@ -15,57 +19,78 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="menu.png" Command="{Binding OpenMenuCommand}"/>
     </ContentPage.ToolbarItems>
-    
-    <Grid RowDefinitions="auto, *, auto" Padding="20" RowSpacing="20">
-        <Border BackgroundColor="{StaticResource Gray60}">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="5" />
-            </Border.StrokeShape>
-            <Grid>
-                <Image Source="{Binding Cover.TotalPath}" Aspect="AspectFill" />
-                <mcb:ContentButton Padding="50"
-                                   ZIndex="999"
-                                   BackgroundColor="Transparent"
-                                   Command="{Binding SelectAndValidateImageCommand}">
-                    <StackLayout HorizontalOptions="Center">
-                        <ffimageloading:SvgCachedImage Source="upload_photo_raw.svg"
-                                                       WidthRequest="50"
-                                                       HeightRequest="50"/>
-                        <Label Text="Загрузить обложку" FontSize="18"/>
-                    </StackLayout>
-                </mcb:ContentButton>
-            </Grid>
-        </Border>
 
-        <Border Padding="10" Grid.Row="1" BackgroundColor="{StaticResource Gray30}">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="5" />
-            </Border.StrokeShape>
-            <Grid RowDefinitions="auto, *">
-                <Label Text="Содержимое"
-                       FontSize="18"
-                       HorizontalOptions="Center"/>
-                <Border Grid.Row="1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="5"/>
-                    </Border.StrokeShape>
-                    <controls:BorderlessEditor BackgroundColor="{StaticResource Gray60}"/>
-                </Border>
-            </Grid>
-        </Border>
-        
-        <Grid ColumnDefinitions="auto, *, auto" Grid.Row="2">
-            <mcb:ContentButton CornerRadius="5" BackgroundColor="{StaticResource Gray400}">
-                <Grid Padding="10" WidthRequest="100">
-                    <Label Text="Отмена"
-                           TextColor="{StaticResource White}"
-                           HorizontalOptions="Center"/>
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            <Border BackgroundColor="{StaticResource Gray60}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+                <Grid>
+                    <Image Source="{Binding Cover.TotalPath}" Aspect="AspectFill" HeightRequest="174"/>
+                    <mcb:ContentButton Padding="50"
+                               ZIndex="999"
+                               BackgroundColor="Transparent"
+                               Command="{Binding SelectAndValidateImageCommand}">
+                        <StackLayout HorizontalOptions="Center">
+                            <ffimageloading:SvgCachedImage Source="upload_photo_raw.svg"
+                                                   WidthRequest="50"
+                                                   HeightRequest="50"/>
+                            <Label Text="Загрузить обложку" FontSize="18" HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </mcb:ContentButton>
                 </Grid>
-            </mcb:ContentButton>
+            </Border>
 
-            <StackLayout Grid.Column="2">
-                
-            </StackLayout>
-        </Grid>
-    </Grid>
+            <Border Grid.Row="1" BackgroundColor="{StaticResource Gray30}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+                <Grid RowDefinitions="auto, *">
+                    <Label Text="Заголовок"
+                           FontSize="18"
+                           HorizontalOptions="Center"
+                           Padding="5"/>
+                    <Border Grid.Row="1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="0,0,5,5"/>
+                        </Border.StrokeShape>
+                        <controls:BorderlessEntry Text="{Binding Title}" BackgroundColor="{StaticResource Gray60}" MinimumHeightRequest="30"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="1" BackgroundColor="{StaticResource Gray30}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+                <Grid RowDefinitions="auto, *">
+                    <Label Text="Содержимое"
+                           FontSize="18"
+                           HorizontalOptions="Center"
+                           Padding="5"/>
+                    <Border Grid.Row="1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="0,0,5,5"/>
+                        </Border.StrokeShape>
+                        <controls:BorderlessEditor Text="{Binding Content}" BackgroundColor="{StaticResource Gray60}" MinimumHeightRequest="150" AutoSize="TextChanges"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Grid ColumnDefinitions="auto, *, auto" Grid.Row="2">
+                <mcb:ContentButton CornerRadius="5" BackgroundColor="{StaticResource Gray400}">
+                    <Grid Padding="10" WidthRequest="100">
+                        <Label Text="Отмена"
+                       TextColor="{StaticResource White}"
+                       HorizontalOptions="Center"/>
+                    </Grid>
+                </mcb:ContentButton>
+
+                <StackLayout Grid.Column="2">
+
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

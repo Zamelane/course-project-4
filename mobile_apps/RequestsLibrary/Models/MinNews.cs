@@ -11,6 +11,7 @@ public class MinNews
     [JsonProperty("content")] public string? Content { get; set; }
 
     [JsonProperty("city")] public City? City { get; set; }
+    [JsonProperty("cover")] public Image? Cover { get; set; }
 
     [JsonProperty("tags")] public ObservableCollection<Tag> Tags { get; set; }
         = new ObservableCollection<Tag>();

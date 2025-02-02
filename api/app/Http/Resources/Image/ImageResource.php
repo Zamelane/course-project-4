@@ -13,6 +13,7 @@ class ImageResource extends JsonResource
         return [
             'id' => $this->id,
             'url' => Image::getPathUrl($this->resource),
+            'hash' => $this->hash,
             'upload_date' => $this->upload_date
         ];
     }
