@@ -143,6 +143,9 @@
         <MauiXaml Update="Src\Components\PopupLayoutHeader.xaml">
             <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
+        <MauiXaml Update="Src\Components\Separator.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
         <MauiXaml Update="Src\Controls\Button.xaml">
             <Generator>MSBuild:Compile</Generator>
         </MauiXaml>

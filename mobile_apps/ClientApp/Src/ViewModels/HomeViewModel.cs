@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using ClientApp.Src.Utils;
+using ClientApp.Src.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
@@ -50,5 +51,11 @@ public partial class HomeViewModel : ObservableObject
         );
 
         Debug.WriteLine("End TryFetchNews"); // TODO: DEBUG
+    }
+
+    [RelayCommand]
+    private void ShowCategoriesPage()
+    {
+        Shell.Current.Navigation.PushAsync(new CategoriesPage());
     }
 }

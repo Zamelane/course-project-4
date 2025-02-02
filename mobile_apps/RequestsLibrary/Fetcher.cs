@@ -2,22 +2,26 @@
 using RequestsLibrary.Responses;
 using RequestsLibrary.Routes;
 using System.Diagnostics;
-using System.Text.Json;
 
 namespace RequestsLibrary;
 
 public static class Fetcher
 {
-    public static Config Config = new(Config.Protocol.http, "192.168.1.193:8000");
+    public static Config Config = new(Config.Protocol.http, "192.168.54.76:8000");
 
     private static string? _token;
 
-    private static readonly HttpClient _httpClient = new();
+    private static readonly HttpClient _httpClient = new()
+    {
+        Timeout = TimeSpan.FromSeconds(3)
+    };
 
     public static void SetToken(string? token)
     {
         _token = token;
     }
+
+    public static Action ErrorConnectedAction = () => Debug.WriteLine("Ошибка подклчения");
 
     public static async Task<Response<T?>> Fetch<T>(
         HttpMethod method,
@@ -50,8 +54,11 @@ public static class Fetcher
         {
             response = await _httpClient.SendAsync(request);
         }
-        catch
+        catch (Exception ex)
         {
+            if (ex is TaskCanceledException tce)
+                ErrorConnectedAction();
+
             return new Response<T?>()
             {
                 Content = default,

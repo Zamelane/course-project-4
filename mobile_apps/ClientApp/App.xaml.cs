@@ -1,4 +1,6 @@
 ﻿using ClientApp.Src.Storage;
+using CommunityToolkit.Maui.Alerts;
+using RequestsLibrary;
 
 namespace ClientApp;
 
@@ -16,6 +18,11 @@ public partial class App : Application
 
         if (AuthData.User != null && AuthData.Token != null)
             Provider.AppShell.SetEnabledTabsAll(true);
+
+        Fetcher.ErrorConnectedAction = () =>
+        {
+            Toast.Make("Превышено время ожидания").Show();
+        };
     }
 
     protected override Window CreateWindow(IActivationState? activationState)

@@ -3,6 +3,7 @@ using CommunityToolkit.Maui;
 using FFImageLoading.Maui;
 using MauiContentButton;
 using Microsoft.Maui.Handlers;
+using RequestsLibrary;
 
 namespace ClientApp;
 

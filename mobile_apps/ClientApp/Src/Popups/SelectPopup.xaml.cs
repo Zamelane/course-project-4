@@ -52,6 +52,7 @@ public partial class SelectPopup : Popup
         typeof(DataTemplate), typeof(SelectPopup));
     public void TapElementOne(object? s, TappedEventArgs e)
     {
+        Debug.WriteLine("321");
         if (s is not View v)
             return;
         var currentItem = v.BindingContext;
@@ -139,6 +140,8 @@ public partial class SelectPopup : Popup
 
                     return g;
                 }
+
+                Debug.WriteLine("Рисую оригинальный template для select'a");
 
                 return template;
             }

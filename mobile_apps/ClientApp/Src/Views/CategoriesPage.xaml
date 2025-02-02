@@ -30,7 +30,7 @@
         </VerticalStackLayout>
     </Shell.TitleView>
 
-    <Grid RowDefinitions="auto, *">
+    <Grid RowDefinitions="auto, *" Padding="5">
         <StackLayout Spacing="9" Margin="0,12,0,12">
             <StackLayout.IsVisible>
                 <OnPlatform x:TypeArguments="x:Boolean" Default="False">

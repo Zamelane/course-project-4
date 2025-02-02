@@ -14,6 +14,9 @@ public partial class BrowseViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<Category> categories = [];
     [ObservableProperty] private ObservableCollection<Category> selectedCategories = [];
     [ObservableProperty] private ObservableCollection<MinNews> filteredNews = [];
+    
+    [NotifyCanExecuteChangedFor(nameof(FetchSearchNewsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(FetchMoreNewsCommand))]
     [ObservableProperty] private bool isFetching = false;
 
     [ObservableProperty] private int pageSize       = 2;
@@ -46,11 +49,11 @@ public partial class BrowseViewModel : ObservableObject
     }
 
     // Тута после ввода поискового запроса
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanFetch))]
     private async Task FetchSearchNews()
     {
         Debug.WriteLine("Выполняю поиск новостей ...");
-        _ = FetchMoreNews(0);
+        await FetchMoreNews(0);
     }
 
     [RelayCommand(CanExecute = nameof(CanFetch))]

@@ -8,6 +8,11 @@
              xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
              xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
+             Shell.BackgroundColor="{StaticResource Primary600}"
+             Shell.TitleColor="{StaticResource White}"
+             Shell.TabBarForegroundColor="{StaticResource White}"
+             Shell.ForegroundColor="{StaticResource White}"
+             Title="{Binding FullNews.Title}"
              x:Class="ClientApp.Src.Views.NewsPage">
 
     <ContentPage.BindingContext>
@@ -18,7 +23,7 @@
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <controls:CustomRefreshView Command="{Binding UpdateNewsCommand}">
         <VerticalStackLayout Spacing="{StaticResource MarginMin}">
             <Image x:Name="img"

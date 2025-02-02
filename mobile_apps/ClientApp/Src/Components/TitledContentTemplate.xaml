@@ -2,6 +2,7 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
              x:Class="ClientApp.Src.Components.TitledContentTemplate">
 
     <ContentView.ControlTemplate>
@@ -10,10 +11,12 @@
                 <Grid ColumnDefinitions="auto,*,auto" Padding="20,0">
                     <Label Text="{TemplateBinding Title}" FontFamily="Nunito" FontAttributes="Bold" FontSize="16"
                            TextColor="#191F33" />
-                    <HorizontalStackLayout Grid.Column="2" Spacing="8" IsVisible="{TemplateBinding ShowMore}">
-                        <Label Text="View all" FontFamily="Nunito" TextColor="{StaticResource Primary500}" />
-                        <Image Source="arrow_right_blue.png" WidthRequest="16" HeightRequest="16" />
-                    </HorizontalStackLayout>
+                    <mcb:ContentButton Grid.Column="2" Command="{TemplateBinding Command}">
+                        <HorizontalStackLayout Spacing="8" IsVisible="{TemplateBinding ShowMore}">
+                            <Label Text="View all" FontFamily="Nunito" TextColor="{StaticResource Primary500}" />
+                            <Image Source="arrow_right_blue.png" WidthRequest="16" HeightRequest="16" />
+                        </HorizontalStackLayout>
+                    </mcb:ContentButton>
                 </Grid>
                 <ScrollView Padding="{OnPlatform '12,0,12,12', Android='10,0'}" Grid.Row="1" Orientation="Horizontal">
                     <ContentPresenter />

@@ -14,6 +14,18 @@ public partial class FavouriteViewModel : ObservableObject
     [ObservableProperty] private int pageSize = 2;
     [ObservableProperty] private bool isEndPage = false;
     private int page = 0;
+    public string Title
+    {
+        get
+        {
+            string title = "Bookmark";
+
+            if (!News.Any())
+                return title;
+
+            return title + $" ({News.Count})";
+        }
+    }
 
     public FavouriteViewModel()
     {
@@ -51,6 +63,8 @@ public partial class FavouriteViewModel : ObservableObject
                 else
                     r.ToList().ForEach(e => News.Add(e.News));
                 Debug.WriteLine($"Favourite news: {News.Count}");
+
+                OnPropertyChanged(nameof(Title));
             }
         );
     }

@@ -1,3 +1,5 @@
+using System.Windows.Input;
+
 namespace ClientApp.Src.Components;
 
 public partial class TitledContentTemplate : ContentView
@@ -7,6 +9,16 @@ public partial class TitledContentTemplate : ContentView
 
     public static readonly BindableProperty ShowMoreProperty =
         BindableProperty.Create(nameof(ShowMore), typeof(bool), typeof(TitledContentTemplate), false);
+
+    public static readonly BindableProperty CommandProperty = BindableProperty.Create(
+        nameof(Command), typeof(ICommand), typeof(TitledContentTemplate), default, BindingMode.TwoWay
+    );
+
+    public ICommand Command
+    {
+        get => (ICommand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
 
     public TitledContentTemplate()
     {
