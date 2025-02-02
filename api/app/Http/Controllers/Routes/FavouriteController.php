@@ -13,12 +13,17 @@ class FavouriteController extends Controller
 {
     public function index()
     {
-        $favourites = Favourite::where([
+        $favouritesRequest = Favourite::where([
             'user_id' => auth()->id()
-        ])->orderBy('added_date', 'desc')
-        ->paginate(15);
+        ])->orderBy('added_date', 'desc');
 
-        return response()->json(FavouriteResource::collection($favourites));
+        $favouritesTotal = $favouritesRequest->count();
+        $favourites = $favouritesRequest->paginate(15);
+
+        return response()->json([
+            'favourites' => FavouriteResource::collection($favourites),
+            'total' => $favouritesTotal
+        ]);
     }
 
     public function store(FavouriteRequest $request)

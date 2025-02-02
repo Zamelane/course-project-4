@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\News\NewsFullResource;
-use App\Http\Resources\News\NewsMinResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
