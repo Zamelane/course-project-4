@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Routes;
 
 use App\Models\HistoryView;
 use App\Models\Image;
-use App\Models\News\NewsImage;
-use Exception;
 use DateTime;
+use Illuminate\Support\Facades\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\News\NewsCreateRequest;
@@ -20,8 +19,14 @@ class NewsController extends Controller
 {
     public function index()
     {
+        $query = News::orderBy('create_date', 'desc');
+
+        if (isset(request()->search))
+            $query->where('title', 'like', '%' . request()->search . '%')
+                ->orWhere('content', 'like', '%' . request()->search . '%');
+
         // TODO: отображать всего количество страниц
-        return response()->json(NewsMinResource::collection(News::orderBy('create_date', 'desc')->simplePaginate()));
+        return response()->json(NewsMinResource::collection($query->simplePaginate()));
     }
 
     public function mostRead()
@@ -108,8 +113,12 @@ class NewsController extends Controller
         if (isset($validatedData['content']))
             $updateData['content'] = $validatedData['content'];
 
-        if (isset($validatedData['cover']) && $image = Image::where("hash", $validatedData['cover'])->first() != null)
-            $updateData['image_id'] = $image->id;
+        if (isset($validatedData['cover']))
+        {
+            $image = Image::where("hash", $validatedData['cover'])->first();
+            if ($image != null)
+                $updateData['image_id'] = $image->id;
+        }
         else
             $updateData['image_id'] = null;
 
