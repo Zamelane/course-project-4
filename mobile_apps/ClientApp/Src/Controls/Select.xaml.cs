@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;
+using System.Windows.Input;
 
 namespace ClientApp.Src.Controls;
 
@@ -111,7 +112,6 @@ public partial class Select : ContentView
 
         if (result is null)
             return;
-
         //if (result is null)
         //{
         //    //ItemSelected = null;
@@ -123,12 +123,24 @@ public partial class Select : ContentView
             if (IsMultiple)
                 ItemsSelected = collection;
             else ItemsSelected = collection.FirstOrDefault();
+            Command?.Execute(null);
             return;
         }
 
         if (result is object)
         {
             ItemsSelected = result;
+            Command?.Execute(null);
         }
     }
+
+    public static readonly BindableProperty CommandProperty = BindableProperty.Create(
+        nameof(Command), typeof(ICommand), typeof(Select), null, BindingMode.TwoWay
+    );
+    public ICommand? Command
+    {
+        get => (ICommand?)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
+
 }

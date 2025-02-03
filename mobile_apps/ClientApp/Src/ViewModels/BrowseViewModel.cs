@@ -13,6 +13,7 @@ public partial class BrowseViewModel : ObservableObject
 {
     [ObservableProperty] private ObservableCollection<Category> categories = [];
     [ObservableProperty] private ObservableCollection<Category> selectedCategories = [];
+    [ObservableProperty] private ObservableCollection<Tag>      tags = [];
     [ObservableProperty] private ObservableCollection<MinNews> filteredNews = [];
     
     [NotifyCanExecuteChangedFor(nameof(FetchSearchNewsCommand))]
@@ -29,7 +30,10 @@ public partial class BrowseViewModel : ObservableObject
     {
         _ = FetchCategories();
         _ = FetchMoreNews();
+        _ = FetchTags();
     }
+
+    [ObservableProperty] private string selectedCategoriesTitle;
 
     private async Task FetchCategories()
     {
@@ -48,15 +52,40 @@ public partial class BrowseViewModel : ObservableObject
         );
     }
 
+    private async Task FetchTags()
+    {
+        await Auxiliary.RunWithStateHandling<ObservableCollection<Tag>?>(
+            () => Fetcher.Fetch<ObservableCollection<Tag>>(HttpMethod.Get, Fetcher.Config.GetApiUrl("tags")),
+            _ => IsFetching = _,
+            _ => Error = _,
+            res =>
+            {
+                if (res is not null)
+                    Tags = res;
+
+                //if (res is not null)
+                //    SelectedCategories.Add(Categories.First());
+            }
+        );
+    }
+
     // Тута после ввода поискового запроса
-    [RelayCommand(CanExecute = nameof(CanFetch))]
+    [RelayCommand]
     private async Task FetchSearchNews()
     {
         Debug.WriteLine("Выполняю поиск новостей ...");
-        await FetchMoreNews(0);
+        _ = FetchMoreNews(0);
     }
 
-    [RelayCommand(CanExecute = nameof(CanFetch))]
+    [RelayCommand]
+    private async Task AllUpdate()
+    {
+        _ = FetchCategories();
+        _ = FetchTags();
+        _ = FetchMoreNews(0);
+    }
+
+    [RelayCommand]
     private async Task FetchMoreNews(int? page = null)
     {
         page ??= _currentPage;
@@ -114,5 +143,18 @@ public partial class BrowseViewModel : ObservableObject
         _currentPage = (int)page;
     }
 
-    private bool CanFetch() => !IsFetching;
+    [RelayCommand]
+    private async Task SelectCategories()
+    {
+        string title = string.Empty;
+        SelectedCategories.ToList().ForEach(
+            c => {
+                title += (title == string.Empty ? title : ", ") + c.Name;
+            }
+        );
+        Debug.WriteLine(title);
+        SelectedCategoriesTitle = title;
+
+        _ = FetchMoreNews(0);
+    }
 }

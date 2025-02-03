@@ -122,9 +122,9 @@ public partial class IconEntry : ContentView
     public static readonly BindableProperty SearchCommandProperty = BindableProperty.Create(
         nameof(SearchCommand), typeof(ICommand), typeof(IconEntry), null, BindingMode.TwoWay
     );
-    public ICommand SearchCommand
+    public ICommand? SearchCommand
     {
-        get => (ICommand)GetValue(SearchCommandProperty);
+        get => (ICommand?)GetValue(SearchCommandProperty);
         set => SetValue(SearchCommandProperty, value);
     }
     private Debouncer _debouncer = new(1000);
@@ -132,6 +132,11 @@ public partial class IconEntry : ContentView
     {
         if (SearchCommand is null)
             return;
-        _debouncer.Debounce(() => SearchCommand.Execute(null));
+        _debouncer.Debounce(ExecuteSearchCommand);
+    }
+
+    private void ExecuteSearchCommand()
+    {
+        SearchCommand?.Execute(null);
     }
 }

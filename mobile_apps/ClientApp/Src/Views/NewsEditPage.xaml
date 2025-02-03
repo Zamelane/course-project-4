@@ -5,16 +5,26 @@
              xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
              xmlns:viewModel="clr-namespace:ClientApp.Src.ViewModels"
+             xmlns:cnv="clr-namespace:ClientApp.Src.Converters"
+             xmlns:components="clr-namespace:ClientApp.Src.Components"
              x:Class="ClientApp.Src.Views.NewsEditPage"
              Shell.BackgroundColor="{StaticResource Primary600}"
              Shell.TitleColor="{StaticResource White}"
              Shell.TabBarForegroundColor="{StaticResource White}"
              Shell.ForegroundColor="{StaticResource White}"
-             Title="Редактирование новости">
+             Title="{Binding PageTitle}">
 
     <ContentPage.BindingContext>
         <viewModel:NewsEditViewModel/>
     </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cnv:ErrorConverter x:Key="ErrorConverter" />
+            <cnv:VisibilityConverter x:Key="VisibilityConverter" />
+            <cnv:ResultConverter x:Key="ResultConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="menu.png" Command="{Binding OpenMenuCommand}"/>
@@ -27,7 +37,7 @@
                     <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
                 <Grid>
-                    <Image Source="{Binding Cover.TotalPath}" Aspect="AspectFill" HeightRequest="174"/>
+                    <Image Source="{Binding EditableNews.Cover.TotalPath}" Aspect="AspectFill" HeightRequest="174"/>
                     <mcb:ContentButton Padding="50"
                                ZIndex="999"
                                BackgroundColor="Transparent"
@@ -46,7 +56,7 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
-                <Grid RowDefinitions="auto, *">
+                <Grid RowDefinitions="auto, *, auto">
                     <Label Text="Заголовок"
                            FontSize="18"
                            HorizontalOptions="Center"
@@ -55,8 +65,18 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="0,0,5,5"/>
                         </Border.StrokeShape>
-                        <controls:BorderlessEntry Text="{Binding Title}" BackgroundColor="{StaticResource Gray60}" MinimumHeightRequest="30"/>
+                        <controls:BorderlessEntry Text="{Binding EditableNews.Title}" BackgroundColor="{StaticResource Gray60}" MinimumHeightRequest="30"/>
                     </Border>
+                    <Label Grid.Row="2"
+                           TextColor="{StaticResource Error400}"
+                           Padding="10,2"
+                           Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=content}">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=content}" Value="">
+                                <Setter Property="IsVisible" Value="False"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                 </Grid>
             </Border>
 
@@ -64,7 +84,7 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
-                <Grid RowDefinitions="auto, *">
+                <Grid RowDefinitions="auto, *, auto">
                     <Label Text="Содержимое"
                            FontSize="18"
                            HorizontalOptions="Center"
@@ -73,12 +93,47 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="0,0,5,5"/>
                         </Border.StrokeShape>
-                        <controls:BorderlessEditor Text="{Binding Content}" BackgroundColor="{StaticResource Gray60}" MinimumHeightRequest="150" AutoSize="TextChanges"/>
+                        <controls:BorderlessEditor Text="{Binding EditableNews.Content}" BackgroundColor="{StaticResource Gray60}" MinimumHeightRequest="150" AutoSize="TextChanges"/>
                     </Border>
+                    <Label Grid.Row="2"
+                           TextColor="{StaticResource Error400}"
+                           Padding="10,2"
+                           Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=title}">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=title}" Value="">
+                                <Setter Property="IsVisible" Value="False"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                 </Grid>
             </Border>
 
-            <Grid ColumnDefinitions="auto, *, auto" Grid.Row="2">
+            <StackLayout>
+                <!--Фильтры select'ом-->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                    <StackLayout Spacing="9">
+                        <Label Text="Категория" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
+                        <controls:Select ItemsSource="{Binding Categories}"
+                                         Title="Выберите категорию"
+                                         SelectedText="{Binding SelectedCategory.Name}"
+                                         ItemsSelected="{Binding SelectedCategory}"
+                                         IsMultiple="False">
+                            <controls:Select.ItemTemplate>
+                                <DataTemplate>
+                                    <components:MinCategoryCard Text="{Binding Name}" IconSource="{Binding Image.Path}" CardColor="{Binding BackgroundColor}"/>
+                                </DataTemplate>
+                            </controls:Select.ItemTemplate>
+                        </controls:Select>
+                    </StackLayout>
+                    <StackLayout Spacing="9" Grid.Column="1">
+                        <Label Text="Теги" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
+                        <controls:Select />
+
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+
+            <!--<Grid ColumnDefinitions="auto, *, auto" Grid.Row="2">
                 <mcb:ContentButton CornerRadius="5" BackgroundColor="{StaticResource Gray400}">
                     <Grid Padding="10" WidthRequest="100">
                         <Label Text="Отмена"
@@ -90,7 +145,7 @@
                 <StackLayout Grid.Column="2">
 
                 </StackLayout>
-            </Grid>
+            </Grid>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -22,6 +22,10 @@ public class Debouncer
 
     private void OnTimerElapsed(object sender, ElapsedEventArgs e)
     {
-        _action?.Invoke();
+        try
+        {
+            _action?.Invoke();
+        }
+        catch { }
     }
 }

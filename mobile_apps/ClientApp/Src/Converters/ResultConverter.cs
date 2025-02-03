@@ -12,7 +12,7 @@ public class ResultConverter : IValueConverter
 {
     public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)
     {
-        Debug.WriteLine($"Value: {value}, {parameter}");
+        //Debug.WriteLine($"Value: {value}, {parameter}");
 
         if (value is RequestsLibrary.Models.Image i)
             value = String.IsNullOrEmpty(i.Url) ? null : i.TotalPath;
