@@ -16,7 +16,7 @@ class NewsUpdateRequest extends ApiRequest
             //'city'      => 'integer|exists:cities,id',
             //'pictures'  => 'array|min:1',
             //'pictures.*'=> 'required|string|exists:images,hash',
-            'cover'     => 'required|string|exists:images,hash'
+            'cover'     => 'string|exists:images,hash'
         ];
     }
 }

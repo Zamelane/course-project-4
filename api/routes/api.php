@@ -121,7 +121,7 @@ Route
     Route::post('', 'store');
     Route::group(['prefix' => '{news}'], function () {
         Route::get   ('',       'show'   );
-        Route::post  ('update', 'update' );
+        Route::post  ('', 'update' );
         Route::delete('',       'destroy');
     });
 });
