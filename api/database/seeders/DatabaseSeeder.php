@@ -61,7 +61,8 @@ class DatabaseSeeder extends Seeder
             'title' => 'Заголовок важной новости',
             'content' => 'Это какая-то очень важная новость',
             'city_id' => $this->cities->random()->id,
-            'user_id' => $reader->id
+            'user_id' => $reader->id,
+            'category_id' => Category::inRandomOrder()->first()->id
         ]);
 
         $comments = Comment::factory(10)->create([

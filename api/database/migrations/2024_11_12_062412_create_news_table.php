@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('city_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->foreignId('image_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('title', 125);
             $table->text('content');
             $table->date('create_date')->default(now());

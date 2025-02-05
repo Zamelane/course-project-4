@@ -23,6 +23,7 @@ class NewsFullResource extends JsonResource
             'cover' => ImageResource::make($this->image),
             'city' => $this->city,
             'tags' => TagResource::collection($this->tags),
+            'category' => $this->category,
             'reactions' => ReactionForTotalResource::collection(
                 $this->reactions()->groupBy('reactions.id')
                     ->select('reactions.id', DB::raw('count(*) as total, emoji'))

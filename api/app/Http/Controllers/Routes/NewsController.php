@@ -19,11 +19,32 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $query = News::orderBy('create_date', 'desc');
+        $query = News::query();
+
+        if (isset(request()->sort))
+        {
+            switch (request()->sort) {
+                case 'FirstOld':
+                    $query->orderBy('create_date', 'asc');
+                    break;
+                case 'Random':
+                    $query->inRandomOrder();
+                    break;
+                case 'FirstMoreViews':
+                    $query->leftJoin('history_views', 'history_views.news_id', '=', 'news.id')
+                        ->select('news.*', \DB::raw('COUNT(history_views.user_id) as views_count'))
+                        ->groupBy('news.id')
+                        ->orderBy('views_count', 'desc');
+                    break;
+            }
+        }
 
         if (isset(request()->search))
             $query->where('title', 'like', '%' . request()->search . '%')
                 ->orWhere('content', 'like', '%' . request()->search . '%');
+
+        if (isset(request()->categories))
+            $query->whereIn('category_id', explode(',', request()->categories));
 
         // TODO: отображать всего количество страниц
         return response()->json(NewsMinResource::collection($query->simplePaginate()));
