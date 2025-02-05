@@ -15,11 +15,13 @@ public class MinNews
 
     [JsonProperty("tags")] public ObservableCollection<Tag> Tags { get; set; }
         = new ObservableCollection<Tag>();
-
+    [JsonProperty("category")] public Category? Category { get; set; }
     [JsonProperty("reactions")] public ObservableCollection<Reaction> Reactions { get; set; } 
         = new ObservableCollection<Reaction>();
 
     [JsonProperty("create_date")] public DateTime CreateDate { get; set; }
 
     [JsonProperty("update_date")] public DateTime? UpdateDate { get; set; }
+    [JsonProperty("comments")] public int Comments { get; set; } = 0;
+    [JsonProperty("views")] public int Views { get; set; } = 0;
 }

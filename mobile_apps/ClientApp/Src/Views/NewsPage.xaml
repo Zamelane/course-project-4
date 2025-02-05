@@ -23,6 +23,7 @@
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
             <cnv:ResultConverter x:Key="ResultConverter"/>
+            <cnv:VisibilityConverter x:Key="VisibilityConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -30,6 +31,7 @@
         <VerticalStackLayout Spacing="{StaticResource MarginMin}">
             <Image x:Name="img"
                    Source="{Binding FullNews.Cover, Converter={StaticResource ResultConverter}, ConverterParameter='news_1.png'}"
+                   IsVisible="{Binding FullNews.Cover, Converter={StaticResource VisibilityConverter}}"
                    Aspect="AspectFill"/>
             <StackLayout Padding="{StaticResource MarginLarge}" Spacing="{StaticResource MarginMin}">
                 <HorizontalStackLayout Spacing="{StaticResource MarginLarge}">
@@ -43,7 +45,7 @@
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="6">
                         <ffimageloading:SvgCachedImage Source="stack.svg" WidthRequest="20" HeightRequest="20" />
-                        <Label Text="Technology" FontSize="14" TextColor="#464D61" />
+                        <Label Text="{Binding FullNews.Category.Name}" FontSize="14" TextColor="#464D61" />
                     </HorizontalStackLayout>
                 </HorizontalStackLayout>
                 <Label 

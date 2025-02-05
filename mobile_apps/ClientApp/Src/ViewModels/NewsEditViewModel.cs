@@ -12,7 +12,7 @@ namespace ClientApp.Src.ViewModels;
 public partial class NewsEditViewModel : ObservableObject
 {
     [NotifyPropertyChangedFor(nameof(PageTitle))]
-    [ObservableProperty] private FullNews editableNews;
+    [ObservableProperty] private FullNews? editableNews = null;
     [ObservableProperty] private Dictionary<string, List<string>> badFields = [];
 
     [ObservableProperty] private ObservableCollection<Category> categories = [];
@@ -21,7 +21,22 @@ public partial class NewsEditViewModel : ObservableObject
     [ObservableProperty] private bool isFetched = false;
 
 
-    public string PageTitle => EditableNews is null ? "Создание новости" : "Редактирование новости";
+    public string PageTitle
+    {
+        get
+        {
+            if (EditableNews is not null)
+                SelectedCategory = EditableNews!.Category;
+            return EditableNews is null ? "Создание новости" : "Редактирование новости";
+        }
+    }
+
+    [RelayCommand]
+    private void OnLoadFullNews()
+    {
+
+    }
+
     [RelayCommand]
     private async Task OpenMenu()
     {
@@ -51,8 +66,10 @@ public partial class NewsEditViewModel : ObservableObject
             null,
             res =>
             {
-                if (res is not null)
+                if (res is not null){
                     Categories = res;
+                    SelectedCategory ??= res.FirstOrDefault();
+                }
 
                 //if (res is not null)
                 //    SelectedCategories.Add(Categories.First());
@@ -62,12 +79,15 @@ public partial class NewsEditViewModel : ObservableObject
 
     private async Task UpdateNews()
     {
+        if (SelectedCategory is null)
+            return;
+
         string url = Fetcher.Config.GetApiUrl("news") + 
             (EditableNews is not null ? $"/{EditableNews.Id}" : "");
 
         RequestParams rp = new()
         {
-            Body = new NewsUpdateRequest(EditableNews?.Title ?? "", EditableNews?.Content ?? "", EditableNews?.Cover?.Hash)
+            Body = new NewsUpdateRequest(EditableNews?.Title ?? "", EditableNews?.Content ?? "", SelectedCategory.Id, EditableNews?.Cover?.Hash)
         };
 
         BadFields = [];
@@ -104,5 +124,13 @@ public partial class NewsEditViewModel : ObservableObject
             EditableNews.Cover = image;
             OnPropertyChanged(nameof(EditableNews));
         }
+    }
+
+    [RelayCommand]
+    public async Task SelectCategory(Category? category)
+    {
+        Debug.WriteLine(category);
+        if (category is not null)
+            SelectedCategory = category;
     }
 }

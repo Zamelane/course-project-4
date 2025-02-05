@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
              xmlns:converters="clr-namespace:ClientApp.Src.Converters"
+             xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
              x:Class="ClientApp.Src.Components.MinNewsCard">
 
     <ContentView.Resources>
@@ -15,32 +16,34 @@
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <!--Мини карточка-->
-            <Frame BorderColor="#E9EAF0" CornerRadius="0" Padding="0" BindingContext="{TemplateBinding FilteredNews}">
+            <mcb:ContentButton StrokeColor="#E9EAF0"
+                               StrokeThickness="1"
+                               CornerRadius="0"
+                               Padding="0"
+                               BindingContext="{TemplateBinding FilteredNews}"
+                               Clicked="ContentButton_Clicked">
                 <Grid ColumnDefinitions="*,100" RowDefinitions="100">
                     <Grid RowDefinitions="auto,*" Margin="20,16">
                         <Label MaxLines="2" LineBreakMode="TailTruncation" FontSize="14" FontFamily="Nunito"
-                               Text="{Binding Title}" />
+               Text="{Binding Title}" />
                         <!--Социальная информация-->
                         <Grid Grid.Row="1" VerticalOptions="End" Margin="0,12,0,0" ColumnDefinitions="auto,auto,*,auto"
-                              ColumnSpacing="16">
+              ColumnSpacing="16">
                             <HorizontalStackLayout Spacing="6">
                                 <!--<Image Source="eye_no_accent.png" WidthRequest="20" HeightRequest="20" />-->
                                 <ffimageloading:SvgCachedImage Source="eye_no_accent_raw.svg" WidthRequest="20" HeightRequest="20" />
-                                <Label Text="32.7k" FontFamily="Nunito" FontSize="14" TextColor="#767E94" />
+                                <Label Text="{Binding Views}" FontFamily="Nunito" FontSize="14" TextColor="#767E94" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Spacing="6" Grid.Column="1">
                                 <!--<Image Source="chat_no_accent.png" WidthRequest="20" HeightRequest="20" />-->
                                 <ffimageloading:SvgCachedImage Source="chat_no_accent_raw.svg" WidthRequest="20" HeightRequest="20" />
-                                <Label Text="94 Comments" FontFamily="Nunito" FontSize="14" TextColor="#767E94" />
+                                <Label Text="{Binding Comments}" FontFamily="Nunito" FontSize="14" TextColor="#767E94" />
                             </HorizontalStackLayout>
                         </Grid>
                     </Grid>
                     <Image Source="{Binding Cover, Converter={StaticResource ResultConverter}, ConverterParameter='news_1.png'}" Aspect="AspectFill" Grid.Column="1" />
                 </Grid>
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                </Frame.GestureRecognizers>
-            </Frame>
+            </mcb:ContentButton>
         </ControlTemplate>
     </ContentView.ControlTemplate>
 

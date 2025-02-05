@@ -83,7 +83,7 @@
             </Grid>
         </StackLayout>
         <RefreshView Grid.Row="1"
-                     Command="{Binding FetchSearchNewsCommand}"
+                     Command="{Binding AllUpdateCommand}"
                      IsRefreshing="{Binding IsFetching}">
             <Grid>
                 <CollectionView ItemsSource="{Binding FilteredNews}"
@@ -96,6 +96,7 @@
                             <Grid ColumnDefinitions="*,*" ColumnSpacing="16" Padding="20">
                                 <StackLayout Spacing="9">
                                     <Label Text="Category" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
+                                    <!-- -->
                                     <controls:Select ItemsSource="{Binding Categories}"
                                                      Title="Выберите категорию"
                                                      SelectedText="{Binding SelectedCategoriesTitle}"
@@ -111,7 +112,19 @@
                                 </StackLayout>
                                 <StackLayout Spacing="9" Grid.Column="1">
                                     <Label Text="Sort by" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
-                                    <controls:Select />
+                                    <!-- -->
+                                    <controls:Select ItemsSource="{Binding TypesSortBy}"
+                                                     Title="Выберите сортировку"
+                                                     SelectedText="{Binding SelectedOrderTitle}"
+                                                     ItemsSelected="{Binding SortBy}"
+                                                     Command="{Binding SelectSortCommand}"
+                                                     IsMultiple="False">
+                                        <controls:Select.ItemTemplate>
+                                            <DataTemplate>
+                                                <Label Text="{Binding .}" FontSize="16" HeightRequest="55" VerticalTextAlignment="Center" Padding="5"/>
+                                            </DataTemplate>
+                                        </controls:Select.ItemTemplate>
+                                    </controls:Select>
 
                                 </StackLayout>
                             </Grid>
@@ -159,7 +172,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <components:MinNewsCard FilteredNews="{Binding .}" Margin="10,0"/>
+                            <components:DefaultNewsCard FilteredNews="{Binding .}" Margin="10,0"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                     <!--<CollectionView.Footer>

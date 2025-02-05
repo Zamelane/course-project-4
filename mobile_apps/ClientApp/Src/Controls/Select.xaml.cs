@@ -32,10 +32,10 @@ public partial class Select : ContentView
     //}
 
     public static readonly BindableProperty ItemsSelectedProperty = BindableProperty.Create(
-        nameof(ItemsSelected), typeof(object), typeof(Select), null, BindingMode.TwoWay);
-    public object? ItemsSelected
+        nameof(ItemsSelected), typeof(object), typeof(Select), default, BindingMode.TwoWay);
+    public object ItemsSelected
     {
-        get => (object?)GetValue(ItemsSelectedProperty);
+        get => (object)GetValue(ItemsSelectedProperty);
         set => SetValue(ItemsSelectedProperty, value);
     }
 
@@ -123,14 +123,14 @@ public partial class Select : ContentView
             if (IsMultiple)
                 ItemsSelected = collection;
             else ItemsSelected = collection.FirstOrDefault();
-            Command?.Execute(null);
+            Command?.Execute(ItemsSelected);
             return;
         }
 
         if (result is object)
         {
             ItemsSelected = result;
-            Command?.Execute(null);
+            Command?.Execute(ItemsSelected);
         }
     }
 

@@ -5,14 +5,14 @@ namespace ClientApp.Src.Components;
 
 public partial class MinNewsCard : ContentView
 {
-    public static readonly BindableProperty FilteredNewsProperty = BindableProperty.Create(
-        nameof(FilteredNews), typeof(MinNews), typeof(DefaultNewsCard), null, BindingMode.TwoWay
-    );
-
     public MinNewsCard()
     {
         InitializeComponent();
     }
+
+    public static readonly BindableProperty FilteredNewsProperty = BindableProperty.Create(
+        nameof(FilteredNews), typeof(MinNews), typeof(DefaultNewsCard), null, BindingMode.TwoWay
+    );
 
     public MinNews? FilteredNews
     {
@@ -20,7 +20,7 @@ public partial class MinNewsCard : ContentView
         set => SetValue(FilteredNewsProperty, value);
     }
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private void ContentButton_Clicked(object sender, EventArgs e)
     {
         if (FilteredNews is null)
             return;

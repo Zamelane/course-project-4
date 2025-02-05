@@ -116,7 +116,7 @@
                         <controls:Select ItemsSource="{Binding Categories}"
                                          Title="Выберите категорию"
                                          SelectedText="{Binding SelectedCategory.Name}"
-                                         ItemsSelected="{Binding SelectedCategory}"
+                                         Command="{Binding SelectCategoryCommand}"
                                          IsMultiple="False">
                             <controls:Select.ItemTemplate>
                                 <DataTemplate>

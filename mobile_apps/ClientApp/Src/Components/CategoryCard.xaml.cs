@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace ClientApp.Src.Components;
 
 public partial class CategoryCard : ContentView
@@ -32,5 +34,10 @@ public partial class CategoryCard : ContentView
     {
         get => Color.FromArgb((string)GetValue(CardColorProperty));
         set => SetValue(CardColorProperty, value);
+    }
+
+    private void ContentButton_Clicked(object sender, EventArgs e)
+    {
+        Debug.WriteLine("Категория нажата");
     }
 }
