@@ -57,7 +57,7 @@ trait PolicyMapRegister
             return;
 
         if (!class_exists($this->modelToReg))
-            throw new Exception('Model not found');
+            throw new Exception('Model ' . $this->modelToReg . ' not found');
 
         $policyInfo = $this->getMapForClassMethods($policyClass);
         $controllerInfo = $this->getMapForClassMethods($targetClass);
@@ -107,6 +107,10 @@ trait PolicyMapRegister
         foreach ($iterator as $dir)
             if (!$dir->isDir() && substr($dir->getFileName(), 0, -(strlen($dir->getExtension()) + 1)) === $name) {
                 $path = $dir->getPath();
+                $path = str_replace('/', '\\', $path);
+                while (strpos($path, 'app\\app') !== false) {
+                    $path = str_replace('app\\app', 'app', $path);
+                }
                 return 'App\\' . explode('app\\', $path)[1] . "\\{$name}";
             }
         return null;
