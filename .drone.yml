@@ -14,6 +14,5 @@ steps:
     VERSION_ID: 22.04
   commands:
   - cd mobile_apps/ClientApp
-  - dotnet workload install maui --ignore-failed-sources
   - dotnet restore
   - dotnet publish -c Release -f net9.0-android -o ./build
