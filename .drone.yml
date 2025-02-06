@@ -10,5 +10,5 @@ steps:
   - dotnet workload restore
   - dotnet workload install android --ignore-failed-sources
   - dotnet restore
-  - dotnet msbuild ./ClientApp.csproj -t:InstallAndroidDependencies -p:AndroidSdkDirectory=/opt/android-sdk -p:AcceptAndroidSDKLicenses=true
+  - dotnet msbuild ./ClientApp.csproj -p:AndroidSdkDirectory=/opt/android-sdk -p:AcceptAndroidSDKLicenses=true
   - dotnet publish -c Release -p:AndroidSdkDirectory=/opt/android-sdk -f net9.0-android -o ./build
