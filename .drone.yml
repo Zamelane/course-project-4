@@ -4,7 +4,7 @@ name: default
 
 steps:
 - name: build apps
-  image: mcr.microsoft.com/dotnet/sdk:6.0
+  image: mcr.microsoft.com/dotnet/sdk:9.0
   commands:
   - cd mobile_apps/ClientApp
   - dotnet publish -c Release -f net9.0-android -o ./build
