@@ -4,7 +4,9 @@ name: default
 
 steps:
 - name: build client app
-  image: windows-latest
+  image: mcr.microsoft.com/dotnet/sdk:9.0
+  environment:
+    - ID: linux
   commands:
   - cd mobile_apps/ClientApp
   - dotnet workload install maui --ignore-failed-sources
