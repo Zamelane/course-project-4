@@ -68,7 +68,7 @@
                 </controls:IconEntry>
                 <!--Перезагрузка-->
                 <ImageButton Grid.Column="1"
-                             Command="{Binding FetchSearchNewsCommand}"
+                             Command="{Binding AllUpdateCommand}"
                              WidthRequest="55"
                              HeightRequest="55"
                              Margin="0,0,20,0"
@@ -83,38 +83,48 @@
             </Grid>
         </StackLayout>
         <RefreshView Grid.Row="1"
-                 Command="{Binding FetchSearchNewsCommand}"
-                 IsRefreshing="{Binding FetchSearchNewsCommand.IsRunning}">
-            <Grid Padding="10,0">
+                     Command="{Binding AllUpdateCommand}"
+                     IsRefreshing="{Binding IsFetching}">
+            <Grid>
                 <CollectionView ItemsSource="{Binding FilteredNews}"
                                 RemainingItemsThresholdReachedCommand="{Binding FetchMoreNewsCommand}"
                                 RemainingItemsThreshold="{Binding PageSize}"
                                 ItemsUpdatingScrollMode="KeepScrollOffset">
                     <CollectionView.Header>
-                        <StackLayout>
+                        <StackLayout Margin="0,0,0,5">
                             <!--Фильтры select'ом-->
                             <Grid ColumnDefinitions="*,*" ColumnSpacing="16" Padding="20">
                                 <StackLayout Spacing="9">
                                     <Label Text="Category" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
+                                    <!-- -->
                                     <controls:Select ItemsSource="{Binding Categories}"
                                                      Title="Выберите категорию"
-                                                     SelectedText="{Binding SelectedCategories[0].Name}"
+                                                     SelectedText="{Binding SelectedCategoriesTitle}"
                                                      ItemsSelected="{Binding SelectedCategories}"
+                                                     Command="{Binding SelectCategoriesCommand}"
                                                      IsMultiple="True">
                                         <controls:Select.ItemTemplate>
                                             <DataTemplate>
-                                                <components:MinCategoryCard Text="{Binding Name}" IconSource="{Binding Image.Path}" CardColor="{Binding BackgroundColor}">
-                                                    <components:MinCategoryCard.GestureRecognizers>
-                                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                                    </components:MinCategoryCard.GestureRecognizers>
-                                                </components:MinCategoryCard>
+                                                <components:MinCategoryCard Text="{Binding Name}" IconSource="{Binding Image.Path}" CardColor="{Binding BackgroundColor}"/>
                                             </DataTemplate>
                                         </controls:Select.ItemTemplate>
                                     </controls:Select>
                                 </StackLayout>
                                 <StackLayout Spacing="9" Grid.Column="1">
                                     <Label Text="Sort by" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
-                                    <controls:Select />
+                                    <!-- -->
+                                    <controls:Select ItemsSource="{Binding TypesSortBy}"
+                                                     Title="Выберите сортировку"
+                                                     SelectedText="{Binding SelectedOrderTitle}"
+                                                     ItemsSelected="{Binding SortBy}"
+                                                     Command="{Binding SelectSortCommand}"
+                                                     IsMultiple="False">
+                                        <controls:Select.ItemTemplate>
+                                            <DataTemplate>
+                                                <Label Text="{Binding .}" FontSize="16" HeightRequest="55" VerticalTextAlignment="Center" Padding="5"/>
+                                            </DataTemplate>
+                                        </controls:Select.ItemTemplate>
+                                    </controls:Select>
 
                                 </StackLayout>
                             </Grid>
@@ -124,21 +134,28 @@
                                        Opacity="0.5" />
 
                             <!--Теги-->
-                            <Grid RowDefinitions="auto, auto" ColumnDefinitions="*, auto" RowSpacing="12" Padding="0,20">
+                            <Grid RowDefinitions="auto, auto" ColumnDefinitions="*, auto" RowSpacing="12" Padding="0,10,0,10">
                                 <Label Text="TAGS" FontSize="16" FontAttributes="Bold" Padding="20,0"/>
                                 <ScrollView Grid.Row="1" Orientation="Horizontal" Padding="{OnPlatform WinUI='0,0,0,14', Default='20,0'}">
-                                    <HorizontalStackLayout Spacing="10">
-                                        <Label FontSize="16" FontAttributes="Bold" Text="Lifestyle"
-                                                   BackgroundColor="{StaticResource Gray60}" Padding="12,6" />
-                                        <Label FontSize="16" FontAttributes="Bold" Text="Food"
-                                                   BackgroundColor="{StaticResource Gray60}" Padding="12,6" />
-                                        <Label FontSize="16" FontAttributes="Bold" Text="Adobe XD"
-                                                   BackgroundColor="{StaticResource Gray60}" Padding="12,6" />
-                                        <Label FontSize="16" FontAttributes="Bold" Text="Figma"
-                                                   BackgroundColor="{StaticResource Gray60}" Padding="12,6" />
-                                        <Label FontSize="16" FontAttributes="Bold" Text="React Native"
-                                                   BackgroundColor="{StaticResource Gray60}" Padding="12,6" />
-                                    </HorizontalStackLayout>
+                                    <CollectionView ItemsSource="{Binding Tags}">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="7"/>
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BackgroundColor="{StaticResource Gray60}">
+                                                    <Border.StrokeShape>
+                                                        <RoundRectangle CornerRadius="5"/>
+                                                    </Border.StrokeShape>
+                                                    <Label FontSize="16"
+                                                           FontAttributes="Bold"
+                                                           VerticalOptions="Center" 
+                                                           Text="{Binding Name}"
+                                                           Padding="12,6"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
                                 </ScrollView>
                             </Grid>
 
@@ -150,19 +167,19 @@
                     </CollectionView.Header>
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout 
-                        Orientation="Vertical"
-                        VerticalItemSpacing="{StaticResource MarginPreMin}" />
+                            Orientation="Vertical"
+                            VerticalItemSpacing="{StaticResource MarginPreMin}" HorizontalItemSpacing="20"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <components:MinNewsCard FilteredNews="{Binding .}" Margin="0,10"/>
+                            <components:DefaultNewsCard FilteredNews="{Binding .}" Margin="10,0"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
+                    <!--<CollectionView.Footer>
                         <HorizontalStackLayout HorizontalOptions="Center">
                             <Label Text="Ничего нет" FontAttributes="Bold" FontSize="16" IsVisible="{Binding IsFetching, Converter={StaticResource InvertedBoolConverter}}"/>
                         </HorizontalStackLayout>
-                    </CollectionView.EmptyView>
+                    </CollectionView.Footer>-->
                 </CollectionView>
             </Grid>
         </RefreshView>

@@ -78,7 +78,7 @@ internal static class Auxiliary
     public static string SymbolsToReadTime(int symbols)
     {
         // Сколько символов в минуту читаем
-        int symbolsInSeconds = 25;
+        int symbolsInSeconds = 14;
 
         List<string> units = ["секунд", "минут", "часов", "дней", "месяцев", "лет"];
         List<int>   limits = [60, 60, 24, 31, 12, 1000];

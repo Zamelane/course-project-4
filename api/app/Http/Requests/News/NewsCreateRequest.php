@@ -13,10 +13,11 @@ class NewsCreateRequest extends ApiRequest
             'content'   => 'required|string|min:50',
             'tags'      => 'array',
             'tags.*'    => 'integer|exists:tags,id',
-            'city'      => 'integer|exists:cities,id',
-            'pictures'  => 'array|min:1',
-            'pictures.*'=> 'required|string|exists:images,hash',
-            'cover'     => 'required|string|exists:images,hash'
+            //'city'      => 'integer|exists:cities,id',
+            //'pictures'  => 'array|min:1',
+            //'pictures.*'=> 'required|string|exists:images,hash',
+            'category_id' => 'required|integer|exists:categories,id',
+            'cover'     => 'string|exists:images,hash'
         ];
     }
 }

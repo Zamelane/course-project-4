@@ -3,18 +3,22 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
              x:Class="ClientApp.Src.Components.CategoryCard">
 
     <ContentView.ControlTemplate>
         <ControlTemplate>
-            <Frame CornerRadius="4" BorderColor="Transparent" Padding="{StaticResource MarginSmall}"
-                   BackgroundColor="{TemplateBinding CardColor}">
+            <mcb:ContentButton CornerRadius="4"
+                               StrokeColor="Transparent"
+                               Padding="{StaticResource MarginSmall}"
+                               BackgroundColor="{TemplateBinding CardColor}"
+                               Clicked="ContentButton_Clicked">
                 <VerticalStackLayout Spacing="16">
                     <ffimageloading:SvgCachedImage Source="{TemplateBinding IconSource}" HorizontalOptions="Start"
-                                                   WidthRequest="24" HeightRequest="24" />
+                                   WidthRequest="24" HeightRequest="24" />
                     <Label Text="{TemplateBinding Text}" FontSize="14" FontFamily="Nunito" />
                 </VerticalStackLayout>
-            </Frame>
+            </mcb:ContentButton>
         </ControlTemplate>
     </ContentView.ControlTemplate>
 

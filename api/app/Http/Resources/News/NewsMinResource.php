@@ -27,6 +27,9 @@ class NewsMinResource extends JsonResource
                     ->get()
             ),
             'cover' => ImageResource::make($this->image),
+            "comments" => $this->commentsCount(),
+            "views" => $this->viewsCount(),
+            'category' => $this->category,
             'create_date' => $this->create_date,
             'update_date' => $this->update_date
         ];

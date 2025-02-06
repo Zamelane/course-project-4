@@ -9,14 +9,15 @@ class NewsUpdateRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'title'     => 'string|min:15|max:125',
-            'content'   => 'string|min:50',
-            'tags'      => 'array',
-            'tags.*'    => 'integer|exists:tags,id',
+            'title'       => 'string|min:15|max:125',
+            'content'     => 'string|min:50',
+            'tags'        => 'array',
+            'tags.*'      => 'integer|exists:tags,id',
             //'city'      => 'integer|exists:cities,id',
             //'pictures'  => 'array|min:1',
             //'pictures.*'=> 'required|string|exists:images,hash',
-            'cover'     => 'required|string|exists:images,hash'
+            'category_id' => 'integer|exists:categories,id',
+            'cover'       => 'string|exists:images,hash'
         ];
     }
 }

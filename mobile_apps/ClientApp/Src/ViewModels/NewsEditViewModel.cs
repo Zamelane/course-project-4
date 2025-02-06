@@ -1,19 +1,41 @@
-﻿using ClientApp.Src.Utils;
+﻿using ClientApp.Src.Storage;
+using ClientApp.Src.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
 using RequestsLibrary.Models;
 using RequestsLibrary.Requests;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace ClientApp.Src.ViewModels;
 public partial class NewsEditViewModel : ObservableObject
 {
-    [ObservableProperty] private RequestsLibrary.Models.Image? cover = null;
-    [ObservableProperty] private string title;
-    [ObservableProperty] private string content;
+    [NotifyPropertyChangedFor(nameof(PageTitle))]
+    [ObservableProperty] private FullNews? editableNews = null;
+    [ObservableProperty] private Dictionary<string, List<string>> badFields = [];
+
+    [ObservableProperty] private ObservableCollection<Category> categories = [];
+    [ObservableProperty] private Category? selectedCategory = null;
 
     [ObservableProperty] private bool isFetched = false;
+
+
+    public string PageTitle
+    {
+        get
+        {
+            if (EditableNews is not null)
+                SelectedCategory = EditableNews!.Category;
+            return EditableNews is null ? "Создание новости" : "Редактирование новости";
+        }
+    }
+
+    [RelayCommand]
+    private void OnLoadFullNews()
+    {
+
+    }
 
     [RelayCommand]
     private async Task OpenMenu()
@@ -31,14 +53,44 @@ public partial class NewsEditViewModel : ObservableObject
             await UpdateNews();
     }
 
+    public NewsEditViewModel()
+    {
+        _ = FetchCategories();
+    }
+
+    private async Task FetchCategories()
+    {
+        await Auxiliary.RunWithStateHandlingWithoutResponse<ObservableCollection<Category>?>(
+            () => Provider.CategoriesViewModel.Fetch(),
+            null,
+            null,
+            res =>
+            {
+                if (res is not null){
+                    Categories = res;
+                    SelectedCategory ??= res.FirstOrDefault();
+                }
+
+                //if (res is not null)
+                //    SelectedCategories.Add(Categories.First());
+            }
+        );
+    }
+
     private async Task UpdateNews()
     {
-        string url = Fetcher.Config.GetApiUrl("news");
+        if (SelectedCategory is null)
+            return;
+
+        string url = Fetcher.Config.GetApiUrl("news") + 
+            (EditableNews is not null ? $"/{EditableNews.Id}" : "");
 
         RequestParams rp = new()
         {
-            Body = new NewsUpdateRequest(Title, Content, Cover?.Hash)
+            Body = new NewsUpdateRequest(EditableNews?.Title ?? "", EditableNews?.Content ?? "", SelectedCategory.Id, EditableNews?.Cover?.Hash)
         };
+
+        BadFields = [];
 
         var result = await Auxiliary.RunWithStateHandling(
             async () => await Fetcher.Fetch<FullNews>(HttpMethod.Post, url, rp),
@@ -52,9 +104,15 @@ public partial class NewsEditViewModel : ObservableObject
                 if (r is null)
                     return;
 
-                Shell.Current.Navigation.PopAsync();
+                if (EditableNews is null)
+                    Shell.Current.Navigation.PopToRootAsync();
+                else
+                    Shell.Current.Navigation.PopAsync();
             }
         );
+
+        if (result?.Error?.ValidationResponse is not null)
+            BadFields = result.Error.ValidationResponse.Errors ?? [];
     }
 
     [RelayCommand]
@@ -62,7 +120,17 @@ public partial class NewsEditViewModel : ObservableObject
     {
         var image = await ImageUploader.SelectAndValidateImageAsync();
 
-        if (image is not null)
-            Cover = image;
+        if (image is not null){
+            EditableNews.Cover = image;
+            OnPropertyChanged(nameof(EditableNews));
+        }
+    }
+
+    [RelayCommand]
+    public async Task SelectCategory(Category? category)
+    {
+        Debug.WriteLine(category);
+        if (category is not null)
+            SelectedCategory = category;
     }
 }

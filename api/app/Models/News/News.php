@@ -2,6 +2,7 @@
 
 namespace App\Models\News;
 
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Comment\Comment;
 use App\Models\Favourite;
@@ -31,6 +32,7 @@ class News extends Model
         'city_id',
         'image_id',
         'content',
+        'category_id',
         'create_date',
         'update_date'
     ];
@@ -79,6 +81,11 @@ class News extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function isBookmarked()

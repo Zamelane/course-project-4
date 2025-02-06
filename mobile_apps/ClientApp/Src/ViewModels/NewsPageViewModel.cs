@@ -109,9 +109,10 @@ public partial class NewsPageViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OpenEditNews()
+    private async Task OpenEditNews()
     {
-        Shell.Current.Navigation.PushAsync(new NewsEditPage());
+        await Shell.Current.Navigation.PushAsync(new NewsEditPage(FullNews));
+        await UpdateNews();
     }
 
     public void ChangedAll()
