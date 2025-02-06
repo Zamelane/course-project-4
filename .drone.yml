@@ -7,7 +7,6 @@ steps:
   image: mcr.microsoft.com/dotnet/sdk:9.0
   commands:
   - cd mobile_apps/ClientApp
-  - dotnet workload install android --ignore-failed-sources
   - dotnet workload install maui --ignore-failed-sources
   - dotnet restore
   - dotnet publish -c Release -f net9.0-android -o ./build
