@@ -3,15 +3,9 @@ type: docker
 name: default
 
 steps:
-- name: open directory project
-  commands:
-  - cd mobile_apps/ClientApp
-
-- name: restote packages
+- name: build client app
   image: mcr.microsoft.com/dotnet/sdk:9.0
   commands:
+  - cd mobile_apps/ClientApp
   - dotnet restore
-
-- name: build client app
-  commands:
   - dotnet publish -c Release -f net9.0-android -o ./build
