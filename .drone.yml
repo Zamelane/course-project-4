@@ -7,8 +7,10 @@ steps:
   image: mcr.microsoft.com/dotnet/sdk:9.0
   commands:
   - cd mobile_apps/ClientApp
+  - mkdir -p /usr/local/android-sdk
+  - mkdir -p /usr/local/java-jdk
   - dotnet workload restore
   - dotnet workload install android --ignore-failed-sources
   - dotnet restore
-  - dotnet build -t:InstallAndroidDependencies -f net9.0-android -p:AndroidSdkDirectory=c:\work\android-sdk -p:JavaSdkDirectory=c:\work\jdk -p:AcceptAndroidSdkLicenses=True
+  - dotnet build -t:InstallAndroidDependencies -f net9.0-android -p:AndroidSdkDirectory=/usr/local/android-sdk -p:JavaSdkDirectory=/usr/local/java-jdk -p:AcceptAndroidSdkLicenses=True
   - dotnet publish -c Release -f net9.0-android -o ./build
