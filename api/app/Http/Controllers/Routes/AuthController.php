@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Routes;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserRegistrationRequest;
+use App\Http\Resources\User\FullUserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ class AuthController extends Controller
         return response([
             'success' => true,
             'token' => $token,
-            'user' => $user
+            'user' => FullUserResource::make($user)
         ]);
     }
 
