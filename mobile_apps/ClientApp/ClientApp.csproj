@@ -213,6 +213,9 @@
         <MauiXaml Update="Src\Views\NewsPage.xaml">
           <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
+        <MauiXaml Update="Src\Views\ProfilePage.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
         <MauiXaml Update="Src\Views\SettingsPage.xaml">
             <Generator>MSBuild:Compile</Generator>
         </MauiXaml>

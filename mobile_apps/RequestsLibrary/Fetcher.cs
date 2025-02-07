@@ -21,7 +21,7 @@ public static class Fetcher
         _token = token;
     }
 
-    public static Action ErrorConnectedAction = () => Debug.WriteLine("Ошибка подклчения");
+    public static Action ErrorConnectedAction = () => Debug.WriteLine("Ошибка подключения");
 
     public static async Task<Response<T?>> Fetch<T>(
         HttpMethod method,

@@ -35,7 +35,7 @@ public partial class LoginViewModel : ObservableObject
 
         var body = response.Content!;
 
-        AuthData.SaveAuthData(body.Token!, body.User!);
+        Provider.AuthData.SaveAuthData(body.Token!, body.User!);
         await Shell.Current.GoToAsync("//Main");
         Provider.AppShell!.SetEnabledTabsAll(true);
     }

@@ -61,7 +61,7 @@ public partial class NewsPageViewModel : ObservableObject
 
     public bool CanAddToBookmarks => News is not null
         && FullNews is not null
-        && AuthData.Token is not null;
+        && Provider.AuthData.Token is not null;
     //public bool CanAddToBookmarks
     //{
     //    get

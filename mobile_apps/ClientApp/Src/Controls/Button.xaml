@@ -7,10 +7,10 @@
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <Button Text="{TemplateBinding Text}"
-                    Command="{TemplateBinding Command}"
-                    FontAttributes="Bold"
                     Background="{StaticResource Primary500}"
                     TextColor="{StaticResource White}"
+                    Command="{TemplateBinding Command}"
+                    FontAttributes="Bold"
                     FontSize="14"
                     FontFamily="Nunito"
                     ImageSource="arrow_right_white.png"

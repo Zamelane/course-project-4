@@ -1,5 +1,6 @@
 ﻿using ClientApp.Src.Popups;
 using ClientApp.Src.Storage;
+using ClientApp.Src.Views;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -41,9 +42,15 @@ public partial class SettingsViewModel : ObservableObject
         if (!isExit)
             return;
 
-        AuthData.Token = null;
-        AuthData.User = null;
+        Provider.AuthData.Token = null;
+        Provider.AuthData.User = null;
         await Shell.Current.GoToAsync("//Main");
         Provider.AppShell?.SetEnabledTabsAll(false);
+    }
+
+    [RelayCommand]
+    private async Task GotoProfile()
+    {
+        await Shell.Current.Navigation.PushAsync(new ProfilePage());
     }
 }

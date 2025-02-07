@@ -1,15 +1,17 @@
-﻿using RequestsLibrary;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using RequestsLibrary;
 using RequestsLibrary.Models;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace ClientApp.Src.Storage;
 
-public static class AuthData
+public class AuthData : ObservableObject
 {
-    private static string? _token;
-    private static User? _user;
+    private string? _token;
+    private User? _user;
 
-    public static string? Token
+    public string? Token
     {
         get => _token ??= SecureStorage.GetAsync("token").Result;
         set
@@ -23,7 +25,7 @@ public static class AuthData
         }
     }
 
-    public static User? User
+    public User? User
     {
         get
         {
@@ -44,12 +46,19 @@ public static class AuthData
                 Preferences.Remove("user");
             else
                 Preferences.Set("user", JsonSerializer.Serialize(value));
+
+            OnPropertyChanged(nameof(User));
         }
     }
 
-    public static void SaveAuthData(string token, User user)
+    public void SaveAuthData(string token, User user)
     {
         Token = token;
         User = user;
+    }
+
+    public void Changed()
+    {
+        OnPropertyChanged(nameof(User));
     }
 }

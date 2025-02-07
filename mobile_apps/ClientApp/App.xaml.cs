@@ -16,7 +16,7 @@ public partial class App : Application
 
         MainPage = new AppShell();
 
-        if (AuthData.User != null && AuthData.Token != null)
+        if (Provider.AuthData.User != null && Provider.AuthData.Token != null)
             Provider.AppShell.SetEnabledTabsAll(true);
 
         Fetcher.ErrorConnectedAction = () =>

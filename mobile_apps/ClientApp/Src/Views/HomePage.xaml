@@ -6,10 +6,18 @@
              xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              xmlns:components="clr-namespace:ClientApp.Src.Components"
+             xmlns:cnv="clr-namespace:ClientApp.Src.Converters"
              x:Class="ClientApp.Src.Views.HomePage">
     <ContentPage.BindingContext>
         <viewModels:HomeViewModel />
     </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cnv:ResultConverter x:Key="ResultConverter" />
+            <toolkit:IsNullConverter x:Key="IsNullConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Page.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary600}" StatusBarStyle="Default" />
@@ -42,18 +50,21 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
-                <Image>
-                    <Image.Source>
-                        <toolkit:GravatarImageSource
-                            CacheValidity="1"
-                            CachingEnabled="True"
-                            Email="test@mail.ru"
-                            Image="Robohash" />
-                    </Image.Source>
-                </Image>
+                <Grid>
+                    <Image IsVisible="{Binding User.Avatar, Converter={StaticResource IsNullConverter}}">
+                        <Image.Source>
+                            <toolkit:GravatarImageSource
+                                CacheValidity="1"
+                                CachingEnabled="True"
+                                Email="{Binding Email}"
+                                Image="Robohash" />
+                        </Image.Source>
+                    </Image>
+                    <Image Source="{Binding User.Avatar.TotalPath}" Aspect="AspectFill" />
+                </Grid>
             </Border>
             <!--Строка поиска-->
-            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1"
+            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search ..." Grid.Column="1"
                                    VerticalOptions="Center" />
             <!--Перезагрузка-->
             <ImageButton Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCommand}" Background="Transparent">
