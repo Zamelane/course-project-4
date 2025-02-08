@@ -12,6 +12,7 @@ use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -30,14 +31,27 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, User $user)
     {
         $data = $request->validated();
+        $dataToUpdate = [];
 
         if (isset($data['avatar']))
         {
             $image = Image::where(['hash' => $data['avatar']])->first();
-            $data['image_id'] = $image->id;
+            $dataToUpdate['image_id'] = $image->id;
         }
 
-        $user->update($data);
+        if (isset($data['firstName']))
+            $dataToUpdate['firstName'] = $data['firstName'];
+
+        if (isset($data['lastName']))
+            $dataToUpdate['lastName'] = $data['lastName'];
+
+        if (isset($data['email']))
+            $dataToUpdate['email'] = $data['email'];
+
+        if (isset($data['password']))
+            $dataToUpdate['password'] = $data['password'];
+
+        $user->update($dataToUpdate);
 
         return response()->json(
             $request->user()->isAdministrator()
