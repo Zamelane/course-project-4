@@ -59,6 +59,7 @@ public class AuthData : ObservableObject
 
     public void Changed()
     {
+        this.User = this.User;
         OnPropertyChanged(nameof(User));
     }
 }

@@ -123,7 +123,7 @@ public partial class NewsPageViewModel : ObservableObject
     [RelayCommand]
     private async Task OpenCommentsPage()
     {
-        await Shell.Current.Navigation.PushModalAsync(new CommentsPage());
+        await Shell.Current.Navigation.PushModalAsync(new CommentsPage(News.Id));
     }
 
     public void ChangedAll()

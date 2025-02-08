@@ -22,6 +22,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+            <toolkit:IsNullConverter x:Key="IsNullConverter"/>
             <cnv:ResultConverter x:Key="ResultConverter"/>
             <cnv:VisibilityConverter x:Key="VisibilityConverter"/>
         </ResourceDictionary>
@@ -156,8 +157,8 @@
                        Opacity="0.5"
                        Margin="0,0,0,-20"/>
                 
-                <mcb:ContentButton Command="{Binding OpenCommentsPageCommand}" Padding="0,20">
-                    <Grid ColumnDefinitions="auto, *, auto" Margin="20,0">
+                <mcb:ContentButton Command="{Binding OpenCommentsPageCommand}" StrokeThickness="0">
+                    <Grid ColumnDefinitions="auto, *, auto" Padding="20,20">
                         <Label FontSize="18" TextColor="{StaticResource Gray900}">
                             <Label.FormattedText>
                                 <FormattedString>
