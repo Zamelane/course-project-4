@@ -46,8 +46,19 @@ class NewsController extends Controller
         if (isset(request()->categories))
             $query->whereIn('category_id', explode(',', request()->categories));
 
+        if (request()->has("me")) {
+            $user = auth()->user();
+            if (isset($user))
+                $query->where('news.user_id', '=', $user->id);
+        }
+
+        $paginate = $query->paginate(isset(request()->limit) ? request()->limit : 15);
+
         // TODO: отображать всего количество страниц
-        return response()->json(NewsMinResource::collection($query->simplePaginate()));
+        return response()->json([
+            "news" => NewsMinResource::collection($paginate),
+            "total" => $paginate->total()
+        ]);
     }
 
     public function mostRead()
