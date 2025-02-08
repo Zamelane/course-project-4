@@ -1,5 +1,6 @@
 using ClientApp.Src.ViewModels;
 using RequestsLibrary.Models;
+using System.Diagnostics;
 
 namespace ClientApp.Src.Views;
 
@@ -9,8 +10,6 @@ public partial class NewsEditPage : ContentPage
 	{
 		InitializeComponent();
 
-		if (BindingContext is NewsEditViewModel nevm){
-			nevm.EditableNews = editableNews ?? new();
-		}
+		BindingContext = new NewsEditViewModel(editableNews);
 	}
 }

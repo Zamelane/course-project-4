@@ -150,8 +150,8 @@ public partial class BrowseViewModel : ObservableObject
                 if (fn is null)
                     return;
                 if (page != 1)
-                    fn.ToList().ForEach(FilteredNews.Add);
-                else FilteredNews = fn;
+                    fn.News.ToList().ForEach(FilteredNews.Add);
+                else FilteredNews = fn.News;
             }
         );
 
@@ -162,7 +162,7 @@ public partial class BrowseViewModel : ObservableObject
             return;
 
         // Если не вернулись элементы, то не загружаем следующие страницы
-        if (response.Content?.Count == 0)
+        if (response.Content?.News.Count == 0)
         {
             IsEndPage = true;
             return;

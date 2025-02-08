@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientApp.Src.Components.Avatar">
+
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <mcb:ContentButton WidthRequest="40"
+                   HeightRequest="40"
+                   BackgroundColor="{StaticResource White}"
+                   StrokeColor="{StaticResource Gray100}"
+                   CornerRadius="5"
+                   Command="{Binding OpenProfileEditorPageCommand}">
+                <Grid>
+                    <Image IsVisible="{Binding User.Avatar, Converter={StaticResource IsNullConverter}}">
+                        <Image.Source>
+                            <toolkit:GravatarImageSource
+                    CacheValidity="1"
+                    CachingEnabled="True"
+                    Email="{Binding Email}"
+                    Image="Robohash" />
+                        </Image.Source>
+                    </Image>
+                    <Image Source="{Binding User.Avatar.TotalPath}" Aspect="AspectFill" />
+                </Grid>
+            </mcb:ContentButton>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+
+</ContentView>

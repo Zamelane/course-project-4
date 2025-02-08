@@ -21,7 +21,7 @@
     </ContentPage.BindingContext>
 
         <Grid ColumnDefinitions="auto, *"
-              RowDefinitions="auto,auto,auto,auto,auto"
+              RowDefinitions="auto,auto,auto,auto,auto,*,auto"
               ColumnSpacing="10"
               RowSpacing="10"
               Margin="10">
@@ -77,17 +77,27 @@
                                 IconSource="password.png"
                                 IsPassword="True"
                                 ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=password}" />
-        
-            <mcb:ContentButton Grid.Row="4"
-                               Padding="10"
+
+        <HorizontalStackLayout Spacing="10"
+                               Grid.Row="4"
+                               Grid.ColumnSpan="2">
+            <mcb:ContentButton Padding="10"
                                Margin="5,0,0,0"
-                               BackgroundColor="{StaticResource Success300}"
+                               BackgroundColor="{StaticResource Primary500}"
                                CornerRadius="7"
                                Command="{Binding SaveCommand}">
-            <HorizontalStackLayout Spacing="5">
-                <Label Text="Сохранить"/>
-                <ActivityIndicator IsVisible="{Binding IsFetching}" />
-            </HorizontalStackLayout>
-        </mcb:ContentButton>
+                <Label Text="Сохранить" VerticalOptions="Center" TextColor="{StaticResource White}" />
+            </mcb:ContentButton>
+            <ActivityIndicator IsRunning="{Binding IsFetching}" />
+            <Label Text="{Binding Error}"
+                   TextColor="{StaticResource Error600}"
+                   FontSize="16"
+                   VerticalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+
+        <controls:NonPriorityButton Text="Выйти"
+                                    Grid.Row="6"
+                                    Grid.ColumnSpan="2"
+                                    Command="{Binding TryExitCommand}" />
     </Grid>
 </ContentPage>

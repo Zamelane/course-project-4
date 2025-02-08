@@ -62,20 +62,25 @@
                       RowDefinitions="auto, auto"
                       Padding="20,0">
                     <!--Аватарка пользователя-->
-                    <Border Grid.RowSpan="2" WidthRequest="45" HeightRequest="45" BackgroundColor="{StaticResource Gray100}" Stroke="Transparent">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="100" />
-                        </Border.StrokeShape>
-                        <Image>
-                            <Image.Source>
-                                <toolkit:GravatarImageSource
-                                            CacheValidity="1"
-                                            CachingEnabled="True"
-                                            Email="{Binding FullNews.Author.FirstName}"
-                                            Image="Robohash" />
-                            </Image.Source>
-                        </Image>
-                    </Border>
+                    <mcb:ContentButton WidthRequest="45"
+                                       HeightRequest="45"
+                                       Grid.RowSpan="2"
+                                       BackgroundColor="{StaticResource Gray100}"
+                                       StrokeColor="Transparent"
+                                       CornerRadius="100">
+                        <Grid>
+                            <Image IsVisible="{Binding FullNews.Author.Avatar, Converter={StaticResource IsNullConverter}}">
+                                <Image.Source>
+                                    <toolkit:GravatarImageSource
+                                        CacheValidity="1"
+                                        CachingEnabled="True"
+                                        Email="{Binding FullNews.Author.FirstName}"
+                                        Image="Robohash" />
+                                </Image.Source>
+                            </Image>
+                            <Image Source="{Binding FullNews.Author.Avatar.TotalPath}" Aspect="AspectFill" Margin="-2"/>
+                        </Grid>
+                    </mcb:ContentButton>
                     <Label Grid.Column="1"
                            FontSize="16"
                            VerticalTextAlignment="Start"
@@ -144,20 +149,32 @@
                         </mcb:ContentButton>
                     </HorizontalStackLayout>
                 </Grid>
-                <Label HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource Gray100}" HeightRequest="1" Opacity="0.5"/>
-                <Grid ColumnDefinitions="auto, *, auto"
-                      Margin="20,0">
-                    <Label FontSize="18" TextColor="{StaticResource Gray900}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{Binding FullNews.Comments}"/>
-                                <Span Text=" Comments"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <ffimageloading:SvgCachedImage Grid.Column="2" Source="caret_double_down.svg" WidthRequest="20"/>
-                </Grid>
-                <Label HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource Gray100}" HeightRequest="1" Opacity="0.5"/>
+                
+                <Label HorizontalOptions="FillAndExpand"
+                       BackgroundColor="{StaticResource Gray100}"
+                       HeightRequest="1"
+                       Opacity="0.5"
+                       Margin="0,0,0,-20"/>
+                
+                <mcb:ContentButton Command="{Binding OpenCommentsPageCommand}" Padding="0,20">
+                    <Grid ColumnDefinitions="auto, *, auto" Margin="20,0">
+                        <Label FontSize="18" TextColor="{StaticResource Gray900}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding FullNews.Comments}"/>
+                                    <Span Text=" Comments"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <ffimageloading:SvgCachedImage Grid.Column="2" Source="caret_double_down.svg" WidthRequest="20"/>
+                    </Grid>
+                </mcb:ContentButton>
+                
+                <Label HorizontalOptions="FillAndExpand"
+                       BackgroundColor="{StaticResource Gray100}"
+                       HeightRequest="1"
+                       Opacity="0.5"
+                       Margin="0,-20,0,0"/>
             </StackLayout>
 
             <!--<idk:MarkdownView x:Name="md"
@@ -196,7 +213,7 @@
 
             <controls:MarkdownViewer MarkdownText="{Binding FullNews.Content}"/>
 
-            <HorizontalStackLayout HorizontalOptions="End" Padding="20,0" Margin="0,0,0,5">
+            <HorizontalStackLayout HorizontalOptions="End" Padding="20,0" Margin="0,0,0,5" IsVisible="{Binding IsEditVisible}">
                 <mcb:ContentButton CornerRadius="5" Command="{Binding OpenEditNewsCommand}">
                     <HorizontalStackLayout Padding="10" Spacing="5">
                         <ffimageloading:SvgCachedImage Source="edit_raw.svg"

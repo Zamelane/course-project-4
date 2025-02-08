@@ -19,6 +19,8 @@ public partial class NewsEditViewModel : ObservableObject
     [ObservableProperty] private Category? selectedCategory = null;
 
     [ObservableProperty] private bool isFetched = false;
+    [NotifyPropertyChangedFor(nameof(PageTitle))]
+    [ObservableProperty] private bool isEdit = false;
 
 
     public string PageTitle
@@ -27,7 +29,7 @@ public partial class NewsEditViewModel : ObservableObject
         {
             if (EditableNews is not null)
                 SelectedCategory = EditableNews!.Category;
-            return EditableNews is null ? "Создание новости" : "Редактирование новости";
+            return IsEdit ? "Редактирование новости": "Создание новости";
         }
     }
 
@@ -53,9 +55,13 @@ public partial class NewsEditViewModel : ObservableObject
             await UpdateNews();
     }
 
-    public NewsEditViewModel()
+    public NewsEditViewModel() : base() { }
+
+    public NewsEditViewModel(FullNews? editableNews = null)
     {
         _ = FetchCategories();
+        IsEdit = editableNews is not null;
+        EditableNews = editableNews ?? new();
     }
 
     private async Task FetchCategories()

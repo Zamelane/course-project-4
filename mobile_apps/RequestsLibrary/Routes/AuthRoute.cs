@@ -13,10 +13,10 @@ public class AuthRoute : IPostRoute<AuthResponse>
         return await Post(rp);
     }
 
-    public async Task<Response<AuthResponse?>> Register(string login, string password, string firstName, string lastName, DateTime birthDay, string email)
+    public async Task<Response<AuthResponse?>> Register(string login, string password, string firstName, string lastName, string email)
     {
         var rp = new RequestParams();
-        rp.SetBody(new RegisterRequest(login, password, firstName, lastName, birthDay, email));
+        rp.SetBody(new RegisterRequest(login, password, firstName, lastName, email));
 
         return await Fetcher.Fetch<AuthResponse>(
            HttpMethod.Post,

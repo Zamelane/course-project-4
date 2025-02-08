@@ -15,6 +15,7 @@ public partial class NewsPageViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(AddToBookmarksCommand))]
     [NotifyPropertyChangedFor(nameof(CanAddToBookmarks))]
     [ObservableProperty] private FullNews? fullNews;
+    [ObservableProperty] private bool isEditVisible = false;
 
     // Вычисляемые поля
     public string? FormattedDate
@@ -44,6 +45,10 @@ public partial class NewsPageViewModel : ObservableObject
             r =>
             {
                 FullNews = r ?? FullNews;
+                if (FullNews?.Author?.Id == Provider.AuthData?.User?.Id
+                    && FullNews?.Author != null && Provider.AuthData?.User != null)
+                    IsEditVisible = true;
+
                 ChangedAll();
             }
         );
@@ -113,6 +118,12 @@ public partial class NewsPageViewModel : ObservableObject
     {
         await Shell.Current.Navigation.PushAsync(new NewsEditPage(FullNews));
         await UpdateNews();
+    }
+
+    [RelayCommand]
+    private async Task OpenCommentsPage()
+    {
+        await Shell.Current.Navigation.PushModalAsync(new CommentsPage());
     }
 
     public void ChangedAll()

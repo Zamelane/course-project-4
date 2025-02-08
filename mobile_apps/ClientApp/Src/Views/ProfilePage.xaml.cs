@@ -5,5 +5,9 @@ public partial class ProfilePage : ContentPage
 	public ProfilePage()
 	{
 		InitializeComponent();
+
+#if ANDROID
+		Title = "Мой профиль";
+#endif
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
+using System.Diagnostics;
 
 namespace ClientApp.Src.Utils;
 public static class MarkdownGenerator
@@ -17,17 +18,20 @@ public static class MarkdownGenerator
             "Gray900"
         );
 
+        Debug.WriteLine("ВЫШЕЛ ИЗ ГЕНЕРАТОРА H");
+
+
         if (!status)
-            return GenerateElement(heading);
+            return GenerateElement((MarkdownObject)heading);
 
         return element;
     }
     public static IView GenerateElement(ParagraphBlock paragraph)
     {
         (var element, var status) = GenerateTextContent(paragraph.Inline, "P", "Gray600");
-
+        Debug.WriteLine("ВЫШЕЛ ИЗ ГЕНЕРАТОРА P");
         if (!status)
-            return GenerateElement(paragraph);
+            return GenerateElement((MarkdownObject)paragraph);
 
         return element;
     }
@@ -43,7 +47,11 @@ public static class MarkdownGenerator
         foreach (var inline in conteinerInline)
         {
             if (inline is LiteralInline literal)
+            {
+                Debug.WriteLine(literal.Content.ToString());
+                //var tbf = tb.First();
                 tb.First().Spans.Add(GenerateSpan(literal.Content.ToString()));
+            }
             else if (inline is LinkInline link)
             {
                 if (link.IsImage)
@@ -57,8 +65,14 @@ public static class MarkdownGenerator
                 {
                     tb.First().Spans.Add(link.Title is not null ? GenerateSpan(link.Title) : GenerateSpan(link.Url ?? "[no_link]"));
                 }
-            } else
+            } 
+            else if (inline is LineBreakInline lbi)
             {
+                tb.Add(new FormattedString());
+            }
+            else
+            {
+                Debug.WriteLine(inline);
                 return (default, false);
             }
         }

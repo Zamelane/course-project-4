@@ -1,6 +1,7 @@
 using ClientApp.Src.Utils;
 using Markdig;
 using Markdig.Syntax;
+using System.Diagnostics;
 
 namespace ClientApp.Src.Controls;
 

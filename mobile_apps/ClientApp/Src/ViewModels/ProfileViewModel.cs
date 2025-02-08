@@ -1,5 +1,7 @@
-﻿using ClientApp.Src.Storage;
+﻿using ClientApp.Src.Popups;
+using ClientApp.Src.Storage;
 using ClientApp.Src.Utils;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
@@ -7,6 +9,7 @@ using RequestsLibrary.Models;
 using RequestsLibrary.Requests;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
 
 namespace ClientApp.Src.ViewModels;
 public partial class ProfileViewModel : ObservableObject
@@ -89,5 +92,42 @@ public partial class ProfileViewModel : ObservableObject
             Avatar = image;
             OnPropertyChanged(nameof(Avatar));
         }
+    }
+
+    [RelayCommand]
+    private async Task TryExit()
+    {
+        var isExit = false;
+        try
+        {
+            var response = await Fetcher.Auth.Logout();
+
+            /*if (response.StatusCode != HttpStatusCode.NoContent)
+                throw new Exception("Не удалось выйти, т.к. сервер вернул что-то не то ...");*/
+            if (response.Error is not null && response.StatusCode != HttpStatusCode.NoContent)
+                throw new Exception("Не удалось выйти, т.к. сервер вернул что-то не то: " + response.Error.Comment);
+
+            isExit = true;
+        }
+        catch (Exception ex)
+        {
+            var result = await Shell.Current.ShowPopupAsync(
+                new QuestionPopup(
+                    "Ошибка",
+                    $"{ex.Message}.\nВыйти принудительно?"
+                ), CancellationToken.None
+            );
+
+            if (result is bool boolResult)
+                isExit = boolResult;
+        }
+
+        if (!isExit)
+            return;
+
+        Provider.AuthData.Token = null;
+        Provider.AuthData.User = null;
+        await Shell.Current.GoToAsync("//Main");
+        Provider.AppShell?.SetEnabledTabsAll(false);
     }
 }

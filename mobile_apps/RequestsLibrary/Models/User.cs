@@ -8,7 +8,6 @@ public class User
     [JsonProperty("firstName")  ] public string?    FirstName   { get; set; }
     [JsonProperty("lastName")   ] public string?    LastName    { get; set; }
     [JsonProperty("login")      ] public string?    Login       { get; set; }
-    [JsonProperty("birthDay")   ] public DateTime?  BirthDay    { get; set; }
     [JsonProperty("avatar")     ] public string?    PathAvatar  { get; set; }
     [JsonProperty("email")      ] public string?    Email       { get; set; }
     [JsonProperty("role")       ] public string?    Role        { get; set; }
