@@ -8,6 +8,7 @@ steps:
   image: alpine
   commands:
     - cd mobile_apps/ClientApp
+
 - name: check if 2
   image: alpine
   commands:
