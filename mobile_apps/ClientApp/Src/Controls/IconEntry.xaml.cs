@@ -105,18 +105,18 @@ public partial class IconEntry : ContentView
         ((Border)entryBorder).Stroke = color;
     }
 
-    private void Entry_Tap(object sender, TappedEventArgs e)
-    {
-        var entry = GetTemplateChild("CustomEntry");
+    //private void Entry_Tap(object sender, TappedEventArgs e)
+    //{
+    //    var entry = GetTemplateChild("CustomEntry");
 
-        if (entry is Entry ce)
-        {
-            ce.Focus();
-            Debug.WriteLine("������������ �� " + ce.Id);
-        }
+    //    if (entry is Entry ce)
+    //    {
+    //        ce.Focus();
+    //        Debug.WriteLine("������������ �� " + ce.Id);
+    //    }
 
-        Debug.WriteLine("���� �������");
-    }
+    //    Debug.WriteLine("���� �������");
+    //}
 
     // *** ЛОГИКА ПОИСКА ** //
     public static readonly BindableProperty SearchCommandProperty = BindableProperty.Create(
@@ -138,5 +138,30 @@ public partial class IconEntry : ContentView
     private void ExecuteSearchCommand()
     {
         SearchCommand?.Execute(null);
+    }
+
+    private void ContentButton_Clicked(object sender, EventArgs e)
+    {
+        var entry = GetTemplateChild("CustomEntry");
+
+        if (entry is Entry ce)
+        {
+            ce.Focus();
+            Debug.WriteLine("������������ �� " + ce.Id);
+        }
+
+        Debug.WriteLine("���� �������");
+    }
+
+    private void Button_Focused(object sender, FocusEventArgs e)
+    {
+        var entry = (BorderlessEntry)GetTemplateChild("CustomEntry");
+        entry?.Focus();
+    }
+
+    private void ContentButton_Unfocused(object sender, FocusEventArgs e)
+    {
+        var entry = (BorderlessEntry)GetTemplateChild("CustomEntry");
+        entry?.Unfocus();
     }
 }

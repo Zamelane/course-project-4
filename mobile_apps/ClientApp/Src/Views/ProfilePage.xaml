@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
+             xmlns:controls="clr-namespace:ClientApp.Src.Controls"
+             xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
+             xmlns:cnv="clr-namespace:ClientApp.Src.Converters"
+             x:Class="ClientApp.Src.Views.ProfilePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cnv:ErrorConverter x:Key="ErrorConverter"/>
+            <cnv:VisibilityConverter x:Key="VisibilityConverter"/>
+            <toolkit:IsNullConverter x:Key="IsNullConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <viewModels:ProfileViewModel/>
+    </ContentPage.BindingContext>
+
+        <Grid ColumnDefinitions="auto, *"
+              RowDefinitions="auto,auto,auto,auto,auto,*,auto"
+              ColumnSpacing="10"
+              RowSpacing="10"
+              Margin="10">
+            <!--Аватарка пользователя-->
+            <mcb:ContentButton Grid.RowSpan="2"
+                               StrokeThickness="0"
+                               CornerRadius="5"
+                               Command="{Binding UploadImgCommand}">
+            <Border WidthRequest="150"
+                        HeightRequest="150"
+                        BackgroundColor="{StaticResource White}"
+                        Stroke="{StaticResource Gray100}"
+                        VerticalOptions="Start">
+                <Grid>
+                    <Image IsVisible="{Binding Avatar, Converter={StaticResource IsNullConverter}}">
+                            <Image.Source>
+                                <toolkit:GravatarImageSource
+                                    CacheValidity="1"
+                                    CachingEnabled="True"
+                                    Email="{Binding Email}"
+                                    Image="Robohash" />
+                            </Image.Source>
+                        </Image>
+                        <Image Source="{Binding Avatar.TotalPath}" Aspect="AspectFill" />
+                    </Grid>
+                </Border>
+            </mcb:ContentButton>
+
+            <controls:IconEntry Text="{Binding FirstName}"
+                                Grid.Column="1"
+                                PlaceholderText="Введите своё имя"
+                                IconSource="user.png"
+                                ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=firstName}" />
+
+            <controls:IconEntry Text="{Binding LastName}"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                PlaceholderText="Введите свою фамилию"
+                                IconSource="user.png"
+                                ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=lastName}" />
+
+            <controls:IconEntry Text="{Binding Email}"
+                                Grid.ColumnSpan="2"
+                                Grid.Row="2"
+                                PlaceholderText="Введите свой email"
+                                IconSource="email.png"
+                                ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=email}" />
+
+            <controls:IconEntry Text="{Binding Password}"
+                                Grid.ColumnSpan="2"
+                                Grid.Row="3"
+                                PlaceholderText="Придумайте новый пароль"
+                                IconSource="password.png"
+                                IsPassword="True"
+                                ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=password}" />
+
+        <HorizontalStackLayout Spacing="10"
+                               Grid.Row="4"
+                               Grid.ColumnSpan="2">
+            <mcb:ContentButton Padding="10"
+                               Margin="5,0,0,0"
+                               BackgroundColor="{StaticResource Primary500}"
+                               CornerRadius="7"
+                               Command="{Binding SaveCommand}">
+                <Label Text="Сохранить" VerticalOptions="Center" TextColor="{StaticResource White}" />
+            </mcb:ContentButton>
+            <ActivityIndicator IsRunning="{Binding IsFetching}" />
+            <Label Text="{Binding Error}"
+                   TextColor="{StaticResource Error600}"
+                   FontSize="16"
+                   VerticalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+
+        <controls:NonPriorityButton Text="Выйти"
+                                    Grid.Row="6"
+                                    Grid.ColumnSpan="2"
+                                    Command="{Binding TryExitCommand}" />
+    </Grid>
+</ContentPage>

@@ -10,7 +10,7 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
         Provider.AppShell = this;
-        Fetcher.SetToken(AuthData.Token);
+        Fetcher.SetToken(Provider.AuthData.Token);
     }
 
     public void SetEnabledTabsAll(bool isVisibly)

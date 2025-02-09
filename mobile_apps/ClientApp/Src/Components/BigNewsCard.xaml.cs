@@ -25,4 +25,10 @@ public partial class BigNewsCard : ContentView
         get => (MinNews?)GetValue(FilteredNewsProperty);
         set => SetValue(FilteredNewsProperty, value);
     }
+
+    private void ContentButton_Clicked(object sender, EventArgs e)
+    {
+        if (FilteredNews is not null)
+            Shell.Current.Navigation.PushAsync(new NewsPage(FilteredNews));
+    }
 }

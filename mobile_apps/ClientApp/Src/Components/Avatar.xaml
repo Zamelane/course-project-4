@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientApp.Src.Components.Avatar">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:IsNullConverter x:Key="IsNullConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <mcb:ContentButton WidthRequest="40"
+                               HeightRequest="40"
+                               BackgroundColor="{StaticResource White}"
+                               StrokeColor="{StaticResource Gray100}"
+                               CornerRadius="{TemplateBinding CornerRadius}">
+                <Grid>
+                    <Image IsVisible="{TemplateBinding AvatarData, Converter={StaticResource IsNullConverter}}">
+                        <Image.Source>
+                            <toolkit:GravatarImageSource
+                                CacheValidity="1"
+                                CachingEnabled="True"
+                                Email="{TemplateBinding Email}"
+                                Image="Robohash" />
+                        </Image.Source>
+                    </Image>
+                    <Image Source="{TemplateBinding AvatarData.TotalPath}" Aspect="AspectFill" />
+                </Grid>
+            </mcb:ContentButton>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+
+</ContentView>

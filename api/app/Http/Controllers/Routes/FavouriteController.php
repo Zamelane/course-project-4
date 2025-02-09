@@ -17,12 +17,11 @@ class FavouriteController extends Controller
             'user_id' => auth()->id()
         ])->orderBy('added_date', 'desc');
 
-        $favouritesTotal = $favouritesRequest->count();
         $favourites = $favouritesRequest->paginate(15);
 
         return response()->json([
             'favourites' => FavouriteResource::collection($favourites),
-            'total' => $favouritesTotal
+            'total' => $favourites->total()
         ]);
     }
 

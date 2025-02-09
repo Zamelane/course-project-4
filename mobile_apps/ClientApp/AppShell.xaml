@@ -9,6 +9,7 @@
     xmlns:local="clr-namespace:ClientApp.Src.ViewModels"
     FlyoutBehavior="Disabled"
     Title="ClientApp">
+    
     <Shell.BindingContext>
         <local:TabsViewModel />
     </Shell.BindingContext>
@@ -23,8 +24,8 @@
         <Tab Title="Избранное" Icon="bookmark.png" IsVisible="{Binding BookmarkIsEnabled}">
             <ShellContent ContentTemplate="{DataTemplate views:FavouritesPage}" Route="Favourites" />
         </Tab>
-        <Tab Title="Настройки" Icon="settings.png" IsVisible="{Binding SettingsIsEnabled}">
-            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="Settings" />
+        <Tab Title="Мастерская" Icon="notification.png" IsVisible="{Binding NotificationIsVisible}">
+            <ShellContent ContentTemplate="{DataTemplate views:MeNewsPage}" Route="Notification" />
         </Tab>
         <Tab Title="Авторизация" Icon="key.png" IsVisible="{Binding LoginIsVisible}">
             <ShellContent ContentTemplate="{DataTemplate authViews:LoginPage}" />

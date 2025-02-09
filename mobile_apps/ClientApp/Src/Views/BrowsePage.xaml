@@ -143,16 +143,18 @@
                                         </CollectionView.ItemsLayout>
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate>
-                                                <Border BackgroundColor="{StaticResource Gray60}">
-                                                    <Border.StrokeShape>
-                                                        <RoundRectangle CornerRadius="5"/>
-                                                    </Border.StrokeShape>
-                                                    <Label FontSize="16"
-                                                           FontAttributes="Bold"
-                                                           VerticalOptions="Center" 
-                                                           Text="{Binding Name}"
-                                                           Padding="12,6"/>
-                                                </Border>
+                                                <mcb:ContentButton StrokeThickness="0">
+                                                    <Border BackgroundColor="{StaticResource Gray60}">
+                                                        <Border.StrokeShape>
+                                                            <RoundRectangle CornerRadius="5"/>
+                                                        </Border.StrokeShape>
+                                                        <Label FontSize="16"
+                                                               FontAttributes="Bold"
+                                                               VerticalOptions="Center" 
+                                                               Text="{Binding Name}"
+                                                               Padding="12,6"/>
+                                                    </Border>
+                                                </mcb:ContentButton>
                                             </DataTemplate>
                                         </CollectionView.ItemTemplate>
                                     </CollectionView>

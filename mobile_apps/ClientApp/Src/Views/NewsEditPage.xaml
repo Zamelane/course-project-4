@@ -70,9 +70,9 @@
                     <Label Grid.Row="2"
                            TextColor="{StaticResource Error400}"
                            Padding="10,2"
-                           Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=content}">
+                           Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=title}">
                         <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=content}" Value="">
+                            <DataTrigger TargetType="Label" Binding="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=title}" Value="">
                                 <Setter Property="IsVisible" Value="False"/>
                             </DataTrigger>
                         </Label.Triggers>
@@ -98,9 +98,9 @@
                     <Label Grid.Row="2"
                            TextColor="{StaticResource Error400}"
                            Padding="10,2"
-                           Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=title}">
+                           Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=content}">
                         <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=title}" Value="">
+                            <DataTrigger TargetType="Label" Binding="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=content}" Value="">
                                 <Setter Property="IsVisible" Value="False"/>
                             </DataTrigger>
                         </Label.Triggers>

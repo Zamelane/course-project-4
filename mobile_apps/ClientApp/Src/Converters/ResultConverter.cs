@@ -12,6 +12,7 @@ public class ResultConverter : IValueConverter
             value = String.IsNullOrEmpty(i.Url) ? null : i.TotalPath;
 
         Debug.WriteLine(value);
+        Debug.WriteLine(parameter);
 
         if ((value is string s
              && s == string.Empty)

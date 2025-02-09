@@ -3,17 +3,29 @@ type: docker
 name: default
 
 steps:
+
+- name: check if event is tag
+  image: alpine
+  commands:
+    - |
+      if [ "$DRONE_BUILD_EVENT" != "tag" ]; then
+        echo "This pipeline is only available for tags. Current event: $DRONE_BUILD_EVENT"
+        exit 78
+      fi
+
 - name: build client app
-  image: mcr.microsoft.com/dotnet/sdk:9.0
-  environment:
-    NAME: Pop!_OS
-    VERSION: 22.04 LTS
-    ID: linux
-    ID_LIKE: ubuntu debian
-    PRETTY_NAME: Pop!_OS 22.04 LTS
-    VERSION_ID: 22.04
+  image: conneqthub/dotnet-maui-android
   commands:
   - cd mobile_apps/ClientApp
-  - dotnet workload restore
+  - dotnet workload restore --download-to-cache --from-cache
+  - dotnet workload install android --ignore-failed-sources --download-to-cache --from-cache
   - dotnet restore
-  - dotnet publish -c Release -f net9.0-android -o ./build
+  - dotnet publish -c Debug -f net9.0-android -o ./build
+
+- name: gitea_release
+  image: plugins/gitea-release
+  settings:
+    api_key: 
+      from_secret: gitea_api_key
+    base_url: https://git.zmln.ru
+    files: mobile_apps/ClientApp/build/*

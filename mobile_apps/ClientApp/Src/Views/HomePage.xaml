@@ -6,10 +6,19 @@
              xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              xmlns:components="clr-namespace:ClientApp.Src.Components"
+             xmlns:cnv="clr-namespace:ClientApp.Src.Converters"
+             xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
              x:Class="ClientApp.Src.Views.HomePage">
     <ContentPage.BindingContext>
         <viewModels:HomeViewModel />
     </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cnv:ResultConverter x:Key="ResultConverter" />
+            <toolkit:IsNullConverter x:Key="IsNullConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Page.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary600}" StatusBarStyle="Default" />
@@ -38,22 +47,27 @@
                 </OnPlatform>
             </Grid.ColumnDefinitions>
             <!--Аватарка пользователя-->
-            <Border WidthRequest="40" HeightRequest="40" BackgroundColor="{StaticResource White}" Stroke="{StaticResource Gray100}">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="5" />
-                </Border.StrokeShape>
-                <Image>
-                    <Image.Source>
-                        <toolkit:GravatarImageSource
-                            CacheValidity="1"
-                            CachingEnabled="True"
-                            Email="test@mail.ru"
-                            Image="Robohash" />
-                    </Image.Source>
-                </Image>
-            </Border>
+            <mcb:ContentButton WidthRequest="40"
+                               HeightRequest="40"
+                               BackgroundColor="{StaticResource White}"
+                               StrokeColor="{StaticResource Gray100}"
+                               CornerRadius="5"
+                               Command="{Binding OpenProfileEditorPageCommand}">
+                <Grid>
+                    <Image IsVisible="{Binding User.Avatar, Converter={StaticResource IsNullConverter}}">
+                        <Image.Source>
+                            <toolkit:GravatarImageSource
+                                CacheValidity="1"
+                                CachingEnabled="True"
+                                Email="{Binding Email}"
+                                Image="Robohash" />
+                        </Image.Source>
+                    </Image>
+                    <Image Source="{Binding User.Avatar.TotalPath}" Aspect="AspectFill" />
+                </Grid>
+            </mcb:ContentButton>
             <!--Строка поиска-->
-            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search..." Grid.Column="1"
+            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search ..." Grid.Column="1"
                                    VerticalOptions="Center" />
             <!--Перезагрузка-->
             <ImageButton Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCommand}" Background="Transparent">
@@ -68,10 +82,25 @@
         <controls:CustomRefreshView Grid.Row="1" Command="{Binding TryFetchCommand}">
             <StackLayout>
                 <!--Карточка с топ-новостью-->
-                <components:BigNewsCard />
+                <CarouselView ItemsSource="{Binding RandomNews}"
+                              IndicatorView="indicatorView"
+                              IsBounceEnabled="True"
+                              IsScrollAnimated="True">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <components:BigNewsCard FilteredNews="{Binding .}" />
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
 
                 <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="2"
                        Opacity="0.5" />
+
+                <IndicatorView Margin="0, 10, 0, 0"
+                               x:Name="indicatorView"
+                               IndicatorColor="LightGray"
+                               SelectedIndicatorColor="DarkGray"
+                               HorizontalOptions="Center" />
 
                 <!--Разделы содержимого-->
                 <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
@@ -94,9 +123,9 @@
                     <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
                         <Label Text="MOST READ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito" />
                         <!--Большая карторчка для первой рекомендации-->
-                        <components:DefaultNewsCard FilteredNews="{Binding MostReadNewsTop}" />
+                        <!--<components:DefaultNewsCard FilteredNews="{Binding MostReadNewsTop}" />-->
                         <!--Остальные мини карточки-->
-                        <CollectionView ItemsSource="{Binding MostReadNewses}">
+                        <CollectionView ItemsSource="{Binding TopNews}">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}" />
                             </CollectionView.ItemsLayout>
@@ -115,7 +144,7 @@
                     <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
                         <Label Text="LATEST NEWS" FontSize="16" FontAttributes="Bold" FontFamily="Nunito" />
                         <!--Остальные мини карточки-->
-                        <CollectionView ItemsSource="{Binding MostReadNewses}">
+                        <CollectionView ItemsSource="{Binding LastNews}">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="{StaticResource MarginSmall}" />
                             </CollectionView.ItemsLayout>

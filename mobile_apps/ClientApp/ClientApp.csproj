@@ -126,6 +126,9 @@
         <MauiXaml Update="Resources\Styles\Values.xaml">
             <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
+        <MauiXaml Update="Src\Components\Avatar.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
         <MauiXaml Update="Src\Components\BigNewsCard.xaml">
             <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
@@ -198,6 +201,9 @@
         <MauiXaml Update="Src\Views\CategoriesPage.xaml">
             <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
+        <MauiXaml Update="Src\Views\CommentsPage.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
         <MauiXaml Update="Src\Views\FavouritesPage.xaml">
             <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
@@ -207,10 +213,16 @@
         <MauiXaml Update="Src\Views\HomePage.xaml">
             <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
+        <MauiXaml Update="Src\Views\MeNewsPage.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
         <MauiXaml Update="Src\Views\NewsEditPage.xaml">
           <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
         <MauiXaml Update="Src\Views\NewsPage.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </MauiXaml>
+        <MauiXaml Update="Src\Views\ProfilePage.xaml">
           <Generator>MSBuild:Compile</Generator>
         </MauiXaml>
         <MauiXaml Update="Src\Views\SettingsPage.xaml">

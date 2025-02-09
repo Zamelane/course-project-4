@@ -1,13 +1,14 @@
 ﻿using RequestsLibrary.Interfaces;
 using RequestsLibrary.Models;
+using RequestsLibrary.Responses;
 using System.Collections.ObjectModel;
 
 namespace RequestsLibrary.Routes;
-public class NewsRoute : IGetRoute<MinNews, FullNews>
+public class NewsRoute : IGetRoute<NewsResponse, FullNews>
 {
-    public async Task<Response<ObservableCollection<MinNews>?>> Get(RequestParams? rp = null)
+    public async Task<Response<NewsResponse?>> Get(RequestParams? rp = null)
     {
-        return await Fetcher.Fetch<ObservableCollection<MinNews>>(
+        return await Fetcher.Fetch<NewsResponse>(
             HttpMethod.Get,
             Fetcher.Config.GetApiUrl("news"),
             rp
@@ -23,7 +24,12 @@ public class NewsRoute : IGetRoute<MinNews, FullNews>
         );
     }
 
-    public Task<Response<MinNews?>> Get(string id, RequestParams? rp = null)
+    public Task<Response<NewsResponse?>> Get(string id, RequestParams? rp = null)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<Response<ObservableCollection<NewsResponse>?>> IGetRoute<NewsResponse, FullNews>.Get(RequestParams? rp)
     {
         throw new NotImplementedException();
     }

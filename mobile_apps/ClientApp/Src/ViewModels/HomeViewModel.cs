@@ -1,26 +1,52 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using ClientApp.Src.Storage;
 using ClientApp.Src.Utils;
 using ClientApp.Src.Views;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
 using RequestsLibrary.Models;
+using RequestsLibrary.Responses;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace ClientApp.Src.ViewModels;
 
 public partial class HomeViewModel : ObservableObject
 {
+    private string _email = "test@mail.ru";
     [ObservableProperty] private ObservableCollection<Category>? categories;
     [ObservableProperty] private string? error;
     [ObservableProperty] private bool isFetching;
 
-    [ObservableProperty] private ObservableCollection<MinNews>? mostReadNewses;
-    [ObservableProperty] private MinNews? mostReadNewsTop;
+    [ObservableProperty] private ObservableCollection<MinNews>? topNews;
+    [ObservableProperty] private ObservableCollection<MinNews>? lastNews;
+    [ObservableProperty] private ObservableCollection<MinNews>? randomNews;
+    [ObservableProperty] private User? user = Provider.AuthData.User;
+    [ObservableProperty] private string email;
+
+    private void AuthData_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(AuthData.User))
+        {
+            // Обновляем свойство User при изменении AuthData.User
+            User = Provider.AuthData.User;
+
+            if (User is not null)
+                Email = User.Email;
+            else Email = _email;
+
+            OnPropertyChanged(nameof(User));
+        }
+    }
 
     public HomeViewModel()
     {
         Task.Run(TryFetch);
+        Provider.AuthData.PropertyChanged += AuthData_PropertyChanged;
+        Debug.WriteLine("User avatar: " + User?.Avatar?.TotalPath);
+        Email = _email;
     }
 
     [RelayCommand]
@@ -35,20 +61,60 @@ public partial class HomeViewModel : ObservableObject
     {
         Debug.WriteLine("Start TryFetchNews"); // TODO: DEBUG
 
-        await Auxiliary.RunWithStateHandling(
-            () => Fetcher.News.Get(),
-            _ => IsFetching = _,
+        IsFetching = true;
+
+        RequestParams rpLAST = new();
+        rpLAST.AddParameter("limit", "5");
+
+        RequestParams rpTOP = new();
+        rpTOP.AddParameter("sort", "FirstMoreViews");
+        rpTOP.AddParameter("limit", "5");
+
+        RequestParams rpRANDOM = new();
+        rpRANDOM.AddParameter("sort", "Random");
+        rpRANDOM.AddParameter("limit", "5");
+
+        await Auxiliary.RunWithStateHandling<NewsResponse>(
+            () => Fetcher.News.Get(rpLAST),
+            null,
             _ => Error = _,
-            (Action<ObservableCollection<MinNews>?>?)(            newses =>
+            newses =>
             {
-                if (newses is not null && newses!.Count > 0)
+                if (newses is not null && newses!.News.Count > 0)
                 {
-                    MostReadNewsTop = newses.First();
-                    newses.Remove((MinNews)MostReadNewsTop);
-                    MostReadNewses = newses;
+                    LastNews = newses.News;
                 }
-            })
+            }
         );
+
+        await Auxiliary.RunWithStateHandling<NewsResponse>(
+            () => Fetcher.News.Get(rpTOP),
+            null,
+            _ => Error = _,
+            newses =>
+            {
+                if (newses is not null && newses!.News.Count > 0)
+                {
+                    TopNews = newses.News;
+                    Debug.WriteLine("First: " + TopNews.First().Id);
+                }
+            }
+        );
+
+        await Auxiliary.RunWithStateHandling<NewsResponse>(
+            () => Fetcher.News.Get(rpRANDOM),
+            null,
+            _ => Error = _,
+            newses =>
+            {
+                if (newses is not null && newses!.News.Count > 0)
+                {
+                    RandomNews = newses.News;
+                }
+            }
+        );
+
+        IsFetching = false;
 
         Debug.WriteLine("End TryFetchNews"); // TODO: DEBUG
     }
@@ -57,5 +123,13 @@ public partial class HomeViewModel : ObservableObject
     private void ShowCategoriesPage()
     {
         Shell.Current.Navigation.PushAsync(new CategoriesPage());
+    }
+
+    [RelayCommand]
+    private async Task OpenProfileEditorPage()
+    {
+        if (Provider.AuthData.Token is not null)
+            await Shell.Current.Navigation.PushAsync(new ProfilePage());
+        else await Toast.Make("Вы не авторизованы").Show();
     }
 }

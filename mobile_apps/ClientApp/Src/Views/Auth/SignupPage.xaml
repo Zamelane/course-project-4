@@ -39,20 +39,16 @@
                 <controls:IconEntry Text="{Binding LastName}"
                                     PlaceholderText="Введите свою фамилию"
                                     IconSource="user.png"
-                                    Completed="FocusToBirthDay"
+                                    Completed="FocusToLogin"
                                     ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=lastName}"
                                     x:Name="LastName" />
-
-                <DatePicker Date="{Binding BirthDay}"
-                            x:Name="BirthDay" />
-                <Label TextColor="Red" FontSize="12" Margin="0,-5,0,0"
-                       Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=birthDay}" />
 
                 <controls:IconEntry Text="{Binding Login}"
                                     PlaceholderText="Придумайте логин"
                                     IconSource="user.png"
                                     Completed="FocusToEmail"
-                                    ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=login}" />
+                                    ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=login}"
+                                    x:Name="Login"/>
 
                 <controls:IconEntry Text="{Binding Email}"
                                     PlaceholderText="Введите свой email"

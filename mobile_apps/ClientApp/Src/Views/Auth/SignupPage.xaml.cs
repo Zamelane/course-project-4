@@ -12,9 +12,9 @@ public partial class SignupPage : ContentPage
         LastName.Focus();
     }
 
-    private void FocusToBirthDay(object sender, EventArgs e)
+    private void FocusToLogin(object sender, EventArgs e)
     {
-        BirthDay.Focus();
+        Login.Focus();
     }
 
     private void FocusToEmail(object sender, EventArgs e)

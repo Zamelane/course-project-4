@@ -92,10 +92,10 @@ public partial class Select : ContentView
     }
     // ------> ...
 
-    private void Select_Tapped(object sender, TappedEventArgs e)
-    {
-        _ =  OpenPopup();
-    }
+    //private void Select_Tapped(object sender, TappedEventArgs e)
+    //{
+    //    _ =  OpenPopup();
+    //}
 
     private async Task OpenPopup()
     {
@@ -143,4 +143,8 @@ public partial class Select : ContentView
         set => SetValue(CommandProperty, value);
     }
 
+    private void ContentButton_Clicked(object sender, EventArgs e)
+    {
+        _ = OpenPopup();
+    }
 }

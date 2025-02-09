@@ -5,13 +5,34 @@
              xmlns:viewModels="clr-namespace:ClientApp.Src.ViewModels"
              xmlns:controls="clr-namespace:ClientApp.Src.Controls"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="ClientApp.Src.Views.SettingsPage"
-             Title="SettingsPage">
+             xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             x:Class="ClientApp.Src.Views.SettingsPage">
     <ContentPage.BindingContext>
         <viewModels:SettingsViewModel />
     </ContentPage.BindingContext>
     <ScrollView>
-        <StackLayout Padding="10">
+        <StackLayout Padding="10" Spacing="5">
+            <mcb:ContentButton Padding="10"
+                               CornerRadius="5"
+                               HeightRequest="50"
+                               BackgroundColor="{StaticResource Primary500}"
+                               Command="{Binding GoToProfileCommand}">
+                <HorizontalStackLayout Spacing="10">
+                    <ffimageloading:SvgCachedImage Source="account.svg"/>
+                    <Label Text="Профиль" TextColor="{StaticResource White}" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </mcb:ContentButton>
+            <mcb:ContentButton Padding="10"
+                               CornerRadius="5"
+                               HeightRequest="50"
+                               BackgroundColor="{StaticResource Primary500}"
+                               Command="{Binding GoToMeNewsCommand}">
+                <HorizontalStackLayout Spacing="10">
+                    <ffimageloading:SvgCachedImage Source="news_icon.svg"/>
+                    <Label Text="Мои новости" TextColor="{StaticResource White}" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </mcb:ContentButton>
             <controls:NonPriorityButton Text="Выйти" Command="{Binding TryExitCommand}" />
         </StackLayout>
     </ScrollView>

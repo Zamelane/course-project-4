@@ -12,9 +12,6 @@ public partial class SignupViewModel : ObservableObject
     [ObservableProperty] private Dictionary<string, List<string>> badFields = [];
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
-    private DateTime birthDay;
-
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(TrySignUpCommand))]
     private string email = "";
 
     [ObservableProperty] private string? error;
@@ -51,7 +48,7 @@ public partial class SignupViewModel : ObservableObject
         }
 
         // Пробуем зарегаться
-        var response = await Fetcher.Auth.Register(FirstName, LastName, Login, Password, BirthDay, Email);
+        var response = await Fetcher.Auth.Register(Login, Password, FirstName, LastName, Email);
 
         // Проверям на ошибки
         if (response.Error == null && response.Content == null)
@@ -72,7 +69,7 @@ public partial class SignupViewModel : ObservableObject
         var body = response.Content!;
 
         // Если всё ок - сохраняем авторизацию
-        AuthData.SaveAuthData(body.Token!, body.User!);
+        Provider.AuthData.SaveAuthData(body.Token!, body.User!);
         await Shell.Current.GoToAsync("//Main");
         Provider.AppShell!.SetEnabledTabsAll(true);
     }

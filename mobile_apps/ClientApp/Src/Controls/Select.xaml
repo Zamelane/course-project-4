@@ -2,24 +2,31 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
              x:Class="ClientApp.Src.Controls.Select">
     <ContentView.ControlTemplate>
         <ControlTemplate>
-            <Border BackgroundColor="{StaticResource White}" Stroke="{StaticResource Gray100}" StrokeThickness="1"
-                    Padding="5">
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Select_Tapped" />
-                </Border.GestureRecognizers>
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}" />
-                </Border.StrokeShape>
+            <mcb:ContentButton BackgroundColor="{StaticResource White}"
+                               StrokeColor="{StaticResource Gray100}"
+                               StrokeThickness="1"
+                               CornerRadius="{TemplateBinding CornerRadius}"
+                               Padding="5"
+                               Clicked="ContentButton_Clicked">
                 <Grid ColumnDefinitions="*, auto" Padding="18,13">
-                    <Label Text="{TemplateBinding SelectedText}" FontAttributes="Bold" FontSize="16" TextColor="{StaticResource Gray500}"
-                           VerticalOptions="Center" MaxLines="1" LineBreakMode="TailTruncation"/>
-                    <Image Source="caret_down.png" WidthRequest="16" HeightRequest="16" VerticalOptions="Center"
+                    <Label Text="{TemplateBinding SelectedText}"
+                           FontAttributes="Bold"
+                           FontSize="16"
+                           TextColor="{StaticResource Gray500}"
+                           VerticalOptions="Center"
+                           MaxLines="1"
+                           LineBreakMode="TailTruncation"/>
+                    <Image Source="caret_down.png"
+                           WidthRequest="16"
+                           HeightRequest="16"
+                           VerticalOptions="Center"
                            Grid.Column="1" />
                 </Grid>
-            </Border>
+            </mcb:ContentButton>
         </ControlTemplate>
     </ContentView.ControlTemplate>
 </ContentView>
