@@ -21,7 +21,7 @@ public partial class App : Application
 
         Fetcher.ErrorConnectedAction = () =>
         {
-            Toast.Make("Превышено время ожидания").Show();
+            //Toast.Make("Превышено время ожидания").Show();
         };
     }
 

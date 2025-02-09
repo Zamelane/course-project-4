@@ -103,7 +103,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <!--<Span>Aug 3, 2021</Span>-->
-                                <Span Text="{Binding FormattedDate}"/>
+                                <Span Text="{Binding FullNews.CreateDate, StringFormat='{0:MMM dd, yyyy}'}"/>
                                 <Span Text=" "/>
                                 <Span>•</Span>
                                 <Span Text=" "/>
@@ -226,19 +226,24 @@
             </HorizontalStackLayout>
 
             <StackLayout Padding="16,32" Spacing="16" BackgroundColor="{StaticResource Gray30}">
-                <Label Text="LATEST NEWS"
+                <Label Text="РЕКОМЕНДУЕМ ТАКЖЕ"
                        HorizontalOptions="Center"
                        FontSize="16"
                        TextColor="{StaticResource Gray900}"
                        FontAttributes="Bold"/>
-                <StackLayout Spacing="18">
-                    <components:MinNewsCard/>
-                    <components:MinNewsCard/>
-                    <components:MinNewsCard/>
-                    <components:MinNewsCard/>
-                </StackLayout>
+                <CollectionView ItemsSource="{Binding RandomNews}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="10"
+                                           Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <components:MinNewsCard FilteredNews="{Binding .}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-                <controls:Button Text="VIEW ALL"/>
+                <controls:Button Text="VIEW ALL" Command="{Binding OpenCatalogPageCommand}"/>
             </StackLayout>
         </VerticalStackLayout>
     </controls:CustomRefreshView>

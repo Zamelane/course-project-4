@@ -15,16 +15,17 @@ namespace ClientApp.Src.ViewModels;
 
 public partial class HomeViewModel : ObservableObject
 {
-    private string _email = "test@mail.ru";
+    private readonly string _email = "test@mail.ru";
     [ObservableProperty] private ObservableCollection<Category>? categories;
     [ObservableProperty] private string? error;
     [ObservableProperty] private bool isFetching;
 
-    [ObservableProperty] private ObservableCollection<MinNews>? topNews;
-    [ObservableProperty] private ObservableCollection<MinNews>? lastNews;
-    [ObservableProperty] private ObservableCollection<MinNews>? randomNews;
+    [ObservableProperty] private ObservableCollection<MinNews> topNews = [];
+    [ObservableProperty] private ObservableCollection<MinNews> lastNews = [];
+    [ObservableProperty] private ObservableCollection<MinNews> randomNews = [];
     [ObservableProperty] private User? user = Provider.AuthData.User;
     [ObservableProperty] private string email;
+    [ObservableProperty] private bool isAuthorized = false;
 
     private void AuthData_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -37,6 +38,8 @@ public partial class HomeViewModel : ObservableObject
                 Email = User.Email;
             else Email = _email;
 
+            IsAuthorized = User is not null;
+
             OnPropertyChanged(nameof(User));
         }
     }
@@ -45,6 +48,7 @@ public partial class HomeViewModel : ObservableObject
     {
         Task.Run(TryFetch);
         Provider.AuthData.PropertyChanged += AuthData_PropertyChanged;
+        IsAuthorized = User is not null;
         Debug.WriteLine("User avatar: " + User?.Avatar?.TotalPath);
         Email = _email;
     }
@@ -120,13 +124,10 @@ public partial class HomeViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ShowCategoriesPage()
-    {
-        Shell.Current.Navigation.PushAsync(new CategoriesPage());
-    }
+    private static void ShowCategoriesPage() => Shell.Current.Navigation.PushAsync(new CategoriesPage());
 
     [RelayCommand]
-    private async Task OpenProfileEditorPage()
+    private static async Task OpenProfileEditorPage()
     {
         if (Provider.AuthData.Token is not null)
             await Shell.Current.Navigation.PushAsync(new ProfilePage());

@@ -13,7 +13,10 @@ class CommentController extends Controller
 {
     public function index(News $news): JsonResponse
     {
-        $paginateResponse = $news->comments()->simplePaginate();
+        $paginateResponse = $news
+            ->comments()
+            ->orderBy("comments.id", "DESC")
+            ->simplePaginate();
         return response()->json(CommentResource::collection($paginateResponse));
     }
 

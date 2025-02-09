@@ -35,12 +35,13 @@ public partial class FavouriteViewModel : ObservableObject
     }
     public bool CanGetMoreNews => !IsEndPage;
     [RelayCommand(CanExecute = nameof(CanGetMoreNews))]
-    private async Task GetMoreNews()
+    private async Task GetMoreNews(bool? ignoreIsFetching = null)
     {
-        if (IsEndPage || IsFetching)
+        if (ignoreIsFetching != true && (IsEndPage || IsFetching))
             return;
 
-        if (page == 0){
+        if (page == 0)
+        {
             IsEndPage = false;
             News.Clear();
             Total = 0;
@@ -75,14 +76,15 @@ public partial class FavouriteViewModel : ObservableObject
                 Total = r.Total;
 
                 OnPropertyChanged(nameof(Title));
+                OnPropertyChanged(nameof(CanGetMoreNews));
             }
         );
     }
 
     [RelayCommand]
-    private void UpdateNewsList()
+    private async Task UpdateNewsList()
     {
         page = 0;
-        GetMoreNewsCommand.Execute(null);
+        await GetMoreNews(true);
     }
 }

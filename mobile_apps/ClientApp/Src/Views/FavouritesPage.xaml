@@ -32,8 +32,9 @@
         </Grid>
         
         <components:Separator Grid.Row="1"/>
-        <RefreshView Grid.Row="2" IsRefreshing="{Binding IsFetching}"
-             Command="{Binding UpdateNewsListCommand}">
+        <RefreshView Grid.Row="2"
+                     IsRefreshing="{Binding IsFetching}"
+                     Command="{Binding UpdateNewsListCommand}">
             <CollectionView ItemsSource="{Binding News}"
                             RemainingItemsThreshold="{Binding PageSize}"
                             RemainingItemsThresholdReachedCommand="{Binding GetMoreNewsCommand}">

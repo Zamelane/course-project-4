@@ -46,9 +46,7 @@ public partial class NewsEditViewModel : ObservableObject
             "Опции",
             "Отмена",
             "Ок",
-            "Сохранить",
-            "Опубликовать",
-            "Скрыть/Показать обложку"
+            "Опубликовать"
         );
 
         if (result == "Опубликовать")

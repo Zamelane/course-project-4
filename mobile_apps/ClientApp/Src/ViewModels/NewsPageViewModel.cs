@@ -6,22 +6,21 @@ using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
 using RequestsLibrary.Models;
 using RequestsLibrary.Responses;
+using System;
+using System.Collections.ObjectModel;
 using System.Net;
 
 namespace ClientApp.Src.ViewModels;
 public partial class NewsPageViewModel : ObservableObject
 {
     [ObservableProperty] private MinNews? news;
+    [ObservableProperty] private ObservableCollection<MinNews> randomNews = [];
     [NotifyCanExecuteChangedFor(nameof(AddToBookmarksCommand))]
     [NotifyPropertyChangedFor(nameof(CanAddToBookmarks))]
     [ObservableProperty] private FullNews? fullNews;
     [ObservableProperty] private bool isEditVisible = false;
 
     // Вычисляемые поля
-    public string? FormattedDate
-    {
-        get => News is null ? null : Auxiliary.FormateDate(News.CreateDate);
-    }
     public string? ReadTime
     {
         get => News is null ? null : Auxiliary.SymbolsToReadTime(News.Content!.Length);
@@ -50,6 +49,29 @@ public partial class NewsPageViewModel : ObservableObject
                     IsEditVisible = true;
 
                 ChangedAll();
+            }
+        );
+
+        await FetchRandomNews();
+    }
+
+    public async Task FetchRandomNews()
+    {
+        RequestParams rpRANDOM = new();
+        rpRANDOM.AddParameter("sort", "Random");
+        rpRANDOM.AddParameter("limit", "4");
+
+
+        await Auxiliary.RunWithStateHandling<NewsResponse>(
+            () => Fetcher.News.Get(rpRANDOM),
+            null,
+            _ => Error = _,
+            newses =>
+            {
+                if (newses is not null && newses!.News.Count > 0)
+                {
+                    RandomNews = newses.News;
+                }
             }
         );
     }
@@ -126,9 +148,20 @@ public partial class NewsPageViewModel : ObservableObject
         await Shell.Current.Navigation.PushModalAsync(new CommentsPage(News.Id));
     }
 
+    [RelayCommand]
+    private async Task OpenCatalogPage()
+    {
+        try
+        {
+            await Shell.Current.GoToAsync("//Browse");
+        } catch
+        {
+
+        }
+    }
+
     public void ChangedAll()
     {
-        OnPropertyChanged(nameof(FormattedDate));
         OnPropertyChanged(nameof(ReadTime));
 
         //Debug.WriteLine(Auxiliary.SymbolsToReadTime(120));

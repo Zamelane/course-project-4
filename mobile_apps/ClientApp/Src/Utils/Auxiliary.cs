@@ -71,10 +71,6 @@ internal static class Auxiliary
 
         return response;
     }
-    public static string FormateDate(DateTime date)
-    {
-        return $"{MonthNames[date.Month - 1].Substring(0, 3)} {date.Day}, {date.Year}";
-    }
     public static string SymbolsToReadTime(int symbols)
     {
         // Сколько символов в минуту читаем

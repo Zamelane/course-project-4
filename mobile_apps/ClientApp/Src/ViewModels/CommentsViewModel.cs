@@ -1,4 +1,5 @@
-﻿using ClientApp.Src.Utils;
+﻿using ClientApp.Src.Storage;
+using ClientApp.Src.Utils;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -18,7 +19,14 @@ public partial class CommentsViewModel : ObservableObject
     [ObservableProperty] public bool isEndPage = false;
     [ObservableProperty] public bool isCommentsFetching = false;
     [ObservableProperty] public bool isSendFetching = false;
+    [ObservableProperty] public bool isAuthorize = false;
     private int _currentPage = 0;
+
+    public CommentsViewModel()
+    {
+        if (Provider.AuthData.User is not null)
+            IsAuthorize = true;
+    }
 
     [RelayCommand]
     private async Task SendMessage()
@@ -108,9 +116,6 @@ public partial class CommentsViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ExitCommentPage()
-    {
-        Shell.Current.Navigation.PopModalAsync();
-    }
+    private static void ExitCommentPage() => Shell.Current.Navigation.PopModalAsync();
 
 }

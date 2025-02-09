@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace ClientApp.Src.Storage;
 
-public class AuthData : ObservableObject
+public partial class AuthData : ObservableObject
 {
     private string? _token;
     private User? _user;
@@ -59,7 +59,7 @@ public class AuthData : ObservableObject
 
     public void Changed()
     {
-        this.User = this.User;
+        this.User = User;
         OnPropertyChanged(nameof(User));
     }
 }

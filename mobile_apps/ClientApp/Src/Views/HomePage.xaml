@@ -26,7 +26,10 @@
 
     <Grid RowDefinitions="auto,*">
         <!--Верхняя шапочка с профилем и поиском-->
-        <Grid Padding="10,0,10,10" ColumnSpacing="10" VerticalOptions="Center" BackgroundColor="{StaticResource Primary600}">
+        <Grid Padding="10,0,10,10"
+              ColumnSpacing="10"
+              VerticalOptions="Center"
+              BackgroundColor="{StaticResource Primary600}">
             <Grid.ColumnDefinitions>
                 <OnPlatform x:TypeArguments="ColumnDefinitionCollection">
                     <OnPlatform.Default>
@@ -52,7 +55,8 @@
                                BackgroundColor="{StaticResource White}"
                                StrokeColor="{StaticResource Gray100}"
                                CornerRadius="5"
-                               Command="{Binding OpenProfileEditorPageCommand}">
+                               Command="{Binding OpenProfileEditorPageCommand}"
+                               IsVisible="{Binding IsAuthorized}">
                 <Grid>
                     <Image IsVisible="{Binding User.Avatar, Converter={StaticResource IsNullConverter}}">
                         <Image.Source>
@@ -67,7 +71,7 @@
                 </Grid>
             </mcb:ContentButton>
             <!--Строка поиска-->
-            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Search ..." Grid.Column="1"
+            <controls:MinIconEntry IconSource="search.png" PlaceholderText="Поиск ..." Grid.Column="1"
                                    VerticalOptions="Center" />
             <!--Перезагрузка-->
             <ImageButton Grid.Column="2" Source="refresh.png" Command="{Binding TryFetchCommand}" Background="Transparent">
@@ -105,7 +109,7 @@
                 <!--Разделы содержимого-->
                 <StackLayout Spacing="{StaticResource MarginMax}" Padding="{StaticResource TopBottomMarginMax}">
                     <!--Категории-->
-                    <components:TitledContentTemplate Title="TOP CATEGORY" ShowMore="True" Command="{Binding ShowCategoriesPageCommand}">
+                    <components:TitledContentTemplate Title="ТОПОВЫЕ КАТЕГОРИИ" ShowMore="True" Command="{Binding ShowCategoriesPageCommand}">
                         <CollectionView ItemsSource="{Binding Categories}">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Horizontal"
@@ -121,7 +125,7 @@
                     </components:TitledContentTemplate>
                     <!--РЕКОМЕНДАЦИИ-->
                     <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
-                        <Label Text="MOST READ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito" />
+                        <Label Text="САМОЕ ЧИТАЕМОЕ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito" />
                         <!--Большая карторчка для первой рекомендации-->
                         <!--<components:DefaultNewsCard FilteredNews="{Binding MostReadNewsTop}" />-->
                         <!--Остальные мини карточки-->
@@ -142,7 +146,7 @@
 
                     <!--ПОСЛЕДНИЕ НОВОСТИ-->
                     <StackLayout Padding="{StaticResource LeftRightMarginLarge}" Spacing="{StaticResource MarginSmall}">
-                        <Label Text="LATEST NEWS" FontSize="16" FontAttributes="Bold" FontFamily="Nunito" />
+                        <Label Text="ПОСЛЕДНИЕ НОВОСТИ" FontSize="16" FontAttributes="Bold" FontFamily="Nunito" />
                         <!--Остальные мини карточки-->
                         <CollectionView ItemsSource="{Binding LastNews}">
                             <CollectionView.ItemsLayout>

@@ -9,7 +9,7 @@ namespace ClientApp.Src.ViewModels;
 
 public partial class CategoriesViewModel : ObservableObject
 {
-    [ObservableProperty] private ObservableCollection<Category> categories = new();
+    [ObservableProperty] private ObservableCollection<Category> categories = [];
     [ObservableProperty] private string? error;
     [ObservableProperty] private bool isFetching;
 
