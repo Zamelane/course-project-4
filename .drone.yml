@@ -3,14 +3,22 @@ type: docker
 name: default
 
 steps:
+- name: check if event is tag
+    image: plugins/conditionals
+    settings:
+      condition: "{{ build.event == 'tag' }}"
+      exit_code: 78
+      message: "Pipeline skipped: This pipeline is only available for tags. Current event: {{ build.event }}"
+
 - name: build client app
   image: conneqthub/dotnet-maui-android
   commands:
   - cd mobile_apps/ClientApp
-  - dotnet workload restore
-  - dotnet workload install android --ignore-failed-sources
-  - dotnet restore
+  - dotnet workload restore --download-to-cache --from-cache
+  - dotnet workload install android --ignore-failed-sources --download-to-cache --from-cache
+  - dotnet restore --download-to-cache --from-cache
   - dotnet publish -c Debug -f net9.0-android -o ./build
+
 - name: gitea_release
   image: plugins/gitea-release
   settings:
