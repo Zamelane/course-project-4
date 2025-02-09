@@ -4,16 +4,6 @@ name: default
 
 steps:
 
-- name: check if 1
-  image: alpine
-  commands:
-    - cd mobile_apps/ClientApp
-
-- name: check if 2
-  image: alpine
-  commands:
-    - pwd
-
 - name: check if event is tag
   image: alpine
   commands:
@@ -38,4 +28,4 @@ steps:
     api_key: 
       from_secret: gitea_api_key
     base_url: https://git.zmln.ru
-    files: build/*
+    files: mobile_apps/ClientApp/build/*
