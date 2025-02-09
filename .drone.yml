@@ -4,11 +4,13 @@ name: default
 
 steps:
 - name: check if event is tag
-  image: plugins/conditionals
-  settings:
-    condition: "{{ build.event == 'tag' }}"
-    exit_code: 78
-    message: "Pipeline skipped: This pipeline is only available for tags. Current event: {{ build.event }}"
+    image: alpine
+    commands:
+      - |
+        if [ "$DRONE_BUILD_EVENT" != "tag" ]; then
+          echo "This pipeline is only available for tags. Current event: $DRONE_BUILD_EVENT"
+          exit 78
+        fi
 
 - name: build client app
   image: conneqthub/dotnet-maui-android
