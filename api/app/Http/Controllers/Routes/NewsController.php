@@ -25,7 +25,7 @@ class NewsController extends Controller
         {
             switch (request()->sort) {
                 case 'FirstOld':
-                    $query->orderBy('create_date', 'asc');
+                    $query->orderBy('id', 'asc');
                     break;
                 case 'Random':
                     $query->inRandomOrder();
@@ -36,6 +36,8 @@ class NewsController extends Controller
                         ->groupBy('news.id')
                         ->orderBy('views_count', 'desc');
                     break;
+                case 'FirstNew':
+                    $query->orderBy('id', 'desc');
             }
         }
 
