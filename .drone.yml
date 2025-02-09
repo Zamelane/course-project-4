@@ -10,4 +10,11 @@ steps:
   - dotnet workload restore
   - dotnet workload install android --ignore-failed-sources
   - dotnet restore
-  - dotnet publish -c Release -f net9.0-android -o ./build
+  - dotnet publish -c Debug -f net9.0-android -o ./build
+- name: gitea_release
+  image: plugins/gitea-release
+  settings:
+    api_key: 
+      from_secret: gitea_api_key
+    base_url: https://git.zmln.ru
+    files: build/*
