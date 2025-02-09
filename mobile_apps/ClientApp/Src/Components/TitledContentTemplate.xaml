@@ -13,7 +13,7 @@
                            TextColor="#191F33" />
                     <mcb:ContentButton Grid.Column="2" Command="{TemplateBinding Command}" Background="Transparent" StrokeThickness="0">
                         <HorizontalStackLayout Spacing="8" IsVisible="{TemplateBinding ShowMore}">
-                            <Label Text="View all" FontFamily="Nunito" TextColor="{StaticResource Primary500}" />
+                            <Label Text="Смотреть всё" FontFamily="Nunito" TextColor="{StaticResource Primary500}" />
                             <Image Source="arrow_right_blue.png" WidthRequest="16" HeightRequest="16" />
                         </HorizontalStackLayout>
                     </mcb:ContentButton>

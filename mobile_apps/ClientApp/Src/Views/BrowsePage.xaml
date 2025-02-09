@@ -49,7 +49,7 @@
             <Grid ColumnDefinitions="*,auto" BackgroundColor="{StaticResource Primary600}">
                 <controls:IconEntry CornerRadius="5"
                                 IconSource="search.png"
-                                PlaceholderText="Search ..."
+                                PlaceholderText="Поиск ..."
                                 Text="{Binding SearchText}"
                                 SearchCommand="{Binding FetchSearchNewsCommand}"
                                 Margin="20,25">
@@ -95,7 +95,7 @@
                             <!--Фильтры select'ом-->
                             <Grid ColumnDefinitions="*,*" ColumnSpacing="16" Padding="20">
                                 <StackLayout Spacing="9">
-                                    <Label Text="Category" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
+                                    <Label Text="КАТЕГОРИИ" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
                                     <!-- -->
                                     <controls:Select ItemsSource="{Binding Categories}"
                                                      Title="Выберите категорию"
@@ -111,7 +111,7 @@
                                     </controls:Select>
                                 </StackLayout>
                                 <StackLayout Spacing="9" Grid.Column="1">
-                                    <Label Text="Sort by" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
+                                    <Label Text="СОРТИРОВКА" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Gray900}" />
                                     <!-- -->
                                     <controls:Select ItemsSource="{Binding TypesSortBy}"
                                                      Title="Выберите сортировку"
@@ -135,7 +135,7 @@
 
                             <!--Теги-->
                             <Grid RowDefinitions="auto, auto" ColumnDefinitions="*, auto" RowSpacing="12" Padding="0,10,0,10">
-                                <Label Text="TAGS" FontSize="16" FontAttributes="Bold" Padding="20,0"/>
+                                <Label Text="ТЕГИ" FontSize="16" FontAttributes="Bold" Padding="20,0"/>
                                 <ScrollView Grid.Row="1" Orientation="Horizontal" Padding="{OnPlatform WinUI='0,0,0,14', Default='20,0'}">
                                     <CollectionView ItemsSource="{Binding Tags}">
                                         <CollectionView.ItemsLayout>

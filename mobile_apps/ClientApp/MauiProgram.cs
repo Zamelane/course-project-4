@@ -2,7 +2,6 @@
 using CommunityToolkit.Maui;
 using FFImageLoading.Maui;
 using MauiContentButton;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Handlers;
 
 namespace ClientApp;

@@ -22,7 +22,7 @@ public partial class MeNewsViewModel : ObservableObject
     {
         get
         {
-            string title = "Me news";
+            string title = "Мои новости";
 
             if (!News.Any())
                 return title;

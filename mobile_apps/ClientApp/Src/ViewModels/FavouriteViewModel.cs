@@ -20,7 +20,7 @@ public partial class FavouriteViewModel : ObservableObject
     {
         get
         {
-            string title = "Bookmark";
+            string title = "Закладки";
 
             if (!News.Any())
                 return title;
