@@ -156,6 +156,9 @@ class NewsController extends Controller
         else
             $updateData['image_id'] = null;
 
+        if (isset($validatedData['category_id']))
+            $updateData['category_id'] = $validatedData['category_id'];
+
         $news->update($updateData);
 
         $tags = $request->validated('tags');
