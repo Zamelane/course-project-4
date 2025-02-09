@@ -53,7 +53,7 @@
         <StackLayout Grid.Column="1"
                      VerticalOptions="Center">
             <controls:IconEntry Text="{Binding FirstName}"
-                    PlaceholderText="Введите своё имя"
+                    PlaceholderText="Введите имя"
                     IconSource="user.png"
                     ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=firstName}" />
         </StackLayout>
@@ -61,7 +61,7 @@
         <StackLayout Grid.Column="1"
                      Grid.Row="1" VerticalOptions="Center">
             <controls:IconEntry Text="{Binding LastName}"
-                    PlaceholderText="Введите свою фамилию"
+                    PlaceholderText="Введите фамилию"
                     IconSource="user.png"
                     ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=lastName}" />
         </StackLayout>

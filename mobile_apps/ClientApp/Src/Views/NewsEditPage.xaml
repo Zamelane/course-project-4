@@ -143,11 +143,12 @@
                                          IsMultiple="False">
                             <controls:Select.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid>
+                                    <mcb:ContentButton StrokeThickness="0"
+                                                       InputTransparent="True">
                                         <components:MinCategoryCard Text="{Binding Name}"
                                                                     IconSource="{Binding Image.Path}"
                                                                     CardColor="{Binding BackgroundColor}"/>
-                                    </Grid>
+                                    </mcb:ContentButton>
                                 </DataTemplate>
                             </controls:Select.ItemTemplate>
                         </controls:Select>
