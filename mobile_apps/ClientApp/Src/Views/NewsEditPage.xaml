@@ -93,7 +93,10 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="0,0,5,5"/>
                         </Border.StrokeShape>
-                        <controls:BorderlessEditor Text="{Binding EditableNews.Content}" BackgroundColor="{StaticResource Gray60}" MinimumHeightRequest="150" AutoSize="TextChanges"/>
+                        <controls:BorderlessEditor Text="{Binding EditableNews.Content}"
+                                                   BackgroundColor="{StaticResource Gray60}"
+                                                   MinimumHeightRequest="150"
+                                                   AutoSize="TextChanges"/>
                     </Border>
                     <Label Grid.Row="2"
                            TextColor="{StaticResource Error400}"

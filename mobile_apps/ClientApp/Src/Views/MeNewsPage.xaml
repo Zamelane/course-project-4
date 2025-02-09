@@ -15,11 +15,12 @@
         <Grid ColumnDefinitions="{OnPlatform Android='auto,10,*', Default='auto,*,auto,*,auto'}">
             <mcb:ContentButton WidthRequest="55"
                                HeightRequest="55"
+                               StrokeThickness="0"
                                CornerRadius="5"
                                Command="{Binding OpenNewsEditorCommand}">
                 <ffimageloading:SvgCachedImage Source="add_icon.svg"
-                                               WidthRequest="{OnPlatform Android=35, Default=55}"
-                                               HeightRequest="{OnPlatform Android=35, Default=55}"/>
+                                               WidthRequest="35"
+                                               HeightRequest="35"/>
             </mcb:ContentButton>
             <HorizontalStackLayout Grid.ColumnSpan="4" HorizontalOptions="Center" Padding="15">
                 <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold"/>
