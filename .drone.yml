@@ -28,4 +28,4 @@ steps:
     api_key: 
       from_secret: gitea_api_key
     base_url: https://git.zmln.ru
-    files: mobile_apps/ClientApp/build/*
+    files: mobile_apps/ClientApp/build/*.apk
