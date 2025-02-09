@@ -3,6 +3,16 @@ type: docker
 name: default
 
 steps:
+
+- name: check if 1
+  image: alpine
+  commands:
+    - cd mobile_apps/ClientApp
+- name: check if 2
+  image: alpine
+  commands:
+    - pwd
+
 - name: check if event is tag
   image: alpine
   commands:
