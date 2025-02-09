@@ -18,7 +18,7 @@ steps:
   - cd mobile_apps/ClientApp
   - dotnet workload restore --download-to-cache --from-cache
   - dotnet workload install android --ignore-failed-sources --download-to-cache --from-cache
-  - dotnet restore --download-to-cache --from-cache
+  - dotnet restore
   - dotnet publish -c Debug -f net9.0-android -o ./build
 
 - name: gitea_release
