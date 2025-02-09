@@ -20,7 +20,7 @@
         <Nullable>enable</Nullable>
 
         <!-- Display name -->
-        <ApplicationTitle>Мои новости</ApplicationTitle>
+        <ApplicationTitle>ClientApp</ApplicationTitle>
 
         <!-- App Identifier -->
         <ApplicationId>com.companyname.clientapp</ApplicationId>
@@ -48,20 +48,19 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
       <RunAOTCompilation>False</RunAOTCompilation>
-      <ApplicationTitle>Мои новости</ApplicationTitle>
-      <PublishTrimmed>False</PublishTrimmed>
+      <ApplicationTitle>ClientApp</ApplicationTitle>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-      <ApplicationTitle>Мои новости</ApplicationTitle>
+      <ApplicationTitle>ClientApp</ApplicationTitle>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
-      <ApplicationTitle>Мои новости</ApplicationTitle>
+      <ApplicationTitle>ClientApp</ApplicationTitle>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
-      <ApplicationTitle>Мои новости</ApplicationTitle>
+      <ApplicationTitle>ClientApp</ApplicationTitle>
     </PropertyGroup>
 
     <ItemGroup>
@@ -109,6 +108,7 @@
         <None Remove="Resources\Images\handshake.svg" />
         <None Remove="Resources\Images\key.svg" />
         <None Remove="Resources\Images\more.svg" />
+        <None Remove="Resources\Images\news.svg" />
         <None Remove="Resources\Images\news_1.png" />
         <None Remove="Resources\Images\password.svg" />
         <None Remove="Resources\Images\search.svg" />

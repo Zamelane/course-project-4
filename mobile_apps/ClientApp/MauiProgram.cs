@@ -4,6 +4,10 @@ using FFImageLoading.Maui;
 using MauiContentButton;
 using Microsoft.Maui.Handlers;
 
+#if ANDROID
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+#endif
+
 namespace ClientApp;
 
 public static class MauiProgram
@@ -32,6 +36,8 @@ public static class MauiProgram
 #if ANDROID
                    handler.PlatformView.Background = null;
                    handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+                   handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
+
 #elif IOS || MACCATALYST
             handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
             handler.PlatformView.Layer.BorderWidth = 0;

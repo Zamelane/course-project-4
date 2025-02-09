@@ -30,7 +30,7 @@ public static class ImageUploader
                 RequestParams rp = new();
 
                 MultipartFormDataContent content = new();
-                content.Add(streamContent, "image", imageFile.FileName);
+                content.Add(streamContent, "image", "test.png");
 
                 rp.SetBody(content);
                 var result = await Auxiliary.RunWithStateHandling<RequestsLibrary.Models.Image>(

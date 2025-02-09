@@ -15,6 +15,7 @@ public partial class FavouriteViewModel : ObservableObject
     [ObservableProperty] private int pageSize = 2;
     [ObservableProperty] private bool isEndPage = false;
     [ObservableProperty] private bool isFetching = false;
+    [ObservableProperty] private bool isFetchingProcess = false;
     private int page = 0;
     public string Title
     {
@@ -22,10 +23,7 @@ public partial class FavouriteViewModel : ObservableObject
         {
             string title = "Закладки";
 
-            if (!News.Any())
-                return title;
-
-            return title + $" ({News.Count})";
+            return title + $" ({Total})";
         }
     }
 
@@ -35,16 +33,18 @@ public partial class FavouriteViewModel : ObservableObject
     }
     public bool CanGetMoreNews => !IsEndPage;
     [RelayCommand(CanExecute = nameof(CanGetMoreNews))]
-    private async Task GetMoreNews(bool? ignoreIsFetching = null)
+    private async Task GetMoreNews(int? loadPage = null)
     {
-        if (ignoreIsFetching != true && (IsEndPage || IsFetching))
+        if ((IsEndPage && loadPage is null) || IsFetchingProcess)
             return;
 
-        if (page == 0)
+        IsFetchingProcess = true;
+
+        if (loadPage is not null)
         {
+            page = (int)loadPage;
             IsEndPage = false;
             News.Clear();
-            Total = 0;
         }
 
         page++;
@@ -54,7 +54,10 @@ public partial class FavouriteViewModel : ObservableObject
 
         await Auxiliary.RunWithStateHandling(
             () => Fetcher.Favourite.Get(rp),
-            _ => IsFetching = _,
+            _ => {
+                IsFetching = _;
+                IsFetchingProcess = _;
+            },
             _ => Error = _,
             r =>
             {
@@ -70,7 +73,9 @@ public partial class FavouriteViewModel : ObservableObject
                     IsEndPage = true;
                 }
                 else
+                {
                     r.Favourites.ToList().ForEach(e => News.Add(e.News));
+                }    
                 Debug.WriteLine($"Favourite news: {News.Count}");
 
                 Total = r.Total;
@@ -79,12 +84,12 @@ public partial class FavouriteViewModel : ObservableObject
                 OnPropertyChanged(nameof(CanGetMoreNews));
             }
         );
+        IsFetchingProcess = false;
     }
 
     [RelayCommand]
     private async Task UpdateNewsList()
     {
-        page = 0;
-        await GetMoreNews(true);
+        await GetMoreNews(0);
     }
 }

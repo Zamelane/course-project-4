@@ -1,5 +1,6 @@
 ﻿using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
+using RequestsLibrary;
 using System.Diagnostics;
 
 namespace ClientApp.Src.Utils;
@@ -56,10 +57,12 @@ public static class MarkdownGenerator
             {
                 if (link.IsImage)
                 {
+                    string url = Fetcher.Config.GetStorageUrl() + link?.Url?.Replace(":api:storage", "");
                     tb.Add(new Image()
                     {
-                        Source = link.Url
+                        Source = url
                     });
+                    Debug.WriteLine("Image url: " + url);
                     tb.Add(new FormattedString());
                 } else
                 {

@@ -3,14 +3,16 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
-             xmlns:converters="clr-namespace:ClientApp.Src.Converters"
              xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
+             xmlns:converters="clr-namespace:ClientApp.Src.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ClientApp.Src.Components.DefaultNewsCard">
 
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:ResultConverter x:Key="ResultConverter"/>
             <converters:VisibilityConverter x:Key="VisibilityConverter"/>
+            <toolkit:IsNullConverter x:Key="IsNullConverter"/>
         </ResourceDictionary>
     </ContentView.Resources>
 
@@ -21,13 +23,22 @@
 
                 <Grid RowDefinitions="auto,auto" RowSpacing="16">
                     <Image Source="{Binding Cover.TotalPath}"
-                               Aspect="AspectFill"
-                               Grid.Column="1"
-                               IsVisible="{Binding Cover, Converter={StaticResource VisibilityConverter}}" HeightRequest="200"/>
+                           Aspect="AspectFill"
+                           Grid.Column="1"
+                           IsVisible="{Binding Cover, Converter={StaticResource VisibilityConverter}}"
+                           HeightRequest="200"
+                           MaximumHeightRequest="200"/>
+                    <Image Source="news_1.png"
+                           Aspect="AspectFill"
+                           Grid.Column="1"
+                           IsVisible="{Binding Cover, Converter={StaticResource IsNullConverter}}"
+                           HeightRequest="200"
+                           MaximumHeightRequest="200"/>
+                    
                     <StackLayout Grid.Row="1" Margin="20,0,20,20" Spacing="8">
                         <Label LineBreakMode="TailTruncation" MaxLines="1" FontSize="16" FontFamily="Nunito"
                                    Text="{Binding Title}" />
-                        <Label Text="{Binding Content}" MaxLines="2" FontSize="14" TextColor="#767E94"
+                        <Label Text="{Binding Content}" MaxLines="1" FontSize="14" TextColor="#767E94"
                                    FontFamily="Nunito" />
                         <!--Социальная информация-->
                         <Grid Margin="0,12,0,0" ColumnDefinitions="auto,auto,*,auto" ColumnSpacing="16">

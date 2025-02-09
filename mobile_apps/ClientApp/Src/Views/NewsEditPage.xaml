@@ -7,6 +7,7 @@
              xmlns:viewModel="clr-namespace:ClientApp.Src.ViewModels"
              xmlns:cnv="clr-namespace:ClientApp.Src.Converters"
              xmlns:components="clr-namespace:ClientApp.Src.Components"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ClientApp.Src.Views.NewsEditPage"
              Shell.BackgroundColor="{StaticResource Primary600}"
              Shell.TitleColor="{StaticResource White}"
@@ -20,18 +21,21 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <cnv:ErrorConverter x:Key="ErrorConverter" />
+            <cnv:ErrorConverter      x:Key="ErrorConverter"      />
             <cnv:VisibilityConverter x:Key="VisibilityConverter" />
-            <cnv:ResultConverter x:Key="ResultConverter"/>
+            <cnv:ResultConverter     x:Key="ResultConverter"     />
+            <toolkit:IsNullConverter x:Key="IsNullConverter"     />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="menu.png" Command="{Binding OpenMenuCommand}"/>
+        <ToolbarItem IconImageSource="menu.png"
+                     Command="{Binding OpenMenuCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ScrollView>
-        <StackLayout Padding="20" Spacing="20">
+        <StackLayout Padding="20"
+                     Spacing="20">
             <Border BackgroundColor="{StaticResource Gray60}">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="5" />
@@ -39,10 +43,11 @@
                 <Grid>
                     <Image Source="{Binding EditableNews.Cover.TotalPath}" Aspect="AspectFill" HeightRequest="174"/>
                     <mcb:ContentButton Padding="50"
-                               ZIndex="999"
-                               BackgroundColor="Transparent"
-                               Command="{Binding SelectAndValidateImageCommand}">
-                        <StackLayout HorizontalOptions="Center">
+                                       ZIndex="999"
+                                       BackgroundColor="Transparent"
+                                       Command="{Binding SelectAndValidateImageCommand}">
+                        <StackLayout HorizontalOptions="Center"
+                                     IsVisible="{Binding EditableNews.Cover, Converter={StaticResource IsNullConverter}}">
                             <ffimageloading:SvgCachedImage Source="upload_photo_raw.svg"
                                                    WidthRequest="50"
                                                    HeightRequest="50"/>
@@ -61,11 +66,15 @@
                            FontSize="18"
                            HorizontalOptions="Center"
                            Padding="5"/>
-                    <Border Grid.Row="1">
+                    <Border Grid.Row="1"
+                            BackgroundColor="{StaticResource Gray60}"
+                            Padding="{OnPlatform Android='10,0', Default=0}">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="0,0,5,5"/>
                         </Border.StrokeShape>
-                        <controls:BorderlessEntry Text="{Binding EditableNews.Title}" BackgroundColor="{StaticResource Gray60}" MinimumHeightRequest="30"/>
+                        <controls:BorderlessEntry Text="{Binding EditableNews.Title}"
+                                                  MinimumHeightRequest="30"
+                                                  BackgroundColor="Transparent"/>
                     </Border>
                     <Label Grid.Row="2"
                            TextColor="{StaticResource Error400}"
@@ -84,21 +93,32 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
-                <Grid RowDefinitions="auto, *, auto">
+                <Grid RowDefinitions="auto, auto, *, auto">
                     <Label Text="Содержимое"
                            FontSize="18"
                            HorizontalOptions="Center"
                            Padding="5"/>
-                    <Border Grid.Row="1">
+                    <Border Grid.Row="1"
+                            Grid.RowSpan="2"
+                            Padding="{OnPlatform Android='10,0', Default=0}"
+                            BackgroundColor="{StaticResource Gray60}">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="0,0,5,5"/>
                         </Border.StrokeShape>
-                        <controls:BorderlessEditor Text="{Binding EditableNews.Content}"
-                                                   BackgroundColor="{StaticResource Gray60}"
-                                                   MinimumHeightRequest="150"
-                                                   AutoSize="TextChanges"/>
+                        <Grid RowDefinitions="*,12">
+                            <controls:BorderlessEditor Text="{Binding EditableNews.Content}"
+                                                       BackgroundColor="{StaticResource Gray60}"
+                                                       MinimumHeightRequest="150"
+                                                       AutoSize="TextChanges"
+                                                       Grid.RowSpan="2"/>
+                            <Rectangle BackgroundColor="{StaticResource Gray60}"
+                                       HeightRequest="7"
+                                       VerticalOptions="End"
+                                       Grid.Row="1"/>
+                        </Grid>
+                        
                     </Border>
-                    <Label Grid.Row="2"
+                    <Label Grid.Row="3"
                            TextColor="{StaticResource Error400}"
                            Padding="10,2"
                            Text="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=content}">
@@ -110,7 +130,7 @@
                     </Label>
                 </Grid>
             </Border>
-
+            
             <StackLayout>
                 <!--Фильтры select'ом-->
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
@@ -123,7 +143,11 @@
                                          IsMultiple="False">
                             <controls:Select.ItemTemplate>
                                 <DataTemplate>
-                                    <components:MinCategoryCard Text="{Binding Name}" IconSource="{Binding Image.Path}" CardColor="{Binding BackgroundColor}"/>
+                                    <Grid>
+                                        <components:MinCategoryCard Text="{Binding Name}"
+                                                                    IconSource="{Binding Image.Path}"
+                                                                    CardColor="{Binding BackgroundColor}"/>
+                                    </Grid>
                                 </DataTemplate>
                             </controls:Select.ItemTemplate>
                         </controls:Select>
