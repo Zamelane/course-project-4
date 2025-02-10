@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5" pages="3">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9" pages="3">
   <diagram name="Валидация" id="Vqh_MUvs2D1VB1xuiYGd">
-    <mxGraphModel dx="1098" dy="988" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="998" dy="679" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -8,22 +8,7 @@
           <mxGeometry x="80" y="40" width="120" height="340" as="geometry" />
         </mxCell>
         <mxCell id="5oXKe_CCSrCBE_VNLsPT-2" value="Валидные" style="shape=umlFrame;whiteSpace=wrap;html=1;labelBackgroundColor=none;strokeColor=#2D7600;fontFamily=Helvetica;fontSize=11;fillColor=#60a917;fontColor=#ffffff;width=80;height=30;" parent="1" vertex="1">
-          <mxGeometry x="40" y="200" width="480" height="120" as="geometry" />
-        </mxCell>
-        <mxCell id="5oXKe_CCSrCBE_VNLsPT-3" value="Компонент" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;fontFamily=Helvetica;fontSize=11;fillColor=#bac8d3;strokeColor=#23445d;" parent="1" vertex="1">
-          <mxGeometry x="400" y="40" width="120" height="340" as="geometry" />
-        </mxCell>
-        <mxCell id="5oXKe_CCSrCBE_VNLsPT-4" value="Валидация данных" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" parent="5oXKe_CCSrCBE_VNLsPT-3" edge="1">
-          <mxGeometry x="0.0968" width="80" relative="1" as="geometry">
-            <mxPoint x="-95" y="100" as="sourcePoint" />
-            <mxPoint x="-90" y="130" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="-30" y="100" />
-              <mxPoint x="-30" y="130" />
-              <mxPoint x="-60" y="130" />
-            </Array>
-            <mxPoint as="offset" />
-          </mxGeometry>
+          <mxGeometry x="40" y="200" width="390" height="120" as="geometry" />
         </mxCell>
         <mxCell id="5oXKe_CCSrCBE_VNLsPT-5" value="Система" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;strokeColor=#9673a6;fontFamily=Helvetica;fontSize=11;fillColor=#e1d5e7;" parent="1" vertex="1">
           <mxGeometry x="240" y="40" width="120" height="340" as="geometry" />
@@ -60,7 +45,7 @@
           <mxGeometry x="295" y="320" width="10" height="40" as="geometry" />
         </mxCell>
         <mxCell id="5oXKe_CCSrCBE_VNLsPT-14" value="Невалидные" style="shape=umlFrame;whiteSpace=wrap;html=1;labelBackgroundColor=none;strokeColor=#6F0000;fontFamily=Helvetica;fontSize=11;fillColor=#a20025;fontColor=#ffffff;width=80;height=30;" parent="1" vertex="1">
-          <mxGeometry x="40" y="320" width="480" height="90" as="geometry" />
+          <mxGeometry x="40" y="320" width="390" height="90" as="geometry" />
         </mxCell>
         <mxCell id="5oXKe_CCSrCBE_VNLsPT-15" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;labelBackgroundColor=none;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="1" vertex="1">
           <mxGeometry x="125" y="370" width="30" height="30" as="geometry" />
