@@ -18,7 +18,7 @@
                     <TextBlock
                         Foreground="White"
                         VerticalAlignment="Center"
-                        Text="ClientApp"
+                        Text="Мои новости"
                         Margin="7,0,0,0"/>
 
                 </Border>

@@ -8,7 +8,7 @@
     xmlns:authViews="clr-namespace:ClientApp.Src.Views.Auth"
     xmlns:local="clr-namespace:ClientApp.Src.ViewModels"
     FlyoutBehavior="Disabled"
-    Title="ClientApp">
+    Title="Мои новости">
     
     <Shell.BindingContext>
         <local:TabsViewModel />

@@ -41,7 +41,7 @@
                                 <toolkit:GravatarImageSource
                                     CacheValidity="1"
                                     CachingEnabled="True"
-                                    Email="{Binding Email}"
+                                    Email="{Binding FirstName}"
                                     Image="Robohash" />
                             </Image.Source>
                         </Image>
@@ -50,18 +50,21 @@
                 </Border>
             </mcb:ContentButton>
 
+        <StackLayout Grid.Column="1"
+                     VerticalOptions="Center">
             <controls:IconEntry Text="{Binding FirstName}"
-                                Grid.Column="1"
-                                PlaceholderText="Введите своё имя"
-                                IconSource="user.png"
-                                ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=firstName}" />
+                    PlaceholderText="Введите имя"
+                    IconSource="user.png"
+                    ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=firstName}" />
+        </StackLayout>
 
+        <StackLayout Grid.Column="1"
+                     Grid.Row="1" VerticalOptions="Center">
             <controls:IconEntry Text="{Binding LastName}"
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                PlaceholderText="Введите свою фамилию"
-                                IconSource="user.png"
-                                ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=lastName}" />
+                    PlaceholderText="Введите фамилию"
+                    IconSource="user.png"
+                    ErrorText="{Binding BadFields, Converter={StaticResource ErrorConverter}, ConverterParameter=lastName}" />
+        </StackLayout>
 
             <controls:IconEntry Text="{Binding Email}"
                                 Grid.ColumnSpan="2"

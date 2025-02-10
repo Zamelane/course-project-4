@@ -23,7 +23,7 @@ public partial class NewsPageViewModel : ObservableObject
     // Вычисляемые поля
     public string? ReadTime
     {
-        get => News is null ? null : Auxiliary.SymbolsToReadTime(News.Content!.Length);
+        get => FullNews is null ? null : Auxiliary.SymbolsToReadTime(FullNews.Content!.Length);
     }
 
     // Для запросов

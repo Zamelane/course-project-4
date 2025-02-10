@@ -99,7 +99,8 @@
                            Grid.Row="1"
                            FontSize="14"
                            VerticalTextAlignment="End"
-                           TextColor="{StaticResource Gray900}">
+                           TextColor="{StaticResource Gray900}"
+                           LineBreakMode="WordWrap">
                         <Label.FormattedText>
                             <FormattedString>
                                 <!--<Span>Aug 3, 2021</Span>-->

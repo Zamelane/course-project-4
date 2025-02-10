@@ -4,14 +4,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
              xmlns:mcb="http://schemas.microsoft.com/dotnet/2024/maui/contentbutton"
+             xmlns:converters="clr-namespace:ClientApp.Src.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ClientApp.Src.Components.BigNewsCard">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:ResultConverter x:Key="ResultConverter"/>
+            <converters:VisibilityConverter x:Key="VisibilityConverter"/>
+            <toolkit:IsNullConverter x:Key="IsNullConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
 
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <!--Карточка с топ-новостью-->
             <mcb:ContentButton StrokeThickness="0" CornerRadius="0" Clicked="ContentButton_Clicked">
                 <Grid RowDefinitions="250,auto" BindingContext="{TemplateBinding FilteredNews}">
-                    <Image Source="news_1.png" Aspect="AspectFill" />
+                    <Image Source="{Binding Cover.TotalPath}"
+                           Aspect="AspectFill"
+                           IsVisible="{Binding Cover, Converter={StaticResource VisibilityConverter}}"/>
+                    <Image Source="news_1.png"
+                           Aspect="AspectFill"
+                           IsVisible="{Binding Cover, Converter={StaticResource IsNullConverter}}"/>
                     <!--Содержимое карточки-->
                     <VerticalStackLayout Margin="20" Spacing="20" Grid.Row="1">
                         <!--Заголовок и описание новости-->
@@ -21,11 +36,13 @@
                                    FontSize="20"
                                    TextColor="#191F33"
                                    FontFamily="Nunito"
-                                   Text="{Binding Title}" />
+                                   Text="{Binding Title}"
+                                   MaxLines="1" />
                             <Label FontSize="14"
                                    TextColor="#767E94"
                                    FontFamily="Nunito"
-                                   Text="{Binding Content}" />
+                                   Text="{Binding Content}"
+                                   MaxLines="1" />
                         </VerticalStackLayout>
                         <!--Социальная информация-->
                         <Grid ColumnDefinitions="auto,auto,*,auto" ColumnSpacing="16">

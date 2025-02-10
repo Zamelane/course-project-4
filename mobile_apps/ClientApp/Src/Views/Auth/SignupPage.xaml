@@ -21,9 +21,9 @@
     <ScrollView>
         <StackLayout Spacing="10" Margin="20,20">
             <StackLayout>
-                <Label Text="HELLO!" FontFamily="Nunito" FontSize="12" FontAttributes="Bold"
+                <Label Text="ПРИВЕТ!" FontFamily="Nunito" FontSize="12" FontAttributes="Bold"
                        TextColor="{StaticResource Gray500}" />
-                <Label Text="Create account" FontFamily="Nunito" FontSize="32" FontAttributes="Bold"
+                <Label Text="Создать аккаунт" FontFamily="Nunito" FontSize="32" FontAttributes="Bold"
                        TextColor="{StaticResource Gray900}" />
             </StackLayout>
 
@@ -74,9 +74,9 @@
 
                 <Label HeightRequest="5" />
 
-                <controls:Button Text="CREATE ACCOUNT" Command="{Binding TrySignUpCommand}" />
+                <controls:Button Text="СОЗДАТЬ АККАУНТ" Command="{Binding TrySignUpCommand}" />
 
-                <controls:NonPriorityButton Text="LOG IN" Command="{Binding GoToLoginCommand}" />
+                <controls:NonPriorityButton Text="ВЕРНУТЬСЯ КО ВХОДУ" Command="{Binding GoToLoginCommand}" />
 
             </StackLayout>
         </StackLayout>

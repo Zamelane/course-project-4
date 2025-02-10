@@ -36,7 +36,7 @@
                     <On Platform="Android" Value="False" />
                 </OnPlatform>
             </StackLayout.IsVisible>
-            <Label Text="All Category" HorizontalTextAlignment="Center" FontSize="16" />
+            <Label Text="Все категории" HorizontalTextAlignment="Center" FontSize="16" />
             <Label BackgroundColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" HeightRequest="1" />
         </StackLayout>
         <controls:CustomRefreshView Grid.Row="1" Command="{Binding TryFetchCategoriesCommand}">

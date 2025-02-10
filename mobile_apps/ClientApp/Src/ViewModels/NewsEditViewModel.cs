@@ -1,5 +1,7 @@
-﻿using ClientApp.Src.Storage;
+﻿using ClientApp.Src.Popups;
+using ClientApp.Src.Storage;
 using ClientApp.Src.Utils;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RequestsLibrary;
@@ -46,11 +48,15 @@ public partial class NewsEditViewModel : ObservableObject
             "Опции",
             "Отмена",
             "Ок",
-            "Опубликовать"
+            "Опубликовать",
+            "Загрузить картинку"
         );
 
         if (result == "Опубликовать")
             await UpdateNews();
+
+        if (result == "Загрузить картинку")
+            await UploadPhoto();
     }
 
     public NewsEditViewModel() : base() { }
@@ -87,7 +93,7 @@ public partial class NewsEditViewModel : ObservableObject
             return;
 
         string url = Fetcher.Config.GetApiUrl("news") + 
-            (EditableNews is not null ? $"/{EditableNews.Id}" : "");
+            (EditableNews?.Id != 0 ? $"/{EditableNews?.Id}" : "");
 
         RequestParams rp = new()
         {
@@ -136,5 +142,32 @@ public partial class NewsEditViewModel : ObservableObject
         Debug.WriteLine(category);
         if (category is not null)
             SelectedCategory = category;
+    }
+
+    [RelayCommand]
+    public async Task UploadPhoto()
+    {
+        var image = await ImageUploader.SelectAndValidateImageAsync();
+
+        if (image is not null)
+        {
+            await Clipboard.Default.SetTextAsync($"![{image.Hash}](:api:{image.Url})");
+
+            await Shell.Current.ShowPopupAsync(
+                new QuestionPopup(
+                    "Изображение загружено",
+                    $"Сохранили строку markdown с ссылкой в буфер обмена :)"
+                ), CancellationToken.None
+            );
+        }
+        else
+        {
+            await Shell.Current.ShowPopupAsync(
+                new QuestionPopup(
+                    "Ошибка",
+                    $"Не смогли загрузить выбранное изображение :/"
+                ), CancellationToken.None
+            );
+        }
     }
 }

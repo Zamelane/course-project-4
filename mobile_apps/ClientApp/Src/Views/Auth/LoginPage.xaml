@@ -19,9 +19,9 @@
     <ScrollView>
         <StackLayout Spacing="10" Margin="20,10">
             <StackLayout>
-                <Label Text="WELCOME BACK!" FontFamily="Nunito" FontSize="12" FontAttributes="Bold"
+                <Label Text="И СНОВА ЗДРАВСТВУЙТЕ!" FontFamily="Nunito" FontSize="12" FontAttributes="Bold"
                        TextColor="{StaticResource Gray500}" />
-                <Label Text="Login" FontFamily="Nunito" FontSize="32" FontAttributes="Bold"
+                <Label Text="Вход" FontFamily="Nunito" FontSize="32" FontAttributes="Bold"
                        TextColor="{StaticResource Gray900}" />
             </StackLayout>
 
@@ -44,8 +44,8 @@
 
                 <Label HeightRequest="5" />
 
-                <controls:Button Text="SIGN IN" Command="{Binding TryLoginCommand}" IsVisibleArrow="True" />
-                <controls:NonPriorityButton Text="REGISTER NOW" Command="{Binding GoToSignupCommand}" />
+                <controls:Button Text="ВОЙТИ" Command="{Binding TryLoginCommand}" IsVisibleArrow="True" />
+                <controls:NonPriorityButton Text="ЗАРЕГИСТРИРОВАТЬСЯ" Command="{Binding GoToSignupCommand}" />
             </StackLayout>
         </StackLayout>
     </ScrollView>
