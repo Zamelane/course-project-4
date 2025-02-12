@@ -5,14 +5,10 @@ namespace App\Models;
 use App\Models\News\NewsImage;
 use App\Models\News\News;
 use Exception;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use DateTime;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 enum ImgType
 {
@@ -22,8 +18,6 @@ enum ImgType
 
 class Image extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
     public $timestamps = false;
 
     protected $fillable = [

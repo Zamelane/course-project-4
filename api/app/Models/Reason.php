@@ -9,8 +9,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Reason extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
     protected $fillable = [
         'name'
     ];
