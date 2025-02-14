@@ -18,7 +18,6 @@ class ComplaintController extends Controller
 {
     public function index(News $news, Comment $comment): JsonResponse
     {
-        // TODO: не забыть сделать ресурсы !!!
         return response()->json(ComplaintResource::collection($comment->complaints));
     }
 
