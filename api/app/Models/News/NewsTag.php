@@ -9,8 +9,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class NewsTag extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
     protected $fillable = [
         'news_id',
         'tag_id'

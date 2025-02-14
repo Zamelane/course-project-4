@@ -8,7 +8,6 @@ use App\Http\Resources\Category\CategoryResource;
 use App\Models\Category;
 use App\Models\Image;
 use Illuminate\Http\JsonResponse;
-use function Psy\debug;
 
 class CategoryController extends Controller
 {

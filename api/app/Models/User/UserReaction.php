@@ -9,8 +9,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class UserReaction extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
     protected $fillable = [
         'news_id',
         'user_id',

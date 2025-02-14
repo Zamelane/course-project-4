@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // TODO: Добавить роль и аву (см. модели)
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('image_id')->nullable()->constrained()->cascadeOnUpdate();

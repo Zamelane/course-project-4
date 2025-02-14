@@ -11,8 +11,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Ban extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
     protected $fillable = [
         'complaint_id',
         'end_date'

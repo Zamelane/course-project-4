@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Routes;
 use App\Models\HistoryView;
 use App\Models\Image;
 use DateTime;
-use Illuminate\Support\Facades\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\News\NewsCreateRequest;

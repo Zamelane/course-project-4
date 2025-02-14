@@ -4,16 +4,10 @@ namespace App\Models;
 
 use App\Models\News\News;
 use App\Models\User\UserReaction;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\TModel;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-
 class Reaction extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
     protected $fillable = [
         'emoji',
         'description'
