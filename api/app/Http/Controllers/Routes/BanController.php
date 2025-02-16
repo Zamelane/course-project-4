@@ -13,7 +13,6 @@ class BanController extends Controller
 {
     public function index(User $user): JsonResponse
     {
-        // TODO: ресурсы !!!
         return response()->json(BanMinResource::collection($user->bans()));
     }
 

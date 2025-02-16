@@ -1,4 +1,4 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8" pages="4">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9" pages="4">
   <diagram name="Информация об изображении" id="V0A2SGTUFRnhXmPjvuHJ">
     <mxGraphModel dx="1098" dy="988" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -242,17 +242,17 @@
     </mxGraphModel>
   </diagram>
   <diagram id="9pIcJM2pvUKhEz0d__V6" name="Загрузка изображения">
-    <mxGraphModel dx="1098" dy="988" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="334" dy="228" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="--Mdava7oVccHaczht-s-1" value="Пользователь" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;strokeColor=#d6b656;fontFamily=Helvetica;fontSize=11;fillColor=#fff2cc;" vertex="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-1" value="Пользователь" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;strokeColor=#d6b656;fontFamily=Helvetica;fontSize=11;fillColor=#fff2cc;" parent="1" vertex="1">
           <mxGeometry x="40" y="40" width="120" height="430" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-2" value="Компонент картинок" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;strokeColor=#b85450;fontFamily=Helvetica;fontSize=11;fillColor=#f8cecc;" vertex="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-2" value="Компонент картинок" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;strokeColor=#b85450;fontFamily=Helvetica;fontSize=11;fillColor=#f8cecc;" parent="1" vertex="1">
           <mxGeometry x="360" y="40" width="120" height="430" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-3" value="Валидация данных&lt;br&gt;(Общее: валидация)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" edge="1" parent="--Mdava7oVccHaczht-s-2">
+        <mxCell id="--Mdava7oVccHaczht-s-3" value="Валидация данных&lt;br&gt;(Общее: валидация)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" parent="--Mdava7oVccHaczht-s-2" edge="1">
           <mxGeometry x="-0.1613" width="80" relative="1" as="geometry">
             <mxPoint x="-95" y="160" as="sourcePoint" />
             <mxPoint x="-90" y="190" as="targetPoint" />
@@ -264,7 +264,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-4" value="Ответ 200 со статусом загрузки" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" edge="1" parent="--Mdava7oVccHaczht-s-2">
+        <mxCell id="--Mdava7oVccHaczht-s-4" value="Ответ 200 со статусом загрузки" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" parent="--Mdava7oVccHaczht-s-2" edge="1">
           <mxGeometry x="0.0023" relative="1" as="geometry">
             <mxPoint x="55" y="380" as="sourcePoint" />
             <mxPoint x="-255" y="380" as="targetPoint" />
@@ -274,22 +274,22 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-5" value="База данных" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;strokeColor=#82b366;fontFamily=Helvetica;fontSize=11;fillColor=#d5e8d4;" vertex="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-5" value="База данных" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;strokeColor=#82b366;fontFamily=Helvetica;fontSize=11;fillColor=#d5e8d4;" parent="1" vertex="1">
           <mxGeometry x="520" y="40" width="120" height="430" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-6" value="Система" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;strokeColor=#9673a6;fontFamily=Helvetica;fontSize=11;fillColor=#e1d5e7;" vertex="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-6" value="Система" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;strokeColor=#9673a6;fontFamily=Helvetica;fontSize=11;fillColor=#e1d5e7;" parent="1" vertex="1">
           <mxGeometry x="200" y="40" width="120" height="430" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-7" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#000000;fontFamily=Helvetica;fontSize=11;fontColor=default;fillColor=default;" vertex="1" parent="--Mdava7oVccHaczht-s-6">
+        <mxCell id="--Mdava7oVccHaczht-s-7" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#000000;fontFamily=Helvetica;fontSize=11;fontColor=default;fillColor=default;" parent="--Mdava7oVccHaczht-s-6" vertex="1">
           <mxGeometry x="55" y="90" width="10" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-8" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;fontFamily=Helvetica;fontSize=11;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="--Mdava7oVccHaczht-s-6">
+        <mxCell id="--Mdava7oVccHaczht-s-8" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;fontFamily=Helvetica;fontSize=11;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" parent="--Mdava7oVccHaczht-s-6" vertex="1">
           <mxGeometry x="60" y="190" width="10" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-9" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#B09500;fontFamily=Helvetica;fontSize=11;fontColor=#000000;fillColor=#e3c800;" vertex="1" parent="--Mdava7oVccHaczht-s-6">
+        <mxCell id="--Mdava7oVccHaczht-s-9" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#B09500;fontFamily=Helvetica;fontSize=11;fontColor=#000000;fillColor=#e3c800;" parent="--Mdava7oVccHaczht-s-6" vertex="1">
           <mxGeometry x="60" y="130" width="10" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-10" value="Проверка токена&lt;br&gt;(Общее: проверка прав)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" edge="1" parent="--Mdava7oVccHaczht-s-6" target="--Mdava7oVccHaczht-s-9">
+        <mxCell id="--Mdava7oVccHaczht-s-10" value="Проверка токена&lt;br&gt;(Общее: проверка прав)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" parent="--Mdava7oVccHaczht-s-6" target="--Mdava7oVccHaczht-s-9" edge="1">
           <mxGeometry x="-0.1613" width="80" relative="1" as="geometry">
             <mxPoint x="65" y="100" as="sourcePoint" />
             <mxPoint x="-110" y="110" as="targetPoint" />
@@ -301,7 +301,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-11" value="Запрос загрузки&lt;br&gt;изображения на сервер" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" edge="1" parent="1" source="--Mdava7oVccHaczht-s-12" target="--Mdava7oVccHaczht-s-7">
+        <mxCell id="--Mdava7oVccHaczht-s-11" value="Запрос загрузки&lt;br&gt;изображения на сервер" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" parent="1" source="--Mdava7oVccHaczht-s-12" target="--Mdava7oVccHaczht-s-7" edge="1">
           <mxGeometry x="0.0032" width="80" relative="1" as="geometry">
             <mxPoint x="100" y="140" as="sourcePoint" />
             <mxPoint x="180" y="140" as="targetPoint" />
@@ -311,13 +311,13 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-12" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#000000;fontFamily=Helvetica;fontSize=11;fontColor=default;fillColor=default;" vertex="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-12" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#000000;fontFamily=Helvetica;fontSize=11;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="95" y="120" width="10" height="330" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-13" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#000000;fontFamily=Helvetica;fontSize=11;fontColor=default;fillColor=default;" vertex="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-13" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#000000;fontFamily=Helvetica;fontSize=11;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="415" y="280.75" width="10" height="159.25" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-14" value="Отправка данных" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" edge="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-14" value="Отправка данных" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" parent="1" edge="1">
           <mxGeometry x="0.0032" width="80" relative="1" as="geometry">
             <mxPoint x="265" y="280" as="sourcePoint" />
             <mxPoint x="415" y="280" as="targetPoint" />
@@ -327,16 +327,16 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-15" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;labelBackgroundColor=none;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-15" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;labelBackgroundColor=none;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="1" vertex="1">
           <mxGeometry x="85" y="460" width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-16" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#000000;fontFamily=Helvetica;fontSize=11;fontColor=default;fillColor=default;" vertex="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-16" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#000000;fontFamily=Helvetica;fontSize=11;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="735" y="310" width="10" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-17" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#000000;fontFamily=Helvetica;fontSize=11;fontColor=default;fillColor=default;" vertex="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-17" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;labelBackgroundColor=none;strokeColor=#000000;fontFamily=Helvetica;fontSize=11;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="575" y="375.37" width="10" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-18" value="Запись информации &lt;br&gt;о картинке" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" edge="1" parent="1">
+        <mxCell id="--Mdava7oVccHaczht-s-18" value="Запись информации &lt;br&gt;о картинке" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" parent="1" edge="1">
           <mxGeometry x="0.0057" width="80" relative="1" as="geometry">
             <mxPoint x="425" y="375.37" as="sourcePoint" />
             <mxPoint x="575" y="375.37" as="targetPoint" />
@@ -346,7 +346,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-19" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;" edge="1" parent="1" source="--Mdava7oVccHaczht-s-17">
+        <mxCell id="--Mdava7oVccHaczht-s-19" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;" parent="1" source="--Mdava7oVccHaczht-s-17" edge="1">
           <mxGeometry x="0.0023" relative="1" as="geometry">
             <mxPoint x="545" y="400.55" as="sourcePoint" />
             <mxPoint x="425" y="395.37" as="targetPoint" />
@@ -356,7 +356,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-20" value="Сохранение файла &lt;br&gt;картинки" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" edge="1" parent="1" target="--Mdava7oVccHaczht-s-16">
+        <mxCell id="--Mdava7oVccHaczht-s-20" value="Сохранение файла &lt;br&gt;картинки" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;curved=0;" parent="1" target="--Mdava7oVccHaczht-s-16" edge="1">
           <mxGeometry x="0.0057" width="80" relative="1" as="geometry">
             <mxPoint x="425" y="310" as="sourcePoint" />
             <mxPoint x="575" y="300" as="targetPoint" />
@@ -366,7 +366,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="--Mdava7oVccHaczht-s-21" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;" edge="1" parent="1" source="--Mdava7oVccHaczht-s-16">
+        <mxCell id="--Mdava7oVccHaczht-s-21" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;shape=connector;" parent="1" source="--Mdava7oVccHaczht-s-16" edge="1">
           <mxGeometry x="0.0023" relative="1" as="geometry">
             <mxPoint x="735" y="330" as="sourcePoint" />
             <mxPoint x="425" y="330" as="targetPoint" />
@@ -375,6 +375,9 @@
             </Array>
             <mxPoint as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="2GNYiEZPM14hZ10m_xSl-1" value="Файловая система" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;labelBackgroundColor=none;strokeColor=#10739e;fontFamily=Helvetica;fontSize=11;fillColor=#b1ddf0;" vertex="1" parent="1">
+          <mxGeometry x="680" y="40" width="120" height="430" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

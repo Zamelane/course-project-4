@@ -7,7 +7,6 @@ use App\Http\Requests\Image\ImageUploadRequest;
 use App\Http\Resources\Image\ImageResource;
 use App\Models\Image;
 use DateTime;
-use App\Models\News\News;
 
 class ImageController extends Controller
 {

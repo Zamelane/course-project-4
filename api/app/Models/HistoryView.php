@@ -12,8 +12,6 @@ class HistoryView extends Model
 {
     public $timestamps = false;
 
-    use HasApiTokens, HasFactory, Notifiable;
-
     protected $fillable = [
         'user_id',
         'news_id',
