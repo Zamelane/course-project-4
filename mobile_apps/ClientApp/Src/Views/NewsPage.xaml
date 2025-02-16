@@ -164,7 +164,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{Binding FullNews.Comments}"/>
-                                    <Span Text=" Comments"/>
+                                    <Span Text=" Комментарии"/>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
